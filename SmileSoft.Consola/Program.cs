@@ -1,6 +1,7 @@
 ﻿using SmileSoft.Dominio;
 using System.Net.Http.Json;
 using DTO;
+using SmileSoft.UI;
 
 namespace SmileSoft.Consola
 {
@@ -9,7 +10,7 @@ namespace SmileSoft.Consola
 
         private static readonly HttpClient httpClient = new HttpClient()
         {
-            BaseAddress = new Uri("http://localhost:5165")
+            BaseAddress = new Uri("http://localhost:5279")
 
         };
         static async Task Main(string[] args)
@@ -54,14 +55,20 @@ namespace SmileSoft.Consola
         }
         public static async Task CreatePaciente()
         {
-            //PacienteDTO p1 = new PacienteDTO()
-            //{
-            //    Nombre = "vittorio",
-            //    Apellido = "maragliano",
-            //    Direccion = "aa",
-            //    NroHC = 1
-            //};
-            //await httpClient.PostAsJsonAsync("/pacientes", p1);
+            PacienteDTO p1 = new PacienteDTO()
+            {
+                Nombre = "vittorio",
+                Apellido = "maragliano",
+                Direccion = "aa",
+                NroHC = "1",
+                NroDni = "111",
+                NroAfiliado = "1111A",
+                FechaNacimiento = new DateTime(2000,1,1),
+                Email = "aa@gmail.com",
+                Telefono = "123"
+
+            };
+            await httpClient.PostAsJsonAsync("/pacientes", p1);
             //PacienteDTO p2 = new PacienteDTO()
             //{
             //    Nombre = "vittorio2",
@@ -79,11 +86,18 @@ namespace SmileSoft.Consola
         {
             List<Paciente> pacientes = await httpClient.GetFromJsonAsync<List<Paciente>>("/pacientes");
 
-            foreach (var p in pacientes)
+            if (pacientes.Count == 0)
             {
-                Console.WriteLine($"Nombre del paciente: {p.Nombre} Apellido del paciente: {p.Apellido}");
+                Console.WriteLine("No hay pacientes");
             }
-            Console.WriteLine("Total de pacientes: " + pacientes.Count);
+            else
+            {
+                foreach (var p in pacientes)
+                {
+                    Console.WriteLine($"Nombre del paciente: {p.Nombre} Apellido del paciente: {p.Apellido}");
+                }
+                Console.WriteLine("Total de pacientes: " + pacientes.Count);
+            }
         }
         public static async Task GetPaciente()
         {
@@ -110,7 +124,13 @@ namespace SmileSoft.Consola
                 Nombre = "NuevoNombre",
                 Apellido = "NuevoApellido",
                 Direccion = "NuevaDireccion",
-                NroHC = "123"
+                NroHC = "123",
+                Telefono = "123",
+                Email = "aa@gmail.com",
+                FechaNacimiento = new DateTime(08 / 11 / 2003),
+                NroAfiliado = "0215711A",
+                NroDni = "123",
+
 
 
             };
@@ -121,7 +141,8 @@ namespace SmileSoft.Consola
             }
             else
             {
-                Console.WriteLine("Error al actualizar el paciente.");
+                Console.WriteLine(response.StatusCode.ToString());
+                Console.WriteLine(response.Content.ToString());
             }
         }
     }

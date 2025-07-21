@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\SmileSoft.Dominio\SmileSoft.Dominio.csproj" />
+    <ProjectReference Include="..\SmileSoft.UI\SmileSoft.UI.csproj" />
   </ItemGroup>
 
 </Project>

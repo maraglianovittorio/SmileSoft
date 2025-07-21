@@ -19,9 +19,9 @@ namespace SmileSoft.Dominio
         public string NroAfiliado { get; set; }
         public string NroHC { get; set; }
 
-        public Tutor Tutor { get; set; }
-        public ICollection<TipoPlan> TipoPlanes { get; set; }
-        public ICollection<Atencion> Atenciones { get; set; }
+        //public Tutor Tutor { get; set; }
+        //public ICollection<TipoPlan> TipoPlanes { get; set; }
+        //public ICollection<Atencion> Atenciones { get; set; }
 
         public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string nroAfiliado, string nroHC)
         {
