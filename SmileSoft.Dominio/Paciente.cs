@@ -17,10 +17,39 @@ namespace SmileSoft.Dominio
         public DateTime FechaNacimiento { get; set; }
         public string Telefono { get; set; }
         public string NroAfiliado { get; set; }
-        public string CodHistoriaClinica { get; set; }
+        public string NroHC { get; set; }
 
         public Tutor Tutor { get; set; }
         public ICollection<TipoPlan> TipoPlanes { get; set; }
         public ICollection<Atencion> Atenciones { get; set; }
+
+        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string nroAfiliado, string nroHC)
+        {
+            Id = id;
+            Nombre = nombre;
+            Apellido = apellido;
+            NroDni = nroDni;
+            Direccion = direccion;
+            Email = email;
+            FechaNacimiento = fechaNacimiento;
+            Telefono = telefono;
+            NroAfiliado = nroAfiliado;
+            NroHC = nroHC;
+            //Tutor = new Tutor();
+            //TipoPlanes = new List<TipoPlan>();
+            //Atenciones = new List<Atencion>();
+        }
+        public static readonly List<Paciente> ListaP = new();
+        public static int ObtenerProximoID()
+        {
+            if (ListaP.Count == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return ListaP.Max(p => p.Id) + 1;
+            }
+        }
     }
 }
