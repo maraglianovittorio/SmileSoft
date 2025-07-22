@@ -12,11 +12,14 @@ namespace SmileSoft.UI.Desktop
 
         static void Main()
         {
-
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            var form1 = new FormPostPaciente();
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+
+            form1.Show();
             Application.Run(new FormGetPacientes());
         }
     }
