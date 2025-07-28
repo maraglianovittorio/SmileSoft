@@ -27,6 +27,31 @@ namespace SmileSoft.UI
             .WithName("Get Paciente");
             app.MapPost("/pacientes", (PacienteDTO pacienteDTO) =>
             {
+                // Validación de campos obligatorios
+                var errores = new List<string>();
+
+                if (string.IsNullOrWhiteSpace(pacienteDTO.Nombre))
+                    errores.Add("El nombre es obligatorio");
+
+                if (string.IsNullOrWhiteSpace(pacienteDTO.Apellido))
+                    errores.Add("El apellido es obligatorio");
+
+                if (string.IsNullOrWhiteSpace(pacienteDTO.NroDni))
+                    errores.Add("El DNI es obligatorio");
+
+                if (string.IsNullOrWhiteSpace(pacienteDTO.NroHC))
+                    errores.Add("El número de historia clínica es obligatorio");
+
+                if (errores.Count > 0)
+                {
+                    return Results.BadRequest(new
+                    {
+                        error = "Datos inválidos",
+                        message = "Faltan campos obligatorios",
+                        details = errores
+                    });
+                }
+
                 var nuevoID = Paciente.ObtenerProximoID();
                 var buscaHC = Paciente.ListaP.FirstOrDefault(p => p.NroHC == pacienteDTO.NroHC);
                 if (buscaHC != null)
@@ -38,7 +63,21 @@ namespace SmileSoft.UI
                         field = "NroHC"
                     });
                 }
-                var nuevoPaciente = new Paciente(nuevoID, pacienteDTO.Nombre, pacienteDTO.Apellido, pacienteDTO.NroDni, pacienteDTO.Direccion, pacienteDTO.Email, pacienteDTO.FechaNacimiento, pacienteDTO.Telefono, pacienteDTO.NroAfiliado, pacienteDTO.NroHC);
+
+                // Crear el paciente con datos limpios (trim)
+                var nuevoPaciente = new Paciente(
+                    nuevoID, 
+                    pacienteDTO.Nombre.Trim(), 
+                    pacienteDTO.Apellido.Trim(), 
+                    pacienteDTO.NroDni.Trim(), 
+                    pacienteDTO.Direccion?.Trim() ?? string.Empty, 
+                    pacienteDTO.Email?.Trim() ?? string.Empty, 
+                    pacienteDTO.FechaNacimiento, 
+                    pacienteDTO.Telefono?.Trim() ?? string.Empty, 
+                    pacienteDTO.NroAfiliado?.Trim() ?? string.Empty, 
+                    pacienteDTO.NroHC.Trim()
+                );
+
                 Paciente.ListaP.Add(nuevoPaciente);
                 return Results.Created($"pacientes/{nuevoID}", nuevoPaciente);
             })

@@ -1,0 +1,148 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using SmileSoft.Dominio;
+using System.Net.Http.Json;
+
+
+
+namespace SmileSoft.UI.Desktop
+{
+    public partial class FormHomePage : Form
+    {
+        private static readonly HttpClient httpClient = new HttpClient()
+        {
+            BaseAddress = new Uri("http://localhost:5279")
+
+        };
+        private List<Paciente> pacientes = new();
+        public FormHomePage()
+        {
+            InitializeComponent();
+            ConfigurarEstilos();
+            ConfigurarResponsive();
+        }
+
+        private void ConfigurarEstilos()
+        {
+            // Estilo principal - Tema azul elegante
+            this.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
+            this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+            this.Text = "SmileSoft - Página Principal";
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MinimumSize = new Size(800, 450); // Tamaño mínimo
+
+            // Estilo para botones
+            foreach (Control control in this.Controls)
+            {
+                if (control is Button btn)
+                {
+                    btn.BackColor = Color.FromArgb(70, 130, 180); // SteelBlue
+                    btn.ForeColor = Color.White;
+                    btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                    btn.FlatStyle = FlatStyle.Flat;
+                    btn.FlatAppearance.BorderSize = 0;
+                    btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
+                    btn.Cursor = Cursors.Hand;
+                }
+            }
+        }
+
+        private void ConfigurarResponsive()
+        {
+            // Hacer que el formulario sea redimensionable
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MaximizeBox = true;
+
+            // Configurar anclajes para que los botones se mantengan centrados
+
+            // Manejar el evento de redimensionado para centrar los botones
+            this.Resize += FormHomePage_Resize;
+        }
+
+        private void FormHomePage_Resize(object sender, EventArgs e)
+        {
+            // Centrar los botones horizontalmente y verticalmente
+            int buttonWidth = 112;
+            int buttonHeight = 47;
+            int spacing = 60; // Espacio entre botones
+            int totalWidth = (buttonWidth * 4) + (spacing * 3);
+
+            int startX = (this.ClientSize.Width - totalWidth) / 2;
+            int centerY = this.ClientSize.Height / 2;
+        }
+
+        private async Task ObtenerDatos()
+        {
+            try
+            {
+                var pacientesResponse = await httpClient.GetFromJsonAsync<List<Paciente>>("/pacientes");
+                if (pacientesResponse != null && pacientesResponse.Count > 0)
+                {
+                    dgvFormHome.DataSource = pacientesResponse;
+                    //dgvFormHome.Columns["Id"].Visible = false; // Ocultar columna Id
+                    pacientes = pacientesResponse;
+                }
+                else
+                {
+                    dgvFormHome.DataSource = null;
+                    var result = MessageBox.Show(
+                                    "No se encontraron pacientes registrados. ¿Desea agregar uno ahora?",
+                                    "Sin pacientes",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question
+                    );
+                    if (result == DialogResult.Yes)
+                    {
+                        // Abrir el formulario de agregar paciente
+                        FormPostPaciente formPostPaciente = new FormPostPaciente();
+                        formPostPaciente.ShowDialog();
+                        // Recargar la lista de pacientes después de agregar uno
+                        await ObtenerDatos();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los pacientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+
+        private async void FormHomePage_Load(object sender, EventArgs e)
+        {
+            await ObtenerDatos();
+        }
+
+        private void txtBuscarPaciente_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtBuscarPaciente.Text.ToLower();
+            if (!string.IsNullOrWhiteSpace(filtro))
+            {
+                var filtrados = pacientes.Where(p => p.Apellido.ToLower().Contains(filtro) || p.NroDni.Contains(filtro)).ToList();
+                dgvFormHome.DataSource = filtrados;
+            }
+            else
+            {
+                dgvFormHome.DataSource = pacientes;
+
+            }
+            //dgvFormHome.Columns["Id"].Visible = false;
+
+        }
+
+        private async void btnAgregarPaciente_Click(object sender, EventArgs e)
+        {
+            FormPostPaciente formPostPaciente = new FormPostPaciente();
+            formPostPaciente.ShowDialog();
+            await ObtenerDatos();
+        }
+    }
+}

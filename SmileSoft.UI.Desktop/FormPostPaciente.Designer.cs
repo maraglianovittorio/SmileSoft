@@ -174,7 +174,7 @@
             // 
             btnEnviar.Location = new Point(385, 477);
             btnEnviar.Name = "btnEnviar";
-            btnEnviar.Size = new Size(112, 34);
+            btnEnviar.Size = new Size(119, 45);
             btnEnviar.TabIndex = 16;
             btnEnviar.Text = "Enviar";
             btnEnviar.UseVisualStyleBackColor = true;
