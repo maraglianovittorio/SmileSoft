@@ -43,12 +43,16 @@ namespace SmileSoft.UI.Desktop
             {
                 if (control is Button btn)
                 {
-                    btn.BackColor = Color.FromArgb(70, 130, 180); // SteelBlue
+                    btnAgregarPaciente.BackColor = Color.FromArgb(70, 130, 180); // SteelBlue
+                    btnBorrarPaciente.BackColor = Color.FromArgb(220, 20, 60); // Crimson
+                    btnEditarPaciente.BackColor = Color.FromArgb(34, 139, 34); // ForestGreen
                     btn.ForeColor = Color.White;
                     btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                     btn.FlatStyle = FlatStyle.Flat;
                     btn.FlatAppearance.BorderSize = 0;
-                    btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
+                    btnAgregarPaciente.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
+                    btnBorrarPaciente.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 99, 71); // Tomato
+                    btnEditarPaciente.FlatAppearance.MouseOverBackColor = Color.FromArgb(144, 238, 144); // LightGreen
                     btn.Cursor = Cursors.Hand;
                 }
             }
@@ -86,27 +90,8 @@ namespace SmileSoft.UI.Desktop
                 if (pacientesResponse != null && pacientesResponse.Count > 0)
                 {
                     dgvFormHome.DataSource = pacientesResponse;
-                    //dgvFormHome.Columns["Id"].Visible = false; // Ocultar columna Id
+                    dgvFormHome.Columns["Id"].Visible = false; // Ocultar columna Id
                     pacientes = pacientesResponse;
-                }
-                else
-                {
-                    dgvFormHome.DataSource = null;
-                    var result = MessageBox.Show(
-                                    "No se encontraron pacientes registrados. ¿Desea agregar uno ahora?",
-                                    "Sin pacientes",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question
-                    );
-                    if (result == DialogResult.Yes)
-                    {
-                        // Abrir el formulario de agregar paciente
-                        FormPostPaciente formPostPaciente = new FormPostPaciente();
-                        formPostPaciente.ShowDialog();
-                        // Recargar la lista de pacientes después de agregar uno
-                        await ObtenerDatos();
-                    }
-
                 }
             }
             catch (Exception ex)
@@ -118,6 +103,12 @@ namespace SmileSoft.UI.Desktop
 
         private async void FormHomePage_Load(object sender, EventArgs e)
         {
+            btnBorrarPaciente.Enabled = false;
+            btnEditarPaciente.Enabled = false;
+            Paciente vitto = new Paciente(1, "Vittorio", "Maragliano", "50743", "Avenida siempre viva 672", "maraglianovittorio@gmail.com", new DateTime(2003, 11, 8), "111111", "222222os", "1");
+            Paciente lucho = new Paciente(2,"Luciano","Casado","51085","Avenida siempre viva 673","lucho@gmail.com",new DateTime(1999,2,20),"11111","22222os","2");
+            await httpClient.PostAsJsonAsync("/pacientes", vitto);
+            await httpClient.PostAsJsonAsync("/pacientes", lucho);
             await ObtenerDatos();
         }
 
@@ -134,7 +125,7 @@ namespace SmileSoft.UI.Desktop
                 dgvFormHome.DataSource = pacientes;
 
             }
-            //dgvFormHome.Columns["Id"].Visible = false;
+            dgvFormHome.Columns["Id"].Visible = false;
 
         }
 
@@ -143,6 +134,28 @@ namespace SmileSoft.UI.Desktop
             FormPostPaciente formPostPaciente = new FormPostPaciente();
             formPostPaciente.ShowDialog();
             await ObtenerDatos();
+        }
+
+
+
+        private void dgvFormHome_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvFormHome.SelectedRows.Count > 0)
+            {
+                btnEditarPaciente.Enabled = true;
+                btnBorrarPaciente.Enabled = true;
+            }
+            else
+            {
+                btnEditarPaciente.Enabled = false;
+                btnBorrarPaciente.Enabled = false;
+
+            }
+        }
+
+        private void btnEditarPaciente_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

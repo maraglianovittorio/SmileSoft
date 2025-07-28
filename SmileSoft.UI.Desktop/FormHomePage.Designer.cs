@@ -35,12 +35,12 @@
             txtBuscarPaciente = new TextBox();
             lupaPng = new PictureBox();
             pacienteBindingSource = new BindingSource(components);
-            pacienteBindingSource1 = new BindingSource(components);
             btnAgregarPaciente = new Button();
+            btnBorrarPaciente = new Button();
+            btnEditarPaciente = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvFormHome).BeginInit();
             ((System.ComponentModel.ISupportInitialize)lupaPng).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pacienteBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pacienteBindingSource1).BeginInit();
             SuspendLayout();
             // 
             // dgvFormHome
@@ -50,12 +50,13 @@
             dgvFormHome.AllowUserToOrderColumns = true;
             dgvFormHome.BackgroundColor = Color.PapayaWhip;
             dgvFormHome.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvFormHome.Location = new Point(12, 81);
+            dgvFormHome.Location = new Point(12, 79);
             dgvFormHome.Name = "dgvFormHome";
             dgvFormHome.ReadOnly = true;
             dgvFormHome.RowHeadersWidth = 62;
-            dgvFormHome.Size = new Size(1102, 441);
+            dgvFormHome.Size = new Size(1084, 372);
             dgvFormHome.TabIndex = 0;
+            dgvFormHome.SelectionChanged += dgvFormHome_SelectionChanged;
             // 
             // textBox1
             // 
@@ -87,10 +88,6 @@
             // 
             pacienteBindingSource.DataSource = typeof(Dominio.Paciente);
             // 
-            // pacienteBindingSource1
-            // 
-            pacienteBindingSource1.DataSource = typeof(Dominio.Paciente);
-            // 
             // btnAgregarPaciente
             // 
             btnAgregarPaciente.BackColor = SystemColors.MenuHighlight;
@@ -103,11 +100,36 @@
             btnAgregarPaciente.UseVisualStyleBackColor = false;
             btnAgregarPaciente.Click += btnAgregarPaciente_Click;
             // 
+            // btnBorrarPaciente
+            // 
+            btnBorrarPaciente.BackColor = Color.Red;
+            btnBorrarPaciente.ForeColor = SystemColors.ButtonHighlight;
+            btnBorrarPaciente.Location = new Point(893, 457);
+            btnBorrarPaciente.Name = "btnBorrarPaciente";
+            btnBorrarPaciente.Size = new Size(192, 70);
+            btnBorrarPaciente.TabIndex = 5;
+            btnBorrarPaciente.Text = "Borrar Paciente";
+            btnBorrarPaciente.UseVisualStyleBackColor = false;
+            // 
+            // btnEditarPaciente
+            // 
+            btnEditarPaciente.BackColor = Color.YellowGreen;
+            btnEditarPaciente.ForeColor = SystemColors.ButtonHighlight;
+            btnEditarPaciente.Location = new Point(678, 457);
+            btnEditarPaciente.Name = "btnEditarPaciente";
+            btnEditarPaciente.Size = new Size(192, 70);
+            btnEditarPaciente.TabIndex = 6;
+            btnEditarPaciente.Text = "Editar Paciente";
+            btnEditarPaciente.UseVisualStyleBackColor = false;
+            btnEditarPaciente.Click += btnEditarPaciente_Click;
+            // 
             // FormHomePage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1126, 521);
+            ClientSize = new Size(1137, 636);
+            Controls.Add(btnEditarPaciente);
+            Controls.Add(btnBorrarPaciente);
             Controls.Add(btnAgregarPaciente);
             Controls.Add(lupaPng);
             Controls.Add(txtBuscarPaciente);
@@ -120,7 +142,6 @@
             ((System.ComponentModel.ISupportInitialize)dgvFormHome).EndInit();
             ((System.ComponentModel.ISupportInitialize)lupaPng).EndInit();
             ((System.ComponentModel.ISupportInitialize)pacienteBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pacienteBindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -131,8 +152,9 @@
         private TextBox textBox1;
         private TextBox txtBuscarPaciente;
         private PictureBox lupaPng;
-        private BindingSource pacienteBindingSource1;
         private BindingSource pacienteBindingSource;
         private Button btnAgregarPaciente;
+        private Button btnBorrarPaciente;
+        private Button btnEditarPaciente;
     }
 }
