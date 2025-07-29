@@ -106,7 +106,7 @@ namespace SmileSoft.UI.Desktop
             btnBorrarPaciente.Enabled = false;
             btnEditarPaciente.Enabled = false;
             Paciente vitto = new Paciente(1, "Vittorio", "Maragliano", "50743", "Avenida siempre viva 672", "maraglianovittorio@gmail.com", new DateTime(2003, 11, 8), "111111", "222222os", "1");
-            Paciente lucho = new Paciente(2,"Luciano","Casado","51085","Avenida siempre viva 673","lucho@gmail.com",new DateTime(1999,2,20),"11111","22222os","2");
+            Paciente lucho = new Paciente(2, "Luciano", "Casado", "51085", "Avenida siempre viva 673", "lucho@gmail.com", new DateTime(1999, 2, 20), "11111", "22222os", "2");
             await httpClient.PostAsJsonAsync("/pacientes", vitto);
             await httpClient.PostAsJsonAsync("/pacientes", lucho);
             await ObtenerDatos();
@@ -131,8 +131,8 @@ namespace SmileSoft.UI.Desktop
 
         private async void btnAgregarPaciente_Click(object sender, EventArgs e)
         {
-            FormPostPaciente formPostPaciente = new FormPostPaciente();
-            formPostPaciente.ShowDialog();
+            FormPaciente formPaciente = new FormPaciente();
+            formPaciente.ShowDialog();
             await ObtenerDatos();
         }
 
@@ -153,9 +153,43 @@ namespace SmileSoft.UI.Desktop
             }
         }
 
-        private void btnEditarPaciente_Click(object sender, EventArgs e)
+        private async void BtnEditarPaciente_Click(object sender, EventArgs e)
         {
+            if (dgvFormHome.SelectedRows.Count > 0)
+            {
+                var pacienteSeleccionado = dgvFormHome.SelectedRows[0].DataBoundItem as Paciente;
+                if (pacienteSeleccionado != null)
+                {
+                    FormPaciente formPaciente = new FormPaciente(pacienteSeleccionado.Id);
+                    formPaciente.ShowDialog();
+                    await ObtenerDatos();
+                }
+            }
+        }
 
+        private async void BtnBorrarPaciente_Click(object sender, EventArgs e)
+        {
+            if (dgvFormHome.SelectedRows.Count > 0)
+            {
+                var pacienteSeleccionado = dgvFormHome.SelectedRows[0].DataBoundItem as Paciente;
+                if (pacienteSeleccionado != null)
+                {
+                    var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este paciente?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        var response = await httpClient.DeleteAsync($"/pacientes/{pacienteSeleccionado.Id}");
+                        if (response.IsSuccessStatusCode)
+                        {
+                            MessageBox.Show("Paciente eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            await ObtenerDatos();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error al eliminar el paciente. Código: {response.StatusCode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
         }
     }
 }

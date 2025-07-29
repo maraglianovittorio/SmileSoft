@@ -1,6 +1,6 @@
 ﻿namespace SmileSoft.UI.Desktop
 {
-    partial class FormPostPaciente
+    partial class FormPaciente
     {
         /// <summary>
         /// Required designer variable.
@@ -43,10 +43,11 @@
             txtDireccion = new TextBox();
             txtTelefono = new TextBox();
             txtNroAfiliado = new TextBox();
-            btnEnviar = new Button();
+            btnAgregarPaciente = new Button();
             lblEmail = new Label();
             txtNroHC = new TextBox();
             dtpFechaNacimiento = new DateTimePicker();
+            btnEditarPaciente = new Button();
             SuspendLayout();
             // 
             // lblNombrePaciente
@@ -170,15 +171,15 @@
             txtNroAfiliado.Size = new Size(176, 31);
             txtNroAfiliado.TabIndex = 15;
             // 
-            // btnEnviar
+            // btnAgregarPaciente
             // 
-            btnEnviar.Location = new Point(385, 477);
-            btnEnviar.Name = "btnEnviar";
-            btnEnviar.Size = new Size(119, 45);
-            btnEnviar.TabIndex = 16;
-            btnEnviar.Text = "Enviar";
-            btnEnviar.UseVisualStyleBackColor = true;
-            btnEnviar.Click += btnEnviar_Click;
+            btnAgregarPaciente.Location = new Point(352, 481);
+            btnAgregarPaciente.Name = "btnAgregarPaciente";
+            btnAgregarPaciente.Size = new Size(119, 45);
+            btnAgregarPaciente.TabIndex = 16;
+            btnAgregarPaciente.Text = "Enviar";
+            btnAgregarPaciente.UseVisualStyleBackColor = true;
+            btnAgregarPaciente.Click += btnEnviar_Click;
             // 
             // lblEmail
             // 
@@ -205,15 +206,26 @@
             dtpFechaNacimiento.TabIndex = 13;
             dtpFechaNacimiento.Value = new DateTime(2025, 1, 1, 0, 0, 0, 0);
             // 
-            // FormPostPaciente
+            // btnEditarPaciente
+            // 
+            btnEditarPaciente.Location = new Point(477, 481);
+            btnEditarPaciente.Name = "btnEditarPaciente";
+            btnEditarPaciente.Size = new Size(119, 45);
+            btnEditarPaciente.TabIndex = 18;
+            btnEditarPaciente.Text = "Editar";
+            btnEditarPaciente.UseVisualStyleBackColor = true;
+            btnEditarPaciente.Click += btnEditarPaciente_Click;
+            // 
+            // FormPaciente
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(925, 558);
+            Controls.Add(btnEditarPaciente);
             Controls.Add(dtpFechaNacimiento);
             Controls.Add(txtNroHC);
             Controls.Add(lblEmail);
-            Controls.Add(btnEnviar);
+            Controls.Add(btnAgregarPaciente);
             Controls.Add(txtNroAfiliado);
             Controls.Add(txtTelefono);
             Controls.Add(txtDireccion);
@@ -229,8 +241,7 @@
             Controls.Add(lblDireccionPaciente);
             Controls.Add(lblFechaNacimiento);
             Controls.Add(lblNombrePaciente);
-            Name = "FormPostPaciente";
-            Text = "1";
+            Name = "FormPaciente";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -252,9 +263,10 @@
         private TextBox txtDireccion;
         private TextBox txtTelefono;
         private TextBox txtNroAfiliado;
-        private Button btnEnviar;
+        private Button btnAgregarPaciente;
         private Label lblEmail;
         private TextBox txtNroHC;
         private DateTimePicker dtpFechaNacimiento;
+        private Button btnEditarPaciente;
     }
 }

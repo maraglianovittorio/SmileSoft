@@ -3,18 +3,33 @@ using System.Net.Http.Json;
 using DTO;
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormPostPaciente : Form
+    public partial class FormPaciente : Form
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
             BaseAddress = new Uri("http://localhost:5279")
 
         };
-        public FormPostPaciente()
+
+        public FormPaciente()
         {
+
             InitializeComponent();
+            this.Text = "SmileSoft - Agregar Paciente";
+            btnEditarPaciente.Visible = false;
             ConfigurarEstilos();
             ConfigurarResponsive();
+        }
+        public FormPaciente(int idPaciente)
+        {
+
+            InitializeComponent();
+            this.Text = "SmileSoft - Editar Paciente";
+            btnAgregarPaciente.Visible = false;
+            btnEditarPaciente.Tag = idPaciente; // Guardar el ID del paciente en el botón
+            ConfigurarEstilos();
+            ConfigurarResponsive();
+            PopularFormPaciente(idPaciente);
         }
 
         private void ConfigurarEstilos()
@@ -22,7 +37,6 @@ namespace SmileSoft.UI.Desktop
             // Estilo verde moderno para POST
             this.BackColor = Color.FromArgb(245, 255, 250); // MintCream
             this.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
-            this.Text = "SmileSoft - Agregar Paciente";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(925, 558); // Tamaño mínimo
 
@@ -33,11 +47,11 @@ namespace SmileSoft.UI.Desktop
                 {
                     lbl.ForeColor = Color.FromArgb(34, 139, 34); // ForestGreen
                     lbl.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-                    
+
                     // Marcar campos obligatorios con asterisco
-                    if (lbl.Name == "lblNombrePaciente" || 
-                        lbl.Name == "lblApellidoPaciente" || 
-                        lbl.Name == "lblDNIPaciente" || 
+                    if (lbl.Name == "lblNombrePaciente" ||
+                        lbl.Name == "lblApellidoPaciente" ||
+                        lbl.Name == "lblDNIPaciente" ||
                         lbl.Name == "lblNroHC")
                     {
                         lbl.Text = lbl.Text.TrimEnd(':') + " *";
@@ -80,10 +94,10 @@ namespace SmileSoft.UI.Desktop
             }
 
             // Manejar el evento de redimensionado para mantener todo centrado
-            this.Resize += FormPostPaciente_Resize;
+            this.Resize += formPaciente_Resize;
         }
 
-        private void FormPostPaciente_Resize(object sender, EventArgs e)
+        private void formPaciente_Resize(object sender, EventArgs e)
         {
             // Centrar todos los controles manteniendo sus posiciones relativas
             int centerX = this.ClientSize.Width / 2;
@@ -97,7 +111,7 @@ namespace SmileSoft.UI.Desktop
             {
                 // Obtener posición original relativa al centro
                 int originalX = 0, originalY = 0;
-                
+
                 if (control == lblNombrePaciente) { originalX = 255; originalY = 65; }
                 else if (control == txtNombre) { originalX = 435; originalY = 65; }
                 else if (control == lblApellidoPaciente) { originalX = 255; originalY = 115; }
@@ -116,12 +130,12 @@ namespace SmileSoft.UI.Desktop
                 else if (control == txtNroAfiliado) { originalX = 435; originalY = 380; }
                 else if (control == lblNroHC) { originalX = 255; originalY = 423; }
                 else if (control == txtNroHC) { originalX = 435; originalY = 423; }
-                else if (control == btnEnviar) { originalX = 385; originalY = 477; }
+                else if (control == btnAgregarPaciente) { originalX = 385; originalY = 477; }
 
                 // Calcular nueva posición manteniendo la proporción
                 int offsetX = originalX - originalCenterX;
                 int offsetY = originalY - originalCenterY;
-                
+
                 control.Location = new Point(centerX + offsetX, centerY + offsetY);
             }
         }
@@ -137,7 +151,7 @@ namespace SmileSoft.UI.Desktop
             txtNroAfiliado.Clear();
             txtNroHC.Clear();
             dtpFechaNacimiento.Value = DateTime.Now;
-            
+
             // Enfocar el primer campo
             txtNombre.Focus();
         }
@@ -190,6 +204,38 @@ namespace SmileSoft.UI.Desktop
             return true;
         }
 
+        private void PopularFormPaciente(int idPaciente)
+        {
+
+            LimpiarFormulario();
+            try
+            {
+                var pacienteResponse = httpClient.GetFromJsonAsync<Paciente>($"/pacientes/id?id={idPaciente}").Result;
+                if (pacienteResponse != null)
+                {
+                    txtNombre.Text = pacienteResponse.Nombre;
+                    txtApellido.Text = pacienteResponse.Apellido;
+                    dtpFechaNacimiento.Value = pacienteResponse.FechaNacimiento;
+                    txtDireccion.Text = pacienteResponse.Direccion;
+                    txtEmail.Text = pacienteResponse.Email;
+                    txtDNI.Text = pacienteResponse.NroDni;
+                    txtNroHC.Text = pacienteResponse.NroHC;
+                    txtTelefono.Text = pacienteResponse.Telefono;
+                    txtNroAfiliado.Text = pacienteResponse.NroAfiliado;
+
+
+                }
+                else
+                {
+                    MessageBox.Show($"Error al cargar los datos del paciente. Código: {MessageBoxIcon.Error}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void btnEnviar_Click(object sender, EventArgs e)
         {
             // Validar campos antes de enviar
@@ -213,8 +259,8 @@ namespace SmileSoft.UI.Desktop
                     NroAfiliado = txtNroAfiliado.Text.Trim()
                 };
 
-                btnEnviar.Text = "Enviando...";
-                btnEnviar.Enabled = false;
+                btnAgregarPaciente.Text = "Enviando...";
+                btnAgregarPaciente.Enabled = false;
 
                 var response = httpClient.PostAsJsonAsync("/pacientes", paciente).Result;
                 if (response.IsSuccessStatusCode)
@@ -226,12 +272,12 @@ namespace SmileSoft.UI.Desktop
                 else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
                 {
                     var errorContent = response.Content.ReadAsStringAsync().Result;
-                    MessageBox.Show("Ya existe un paciente con ese número de historia clínica. Por favor use un número diferente.", 
+                    MessageBox.Show("Ya existe un paciente con ese número de historia clínica. Por favor use un número diferente.",
                         "Historia clínica duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    MessageBox.Show($"Error al agregar el paciente. Código: {response.StatusCode}", 
+                    MessageBox.Show($"Error al agregar el paciente. Código: {response.StatusCode}",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -241,9 +287,71 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnEnviar.Text = "Enviar";
-                btnEnviar.Enabled = true;
+                btnAgregarPaciente.Text = "Enviar";
+                btnAgregarPaciente.Enabled = true;
             }
+        }
+
+        private void btnEditarPaciente_Click(object sender, EventArgs e)
+        {
+            if (!ValidarCampos())
+            {
+                return;
+            }
+
+            try
+            {
+                if(btnEditarPaciente.Tag is not int id)
+                {
+                    MessageBox.Show("Error al obtener el ID del paciente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+               
+                    PacienteDTO paciente = new PacienteDTO
+                    {
+                        Nombre = txtNombre.Text.Trim(),
+                        Apellido = txtApellido.Text.Trim(),
+                        FechaNacimiento = dtpFechaNacimiento.Value,
+                        Direccion = txtDireccion.Text.Trim(),
+                        Email = txtEmail.Text.Trim(),
+                        NroDni = txtDNI.Text.Trim(),
+                        NroHC = txtNroHC.Text.Trim(),
+                        Telefono = txtTelefono.Text.Trim(),
+                        NroAfiliado = txtNroAfiliado.Text.Trim()
+                    };
+
+                btnEditarPaciente.Text = "Enviando...";
+                btnEditarPaciente.Enabled = false;
+
+                var response = httpClient.PutAsJsonAsync($"/pacientes/{btnEditarPaciente.Tag}", paciente).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Paciente editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.OK; // Indicar que se editó un paciente
+                    this.Close(); // Cerrar el formulario después del éxito
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
+                {
+                    var errorContent = response.Content.ReadAsStringAsync().Result;
+                    MessageBox.Show("Ya existe un paciente con ese número de historia clínica. Por favor use un número diferente.",
+                        "Historia clínica duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show($"Error al editar el paciente. Código: {response.StatusCode}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnEditarPaciente.Text = "Enviar";
+                btnEditarPaciente.Enabled = true;
+            }
+
         }
     }
 }

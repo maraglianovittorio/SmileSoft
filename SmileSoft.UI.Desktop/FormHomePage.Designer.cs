@@ -110,6 +110,7 @@
             btnBorrarPaciente.TabIndex = 5;
             btnBorrarPaciente.Text = "Borrar Paciente";
             btnBorrarPaciente.UseVisualStyleBackColor = false;
+            btnBorrarPaciente.Click += BtnBorrarPaciente_Click;
             // 
             // btnEditarPaciente
             // 
@@ -121,7 +122,7 @@
             btnEditarPaciente.TabIndex = 6;
             btnEditarPaciente.Text = "Editar Paciente";
             btnEditarPaciente.UseVisualStyleBackColor = false;
-            btnEditarPaciente.Click += btnEditarPaciente_Click;
+            btnEditarPaciente.Click += BtnEditarPaciente_Click;
             // 
             // FormHomePage
             // 
