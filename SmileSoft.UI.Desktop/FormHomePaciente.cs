@@ -14,7 +14,7 @@ using System.Net.Http.Json;
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomePage : Form
+    public partial class FormHomePaciente : Form
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
@@ -22,7 +22,7 @@ namespace SmileSoft.UI.Desktop
 
         };
         private List<Paciente> pacientes = new();
-        public FormHomePage()
+        public FormHomePaciente()
         {
             InitializeComponent();
             ConfigurarEstilos();
@@ -89,8 +89,8 @@ namespace SmileSoft.UI.Desktop
                 var pacientesResponse = await httpClient.GetFromJsonAsync<List<Paciente>>("/pacientes");
                 if (pacientesResponse != null && pacientesResponse.Count > 0)
                 {
-                    dgvFormHome.DataSource = pacientesResponse;
-                    dgvFormHome.Columns["Id"].Visible = false; // Ocultar columna Id
+                    dgvFormPaciente.DataSource = pacientesResponse;
+                    dgvFormPaciente.Columns["Id"].Visible = false; // Ocultar columna Id
                     pacientes = pacientesResponse;
                 }
             }
@@ -118,14 +118,14 @@ namespace SmileSoft.UI.Desktop
             if (!string.IsNullOrWhiteSpace(filtro))
             {
                 var filtrados = pacientes.Where(p => p.Apellido.ToLower().Contains(filtro) || p.NroDni.Contains(filtro)).ToList();
-                dgvFormHome.DataSource = filtrados;
+                dgvFormPaciente.DataSource = filtrados;
             }
             else
             {
-                dgvFormHome.DataSource = pacientes;
+                dgvFormPaciente.DataSource = pacientes;
 
             }
-            dgvFormHome.Columns["Id"].Visible = false;
+            dgvFormPaciente.Columns["Id"].Visible = false;
 
         }
 
@@ -140,7 +140,7 @@ namespace SmileSoft.UI.Desktop
 
         private void dgvFormHome_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvFormHome.SelectedRows.Count > 0)
+            if (dgvFormPaciente.SelectedRows.Count > 0)
             {
                 btnEditarPaciente.Enabled = true;
                 btnBorrarPaciente.Enabled = true;
@@ -155,9 +155,9 @@ namespace SmileSoft.UI.Desktop
 
         private async void BtnEditarPaciente_Click(object sender, EventArgs e)
         {
-            if (dgvFormHome.SelectedRows.Count > 0)
+            if (dgvFormPaciente.SelectedRows.Count > 0)
             {
-                var pacienteSeleccionado = dgvFormHome.SelectedRows[0].DataBoundItem as Paciente;
+                var pacienteSeleccionado = dgvFormPaciente.SelectedRows[0].DataBoundItem as Paciente;
                 if (pacienteSeleccionado != null)
                 {
                     FormPaciente formPaciente = new FormPaciente(pacienteSeleccionado.Id);
@@ -169,9 +169,9 @@ namespace SmileSoft.UI.Desktop
 
         private async void BtnBorrarPaciente_Click(object sender, EventArgs e)
         {
-            if (dgvFormHome.SelectedRows.Count > 0)
+            if (dgvFormPaciente.SelectedRows.Count > 0)
             {
-                var pacienteSeleccionado = dgvFormHome.SelectedRows[0].DataBoundItem as Paciente;
+                var pacienteSeleccionado = dgvFormPaciente.SelectedRows[0].DataBoundItem as Paciente;
                 if (pacienteSeleccionado != null)
                 {
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este paciente?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

@@ -1,6 +1,6 @@
 ﻿namespace SmileSoft.UI.Desktop
 {
-    partial class FormHomePage
+    partial class FormHomePaciente
     {
         /// <summary>
         /// Required designer variable.
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHomePage));
-            dgvFormHome = new DataGridView();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHomePaciente));
+            dgvFormPaciente = new DataGridView();
             textBox1 = new TextBox();
             txtBuscarPaciente = new TextBox();
             lupaPng = new PictureBox();
@@ -38,25 +38,25 @@
             btnAgregarPaciente = new Button();
             btnBorrarPaciente = new Button();
             btnEditarPaciente = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgvFormHome).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvFormPaciente).BeginInit();
             ((System.ComponentModel.ISupportInitialize)lupaPng).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pacienteBindingSource).BeginInit();
             SuspendLayout();
             // 
-            // dgvFormHome
+            // dgvFormPaciente
             // 
-            dgvFormHome.AllowUserToAddRows = false;
-            dgvFormHome.AllowUserToDeleteRows = false;
-            dgvFormHome.AllowUserToOrderColumns = true;
-            dgvFormHome.BackgroundColor = Color.PapayaWhip;
-            dgvFormHome.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvFormHome.Location = new Point(12, 79);
-            dgvFormHome.Name = "dgvFormHome";
-            dgvFormHome.ReadOnly = true;
-            dgvFormHome.RowHeadersWidth = 62;
-            dgvFormHome.Size = new Size(1084, 372);
-            dgvFormHome.TabIndex = 0;
-            dgvFormHome.SelectionChanged += dgvFormHome_SelectionChanged;
+            dgvFormPaciente.AllowUserToAddRows = false;
+            dgvFormPaciente.AllowUserToDeleteRows = false;
+            dgvFormPaciente.AllowUserToOrderColumns = true;
+            dgvFormPaciente.BackgroundColor = Color.PapayaWhip;
+            dgvFormPaciente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvFormPaciente.Location = new Point(12, 79);
+            dgvFormPaciente.Name = "dgvFormPaciente";
+            dgvFormPaciente.ReadOnly = true;
+            dgvFormPaciente.RowHeadersWidth = 62;
+            dgvFormPaciente.Size = new Size(1084, 372);
+            dgvFormPaciente.TabIndex = 0;
+            dgvFormPaciente.SelectionChanged += dgvFormHome_SelectionChanged;
             // 
             // textBox1
             // 
@@ -124,7 +124,7 @@
             btnEditarPaciente.UseVisualStyleBackColor = false;
             btnEditarPaciente.Click += BtnEditarPaciente_Click;
             // 
-            // FormHomePage
+            // FormHomePaciente
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -135,12 +135,12 @@
             Controls.Add(lupaPng);
             Controls.Add(txtBuscarPaciente);
             Controls.Add(textBox1);
-            Controls.Add(dgvFormHome);
+            Controls.Add(dgvFormPaciente);
             MinimumSize = new Size(800, 450);
-            Name = "FormHomePage";
+            Name = "FormHomePaciente";
             Text = "FormHomePage";
             Load += FormHomePage_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvFormHome).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvFormPaciente).EndInit();
             ((System.ComponentModel.ISupportInitialize)lupaPng).EndInit();
             ((System.ComponentModel.ISupportInitialize)pacienteBindingSource).EndInit();
             ResumeLayout(false);
@@ -149,7 +149,7 @@
 
         #endregion
 
-        private DataGridView dgvFormHome;
+        private DataGridView dgvFormPaciente;
         private TextBox textBox1;
         private TextBox txtBuscarPaciente;
         private PictureBox lupaPng;
