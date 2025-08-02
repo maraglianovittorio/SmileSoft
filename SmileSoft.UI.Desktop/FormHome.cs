@@ -19,11 +19,29 @@ namespace SmileSoft.UI.Desktop
         }
         private void ConfigurarEstilos()
         {
-            // Estilo verde moderno para POST
-            this.BackColor = Color.FromArgb(245, 255, 250); // MintCream
-            this.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            // Estilo principal - Tema azul elegante
+            this.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
+            this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+            this.Text = "SmileSoft - Pagina Principal";
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.MinimumSize = new Size(925, 558); // Tamaño mínimo
+            this.MinimumSize = new Size(800, 450); // Tamaño mínimo
+
+            // Estilo para botones
+            foreach (Control control in this.Controls)
+            {
+                if (control is Button btn)
+                {
+                    btnPacientes.BackColor = Color.FromArgb(70, 130, 180); // SteelBlue
+                    btnObraSocial.BackColor = Color.FromArgb(70, 130, 180); // Crimson
+                    btn.ForeColor = Color.White;
+                    btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                    btn.FlatStyle = FlatStyle.Flat;
+                    btn.FlatAppearance.BorderSize = 0;
+                    btnPacientes.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
+                    btnObraSocial.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
+                    btn.Cursor = Cursors.Hand;
+                }
+            }
         }
 
         private void btnPacientes_Click(object sender, EventArgs e)

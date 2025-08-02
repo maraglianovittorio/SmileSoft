@@ -31,6 +31,7 @@
             lblNombreOS = new Label();
             btnAgregarOS = new Button();
             txtNombreOS = new TextBox();
+            btnEditarOS = new Button();
             SuspendLayout();
             // 
             // lblNombreOS
@@ -44,9 +45,9 @@
             // 
             // btnAgregarOS
             // 
-            btnAgregarOS.Location = new Point(339, 352);
+            btnAgregarOS.Location = new Point(260, 352);
             btnAgregarOS.Name = "btnAgregarOS";
-            btnAgregarOS.Size = new Size(112, 34);
+            btnAgregarOS.Size = new Size(113, 55);
             btnAgregarOS.TabIndex = 1;
             btnAgregarOS.Text = "Enviar";
             btnAgregarOS.UseVisualStyleBackColor = true;
@@ -59,11 +60,22 @@
             txtNombreOS.Size = new Size(150, 31);
             txtNombreOS.TabIndex = 2;
             // 
+            // btnEditarOS
+            // 
+            btnEditarOS.Location = new Point(431, 352);
+            btnEditarOS.Name = "btnEditarOS";
+            btnEditarOS.Size = new Size(115, 55);
+            btnEditarOS.TabIndex = 3;
+            btnEditarOS.Text = "Editar";
+            btnEditarOS.UseVisualStyleBackColor = true;
+            btnEditarOS.Click += btnEditarOS_Click;
+            // 
             // FormOS
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnEditarOS);
             Controls.Add(txtNombreOS);
             Controls.Add(btnAgregarOS);
             Controls.Add(lblNombreOS);
@@ -78,5 +90,6 @@
         private Label lblNombreOS;
         private Button btnAgregarOS;
         private TextBox txtNombreOS;
+        private Button btnEditarOS;
     }
 }

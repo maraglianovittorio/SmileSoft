@@ -104,6 +104,7 @@
             btnAgregarOS.TabIndex = 5;
             btnAgregarOS.Text = "Agregar OS";
             btnAgregarOS.UseVisualStyleBackColor = true;
+            btnAgregarOS.Click += btnAgregarOS_Click;
             // 
             // btnEditarOS
             // 
@@ -113,6 +114,7 @@
             btnEditarOS.TabIndex = 6;
             btnEditarOS.Text = "Editar OS";
             btnEditarOS.UseVisualStyleBackColor = true;
+            btnEditarOS.Click += btnEditarOS_Click;
             // 
             // btnBorrarOS
             // 

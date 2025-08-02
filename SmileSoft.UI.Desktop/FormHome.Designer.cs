@@ -34,9 +34,9 @@
             // 
             // btnPacientes
             // 
-            btnPacientes.Location = new Point(177, 191);
+            btnPacientes.Location = new Point(230, 191);
             btnPacientes.Name = "btnPacientes";
-            btnPacientes.Size = new Size(121, 59);
+            btnPacientes.Size = new Size(156, 76);
             btnPacientes.TabIndex = 0;
             btnPacientes.Text = "Pacientes";
             btnPacientes.UseVisualStyleBackColor = true;
@@ -44,9 +44,9 @@
             // 
             // btnObraSocial
             // 
-            btnObraSocial.Location = new Point(516, 191);
+            btnObraSocial.Location = new Point(552, 191);
             btnObraSocial.Name = "btnObraSocial";
-            btnObraSocial.Size = new Size(125, 59);
+            btnObraSocial.Size = new Size(158, 76);
             btnObraSocial.TabIndex = 1;
             btnObraSocial.Text = "Obra Social";
             btnObraSocial.UseVisualStyleBackColor = true;
