@@ -124,6 +124,7 @@
             btnBorrarOS.TabIndex = 8;
             btnBorrarOS.Text = "BorrarOS";
             btnBorrarOS.UseVisualStyleBackColor = true;
+            btnBorrarOS.Click += btnBorrarOS_Click;
             // 
             // FormHomeOS
             // 

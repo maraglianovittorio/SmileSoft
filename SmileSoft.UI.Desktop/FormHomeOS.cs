@@ -1,13 +1,4 @@
 ﻿using SmileSoft.Dominio;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Net.Http.Json;
 
 namespace SmileSoft.UI.Desktop
@@ -121,5 +112,28 @@ namespace SmileSoft.UI.Desktop
                 }
             }
         }
+
+        private async void btnBorrarOS_Click(object sender, EventArgs e)
+        {
+            if (dgvFormOS.SelectedRows.Count > 0)
+            {
+                var obraSocialSeleccionada = dgvFormOS.SelectedRows[0].DataBoundItem as ObraSocial;
+                if (obraSocialSeleccionada != null)
+                {
+                    var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar esta obra social?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        var response = await httpClient.DeleteAsync($"/obraSocial/{obraSocialSeleccionada.Id}");
+                        if (response.IsSuccessStatusCode)
+                        {
+                            MessageBox.Show("Obra social eliminada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            await ObtenerDatos();
+                        }
+                        else
+                            MessageBox.Show($"Error al eliminar la obra social. Código: {response.StatusCode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
     }
 }
