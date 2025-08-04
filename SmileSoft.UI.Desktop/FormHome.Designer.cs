@@ -34,9 +34,10 @@
             // 
             // btnPacientes
             // 
-            btnPacientes.Location = new Point(230, 191);
+            btnPacientes.Location = new Point(46, 57);
+            btnPacientes.Margin = new Padding(2, 2, 2, 2);
             btnPacientes.Name = "btnPacientes";
-            btnPacientes.Size = new Size(156, 76);
+            btnPacientes.Size = new Size(109, 46);
             btnPacientes.TabIndex = 0;
             btnPacientes.Text = "Pacientes";
             btnPacientes.UseVisualStyleBackColor = true;
@@ -44,9 +45,10 @@
             // 
             // btnObraSocial
             // 
-            btnObraSocial.Location = new Point(552, 191);
+            btnObraSocial.Location = new Point(234, 57);
+            btnObraSocial.Margin = new Padding(2, 2, 2, 2);
             btnObraSocial.Name = "btnObraSocial";
-            btnObraSocial.Size = new Size(158, 76);
+            btnObraSocial.Size = new Size(111, 46);
             btnObraSocial.TabIndex = 1;
             btnObraSocial.Text = "Obra Social";
             btnObraSocial.UseVisualStyleBackColor = true;
@@ -54,11 +56,12 @@
             // 
             // FormHome
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(394, 177);
             Controls.Add(btnObraSocial);
             Controls.Add(btnPacientes);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "FormHome";
             Text = "FormHome";
             ResumeLayout(false);

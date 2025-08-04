@@ -16,15 +16,16 @@ namespace SmileSoft.UI
             //Paciente.ListaP.Add(new Paciente(1, "Vittorio", "Maragliano", "Iriondo", 1));
             //Paciente.ListaP.Add(new Paciente(2, "Guido", "Maragliano", "Iriondo", 2));
             app.MapGet("/", () => $"Ir a /swagger para probar");
-            app.MapGet("/pacientes", () => Paciente.ListaP)
-                .WithName("GetPacientes");
+            
+            app.MapGet("/pacientes", () => Paciente.ListaP).WithName("GetPacientes");
+            
             app.MapGet($"pacientes/id", (int id) =>
             {
                 var paciente = Paciente.ListaP.FirstOrDefault(p => p.Id == id);
                 return paciente is not null ? Results.Ok(paciente) : Results.NotFound();
 
-            })
-            .WithName("Get Paciente");
+            }).WithName("Get Paciente");
+            
             app.MapPost("/pacientes", (PacienteDTO pacienteDTO) =>
             {
                 // Validación de campos obligatorios
@@ -80,8 +81,8 @@ namespace SmileSoft.UI
 
                 Paciente.ListaP.Add(nuevoPaciente);
                 return Results.Created($"pacientes/{nuevoID}", nuevoPaciente);
-            })
-                .WithName("Create paciente");
+            }).WithName("Create paciente");
+            
             app.MapDelete("/pacientes/{id}", (int id) =>
             {
                 var paciente = Paciente.ListaP.FirstOrDefault(p => p.Id == id);
@@ -95,8 +96,8 @@ namespace SmileSoft.UI
                 {
                     return Results.NotFound();
                 }
-            })
-                .WithName("Delete paciente");
+            }).WithName("Delete paciente");
+            
             app.MapPut("pacientes/{id}", (int id, PacienteDTO pacienteDTO) =>
             {
                 var paciente = Paciente.ListaP.FirstOrDefault(p => p.Id == id);
@@ -128,14 +129,15 @@ namespace SmileSoft.UI
             });
 
             // OBRAS SOCIALES -------------------------------------------------------------------------------------------
-            app.MapGet($"/obraSocial", () => ObraSocial.ListaOS)
-                .WithName("GetObrasSociales");
+            app.MapGet($"/obraSocial", () => ObraSocial.ListaOS).WithName("GetObrasSociales");
+
             app.MapGet($"obraSocial/id", (int id) =>
             {
                 var obraSocial = ObraSocial.ListaOS.FirstOrDefault(o => o.Id == id);
                 return obraSocial is not null ? Results.Ok(obraSocial) : Results.NotFound();
 
             }).WithName("Get Obras Sociales");
+            
             app.MapPost("/obraSocial", (ObraSocialDTO obraSocialDTO) =>
             {
                 // Validación de campos obligatorios
@@ -174,8 +176,8 @@ namespace SmileSoft.UI
 
                 ObraSocial.ListaOS.Add(nuevaObraSocial);
                 return Results.Created($"obraSocial/{nuevoID}", nuevaObraSocial);
-            })
-                .WithName("Create obra social");
+            }).WithName("Create obra social");
+            
             app.MapDelete("/obraSocial/{id}", (int id) =>
             {
                 var obraSocial = ObraSocial.ListaOS.FirstOrDefault(p => p.Id == id);
@@ -190,6 +192,7 @@ namespace SmileSoft.UI
                     return Results.NotFound();
                 }
             }).WithName("Delete obra social");
+            
             app.MapPut("obraSocial/{id}", (int id, ObraSocialDTO obraSocialDTO) =>
             {
                 var obraSocial = ObraSocial.ListaOS.FirstOrDefault(p => p.Id == id);
@@ -211,6 +214,7 @@ namespace SmileSoft.UI
                 }
                 return Results.NotFound();
             });
+
             app.Run();
 
         }

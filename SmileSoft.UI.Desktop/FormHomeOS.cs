@@ -131,9 +131,31 @@ namespace SmileSoft.UI.Desktop
                         }
                         else
                             MessageBox.Show($"Error al eliminar la obra social. Código: {response.StatusCode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
                     }
                 }
             }
+        }
+
+        private void txtBuscarOS_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtBuscarOS.Text.ToLower();
+            if (!string.IsNullOrWhiteSpace(filtro))
+            {
+                var filtrados = obrasSociales.Where(os => os.Nombre.ToLower().Contains(filtro)).ToList();
+                dgvFormOS.DataSource = filtrados;
+            }
+            else
+            {
+                dgvFormOS.DataSource = obrasSociales;
+
+            }
+            //dgvFormOS.Columns["Id"].Visible = false;
+
+        }
+
+        private void BtnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
