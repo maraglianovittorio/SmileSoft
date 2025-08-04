@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\SmileSoft.Dominio\SmileSoft.Dominio.csproj" />
-    <ProjectReference Include="..\SmileSoft.Servicios\SmileSoft.Servicios.csproj" />
   </ItemGroup>
 
   <ItemGroup>
