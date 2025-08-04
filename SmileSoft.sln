@@ -3,17 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmileSoft.Consola", "SmileSoft.Consola\SmileSoft.Consola.csproj", "{64D13A05-8BAA-4195-8791-6F886A887685}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.UI.Desktop", "SmileSoft.UI.Desktop\SmileSoft.UI.Desktop.csproj", "{F201BAC2-8925-446B-B295-4C7C8F450453}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.Servicios", "SmileSoft.Servicios\SmileSoft.Servicios.csproj", "{577F14A9-4C8B-4836-B641-DE254AB97E14}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.Dominio", "SmileSoft.Dominio\SmileSoft.Dominio.csproj", "{F7E046CE-ABAD-4BCC-977A-7E2A8550745B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.Data", "SmileSoft.Data\SmileSoft.Data.csproj", "{13462B18-1658-4C41-93E3-5AB359B82428}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.UI.Web", "SmileSoft.UI.Web\SmileSoft.UI.Web.csproj", "{36D8C2EB-A162-477B-8045-E1893D28B849}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.UI", "SmileSoft.UI\SmileSoft.UI.csproj", "{2E4A2A65-2681-4901-89A0-019B409E96C1}"
 EndProject
@@ -25,30 +17,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{64D13A05-8BAA-4195-8791-6F886A887685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64D13A05-8BAA-4195-8791-6F886A887685}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64D13A05-8BAA-4195-8791-6F886A887685}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64D13A05-8BAA-4195-8791-6F886A887685}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F201BAC2-8925-446B-B295-4C7C8F450453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F201BAC2-8925-446B-B295-4C7C8F450453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F201BAC2-8925-446B-B295-4C7C8F450453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F201BAC2-8925-446B-B295-4C7C8F450453}.Release|Any CPU.Build.0 = Release|Any CPU
-		{577F14A9-4C8B-4836-B641-DE254AB97E14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{577F14A9-4C8B-4836-B641-DE254AB97E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{577F14A9-4C8B-4836-B641-DE254AB97E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{577F14A9-4C8B-4836-B641-DE254AB97E14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7E046CE-ABAD-4BCC-977A-7E2A8550745B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7E046CE-ABAD-4BCC-977A-7E2A8550745B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7E046CE-ABAD-4BCC-977A-7E2A8550745B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7E046CE-ABAD-4BCC-977A-7E2A8550745B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13462B18-1658-4C41-93E3-5AB359B82428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13462B18-1658-4C41-93E3-5AB359B82428}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13462B18-1658-4C41-93E3-5AB359B82428}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13462B18-1658-4C41-93E3-5AB359B82428}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36D8C2EB-A162-477B-8045-E1893D28B849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36D8C2EB-A162-477B-8045-E1893D28B849}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36D8C2EB-A162-477B-8045-E1893D28B849}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36D8C2EB-A162-477B-8045-E1893D28B849}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2E4A2A65-2681-4901-89A0-019B409E96C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2E4A2A65-2681-4901-89A0-019B409E96C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E4A2A65-2681-4901-89A0-019B409E96C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
