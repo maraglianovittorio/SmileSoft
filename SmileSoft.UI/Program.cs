@@ -1,6 +1,6 @@
-using SmileSoft.Dominio;
+ï»¿using SmileSoft.Dominio;
 using DTO;
-namespace SmileSoft.UI
+namespace SmileSoft.WebAPI
 {
     public class Program
     {
@@ -9,124 +9,23 @@ namespace SmileSoft.UI
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddHttpLogging(o => { });
             var app = builder.Build();
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+                app.UseHttpLogging();
+            }
+            app.UseHttpsRedirection();
 
             //Paciente.ListaP.Add(new Paciente(1, "Vittorio", "Maragliano", "Iriondo", 1));
             //Paciente.ListaP.Add(new Paciente(2, "Guido", "Maragliano", "Iriondo", 2));
             app.MapGet("/", () => $"Ir a /swagger para probar");
-            
-            app.MapGet("/pacientes", () => Paciente.ListaP).WithName("GetPacientes");
-            
-            app.MapGet($"pacientes/id", (int id) =>
-            {
-                var paciente = Paciente.ListaP.FirstOrDefault(p => p.Id == id);
-                return paciente is not null ? Results.Ok(paciente) : Results.NotFound();
 
-            }).WithName("Get Paciente");
-            
-            app.MapPost("/pacientes", (PacienteDTO pacienteDTO) =>
-            {
-                // Validación de campos obligatorios
-                var errores = new List<string>();
+           
 
-                if (string.IsNullOrWhiteSpace(pacienteDTO.Nombre))
-                    errores.Add("El nombre es obligatorio");
-
-                if (string.IsNullOrWhiteSpace(pacienteDTO.Apellido))
-                    errores.Add("El apellido es obligatorio");
-
-                if (string.IsNullOrWhiteSpace(pacienteDTO.NroDni))
-                    errores.Add("El DNI es obligatorio");
-
-                if (string.IsNullOrWhiteSpace(pacienteDTO.NroHC))
-                    errores.Add("El número de historia clínica es obligatorio");
-
-                if (errores.Count > 0)
-                {
-                    return Results.BadRequest(new
-                    {
-                        error = "Datos inválidos",
-                        message = "Faltan campos obligatorios",
-                        details = errores
-                    });
-                }
-
-                var nuevoID = Paciente.ObtenerProximoID();
-                var buscaHC = Paciente.ListaP.FirstOrDefault(p => p.NroHC == pacienteDTO.NroHC);
-                if (buscaHC != null)
-                {
-                    return Results.Conflict(new
-                    {
-                        error = "Número de historia clínica duplicado",
-                        message = $"Ya existe un paciente con el NroHC {pacienteDTO.NroHC}",
-                        field = "NroHC"
-                    });
-                }
-
-                // Crear el paciente con datos limpios (trim)
-                var nuevoPaciente = new Paciente(
-                    nuevoID, 
-                    pacienteDTO.Nombre.Trim(), 
-                    pacienteDTO.Apellido.Trim(), 
-                    pacienteDTO.NroDni.Trim(), 
-                    pacienteDTO.Direccion?.Trim() ?? string.Empty, 
-                    pacienteDTO.Email?.Trim() ?? string.Empty, 
-                    pacienteDTO.FechaNacimiento, 
-                    pacienteDTO.Telefono?.Trim() ?? string.Empty, 
-                    pacienteDTO.NroAfiliado?.Trim() ?? string.Empty, 
-                    pacienteDTO.NroHC.Trim()
-                );
-
-                Paciente.ListaP.Add(nuevoPaciente);
-                return Results.Created($"pacientes/{nuevoID}", nuevoPaciente);
-            }).WithName("Create paciente");
-            
-            app.MapDelete("/pacientes/{id}", (int id) =>
-            {
-                var paciente = Paciente.ListaP.FirstOrDefault(p => p.Id == id);
-                if (paciente != null)
-                {
-                    Paciente.ListaP.Remove(paciente);
-                    return Results.NoContent();
-
-                }
-                else
-                {
-                    return Results.NotFound();
-                }
-            }).WithName("Delete paciente");
-            
-            app.MapPut("pacientes/{id}", (int id, PacienteDTO pacienteDTO) =>
-            {
-                var paciente = Paciente.ListaP.FirstOrDefault(p => p.Id == id);
-                if (paciente != null)
-                {
-                    var buscaHC = Paciente.ListaP.FirstOrDefault(p => p.NroHC == pacienteDTO.NroHC && p.Id != id);
-                    if (buscaHC != null)
-                    {
-                        return Results.Conflict(new
-                        {
-                            error = "Número de historia clínica duplicado",
-                            message = $"Ya existe un paciente con el NroHC {pacienteDTO.NroHC}",
-                            field = "NroHC"
-                        });
-                    }
-                    paciente.Nombre = pacienteDTO.Nombre;
-                    paciente.Apellido = pacienteDTO.Apellido;
-                    paciente.NroDni = pacienteDTO.NroDni;
-                    paciente.Direccion = pacienteDTO.Direccion;
-                    paciente.Email = pacienteDTO.Email;
-                    paciente.FechaNacimiento = pacienteDTO.FechaNacimiento;
-                    paciente.Telefono = pacienteDTO.Telefono;
-                    paciente.NroAfiliado = pacienteDTO.NroAfiliado;
-                    paciente.NroHC = pacienteDTO.NroHC;
-
-                    return Results.NoContent();
-                }
-                return Results.NotFound();
-            });
+          
 
             // OBRAS SOCIALES -------------------------------------------------------------------------------------------
             app.MapGet($"/obraSocial", () => ObraSocial.ListaOS).WithName("GetObrasSociales");
@@ -137,10 +36,10 @@ namespace SmileSoft.UI
                 return obraSocial is not null ? Results.Ok(obraSocial) : Results.NotFound();
 
             }).WithName("Get Obras Sociales");
-            
+
             app.MapPost("/obraSocial", (ObraSocialDTO obraSocialDTO) =>
             {
-                // Validación de campos obligatorios
+                // Validaciï¿½n de campos obligatorios
                 var errores = new List<string>();
 
                 if (string.IsNullOrWhiteSpace(obraSocialDTO.Nombre))
@@ -150,7 +49,7 @@ namespace SmileSoft.UI
                 {
                     return Results.BadRequest(new
                     {
-                        error = "Datos inválidos",
+                        error = "Datos invï¿½lidos",
                         message = "Faltan campos obligatorios",
                         details = errores
                     });
@@ -177,7 +76,7 @@ namespace SmileSoft.UI
                 ObraSocial.ListaOS.Add(nuevaObraSocial);
                 return Results.Created($"obraSocial/{nuevoID}", nuevaObraSocial);
             }).WithName("Create obra social");
-            
+
             app.MapDelete("/obraSocial/{id}", (int id) =>
             {
                 var obraSocial = ObraSocial.ListaOS.FirstOrDefault(p => p.Id == id);
@@ -192,7 +91,7 @@ namespace SmileSoft.UI
                     return Results.NotFound();
                 }
             }).WithName("Delete obra social");
-            
+
             app.MapPut("obraSocial/{id}", (int id, ObraSocialDTO obraSocialDTO) =>
             {
                 var obraSocial = ObraSocial.ListaOS.FirstOrDefault(p => p.Id == id);
@@ -214,7 +113,7 @@ namespace SmileSoft.UI
                 }
                 return Results.NotFound();
             });
-
+            app.MapPacienteEndpoints();
             app.Run();
 
         }

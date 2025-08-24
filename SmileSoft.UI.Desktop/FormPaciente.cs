@@ -1,6 +1,8 @@
 ﻿using SmileSoft.Dominio;
 using System.Net.Http.Json;
+using SmileSoft.API.Clients;
 using DTO;
+using System.Threading.Tasks;
 namespace SmileSoft.UI.Desktop
 {
     public partial class FormPaciente : Form
@@ -204,13 +206,13 @@ namespace SmileSoft.UI.Desktop
             return true;
         }
 
-        private void PopularFormPaciente(int idPaciente)
+        private async Task PopularFormPaciente(int idPaciente)
         {
 
             LimpiarFormulario();
             try
             {
-                var pacienteResponse = httpClient.GetFromJsonAsync<Paciente>($"/pacientes/id?id={idPaciente}").Result;
+                var pacienteResponse = await PacienteApiClient.GetByIdAsync(idPaciente);
                 if (pacienteResponse != null)
                 {
                     txtNombre.Text = pacienteResponse.Nombre;
@@ -236,7 +238,7 @@ namespace SmileSoft.UI.Desktop
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void btnEnviar_Click(object sender, EventArgs e)
+        private async Task btnEnviar_Click(object sender, EventArgs e)
         {
             // Validar campos antes de enviar
             if (!ValidarCampos())
@@ -262,24 +264,7 @@ namespace SmileSoft.UI.Desktop
                 btnAgregarPaciente.Text = "Enviando...";
                 btnAgregarPaciente.Enabled = false;
 
-                var response = httpClient.PostAsJsonAsync("/pacientes", paciente).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    MessageBox.Show("Paciente agregado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK; // Indicar que se agregó un paciente
-                    this.Close(); // Cerrar el formulario después del éxito
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
-                {
-                    var errorContent = response.Content.ReadAsStringAsync().Result;
-                    MessageBox.Show("Ya existe un paciente con ese número de historia clínica. Por favor use un número diferente.",
-                        "Historia clínica duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    MessageBox.Show($"Error al agregar el paciente. Código: {response.StatusCode}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                await PacienteApiClient.CreateAsync(paciente);
             }
             catch (Exception ex)
             {
