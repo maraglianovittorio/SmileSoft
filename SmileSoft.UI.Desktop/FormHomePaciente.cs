@@ -1,14 +1,18 @@
-﻿using System;
+﻿using DTO;
+using SmileSoft.API.Clients;
+using SmileSoft.Dominio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SmileSoft.Dominio;
-using System.Net.Http.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 
 
@@ -18,7 +22,7 @@ namespace SmileSoft.UI.Desktop
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
-            BaseAddress = new Uri("http://localhost:5279")
+            BaseAddress = new Uri("http://localhost:54145")
 
         };
         private List<Paciente> pacientes = new();
@@ -86,12 +90,11 @@ namespace SmileSoft.UI.Desktop
         {
             try
             {
-                var pacientesResponse = await httpClient.GetFromJsonAsync<List<Paciente>>("/pacientes");
-                if (pacientesResponse != null && pacientesResponse.Count > 0)
+                var pacientesResponse = await PacienteApiClient.GetAllAsync();
+                if (pacientesResponse != null && pacientesResponse.Count() > 0 )
                 {
                     dgvFormPaciente.DataSource = pacientesResponse;
-                    dgvFormPaciente.Columns["Id"].Visible = false; // Ocultar columna Id
-                    pacientes = pacientesResponse;
+                    pacientes = (List<Paciente>)pacientesResponse;
                 }
             }
             catch (Exception ex)
@@ -105,10 +108,32 @@ namespace SmileSoft.UI.Desktop
         {
             btnBorrarPaciente.Enabled = false;
             btnEditarPaciente.Enabled = false;
-            Paciente vitto = new Paciente(1, "Vittorio", "Maragliano", "50743", "Avenida siempre viva 672", "maraglianovittorio@gmail.com", new DateTime(2003, 11, 8), "111111", "222222os", "1");
-            Paciente lucho = new Paciente(2, "Luciano", "Casado", "51085", "Avenida siempre viva 673", "lucho@gmail.com", new DateTime(1999, 2, 20), "11111", "22222os", "2");
-            await httpClient.PostAsJsonAsync("/pacientes", vitto);
-            await httpClient.PostAsJsonAsync("/pacientes", lucho);
+            PacienteDTO vitto = new PacienteDTO
+            {
+                Nombre = "Vittorio",
+                Apellido = "Maragliano",
+                NroDni = "111111",
+                Direccion = "avenida 123",
+                Email = "v@gmail.com",
+                FechaNacimiento = new DateTime(2003, 11, 8),
+                Telefono = "111111",
+                NroAfiliado = "222222os",
+                NroHC = "1"
+            };
+            PacienteDTO lucho = new PacienteDTO
+            {
+                Nombre = "Luciano",
+                Apellido = "Casado",
+                NroDni = "51085",
+                Direccion = "Avenida siempre viva 673",
+                Email = "lucho@gmail.com",
+                FechaNacimiento = new DateTime(1999, 2, 20),
+                Telefono = "11111",
+                NroAfiliado = "22222os",
+                NroHC = "2"
+            };
+            await PacienteApiClient.CreateAsync(vitto);
+            await PacienteApiClient.CreateAsync(lucho);
             await ObtenerDatos();
         }
 
@@ -177,16 +202,9 @@ namespace SmileSoft.UI.Desktop
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este paciente?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (confirmResult == DialogResult.Yes)
                     {
-                        var response = await httpClient.DeleteAsync($"/pacientes/{pacienteSeleccionado.Id}");
-                        if (response.IsSuccessStatusCode)
-                        {
-                            MessageBox.Show("Paciente eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            await ObtenerDatos();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Error al eliminar el paciente. Código: {response.StatusCode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        await PacienteApiClient.DeleteAsync(pacienteSeleccionado.Id);
+                        MessageBox.Show("Paciente eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        await ObtenerDatos();
                     }
                 }
             }

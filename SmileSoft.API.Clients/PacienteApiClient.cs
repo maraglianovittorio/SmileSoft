@@ -1,4 +1,5 @@
 ﻿using DTO;
+using SmileSoft.Dominio;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
@@ -10,36 +11,68 @@ namespace SmileSoft.API.Clients
         private static HttpClient client = new HttpClient();
         static PacienteApiClient()
         {
-            client.BaseAddress = new Uri("https://localhost:7173/api/Paciente/");
+            client.BaseAddress = new Uri("https://localhost:54145/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        public static async Task<string> GetAllAsync()
+        public static async Task<IEnumerable<Paciente>> GetAllAsync()
         {
-            HttpResponseMessage response = await client.GetAsync("GetAll");
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var data = await response.Content.ReadAsStringAsync();
-                return data;
+                HttpResponseMessage response = await client.GetAsync("pacientes");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<IEnumerable<Paciente>>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener lista de pacientes. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
             }
-            return null;
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener lista de pacientes: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener lista de pacientes: {ex.Message}", ex);
+            }
         }
-        public static async Task<string> GetByIdAsync(int id)
+        public static async Task<Paciente> GetOneAsync(int id)
         {
-            HttpResponseMessage response = await client.GetAsync($"GetById/{id}");
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var data = await response.Content.ReadAsStringAsync();
-                return data;
+                HttpResponseMessage response = await client.GetAsync($"pacientes/id?id={id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<Paciente>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener paciente con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
             }
-            return null;
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener paciente con Id {id}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener paciente con Id {id}: {ex.Message}", ex);
+            }
         }
         public async static Task CreateAsync(PacienteDTO paciente)
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("pacientes", paciente);
+                int id = Paciente.ObtenerProximoID();
+                Paciente pacientePost = new Paciente(id,paciente.Nombre,paciente.Apellido,paciente.NroDni,paciente.Direccion,paciente.Email,paciente.FechaNacimiento,paciente.Telefono,paciente.NroAfiliado,paciente.NroHC);
+                HttpResponseMessage response = await client.PostAsJsonAsync("pacientes", pacientePost);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -59,21 +92,48 @@ namespace SmileSoft.API.Clients
 
         
         }
-       public static async Task<bool> DeleteAsync(int id)
+        public static async Task DeleteAsync(int id)
         {
-            HttpResponseMessage response = await client.DeleteAsync($"Delete/{id}");
-            return response.IsSuccessStatusCode;
-        }
-       public static async Task<string> UpdateAsync(int id, string pacienteJson)
-        {
-            var content = new StringContent(pacienteJson, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PutAsync($"Update/{id}", content);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var data = await response.Content.ReadAsStringAsync();
-                return data;
+                HttpResponseMessage response = await client.DeleteAsync("pacientes/" + id);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al eliminar paciente con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
             }
-            return null;
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al eliminar paciente con Id {id}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al eliminar paciente con Id {id}: {ex.Message}", ex);
+            }
+        }
+        public static async Task UpdateAsync(PacienteDTO paciente,int id)
+        {
+            try
+            {
+
+                HttpResponseMessage response = await client.PutAsJsonAsync($"pacientes/{id}", paciente);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al actualizar paciente con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al actualizar paciente con Id {id}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al actualizar paciente con Id {id}: {ex.Message}", ex);
+            }
         }
     }
 }

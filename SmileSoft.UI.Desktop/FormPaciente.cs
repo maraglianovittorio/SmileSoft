@@ -212,7 +212,7 @@ namespace SmileSoft.UI.Desktop
             LimpiarFormulario();
             try
             {
-                var pacienteResponse = await PacienteApiClient.GetByIdAsync(idPaciente);
+                var pacienteResponse = await PacienteApiClient.GetOneAsync(idPaciente);
                 if (pacienteResponse != null)
                 {
                     txtNombre.Text = pacienteResponse.Nombre;
@@ -238,7 +238,7 @@ namespace SmileSoft.UI.Desktop
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private async Task btnEnviar_Click(object sender, EventArgs e)
+        private async void btnEnviar_Click(object sender, EventArgs e)
         {
             // Validar campos antes de enviar
             if (!ValidarCampos())
@@ -277,7 +277,7 @@ namespace SmileSoft.UI.Desktop
             }
         }
 
-        private void btnEditarPaciente_Click(object sender, EventArgs e)
+        private async void btnEditarPaciente_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos())
             {
@@ -308,24 +308,14 @@ namespace SmileSoft.UI.Desktop
                 btnEditarPaciente.Text = "Enviando...";
                 btnEditarPaciente.Enabled = false;
 
-                var response = httpClient.PutAsJsonAsync($"/pacientes/{btnEditarPaciente.Tag}", paciente).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    MessageBox.Show("Paciente editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK; // Indicar que se editó un paciente
-                    this.Close(); // Cerrar el formulario después del éxito
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
-                {
-                    var errorContent = response.Content.ReadAsStringAsync().Result;
-                    MessageBox.Show("Ya existe un paciente con ese número de historia clínica. Por favor use un número diferente.",
-                        "Historia clínica duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    MessageBox.Show($"Error al editar el paciente. Código: {response.StatusCode}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                await PacienteApiClient.UpdateAsync(paciente, (int)btnEditarPaciente.Tag);
+                MessageBox.Show("Paciente editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK; // Indicar que se editó un paciente
+                this.Close(); // Cerrar el formulario después del éxito
+            }
+            catch (HttpRequestException httpEx)
+            {
+                MessageBox.Show($"Error de conexión: {httpEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
@@ -340,3 +330,5 @@ namespace SmileSoft.UI.Desktop
         }
     }
 }
+
+                      
