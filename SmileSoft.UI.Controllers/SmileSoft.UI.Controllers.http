@@ -1,0 +1,6 @@
+@SmileSoft.UI.Controllers_HostAddress = http://localhost:5101
+
+GET {{SmileSoft.UI.Controllers_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
