@@ -58,16 +58,17 @@ namespace SmileSoft.WebAPI
                 }
 
             }).WithName("CreatePaciente");
-            app.MapPut("/pacientes", (PacienteDTO dto) =>
+            app.MapPut("/pacientes/{id}", (int id,PacienteDTO paciente) =>
             {
                 try
                 {
                     PacienteService pacienteService = new PacienteService();
-                    var found = pacienteService.Update(dto.Id,dto);
-                    if (!found)
+                    var found = pacienteService.GetPaciente(id);
+                    if (found == null)
                     {
                         return Results.NotFound(new { error = "No se encontró el paciente." });
                     }
+                    pacienteService.Update(id, paciente);
 
 
                     return Results.NoContent();

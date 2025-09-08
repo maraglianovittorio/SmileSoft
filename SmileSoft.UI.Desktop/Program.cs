@@ -1,6 +1,8 @@
 using DTO;
 using SmileSoft.Dominio;
-namespace SmileSoft.UI.Desktop
+using SmileSoft.UI.Desktop;
+
+namespace SmileSoft.WindowsForms
 {
     internal static class Program
     {

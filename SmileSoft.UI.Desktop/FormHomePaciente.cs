@@ -134,8 +134,12 @@ namespace SmileSoft.UI.Desktop
                 NroAfiliado = "22222os",
                 NroHC = "2"
             };
-            await PacienteApiClient.CreateAsync(vitto);
-            await PacienteApiClient.CreateAsync(lucho);
+            var p1 = PacienteApiClient.GetOneAsync(vitto.Id);
+            if(p1 == null)
+                await PacienteApiClient.CreateAsync(vitto);
+            var p2 = PacienteApiClient.GetOneAsync(lucho.Id);
+            if(p2 == null)
+                await PacienteApiClient.CreateAsync(lucho);
             await ObtenerDatos();
         }
 

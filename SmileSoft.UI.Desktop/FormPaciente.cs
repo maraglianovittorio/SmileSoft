@@ -265,6 +265,11 @@ namespace SmileSoft.UI.Desktop
                 btnAgregarPaciente.Enabled = false;
 
                 await PacienteApiClient.CreateAsync(paciente);
+                MessageBox.Show("Paciente creado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK; // Indicar que se creo un paciente
+                this.Close(); // Cerrar el formulario después del éxito
+
+
             }
             catch (Exception ex)
             {

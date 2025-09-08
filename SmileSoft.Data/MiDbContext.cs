@@ -15,7 +15,7 @@ namespace SmileSoft.Dominio
         public DbSet<TipoPlan> TipoPlanes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-1EUDPI5\SQLEXPRESS;Initial Catalog=SmileSoft;Integrated Security=true;TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Initial Catalog=SmileSoft;Integrated Security=true;TrustServerCertificate=true;");
             optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
 
         }

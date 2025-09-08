@@ -54,6 +54,8 @@ namespace SmileSoft.Services
             var pacientes = pacienteRepository.GetAll();
             return pacientes.Select(p => new PacienteDTO
             {
+
+                Id = p.Id,
                 Nombre = p.Nombre,
                 Apellido = p.Apellido,
                 NroDni = p.NroDni,
