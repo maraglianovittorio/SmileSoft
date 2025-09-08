@@ -70,8 +70,7 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                int id = Paciente.ObtenerProximoID();
-                Paciente pacientePost = new Paciente(id,paciente.Nombre,paciente.Apellido,paciente.NroDni,paciente.Direccion,paciente.Email,paciente.FechaNacimiento,paciente.Telefono,paciente.NroAfiliado,paciente.NroHC);
+                Paciente pacientePost = new Paciente(paciente.Id,paciente.Nombre,paciente.Apellido,paciente.NroDni,paciente.Direccion,paciente.Email,paciente.FechaNacimiento,paciente.Telefono,paciente.NroAfiliado,paciente.NroHC);
                 HttpResponseMessage response = await client.PostAsJsonAsync("pacientes", pacientePost);
 
                 if (!response.IsSuccessStatusCode)

@@ -110,6 +110,7 @@ namespace SmileSoft.UI.Desktop
             btnEditarPaciente.Enabled = false;
             PacienteDTO vitto = new PacienteDTO
             {
+                Id = 1,
                 Nombre = "Vittorio",
                 Apellido = "Maragliano",
                 NroDni = "111111",
@@ -122,6 +123,7 @@ namespace SmileSoft.UI.Desktop
             };
             PacienteDTO lucho = new PacienteDTO
             {
+                Id = 2,
                 Nombre = "Luciano",
                 Apellido = "Casado",
                 NroDni = "51085",

@@ -1,46 +1,40 @@
 ﻿using DTO;
+using SmileSoft.Data;
 using SmileSoft.Dominio;
+using System.ComponentModel.DataAnnotations;
+
 namespace SmileSoft.Services
 {
     public class PacienteService
     {
         public PacienteDTO Add(PacienteDTO dto)
         {
-            var listaPaciente = Paciente.ListaP;
-
+            var pacienteRepository = new PacienteRepository();
             // Validar que la historia clínica no exista
-            var existeHC = listaPaciente.Any(p => p.NroHC == dto.NroHC);
-            if (existeHC)
+            if (pacienteRepository.HCExists(dto.NroHC))
             {
                 throw new Exception("Ya existe un paciente con la misma historia clínica.");
             }
-            var idPaciente = Paciente.ObtenerProximoID();
-            Paciente cliente = new Paciente(idPaciente,dto.Nombre,dto.Apellido,dto.NroDni,dto.Direccion,dto.Email,dto.FechaNacimiento,dto.Telefono,dto.NroAfiliado,dto.NroHC);
+            Paciente paciente = new Paciente(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.Direccion,dto.Email,dto.FechaNacimiento,dto.Telefono,dto.NroAfiliado,dto.NroHC);
 
-            listaPaciente.Add(cliente);
+            pacienteRepository.Add(paciente);
 
             return dto;
         }
         public bool Delete(int id)
         {
-            var listaPaciente = Paciente.ListaP;
-            var paciente = listaPaciente.FirstOrDefault(p => p.Id == id);
-            if (paciente == null)
-            {
-                return false; // No se encontró el paciente
-            }
-            listaPaciente.Remove(paciente);
-            return true; // Paciente eliminado exitosamente
+            var pacienteRepository = new PacienteRepository();
+            return pacienteRepository.Delete(id);
         }
         public PacienteDTO GetPaciente(int id)
         {
-            var listaPaciente = Paciente.ListaP;
-            var paciente = listaPaciente.FirstOrDefault(p => p.Id == id);
+            var pacienteRepository = new PacienteRepository();
+            Paciente? paciente = pacienteRepository.Get(id);
             if (paciente == null)
             {
-                return null; // No se encontró el paciente
+                throw new Exception("No se encontró el paciente.");
             }
-            var pacienteDTO = new PacienteDTO
+            return new PacienteDTO
             {
                 Nombre = paciente.Nombre,
                 Apellido = paciente.Apellido,
@@ -52,13 +46,13 @@ namespace SmileSoft.Services
                 NroAfiliado = paciente.NroAfiliado,
                 NroHC = paciente.NroHC
             };
-            return pacienteDTO;
 
         }
-        public List<PacienteDTO> GetAll()
+        public IEnumerable<PacienteDTO> GetAll()
         {
-            var listaPaciente = Paciente.ListaP;
-            var listaPacienteDTO = listaPaciente.Select(p => new PacienteDTO
+            var pacienteRepository = new PacienteRepository();
+            var pacientes = pacienteRepository.GetAll();
+            return pacientes.Select(p => new PacienteDTO
             {
                 Nombre = p.Nombre,
                 Apellido = p.Apellido,
@@ -70,33 +64,19 @@ namespace SmileSoft.Services
                 NroAfiliado = p.NroAfiliado,
                 NroHC = p.NroHC
             }).ToList();
-            return listaPacienteDTO;
         }
         public bool Update(int id, PacienteDTO dto)
         {
-            var listaPaciente = Paciente.ListaP;
-            var paciente = listaPaciente.FirstOrDefault(p => p.Id == id);
-            if (paciente == null)
+            var pacienteRepository = new PacienteRepository();
+            // Validar que la HC no exista en otro paciente
+            if (pacienteRepository.HCExists(dto.NroHC, id))
             {
-                return false; // No se encontró el paciente
+                throw new ArgumentException($"Ya existe otro paciente con la Historia Clínica '{dto.NroHC}'.");
             }
-            //validar que la historia clinica no exista en otro paciente
-            var existeHC = listaPaciente.Any(p => p.NroHC == dto.NroHC && p.Id != id);
-            if (existeHC)
-            {
-                throw new Exception("Ya existe un paciente con la misma historia clínica.");
-            }
-            // Actualizar los campos del paciente
-            paciente.Nombre = dto.Nombre;
-            paciente.Apellido = dto.Apellido;
-            paciente.NroDni = dto.NroDni;
-            paciente.Direccion = dto.Direccion;
-            paciente.Email = dto.Email;
-            paciente.FechaNacimiento = dto.FechaNacimiento;
-            paciente.Telefono = dto.Telefono;
-            paciente.NroAfiliado = dto.NroAfiliado;
-            paciente.NroHC = dto.NroHC;
-            return true; // Paciente actualizado exitosamente
+
+            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC);
+            return pacienteRepository.Update(paciente);
+
         }
     }
 }

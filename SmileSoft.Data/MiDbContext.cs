@@ -11,9 +11,11 @@ namespace SmileSoft.Dominio
     public class MiDbContext : DbContext
     {
         public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<ObraSocial> ObrasSociales { get; set; }        
+        public DbSet<TipoPlan> TipoPlanes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-FCMDQAD\SQLEXPRESS;Initial Catalog=SmileSoft;Integrated Security=true;TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-1EUDPI5\SQLEXPRESS;Initial Catalog=SmileSoft;Integrated Security=true;TrustServerCertificate=true;");
             optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
 
         }

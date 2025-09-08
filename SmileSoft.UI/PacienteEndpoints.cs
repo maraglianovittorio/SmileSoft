@@ -18,7 +18,7 @@ namespace SmileSoft.WebAPI
             app.MapGet($"pacientes/id", (int id) =>
             {
                 PacienteService pacienteService = new PacienteService();
-                var dto = pacienteService.GetPaciente(id);
+                PacienteDTO dto = pacienteService.GetPaciente(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("Get Paciente");
             app.MapPost("/pacientes", (PacienteDTO pacienteDTO) =>
@@ -46,8 +46,7 @@ namespace SmileSoft.WebAPI
                         });
                     }
                     var dto = pacienteService.Add(pacienteDTO);
-                    var nuevoId = Paciente.ListaP.Any() ? Paciente.ListaP.Max(p => p.Id) + 1 : 1;
-                    return Results.Created($"/pacientes/{nuevoId}", dto);
+                    return Results.Created($"/pacientes/{dto.Id}", dto);
                 }
                 catch (Exception ex)
                 {
@@ -64,12 +63,11 @@ namespace SmileSoft.WebAPI
                 try
                 {
                     PacienteService pacienteService = new PacienteService();
-                    var pacienteExistente = Paciente.ListaP.FirstOrDefault(p => p.NroHC == dto.NroHC);
-                    if (pacienteExistente == null)
+                    var found = pacienteService.Update(dto.Id,dto);
+                    if (!found)
                     {
-                        return Results.NotFound(new { error = "No se encontró un paciente con la historia clínica proporcionada." });
+                        return Results.NotFound(new { error = "No se encontró el paciente." });
                     }
-                    var found = pacienteService.Update(pacienteExistente.Id, dto);
 
 
                     return Results.NoContent();
