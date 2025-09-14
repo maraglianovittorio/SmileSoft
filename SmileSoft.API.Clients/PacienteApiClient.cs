@@ -11,6 +11,7 @@ namespace SmileSoft.API.Clients
         private static HttpClient client = new HttpClient();
         static PacienteApiClient()
         {
+
             client.BaseAddress = new Uri("https://localhost:54145/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(

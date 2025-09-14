@@ -7,11 +7,7 @@ namespace SmileSoft.UI.Desktop
 {
     public partial class FormPaciente : Form
     {
-        private static readonly HttpClient httpClient = new HttpClient()
-        {
-            BaseAddress = new Uri("http://localhost:5279")
 
-        };
 
         public FormPaciente()
         {

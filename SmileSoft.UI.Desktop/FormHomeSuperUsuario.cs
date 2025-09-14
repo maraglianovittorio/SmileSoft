@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHome : Form
+    public partial class FormHomeSuperUsuario : Form
     {
-        public FormHome()
+        public FormHomeSuperUsuario()
         {
             InitializeComponent();
             ConfigurarEstilos();

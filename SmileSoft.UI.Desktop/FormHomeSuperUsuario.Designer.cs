@@ -1,6 +1,6 @@
 ﻿namespace SmileSoft.UI.Desktop
 {
-    partial class FormHome
+    partial class FormHomeSuperUsuario
     {
         /// <summary>
         /// Required designer variable.

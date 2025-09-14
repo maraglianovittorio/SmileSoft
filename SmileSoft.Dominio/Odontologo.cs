@@ -7,8 +7,8 @@
         public string Apellido { get; set; }
         public string NroMatricula { get; set; }
         public string Email { get; set; }
-        public string Contrasenia { get; set; }
+        //public string Contrasenia { get; set; }
 
-        public ICollection<Atencion> Atenciones { get; set; }
+        //public ICollection<Atencion> Atenciones { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace SmileSoft.Services
             {
                 throw new Exception("Ya existe un paciente con la misma historia clínica.");
             }
+            // esta bien poner un 0 aca?
             Paciente paciente = new Paciente(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.Direccion,dto.Email,dto.FechaNacimiento,dto.Telefono,dto.NroAfiliado,dto.NroHC);
 
             pacienteRepository.Add(paciente);

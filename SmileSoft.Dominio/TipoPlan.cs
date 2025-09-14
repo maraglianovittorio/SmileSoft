@@ -12,7 +12,12 @@ namespace SmileSoft.Dominio
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
 
+        // Clave foránea
+        public int ObraSocialId { get; set; }
+        
+        // Propiedad de navegación
         public ObraSocial ObraSocial { get; set; }
+        
         public ICollection<Paciente> Pacientes { get; set; }
     }
 }

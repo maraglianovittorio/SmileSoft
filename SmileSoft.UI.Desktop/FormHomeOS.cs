@@ -1,5 +1,7 @@
-﻿using SmileSoft.Dominio;
+﻿using SmileSoft.API.Clients;
+using SmileSoft.Dominio;
 using System.Net.Http.Json;
+using DTO;
 
 namespace SmileSoft.UI.Desktop
 {
@@ -7,7 +9,7 @@ namespace SmileSoft.UI.Desktop
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
-            BaseAddress = new Uri("http://localhost:5279")
+            BaseAddress = new Uri("http://localhost:54145")
 
         };
         private List<ObraSocial> obrasSociales = new();
@@ -48,11 +50,11 @@ namespace SmileSoft.UI.Desktop
         {
             btnEditarOS.Enabled = false;
             btnBorrarOS.Enabled = false;
-            ObraSocial os1 = new ObraSocial(1, "Obra Social 1");
-            ObraSocial os2 = new ObraSocial(2, "Obra Social 2");
-            await httpClient.PostAsJsonAsync("/obraSocial", os1);
-            await httpClient.PostAsJsonAsync("/obraSocial", os2);
-
+            ObraSocialDTO os1 = new ObraSocialDTO { Nombre = "Obra Social 1" };
+            ObraSocialDTO os2 = new ObraSocialDTO { Nombre = "Obra Social 2" };
+            // descomentar para crearlas
+            //await ObraSocialApiClient.CreateAsync(os1);
+            //await ObraSocialApiClient.CreateAsync(os2);
             await ObtenerDatos();
         }
 
@@ -60,11 +62,12 @@ namespace SmileSoft.UI.Desktop
         {
             try
             {
-                var OSResponse = await httpClient.GetFromJsonAsync<List<ObraSocial>>("/obraSocial");
-                if (OSResponse != null && OSResponse.Count > 0)
+                var OSResponse = await ObraSocialApiClient.GetAllAsync();
+                if (OSResponse != null && OSResponse.Count() > 0)
                 {
                     dgvFormOS.DataSource = OSResponse;
-                    obrasSociales = OSResponse;
+                    obrasSociales = (List<ObraSocial>)OSResponse;
+                    //dgvFormOS.Columns["Id"].Visible = false;
                 }
             }
             catch (Exception ex)

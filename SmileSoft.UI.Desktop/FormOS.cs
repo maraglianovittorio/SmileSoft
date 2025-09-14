@@ -1,4 +1,5 @@
 ﻿using DTO;
+using SmileSoft.API.Clients;
 using SmileSoft.Dominio;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,6 @@ namespace SmileSoft.UI.Desktop
 {
     public partial class FormOS : Form
     {
-        private static readonly HttpClient httpClient = new HttpClient()
-        {
-            BaseAddress = new Uri("http://localhost:5279")
-
-        };
         public FormOS()
         {
             InitializeComponent();
@@ -108,7 +104,7 @@ namespace SmileSoft.UI.Desktop
             // Enfocar el primer campo
             txtNombreOS.Focus();
         }
-        private void btnEnviarOS_Click(object sender, EventArgs e)
+        private async void btnEnviarOS_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos())
             {
@@ -119,30 +115,17 @@ namespace SmileSoft.UI.Desktop
                 ObraSocialDTO obraSocial = new ObraSocialDTO
                 {
                     Nombre = txtNombreOS.Text.Trim(),
-
                 };
 
                 btnAgregarOS.Text = "Enviando...";
                 btnAgregarOS.Enabled = false;
 
-                var response = httpClient.PostAsJsonAsync("/obraSocial", obraSocial).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    MessageBox.Show("Obra social agregada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK; // Indicar que se agregó una obra social
-                    this.Close(); // Cerrar el formulario después del éxito
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
-                {
-                    var errorContent = response.Content.ReadAsStringAsync().Result;
-                    MessageBox.Show("Ya existe una obra social con ese nombre. Por favor use un nombre diferente.",
-                        "Obra social duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    MessageBox.Show($"Error al agregar la obra social. Código: {response.StatusCode}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                await ObraSocialApiClient.CreateAsync(obraSocial);
+                MessageBox.Show("Obra social agregada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK; // Indicar que se agregó una obra social
+                this.Close(); // Cerrar el formulario después del éxito
+
+
             }
             catch (Exception ex)
             {
@@ -154,13 +137,13 @@ namespace SmileSoft.UI.Desktop
                 btnAgregarOS.Enabled = true;
             }
         }
-        public void PopularFormOS(int idOS)
+        public async void PopularFormOS(int idOS)
         {
 
             LimpiarFormulario();
             try
             {
-                var OSResponse = httpClient.GetFromJsonAsync<ObraSocial>($"/obraSocial/id?id={idOS}").Result;
+                var OSResponse = await ObraSocialApiClient.GetOneAsync(idOS);
                 if (OSResponse != null)
                 {
                     txtNombreOS.Text = OSResponse.Nombre;
@@ -181,7 +164,7 @@ namespace SmileSoft.UI.Desktop
 
         }
 
-        private void btnEditarOS_Click(object sender, EventArgs e)
+        private async void btnEditarOS_Click(object sender, EventArgs e)
         {
             try
             {
@@ -199,24 +182,10 @@ namespace SmileSoft.UI.Desktop
                 btnEditarOS.Text = "Enviando...";
                 btnEditarOS.Enabled = false;
 
-                var response = httpClient.PutAsJsonAsync($"/obraSocial/{btnEditarOS.Tag}", obraSocial).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    MessageBox.Show("Obra social editada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK; // Indicar que se editó una obra social
-                    this.Close(); // Cerrar el formulario después del éxito
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
-                {
-                    var errorContent = response.Content.ReadAsStringAsync().Result;
-                    MessageBox.Show("Ya existe una obra social con ese nombre. Por favor use un nombre diferente.",
-                        "Obra social duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    MessageBox.Show($"Error al editar la obra social. Código: {response.StatusCode}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                await ObraSocialApiClient.UpdateAsync(obraSocial,obraSocial.Id);
+                MessageBox.Show("Obra social editada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK; // Indicar que se editó una obra social
+                this.Close(); // Cerrar el formulario después del éxito
             }
             catch (Exception ex)
             {

@@ -95,6 +95,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormPaciente.DataSource = pacientesResponse;
                     pacientes = (List<Paciente>)pacientesResponse;
+                    dgvFormPaciente.Columns["Id"].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -110,7 +111,6 @@ namespace SmileSoft.UI.Desktop
             btnEditarPaciente.Enabled = false;
             PacienteDTO vitto = new PacienteDTO
             {
-                Id = 1,
                 Nombre = "Vittorio",
                 Apellido = "Maragliano",
                 NroDni = "111111",
@@ -123,7 +123,6 @@ namespace SmileSoft.UI.Desktop
             };
             PacienteDTO lucho = new PacienteDTO
             {
-                Id = 2,
                 Nombre = "Luciano",
                 Apellido = "Casado",
                 NroDni = "51085",
@@ -134,12 +133,9 @@ namespace SmileSoft.UI.Desktop
                 NroAfiliado = "22222os",
                 NroHC = "2"
             };
-            var p1 = PacienteApiClient.GetOneAsync(vitto.Id);
-            if(p1 == null)
-                await PacienteApiClient.CreateAsync(vitto);
-            var p2 = PacienteApiClient.GetOneAsync(lucho.Id);
-            if(p2 == null)
-                await PacienteApiClient.CreateAsync(lucho);
+            //Descomentar para crear pacientes de prueba
+            //await PacienteApiClient.CreateAsync(vitto);
+            //await PacienteApiClient.CreateAsync(lucho);
             await ObtenerDatos();
         }
 

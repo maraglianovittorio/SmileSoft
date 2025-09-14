@@ -5,56 +5,59 @@ using System.Data.SqlClient;
 
 namespace SmileSoft.Data
 {
-    public class ObraSocialRepository
+    public class OdontologoRepository
     {
         private MiDbContext CreateContext()
         {
             return new MiDbContext();
         }
 
-        public void Add(ObraSocial obraSocial)
+        public void Add(Odontologo odontologo)
         {
             using var context = CreateContext();
-            context.ObrasSociales.Add(obraSocial);
+            context.Odontologos.Add(odontologo);
             context.SaveChanges();
         }
 
         public bool Delete(int id)
         {
             using var context = CreateContext();
-            var obraSocial = context.ObrasSociales.Find(id);
-            if (obraSocial != null)
+            var odontologo = context.Odontologos.Find(id);
+            if (odontologo != null)
             {
-                context.ObrasSociales.Remove(obraSocial);
+                context.Odontologos.Remove(odontologo);
                 context.SaveChanges();
                 return true;
             }
             return false;
         }
 
-        public ObraSocial? Get(int id)
+        public Odontologo? Get(int id)
         {
             using var context = CreateContext();
-            return context.ObrasSociales
+            return context.Odontologos
                 //.Include(p => )
-                .FirstOrDefault(os => os.Id == id);
+                .FirstOrDefault(o => o.Id == id);
         }
 
-        public IEnumerable<ObraSocial> GetAll()
+        public IEnumerable<Odontologo> GetAll()
         {
             using var context = CreateContext();
-            return context.ObrasSociales
+            return context.Odontologos
                 //.Include(c => c.Pais)
                 .ToList();
         }
 
-        public bool Update(ObraSocial obraSocial)
+        public bool Update(Odontologo odontologo)
         {
             using var context = CreateContext();
-            var existingObraSocial = context.ObrasSociales.Find(obraSocial.Id);
-            if (existingObraSocial != null)
+            var existingOdontologo = context.Odontologos.Find(odontologo.Id);
+            if (existingOdontologo != null)
             {
-                existingObraSocial.Nombre = obraSocial.Nombre;
+                existingOdontologo.Nombre = odontologo.Nombre;
+                existingOdontologo.Apellido = odontologo.Apellido;
+                existingOdontologo.NroMatricula = odontologo.NroMatricula;
+                existingOdontologo.Email = odontologo.Email;
 
                 context.SaveChanges();
                 return true;
@@ -62,13 +65,13 @@ namespace SmileSoft.Data
             return false;
         }
 
-        public bool OSExists(string nombre, int? excludeId = null)
+        public bool NroMatriculaExists(string nroMatricula, int? excludeId = null)
         {
             using var context = CreateContext();
-            var query = context.ObrasSociales.Where(os => os.Nombre.ToLower() == nombre.ToLower());
+            var query = context.Odontologos.Where(o => o.NroMatricula.ToLower() == nroMatricula.ToLower());
             if (excludeId.HasValue)
             {
-                query = query.Where(os => os.Id != excludeId.Value);
+                query = query.Where(o => o.Id != excludeId.Value);
             }
             return query.Any();
         }
