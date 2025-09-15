@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DTO;
 using SmileSoft.UI.Desktop;
 using SmileSoft.API.Clients;
 
@@ -81,19 +80,7 @@ namespace SmileSoft.WindowsForms
             if (txtPassword != null)
                 txtPassword.Font = new Font("Segoe UI", 11F);
         }
-        private async void FormLogin_Load(object sender, EventArgs e)
-        {
-            UsuarioCreateDTO userAdmin = new UsuarioCreateDTO
-            {
-                Username = "admin",
-                Password = "admin",
-                Rol = "admin"
-            };
-            // descomentar linea de abajo para crear usuario admin
-            //await UsuarioApiClient.CreateAsync(userAdmin);
-           
 
-        }
         private async void btnLogin_Click(object sender, EventArgs e)
         {
             // Validaciones básicas
@@ -113,11 +100,77 @@ namespace SmileSoft.WindowsForms
                 return;
             }
 
-            await AuthApiClient.Login(txtUsuario.Text, txtPassword.Text);
+            btnLogin.Enabled = false;
+            btnCancelar.Enabled = false;
+            btnLogin.Text = "Autenticando...";
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            try
+            {
+                var loginResponse = await AuthApiClient.Login(txtUsuario.Text, txtPassword.Text);
+                
+                if (loginResponse != null && loginResponse.IsSuccess)
+                {
+                    MessageBox.Show($"Bienvenido {loginResponse.Username}", "Login Exitoso", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    this.DialogResult = DialogResult.OK;
+                    MostrarFormularioSegunRol(loginResponse.Rol, loginResponse.Username);
+                    this.Hide();
+                }
+                else
+                {
+                    // Credenciales inválidas
+                    MessageBox.Show("Usuario o contraseña incorrectos.", "Error de autenticación", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPassword.Clear();
+                    txtUsuario.Focus();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error durante la autenticación: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPassword.Clear();
+                txtUsuario.Focus();
+            }
+            finally
+            {
+                // Rehabilitar botones
+                btnLogin.Enabled = true;
+                btnCancelar.Enabled = true;
+                btnLogin.Text = "Iniciar Sesión";
+            }
+        }
+
+        private void MostrarFormularioSegunRol(string rol, string username)
+        {
+            switch (rol.ToUpper())
+            {
+                case "ADMIN":
+                    var formHomeSU = new FormHomeSuperUsuario();
+                    formHomeSU.Text = $"SmileSoft - Administrador ({username})";
+                    formHomeSU.Show();
+                    break;
+
+                case "ODONTOLOGO":
+                    // Por el momento, odontologo tiene las mismas funciones que secretario
+                    var formHomeOdontologo = new FormHomeOdontologo();
+                    formHomeOdontologo.Text = $"SmileSoft - Odontólogo ({username})";
+                    formHomeOdontologo.Show();
+                    break;
+
+                //case "SECRETARIO":
+                //    var formHomeSecretario = new FormHomeSecretario();
+                //    formHomeSecretario.Text = $"SmileSoft - Secretario ({username})";
+                //    formHomeSecretario.Show();
+                //    break;
+
+                default:
+                    MessageBox.Show($"Rol '{rol}' no reconocido.", 
+                        "Error de configuración", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
+        }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

@@ -35,7 +35,8 @@ namespace SmileSoft.Services
 
             return new LoginResponse
             {
-                Username = usuario.Username
+                Username = usuario.Username,
+                Rol = usuario.Rol
             };
         }
     }

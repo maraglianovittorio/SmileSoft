@@ -81,6 +81,12 @@ namespace SmileSoft.WebAPI
                 var eliminado = usuarioService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
             }).WithName("DeleteUsuario");
+            app.MapGet("/usuarios/{username}", (string username) =>
+            {
+                UsuarioService usuarioService = new UsuarioService();
+                var usuario = usuarioService.GetByUsername(username);
+                return usuario is not null ? Results.Ok(usuario) : Results.NotFound();
+            }).WithName("GetUsuarioByUsername");
         }
     }
 }

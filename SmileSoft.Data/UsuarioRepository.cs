@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
 
 namespace SmileSoft.Data
 {
@@ -45,7 +46,16 @@ namespace SmileSoft.Data
         public Usuario? GetByUsername(string username)
         {
             using var context = CreateContext();
-            return context.Usuarios.FirstOrDefault(u => u.Username.ToLower() == username.ToLower());
+            var usuario = context.Usuarios.FirstOrDefault(u => u.Username.ToLower() == username.ToLower());
+            if (usuario == null) return null;
+
+            return new Usuario
+            {
+                Id = usuario.Id,
+                Username = usuario.Username,
+                Password = usuario.Password,
+                Rol = usuario.Rol
+            };
         }
 
         public IEnumerable<Usuario> GetAll()

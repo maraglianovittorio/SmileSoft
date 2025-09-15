@@ -84,5 +84,10 @@ namespace SmileSoft.Services
             var usuarioRepository = new UsuarioRepository();
             return usuarioRepository.ValidateCredentials(username, password);
         }
+        public Usuario? GetByUsername(string username)
+        {
+            var usuarioRepository = new UsuarioRepository();
+            return usuarioRepository.GetByUsername(username);
+        }
     }
 }

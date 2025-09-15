@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomeSuperUsuario : Form
+    public partial class FormHomeSecretario : Form
     {
-        public FormHomeSuperUsuario()
+        public FormHomeSecretario()
         {
             InitializeComponent();
             ConfigurarEstilos();
@@ -32,15 +32,11 @@ namespace SmileSoft.UI.Desktop
                 if (control is Button btn)
                 {
                     btnPacientes.BackColor = Color.FromArgb(70, 130, 180); // SteelBlue
-                    btnObraSocial.BackColor = Color.FromArgb(70, 130, 180); // Crimson
-                    btnUsuarios.BackColor = Color.FromArgb(70, 130, 180); // MediumSeaGreen
                     btn.ForeColor = Color.White;
                     btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                     btn.FlatStyle = FlatStyle.Flat;
                     btn.FlatAppearance.BorderSize = 0;
                     btnPacientes.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
-                    btnObraSocial.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
-                    btnUsuarios.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
                     btn.Cursor = Cursors.Hand;
                 }
             }
@@ -52,16 +48,5 @@ namespace SmileSoft.UI.Desktop
             formHomePagePaciente.ShowDialog();
         }
 
-        private void btnObraSocial_Click(object sender, EventArgs e)
-        {
-            FormHomeOS formHomeOS = new FormHomeOS();
-            formHomeOS.ShowDialog();
-        }
-
-        private void btnUsuarios_Click(object sender, EventArgs e)
-        {
-            FormUsuario formUsuario = new FormUsuario();
-            formUsuario.ShowDialog();
-        }
     }
 }

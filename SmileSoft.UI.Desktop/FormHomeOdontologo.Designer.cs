@@ -1,6 +1,6 @@
 ﻿namespace SmileSoft.UI.Desktop
 {
-    partial class FormHomeSuperUsuario
+    partial class FormHomeOdontologo
     {
         /// <summary>
         /// Required designer variable.
@@ -29,13 +29,11 @@
         private void InitializeComponent()
         {
             btnPacientes = new Button();
-            btnObraSocial = new Button();
-            btnUsuarios = new Button();
             SuspendLayout();
             // 
             // btnPacientes
             // 
-            btnPacientes.Location = new Point(46, 57);
+            btnPacientes.Location = new Point(139, 67);
             btnPacientes.Margin = new Padding(2);
             btnPacientes.Name = "btnPacientes";
             btnPacientes.Size = new Size(109, 46);
@@ -44,38 +42,14 @@
             btnPacientes.UseVisualStyleBackColor = true;
             btnPacientes.Click += btnPacientes_Click;
             // 
-            // btnObraSocial
-            // 
-            btnObraSocial.Location = new Point(234, 57);
-            btnObraSocial.Margin = new Padding(2);
-            btnObraSocial.Name = "btnObraSocial";
-            btnObraSocial.Size = new Size(111, 46);
-            btnObraSocial.TabIndex = 1;
-            btnObraSocial.Text = "Obras Sociales";
-            btnObraSocial.UseVisualStyleBackColor = true;
-            btnObraSocial.Click += btnObraSocial_Click;
-            // 
-            // btnUsuarios
-            // 
-            btnUsuarios.Location = new Point(411, 57);
-            btnUsuarios.Margin = new Padding(2);
-            btnUsuarios.Name = "btnUsuarios";
-            btnUsuarios.Size = new Size(111, 46);
-            btnUsuarios.TabIndex = 2;
-            btnUsuarios.Text = "Usuarios";
-            btnUsuarios.UseVisualStyleBackColor = true;
-            btnUsuarios.Click += btnUsuarios_Click;
-            // 
-            // FormHomeSuperUsuario
+            // FormHomeOdontologo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(588, 316);
-            Controls.Add(btnUsuarios);
-            Controls.Add(btnObraSocial);
+            ClientSize = new Size(394, 177);
             Controls.Add(btnPacientes);
             Margin = new Padding(2);
-            Name = "FormHomeSuperUsuario";
+            Name = "FormHomeOdontologo";
             Text = "FormHome";
             ResumeLayout(false);
         }
@@ -83,7 +57,5 @@
         #endregion
 
         private Button btnPacientes;
-        private Button btnObraSocial;
-        private Button btnUsuarios;
     }
 }

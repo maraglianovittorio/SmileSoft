@@ -115,7 +115,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al eliminar usuario con Id {id}: {ex.Message}", ex);
             }
         }
-        public static async Task UpdateAsync(UsuarioDTO usuario, int id)
+        public static async Task UpdateAsync(UsuarioUpdateDTO usuario, int id)
         {
             try
             {
@@ -137,29 +137,54 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al actualizar usuario con Id {id}: {ex.Message}", ex);
             }
         }
-        public static async void Login(string username, string password)
+        //El login ya se trata con el auth
+        //public static async void Login(string username, string password)
+        //{
+        //    try
+        //    {
+        //        HttpResponseMessage response = await client.GetAsync($"usuarios/login?username={username}&password={password}");
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var usuario = await response.Content.ReadAsAsync<Usuario>();
+        //            // Aquí puedes manejar el usuario autenticado según tus necesidades
+        //        }
+        //        else
+        //        {
+        //            string errorContent = await response.Content.ReadAsStringAsync();
+        //            throw new Exception($"Error al autenticar usuario. Status: {response.StatusCode}, Detalle: {errorContent}");
+        //        }
+        //    }
+        //    catch (HttpRequestException ex)
+        //    {
+        //        throw new Exception($"Error de conexión al autenticar usuario: {ex.Message}", ex);
+        //    }
+        //    catch (TaskCanceledException ex)
+        //    {
+        //        throw new Exception($"Timeout al autenticar usuario: {ex.Message}", ex);
+        //    }
+        //}
+        public static async Task<Usuario> GetByUsernameAsync(string username)
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"usuarios/login?username={username}&password={password}");
+                HttpResponseMessage response = await client.GetAsync($"usuarios/{username}");
                 if (response.IsSuccessStatusCode)
                 {
-                    var usuario = await response.Content.ReadAsAsync<Usuario>();
-                    // Aquí puedes manejar el usuario autenticado según tus necesidades
+                    return await response.Content.ReadAsAsync<Usuario>();
                 }
                 else
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al autenticar usuario. Status: {response.StatusCode}, Detalle: {errorContent}");
+                    throw new Exception($"Error al obtener usuario con username {username}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
             }
             catch (HttpRequestException ex)
             {
-                throw new Exception($"Error de conexión al autenticar usuario: {ex.Message}", ex);
+                throw new Exception($"Error de conexión al obtener usuario con username {username}: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
-                throw new Exception($"Timeout al autenticar usuario: {ex.Message}", ex);
+                throw new Exception($"Timeout al obtener usuario con username {username}: {ex.Message}", ex);
             }
         }
     }
