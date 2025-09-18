@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SmileSoft.Dominio;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmileSoft.Data
 {
-    public class TipoPlanApiClient
+    public class TipoPlanRepository
     {
         private MiDbContext CreateContext()
         {
@@ -38,7 +39,7 @@ namespace SmileSoft.Data
         {
             using var context = CreateContext();
             return context.TipoPlanes
-                //.Include(p => )
+                .Include(tp => tp.ObraSocial)
                 .FirstOrDefault(tp => tp.Id == id);
         }
 
@@ -46,7 +47,7 @@ namespace SmileSoft.Data
         {
             using var context = CreateContext();
             return context.TipoPlanes
-                //.Include(c => c.Pais)
+                .Include(tp => tp.ObraSocial)
                 .ToList();
         }
 
@@ -58,13 +59,14 @@ namespace SmileSoft.Data
             {
                 existingTipoPlan.Nombre = tipoPlan.Nombre;
                 existingTipoPlan.Descripcion = tipoPlan.Descripcion;
-                existingTipoPlan.ObraSocial = tipoPlan.ObraSocial; //esto iria o no se deberia poder cambiar?
+                existingTipoPlan.ObraSocialId = tipoPlan.ObraSocialId;
 
                 context.SaveChanges();
                 return true;
             }
             return false;
         }
+
         // valido que el id de obra social que se pone al agregar exista(hace falta?)
         public bool ValidaOS(int idOS)
         {
@@ -72,11 +74,12 @@ namespace SmileSoft.Data
             var existe = context.ObrasSociales.Any(os => os.Id == idOS);
             return existe;
         }
+
         // valido que no exista ya un plan con ese nombre para esa obra social
         public bool TipoPlanExists(string nombre, int idOS, int? excludeId = null)
         {
             using var context = CreateContext();
-            return context.TipoPlanes.Any(tp => tp.Nombre == nombre && tp.ObraSocial.Id == idOS && (!excludeId.HasValue || tp.Id != excludeId.Value));
+            return context.TipoPlanes.Any(tp => tp.Nombre == nombre && tp.ObraSocialId == idOS && (excludeId == null || tp.Id != excludeId));
         }
     }
 }

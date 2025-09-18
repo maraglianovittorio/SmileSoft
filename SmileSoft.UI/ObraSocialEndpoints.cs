@@ -19,7 +19,7 @@ namespace SmileSoft.WebAPI
             {
                 ObraSocialService obraSocialService = new ObraSocialService();
                 ObraSocialDTO dto = obraSocialService.GetObraSocial(id);
-                return dto is not null ? Results.Ok(dto) : Results.NotFound();
+                return dto is not null ? Results.Ok(new { ObraSocial = dto, Nombre = dto.Nombre }) : Results.NotFound();
             }).WithName("GetObraSocial");
             app.MapPost("/obrasocial", (ObraSocialDTO obraSocialDTO) =>
             {

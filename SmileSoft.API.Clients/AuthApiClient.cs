@@ -37,8 +37,8 @@ namespace SmileSoft.API.Clients
                     // Login exitoso - obtener información del usuario
                     Usuario user = await UsuarioApiClient.GetByUsernameAsync(username);
                     if (user == null)
-                        throw new Exception("Usuario no encontrado después de la autenticación.");
-                    
+                        return null;
+
                     return new LoginResponse 
                     { 
                         Username = user.Username,

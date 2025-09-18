@@ -1,18 +1,7 @@
 ﻿using DTO;
 using SmileSoft.API.Clients;
 using SmileSoft.Dominio;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 
 
@@ -35,10 +24,10 @@ namespace SmileSoft.UI.Desktop
 
         private void ConfigurarEstilos()
         {
-            // Estilo principal - Tema azul elegante
+            // Estilo principal
             this.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
             this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
-            this.Text = "SmileSoft - Página Principal";
+            this.Text = "SmileSoft - Home de pacientes";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450); // Tamaño mínimo
 
@@ -71,10 +60,10 @@ namespace SmileSoft.UI.Desktop
             // Configurar anclajes para que los botones se mantengan centrados
 
             // Manejar el evento de redimensionado para centrar los botones
-            this.Resize += FormHomePage_Resize;
+            this.Resize += FormHomePacientes_Resize;
         }
 
-        private void FormHomePage_Resize(object sender, EventArgs e)
+        private void FormHomePacientes_Resize(object sender, EventArgs e)
         {
             // Centrar los botones horizontalmente y verticalmente
             int buttonWidth = 112;
@@ -105,7 +94,7 @@ namespace SmileSoft.UI.Desktop
             }
         }
 
-        private async void FormHomePage_Load(object sender, EventArgs e)
+        private async void FormHomePacientes_Load(object sender, EventArgs e)
         {
             btnBorrarPaciente.Enabled = false;
             btnEditarPaciente.Enabled = false;
@@ -165,7 +154,7 @@ namespace SmileSoft.UI.Desktop
 
 
 
-        private void dgvFormHome_SelectionChanged(object sender, EventArgs e)
+        private void dgvFormHomePacientes_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvFormPaciente.SelectedRows.Count > 0)
             {

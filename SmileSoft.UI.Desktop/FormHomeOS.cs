@@ -1,7 +1,9 @@
-﻿using SmileSoft.API.Clients;
+﻿using DTO;
+using SmileSoft.API.Clients;
 using SmileSoft.Dominio;
-using System.Net.Http.Json;
-using DTO;
+using System.Data;
+
+
 
 namespace SmileSoft.UI.Desktop
 {
@@ -17,13 +19,15 @@ namespace SmileSoft.UI.Desktop
         {
             InitializeComponent();
             ConfigurarEstilos();
+            ConfigurarResponsive();
         }
+
         private void ConfigurarEstilos()
         {
-            // Estilo principal - Tema azul elegante
+            // Estilo principal
             this.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
             this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
-            this.Text = "SmileSoft - Pagina Obras sociales";
+            this.Text = "SmileSoft - Home Obras sociales";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450); // Tamaño mínimo
 
@@ -46,16 +50,29 @@ namespace SmileSoft.UI.Desktop
                 }
             }
         }
-        private async void FormHomeOS_Load(object sender, EventArgs e)
+
+        private void ConfigurarResponsive()
         {
-            btnEditarOS.Enabled = false;
-            btnBorrarOS.Enabled = false;
-            ObraSocialDTO os1 = new ObraSocialDTO { Nombre = "Obra Social 1" };
-            ObraSocialDTO os2 = new ObraSocialDTO { Nombre = "Obra Social 2" };
-            // descomentar para crearlas
-            //await ObraSocialApiClient.CreateAsync(os1);
-            //await ObraSocialApiClient.CreateAsync(os2);
-            await ObtenerDatos();
+            // Hacer que el formulario sea redimensionable
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MaximizeBox = true;
+
+            // Configurar anclajes para que los botones se mantengan centrados
+
+            // Manejar el evento de redimensionado para centrar los botones
+            this.Resize += FormHomePage_Resize;
+        }
+
+        private void FormHomePage_Resize(object sender, EventArgs e)
+        {
+            // Centrar los botones horizontalmente y verticalmente
+            int buttonWidth = 112;
+            int buttonHeight = 47;
+            int spacing = 60; // Espacio entre botones
+            int totalWidth = (buttonWidth * 4) + (spacing * 3);
+
+            int startX = (this.ClientSize.Width - totalWidth) / 2;
+            int centerY = this.ClientSize.Height / 2;
         }
 
         private async Task ObtenerDatos()
@@ -63,80 +80,25 @@ namespace SmileSoft.UI.Desktop
             try
             {
                 var OSResponse = await ObraSocialApiClient.GetAllAsync();
-                if (OSResponse != null && OSResponse.Count() > 0)
+                if (OSResponse != null && OSResponse.Count() > 0 )
                 {
                     dgvFormOS.DataSource = OSResponse;
                     obrasSociales = (List<ObraSocial>)OSResponse;
-                    //dgvFormOS.Columns["Id"].Visible = false;
+                    dgvFormOS.Columns["Id"].Visible = false;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las Obras sociales: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar las obras sociales: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }
 
-
-        private void dgvFormOS_SelectionChanged_1(object sender, EventArgs e)
+        private async void FormHomeOS_Load(object sender, EventArgs e)
         {
-            if (dgvFormOS.SelectedRows.Count > 0)
-            {
-                btnEditarOS.Enabled = true;
-                btnBorrarOS.Enabled = true;
-            }
-            else
-            {
-                btnEditarOS.Enabled = false;
-                btnBorrarOS.Enabled = false;
-
-            }
-
-        }
-
-        private async void btnAgregarOS_Click(object sender, EventArgs e)
-        {
-            FormOS formOS = new FormOS();
-            formOS.ShowDialog();
+            btnBorrarOS.Enabled = false;
+            btnEditarOS.Enabled = false;
             await ObtenerDatos();
-
-        }
-
-        private async void btnEditarOS_Click(object sender, EventArgs e)
-        {
-            if (dgvFormOS.SelectedRows.Count > 0)
-            {
-                var obraSocialSeleccionada = dgvFormOS.SelectedRows[0].DataBoundItem as ObraSocial;
-                if (obraSocialSeleccionada != null)
-                {
-                    FormOS formOS = new FormOS(obraSocialSeleccionada.Id);
-                    formOS.ShowDialog();
-                    await ObtenerDatos();
-                }
-            }
-        }
-
-        private async void btnBorrarOS_Click(object sender, EventArgs e)
-        {
-            if (dgvFormOS.SelectedRows.Count > 0)
-            {
-                var obraSocialSeleccionada = dgvFormOS.SelectedRows[0].DataBoundItem as ObraSocial;
-                if (obraSocialSeleccionada != null)
-                {
-                    var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar esta obra social?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (confirmResult == DialogResult.Yes)
-                    {
-                        var response = await httpClient.DeleteAsync($"/obraSocial/{obraSocialSeleccionada.Id}");
-                        if (response.IsSuccessStatusCode)
-                        {
-                            MessageBox.Show("Obra social eliminada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            await ObtenerDatos();
-                        }
-                        else
-                            MessageBox.Show($"Error al eliminar la obra social. Código: {response.StatusCode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
         }
 
         private void txtBuscarOS_TextChanged(object sender, EventArgs e)
@@ -152,8 +114,64 @@ namespace SmileSoft.UI.Desktop
                 dgvFormOS.DataSource = obrasSociales;
 
             }
-            //dgvFormOS.Columns["Id"].Visible = false;
+            dgvFormOS.Columns["Id"].Visible = false;
 
+        }
+
+        private async void btnAgregarOS_Click(object sender, EventArgs e)
+        {
+            FormOS formOS = new FormOS();
+            formOS.ShowDialog();
+            await ObtenerDatos();
+        }
+
+
+
+        private void dgvFormHomeOS_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvFormOS.SelectedRows.Count > 0)
+            {
+                btnEditarOS.Enabled = true;
+                btnBorrarOS.Enabled = true;
+            }
+            else
+            {
+                btnEditarOS.Enabled = false;
+                btnBorrarOS.Enabled = false;
+
+            }
+        }
+
+        private async void BtnEditarOS_Click(object sender, EventArgs e)
+        {
+            if (dgvFormOS.SelectedRows.Count > 0)
+            {
+                var obraSocialSeleccionada = dgvFormOS.SelectedRows[0].DataBoundItem as ObraSocial;
+                if (obraSocialSeleccionada != null)
+                {
+                    FormOS formOS = new FormOS(obraSocialSeleccionada.Id);
+                    formOS.ShowDialog();
+                    await ObtenerDatos();
+                }
+            }
+        }
+
+        private async void BtnBorrarOS_Click(object sender, EventArgs e)
+        {
+            if (dgvFormOS.SelectedRows.Count > 0)
+            {
+                var obraSocialSeleccionada = dgvFormOS.SelectedRows[0].DataBoundItem as ObraSocial;
+                if (obraSocialSeleccionada != null)
+                {
+                    var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar esta obra social?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        await ObraSocialApiClient.DeleteAsync(obraSocialSeleccionada.Id);
+                        MessageBox.Show("Obra social eliminada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        await ObtenerDatos();
+                    }
+                }
+            }
         }
 
         private void BtnVolver_Click(object sender, EventArgs e)

@@ -23,6 +23,7 @@ namespace SmileSoft.WebAPI
             app.MapAuthEndpoints();
             app.MapObraSocialEndpoints();
             app.MapUsuarioEndpoints();
+            app.MapTipoPlanesEndpoints();
             app.Run();
 
         }

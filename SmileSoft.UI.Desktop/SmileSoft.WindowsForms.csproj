@@ -28,10 +28,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="FormHomeOS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormHomeTipoPlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormHomeUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormHomeSecretario.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormHomeOdontologo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormTipoPlan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormUsuario.cs">

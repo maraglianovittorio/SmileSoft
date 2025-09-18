@@ -1,5 +1,6 @@
 ﻿using DTO;
 using SmileSoft.Services;
+using SmileSoft.Dominio;
 
 namespace SmileSoft.WebAPI
 {

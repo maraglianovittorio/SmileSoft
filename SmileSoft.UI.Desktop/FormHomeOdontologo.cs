@@ -22,7 +22,7 @@ namespace SmileSoft.UI.Desktop
             // Estilo principal - Tema azul elegante
             this.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
             this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
-            this.Text = "SmileSoft - Pagina Principal";
+            this.Text = "SmileSoft - Pagina Principal Odontologo";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450); // Tamaño mínimo
 

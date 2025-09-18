@@ -18,7 +18,7 @@ namespace DTO
         [StringLength(100, ErrorMessage = "La descripcion no puede exceder 100 caracteres")]
         public string Descripcion { get; set; } = string.Empty;
 
-        public int IdObraSocial { get; set; }
+        public int ObraSocialId { get; set; }
 
 
     }

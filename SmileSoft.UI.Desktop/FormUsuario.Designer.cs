@@ -41,7 +41,7 @@
             // lblNombrePaciente
             // 
             lblNombrePaciente.AutoSize = true;
-            lblNombrePaciente.Location = new Point(178, 39);
+            lblNombrePaciente.Location = new Point(146, 39);
             lblNombrePaciente.Margin = new Padding(2, 0, 2, 0);
             lblNombrePaciente.Name = "lblNombrePaciente";
             lblNombrePaciente.Size = new Size(109, 15);

@@ -58,7 +58,7 @@
             dgvFormPaciente.RowHeadersWidth = 62;
             dgvFormPaciente.Size = new Size(759, 223);
             dgvFormPaciente.TabIndex = 0;
-            dgvFormPaciente.SelectionChanged += dgvFormHome_SelectionChanged;
+            dgvFormPaciente.SelectionChanged += dgvFormHomePacientes_SelectionChanged;
             // 
             // textBox1
             // 
@@ -160,7 +160,7 @@
             MinimumSize = new Size(565, 286);
             Name = "FormHomePaciente";
             Text = "FormHomePage";
-            Load += FormHomePage_Load;
+            Load += FormHomePacientes_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFormPaciente).EndInit();
             ((System.ComponentModel.ISupportInitialize)lupaPng).EndInit();
             ((System.ComponentModel.ISupportInitialize)pacienteBindingSource).EndInit();

@@ -149,20 +149,20 @@ namespace SmileSoft.WindowsForms
                 case "ADMIN":
                     var formHomeSU = new FormHomeSuperUsuario();
                     formHomeSU.Text = $"SmileSoft - Administrador ({username})";
-                    formHomeSU.Show();
+                    formHomeSU.ShowDialog();
                     break;
 
                 case "ODONTOLOGO":
                     // Por el momento, odontologo tiene las mismas funciones que secretario
                     var formHomeOdontologo = new FormHomeOdontologo();
                     formHomeOdontologo.Text = $"SmileSoft - Odontólogo ({username})";
-                    formHomeOdontologo.Show();
+                    formHomeOdontologo.ShowDialog();
                     break;
 
                 //case "SECRETARIO":
                 //    var formHomeSecretario = new FormHomeSecretario();
                 //    formHomeSecretario.Text = $"SmileSoft - Secretario ({username})";
-                //    formHomeSecretario.Show();
+                //    formHomeSecretario.ShowDialog();
                 //    break;
 
                 default:

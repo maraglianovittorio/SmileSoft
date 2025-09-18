@@ -31,6 +31,7 @@
             btnPacientes = new Button();
             btnObraSocial = new Button();
             btnUsuarios = new Button();
+            btnTipoPlan = new Button();
             SuspendLayout();
             // 
             // btnPacientes
@@ -49,7 +50,7 @@
             btnObraSocial.Location = new Point(234, 57);
             btnObraSocial.Margin = new Padding(2);
             btnObraSocial.Name = "btnObraSocial";
-            btnObraSocial.Size = new Size(111, 46);
+            btnObraSocial.Size = new Size(124, 46);
             btnObraSocial.TabIndex = 1;
             btnObraSocial.Text = "Obras Sociales";
             btnObraSocial.UseVisualStyleBackColor = true;
@@ -66,11 +67,23 @@
             btnUsuarios.UseVisualStyleBackColor = true;
             btnUsuarios.Click += btnUsuarios_Click;
             // 
+            // btnTipoPlan
+            // 
+            btnTipoPlan.Location = new Point(582, 57);
+            btnTipoPlan.Margin = new Padding(2);
+            btnTipoPlan.Name = "btnTipoPlan";
+            btnTipoPlan.Size = new Size(111, 46);
+            btnTipoPlan.TabIndex = 3;
+            btnTipoPlan.Text = "Tipos Plan";
+            btnTipoPlan.UseVisualStyleBackColor = true;
+            btnTipoPlan.Click += btnTipoPlan_Click;
+            // 
             // FormHomeSuperUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(588, 316);
+            ClientSize = new Size(858, 349);
+            Controls.Add(btnTipoPlan);
             Controls.Add(btnUsuarios);
             Controls.Add(btnObraSocial);
             Controls.Add(btnPacientes);
@@ -85,5 +98,6 @@
         private Button btnPacientes;
         private Button btnObraSocial;
         private Button btnUsuarios;
+        private Button btnTipoPlan;
     }
 }

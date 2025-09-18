@@ -71,8 +71,7 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                Paciente pacientePost = new Paciente(paciente.Id,paciente.Nombre,paciente.Apellido,paciente.NroDni,paciente.Direccion,paciente.Email,paciente.FechaNacimiento,paciente.Telefono,paciente.NroAfiliado,paciente.NroHC);
-                HttpResponseMessage response = await client.PostAsJsonAsync("pacientes", pacientePost);
+                HttpResponseMessage response = await client.PostAsJsonAsync("pacientes", paciente);
 
                 if (!response.IsSuccessStatusCode)
                 {

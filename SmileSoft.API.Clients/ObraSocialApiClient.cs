@@ -38,11 +38,11 @@ namespace SmileSoft.API.Clients
             }
             catch (HttpRequestException ex)
             {
-                throw new Exception($"Error de conexión al obtener lista de pacientes: {ex.Message}", ex);
+                throw new Exception($"Error de conexión al obtener lista de obras sociales: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
-                throw new Exception($"Timeout al obtener lista de pacientes: {ex.Message}", ex);
+                throw new Exception($"Timeout al obtener lista de obras sociales: {ex.Message}", ex);
             }
         }
         public static async Task<ObraSocial> GetOneAsync(int id)
@@ -54,6 +54,8 @@ namespace SmileSoft.API.Clients
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<ObraSocial>();
+
+
                 }
                 else
                 {

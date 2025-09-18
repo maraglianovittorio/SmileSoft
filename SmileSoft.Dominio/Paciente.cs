@@ -39,17 +39,6 @@ namespace SmileSoft.Dominio
             //TipoPlanes = new List<TipoPlan>();
             //Atenciones = new List<Atencion>();
         }
-        //public static readonly List<Paciente> ListaP = new();
-        //public static int ObtenerProximoID()
-        //{
-        //    if (ListaP.Count == 0)
-        //    {
-        //        return 1;
-        //    }
-        //    else
-        //    {
-        //        return ListaP.Max(p => p.Id) + 1;
-        //    }
-        //}
+
     }
 }
