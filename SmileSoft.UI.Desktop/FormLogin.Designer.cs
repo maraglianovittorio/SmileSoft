@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
             lblTitulo = new Label();
             lblUsuario = new Label();
             txtUsuario = new TextBox();
@@ -35,6 +36,8 @@
             txtPassword = new TextBox();
             btnLogin = new Button();
             btnCancelar = new Button();
+            imgOjoPassword = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)imgOjoPassword).BeginInit();
             SuspendLayout();
             // 
             // lblTitulo
@@ -43,7 +46,7 @@
             lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblTitulo.Location = new Point(120, 30);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(160, 30);
+            lblTitulo.Size = new Size(174, 30);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "SmileSoft Login";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -54,7 +57,7 @@
             lblUsuario.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblUsuario.Location = new Point(50, 100);
             lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(65, 20);
+            lblUsuario.Size = new Size(67, 20);
             lblUsuario.TabIndex = 1;
             lblUsuario.Text = "Usuario:";
             // 
@@ -73,7 +76,7 @@
             lblPassword.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblPassword.Location = new Point(50, 170);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(89, 20);
+            lblPassword.Size = new Size(92, 20);
             lblPassword.TabIndex = 3;
             lblPassword.Text = "Contraseña:";
             // 
@@ -117,12 +120,26 @@
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
             // 
+            // imgOjoPassword
+            // 
+            imgOjoPassword.ErrorImage = (Image)resources.GetObject("imgOjoPassword.ErrorImage");
+            imgOjoPassword.Image = (Image)resources.GetObject("imgOjoPassword.Image");
+            imgOjoPassword.InitialImage = (Image)resources.GetObject("imgOjoPassword.InitialImage");
+            imgOjoPassword.Location = new Point(321, 195);
+            imgOjoPassword.Name = "imgOjoPassword";
+            imgOjoPassword.Size = new Size(29, 27);
+            imgOjoPassword.SizeMode = PictureBoxSizeMode.StretchImage;
+            imgOjoPassword.TabIndex = 7;
+            imgOjoPassword.TabStop = false;
+            imgOjoPassword.Click += ImgOjoPassword_Click;
+            // 
             // FormLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(240, 248, 255);
             ClientSize = new Size(400, 320);
+            Controls.Add(imgOjoPassword);
             Controls.Add(btnCancelar);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
@@ -138,6 +155,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SmileSoft - Login";
             KeyDown += FormLogin_KeyDown;
+            ((System.ComponentModel.ISupportInitialize)imgOjoPassword).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -151,5 +169,6 @@
         private TextBox txtPassword;
         private Button btnLogin;
         private Button btnCancelar;
+        private PictureBox imgOjoPassword;
     }
 }

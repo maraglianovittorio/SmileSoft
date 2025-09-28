@@ -97,6 +97,12 @@ namespace SmileSoft.UI.Desktop
                     usuarios = (List<Usuario>)usuarioResponse;
                     dgvFormUsuario.Columns["Id"].Visible = false;
                 }
+                else
+                {
+                    dgvFormUsuario.DataSource = null;
+                    usuarios.Clear();
+                    MessageBox.Show("No se encontraron usuarios.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {

@@ -25,7 +25,7 @@ namespace SmileSoft.UI.Desktop
             this.Text = "SmileSoft - Agregar Tipo de Plan";
             LimpiarFormulario();
             ConfigurarEstilos();
-            btnEditarTipoPlan.Visible = false; // Ocultar botón de editar
+            btnEditarTipoPlan.Visible = false; 
         }
 
         public FormTipoPlan(int idTipoPlan)
@@ -34,14 +34,18 @@ namespace SmileSoft.UI.Desktop
             this.Text = "SmileSoft - Editar Tipo de Plan";
             LimpiarFormulario();
             ConfigurarEstilos();
-            btnAgregarTipoPlan.Visible = false; // Ocultar botón de agregar
-            btnEditarTipoPlan.Tag = idTipoPlan; // Guardar el ID del tipo de plan en el Tag del botón de editar
-            PopularFormTipoPlan(idTipoPlan);
+            btnAgregarTipoPlan.Visible = false; 
+            btnEditarTipoPlan.Tag = idTipoPlan;
         }
 
         private async void FormTipoPlan_Load(object sender, EventArgs e)
         {
             await CargarObrasSociales();
+            if (btnEditarTipoPlan.Tag is int idTipoPlan)
+            {
+                PopularFormTipoPlan(idTipoPlan);
+            }
+
         }
 
         private async Task CargarObrasSociales()
@@ -53,11 +57,10 @@ namespace SmileSoft.UI.Desktop
                 {
                     obrasSociales = obrasSocialesResponse.ToList();
                     
-                    // Configurar el ComboBox
                     cmbObraSocial.DataSource = obrasSociales;
-                    cmbObraSocial.DisplayMember = "Nombre"; // Lo que se muestra al usuario
-                    cmbObraSocial.ValueMember = "Id"; // El valor que se obtiene cuando se selecciona
-                    cmbObraSocial.SelectedIndex = -1; // No seleccionar ninguno por defecto
+                    cmbObraSocial.DisplayMember = "Nombre";
+                    cmbObraSocial.ValueMember = "Id"; 
+                    cmbObraSocial.SelectedIndex = -1; 
                 }
                 else
                 {
@@ -152,7 +155,6 @@ namespace SmileSoft.UI.Desktop
             if (cmbObraSocial.Items.Count > 0)
                 cmbObraSocial.SelectedIndex = -1;
 
-            // Enfocar el primer campo
             txtNombreTipoPlan.Focus();
         }
 
@@ -176,8 +178,8 @@ namespace SmileSoft.UI.Desktop
 
                 await TipoPlanApiClient.CreateAsync(tipoPlan);
                 MessageBox.Show("Tipo de plan agregado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se agregó un tipo de plan
-                this.Close(); // Cerrar el formulario después del éxito
+                this.DialogResult = DialogResult.OK; 
+                this.Close(); 
             }
             catch (Exception ex)
             {
@@ -201,7 +203,6 @@ namespace SmileSoft.UI.Desktop
                     txtNombreTipoPlan.Text = tipoPlanResponse.Nombre;
                     txtDescripcionTipoPlan.Text = tipoPlanResponse.Descripcion;
 
-                    // Seleccionar la obra social correspondiente
                     if (tipoPlanResponse.ObraSocialId != -1)
                     {
                         cmbObraSocial.SelectedValue = tipoPlanResponse.ObraSocialId;
@@ -247,8 +248,8 @@ namespace SmileSoft.UI.Desktop
 
                 await TipoPlanApiClient.UpdateAsync(tipoPlan, tipoPlan.Id);
                 MessageBox.Show("Tipo de plan editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se editó un tipo de plan
-                this.Close(); // Cerrar el formulario después del éxito
+                this.DialogResult = DialogResult.OK; 
+                this.Close(); 
             }
             catch (Exception ex)
             {

@@ -81,32 +81,71 @@ namespace SmileSoft.UI.Desktop
                 if (tiposPlanResponse != null && tiposPlanResponse.Count() > 0)
                 {
                     tiposPlan = tiposPlanResponse.ToList();
-                    dgvFormTipoPlan.DataSource = tiposPlan;
-                    // ver como hacer funcionar esto
-                    //foreach (DataGridViewColumn column in dgvFormTipoPlan.Columns)
-                    //{
-                    //    if (column.Name == "IdObraSocial")
-                    //    {
-                    //        int idOS = Convert.ToInt32(dgvFormTipoPlan.CurrentRow.Cells["IdObraSocial"].Value);
-                    //        string nombreOS = ObraSocialApiClient.GetOneAsync(idOS).Result.Nombre;
-                    //        dgvFormTipoPlan.CurrentRow.Cells["IdObraSocial"].Value = nombreOS;
 
-                    //    }
-                    //}
+                    var tiposPlanConObraSocial = new List<object>();
 
+                    foreach (var tipoPlan in tiposPlan)
+                    {
+                        try
+                        {
+                            var obraSocial = await ObraSocialApiClient.GetOneAsync(tipoPlan.ObraSocialId);
+                            string nombreObraSocial = obraSocial?.Nombre ?? "Desconocida";
+
+                            tiposPlanConObraSocial.Add(new
+                            {
+                                Id = tipoPlan.Id,
+                                Nombre = tipoPlan.Nombre,
+                                Descripcion = tipoPlan.Descripcion,
+                                ObraSocialId = tipoPlan.ObraSocialId,
+                                NombreObraSocial = nombreObraSocial
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            tiposPlanConObraSocial.Add(new
+                            {
+                                Id = tipoPlan.Id,
+                                Nombre = tipoPlan.Nombre,
+                                Descripcion = tipoPlan.Descripcion,
+                                ObraSocialId = tipoPlan.ObraSocialId,
+                                NombreObraSocial = "Error al cargar"
+                            });
+                        }
+                    }
+
+                    dgvFormTipoPlan.DataSource = tiposPlanConObraSocial;
+
+                    // Configurar las columnas
                     if (dgvFormTipoPlan.Columns["Id"] != null)
                         dgvFormTipoPlan.Columns["Id"].Visible = false;
 
+                    if (dgvFormTipoPlan.Columns["ObraSocialId"] != null)
+                        dgvFormTipoPlan.Columns["ObraSocialId"].Visible = false;
+
+                    if (dgvFormTipoPlan.Columns["NombreObraSocial"] != null)
+                    {
+                        dgvFormTipoPlan.Columns["NombreObraSocial"].HeaderText = "Obra Social";
+                        dgvFormTipoPlan.Columns["NombreObraSocial"].Width = 150;
+                    }
+
+                    // Reordenar columnas si es necesario
+                    if (dgvFormTipoPlan.Columns["Nombre"] != null)
+                        dgvFormTipoPlan.Columns["Nombre"].DisplayIndex = 0;
+                    if (dgvFormTipoPlan.Columns["Descripcion"] != null)
+                        dgvFormTipoPlan.Columns["Descripcion"].DisplayIndex = 1;
+                    if (dgvFormTipoPlan.Columns["NombreObraSocial"] != null)
+                        dgvFormTipoPlan.Columns["NombreObraSocial"].DisplayIndex = 2;
                 }
                 else
                 {
-                    MessageBox.Show("No hay tipos de plan registrados.", "Información", 
+                    dgvFormTipoPlan.DataSource = tiposPlanResponse;
+                    MessageBox.Show("No hay tipos de plan registrados.", "Información",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los tipos de plan: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar los tipos de plan: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -163,7 +202,9 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormTipoPlan.SelectedRows.Count > 0)
             {
-                var tipoPlanSeleccionado = dgvFormTipoPlan.SelectedRows[0].DataBoundItem as TipoPlanDTO;
+                var idTipoPlan = (int)dgvFormTipoPlan.SelectedRows[0].Cells["Id"].Value;
+                var tipoPlanSeleccionado = tiposPlan.FirstOrDefault(tp => tp.Id == idTipoPlan);
+
                 if (tipoPlanSeleccionado != null)
                 {
                     FormTipoPlan formTipoPlan = new FormTipoPlan(tipoPlanSeleccionado.Id);
@@ -177,32 +218,36 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormTipoPlan.SelectedRows.Count > 0)
             {
-                var tipoPlanSeleccionado = dgvFormTipoPlan.SelectedRows[0].DataBoundItem as TipoPlanDTO;
+                var idTipoPlan = (int)dgvFormTipoPlan.SelectedRows[0].Cells["Id"].Value;
+                var nombreTipoPlan = dgvFormTipoPlan.SelectedRows[0].Cells["Nombre"].Value?.ToString();
+                var tipoPlanSeleccionado = tiposPlan.FirstOrDefault(tp => tp.Id == idTipoPlan);
+
                 if (tipoPlanSeleccionado != null)
                 {
                     var confirmResult = MessageBox.Show(
-                        $"¿Estás seguro de que deseas eliminar el tipo de plan '{tipoPlanSeleccionado.Nombre}'?", 
-                        "Confirmar eliminación", 
-                        MessageBoxButtons.YesNo, 
+                        $"¿Estás seguro de que deseas eliminar el tipo de plan '{nombreTipoPlan}'?",
+                        "Confirmar eliminación",
+                        MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
-                        
+
                     if (confirmResult == DialogResult.Yes)
                     {
                         try
                         {
                             await TipoPlanApiClient.DeleteAsync(tipoPlanSeleccionado.Id);
-                            MessageBox.Show("Tipo de plan eliminado correctamente", "Éxito", 
+                            MessageBox.Show("Tipo de plan eliminado correctamente", "Éxito",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                             await ObtenerDatos();
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show($"Error al eliminar el tipo de plan: {ex.Message}", "Error", 
+                            MessageBox.Show($"Error al eliminar el tipo de plan: {ex.Message}", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
             }
+
         }
 
         private void BtnVolver_Click(object sender, EventArgs e)

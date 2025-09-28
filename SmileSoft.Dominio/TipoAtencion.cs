@@ -13,5 +13,12 @@ namespace SmileSoft.Dominio
         public TimeSpan Duracion { get; set; }
 
         public ICollection<Atencion> Atenciones { get; set; }
+        public TipoAtencion(int id,string descripcion, TimeSpan duracion)
+        {
+            Id = id;
+            Descripcion = descripcion;
+            Duracion = duracion;
+            Atenciones = new List<Atencion>();
+        }
     }
 }

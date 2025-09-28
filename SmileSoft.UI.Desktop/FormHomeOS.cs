@@ -85,6 +85,13 @@ namespace SmileSoft.UI.Desktop
                     dgvFormOS.DataSource = OSResponse;
                     obrasSociales = (List<ObraSocial>)OSResponse;
                     dgvFormOS.Columns["Id"].Visible = false;
+                    dgvFormOS.Columns["TipoPlanes"].Visible = false;
+                }
+                else
+                {
+                    dgvFormOS.DataSource = null;
+                    obrasSociales.Clear();
+                    MessageBox.Show("No se encontraron obras sociales.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

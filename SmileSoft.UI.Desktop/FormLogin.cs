@@ -19,6 +19,8 @@ namespace SmileSoft.WindowsForms
             InitializeComponent();
             ConfigurarEstilos();
         }
+        private bool passwordVisible = false;
+
 
         private void ConfigurarEstilos()
         {
@@ -60,13 +62,13 @@ namespace SmileSoft.WindowsForms
                 lblUsuario.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                 lblUsuario.ForeColor = Color.FromArgb(25, 25, 112); // MidnightBlue
             }
-            
+
             if (lblPassword != null)
             {
                 lblPassword.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                 lblPassword.ForeColor = Color.FromArgb(25, 25, 112); // MidnightBlue
             }
-            
+
             if (lblTitulo != null)
             {
                 lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -76,7 +78,7 @@ namespace SmileSoft.WindowsForms
             // Estilo para textboxes
             if (txtUsuario != null)
                 txtUsuario.Font = new Font("Segoe UI", 11F);
-            
+
             if (txtPassword != null)
                 txtPassword.Font = new Font("Segoe UI", 11F);
         }
@@ -86,7 +88,7 @@ namespace SmileSoft.WindowsForms
             // Validaciones básicas
             if (string.IsNullOrWhiteSpace(txtUsuario.Text))
             {
-                MessageBox.Show("Por favor ingrese el nombre de usuario.", "Campo requerido", 
+                MessageBox.Show("Por favor ingrese el nombre de usuario.", "Campo requerido",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtUsuario.Focus();
                 return;
@@ -94,7 +96,7 @@ namespace SmileSoft.WindowsForms
 
             if (string.IsNullOrWhiteSpace(txtPassword.Text))
             {
-                MessageBox.Show("Por favor ingrese la contraseña.", "Campo requerido", 
+                MessageBox.Show("Por favor ingrese la contraseña.", "Campo requerido",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPassword.Focus();
                 return;
@@ -107,12 +109,12 @@ namespace SmileSoft.WindowsForms
             try
             {
                 var loginResponse = await AuthApiClient.Login(txtUsuario.Text, txtPassword.Text);
-                
+
                 if (loginResponse != null && loginResponse.IsSuccess)
                 {
-                    MessageBox.Show($"Bienvenido {loginResponse.Username}", "Login Exitoso", 
+                    MessageBox.Show($"Bienvenido {loginResponse.Username}", "Login Exitoso",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     this.DialogResult = DialogResult.OK;
                     MostrarFormularioSegunRol(loginResponse.Rol, loginResponse.Username);
                     this.Hide();
@@ -120,7 +122,7 @@ namespace SmileSoft.WindowsForms
                 else
                 {
                     // Credenciales inválidas
-                    MessageBox.Show("Usuario o contraseña incorrectos.", "Error de autenticación", 
+                    MessageBox.Show("Usuario o contraseña incorrectos.", "Error de autenticación",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtPassword.Clear();
                     txtUsuario.Focus();
@@ -128,7 +130,7 @@ namespace SmileSoft.WindowsForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error durante la autenticación: {ex.Message}", "Error", 
+                MessageBox.Show($"Error durante la autenticación: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPassword.Clear();
                 txtUsuario.Focus();
@@ -147,26 +149,26 @@ namespace SmileSoft.WindowsForms
             switch (rol.ToUpper())
             {
                 case "ADMIN":
-                    var formHomeSU = new FormHomeSuperUsuario();
+                    FormHomeSuperUsuario formHomeSU = new FormHomeSuperUsuario();
                     formHomeSU.Text = $"SmileSoft - Administrador ({username})";
                     formHomeSU.ShowDialog();
                     break;
 
                 case "ODONTOLOGO":
                     // Por el momento, odontologo tiene las mismas funciones que secretario
-                    var formHomeOdontologo = new FormHomeOdontologo();
+                    FormHomeOdontologo formHomeOdontologo = new FormHomeOdontologo();
                     formHomeOdontologo.Text = $"SmileSoft - Odontólogo ({username})";
                     formHomeOdontologo.ShowDialog();
                     break;
 
-                //case "SECRETARIO":
-                //    var formHomeSecretario = new FormHomeSecretario();
-                //    formHomeSecretario.Text = $"SmileSoft - Secretario ({username})";
-                //    formHomeSecretario.ShowDialog();
-                //    break;
+                case "SECRETARIO":
+                    FormHomeSecretario formHomeSecretario = new FormHomeSecretario();
+                    formHomeSecretario.Text = $"SmileSoft - Secretario ({username})";
+                    formHomeSecretario.ShowDialog();
+                    break;
 
                 default:
-                    MessageBox.Show($"Rol '{rol}' no reconocido.", 
+                    MessageBox.Show($"Rol '{rol}' no reconocido.",
                         "Error de configuración", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
@@ -204,6 +206,13 @@ namespace SmileSoft.WindowsForms
             {
                 txtPassword.Focus();
             }
+        }
+
+        private void ImgOjoPassword_Click(object sender, EventArgs e)
+        {
+            passwordVisible = !passwordVisible;
+            txtPassword.PasswordChar = passwordVisible ? '\0' : '●';
+ 
         }
     }
 }

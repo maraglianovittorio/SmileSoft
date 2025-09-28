@@ -86,6 +86,12 @@ namespace SmileSoft.UI.Desktop
                     pacientes = (List<Paciente>)pacientesResponse;
                     dgvFormPaciente.Columns["Id"].Visible = false;
                 }
+                else
+                {
+                    dgvFormPaciente.DataSource = null;
+                    pacientes.Clear();
+                    MessageBox.Show("No se encontraron pacientes.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {

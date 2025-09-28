@@ -100,7 +100,7 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync($"obrasocial/id?id={id}");
+                HttpResponseMessage response = await client.DeleteAsync($"obrasocial/{id}");
 
                 if (!response.IsSuccessStatusCode)
                 {

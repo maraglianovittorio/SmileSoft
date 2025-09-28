@@ -17,7 +17,7 @@ namespace SmileSoft.Data
         public DbSet<TipoPlan> TipoPlanes { get; set; }
         public DbSet<Odontologo> Odontologos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-
+        public DbSet<TipoAtencion> TipoAtenciones { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -93,6 +93,12 @@ namespace SmileSoft.Data
                 entity.HasIndex(e => e.Username).IsUnique();
                 entity.Property(e => e.Password).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.Rol).IsRequired().HasMaxLength(50);
+            });
+            modelBuilder.Entity<TipoAtencion>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Descripcion).HasMaxLength(250);
+                entity.Property(e => e.Duracion).IsRequired().HasMaxLength(100);
             });
         }
     }
