@@ -130,7 +130,7 @@ namespace SmileSoft.UI.Desktop
         {
             txtUsername.Clear();
             txtPassword.Clear();
-            txtRol.Clear();
+            cbRol.SelectedIndex = -1;
 
             // Enfocar el primer campo
             txtUsername.Focus();
@@ -147,11 +147,11 @@ namespace SmileSoft.UI.Desktop
             if (string.IsNullOrWhiteSpace(txtPassword.Text))
                 errores.Add("• El password es obligatorio");
 
-            if (string.IsNullOrWhiteSpace(txtRol.Text))
+            if (string.IsNullOrWhiteSpace(cbRol.Text))
                 errores.Add("• El rol es obligatorio");
 
-            if (txtRol.Text.ToUpper() != "ADMIN" && txtRol.Text.ToUpper() != "ODONTOLOGO" && txtRol.Text.ToUpper() != "SECRETARIO")
-                errores.Add("• El rol debe ser 'Admin', 'Odontologo', o 'Secretario'");
+            //if (cbRol.Text.ToUpper() != "ADMIN" && cbRol.Text.ToUpper() != "ODONTOLOGO" && cbRol.Text.ToUpper() != "SECRETARIO")
+            //    errores.Add("• El rol debe ser 'Admin', 'Odontologo', o 'Secretario'");
             // Mostrar errores si los hay
             if (errores.Count > 0)
             {
@@ -174,7 +174,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     txtUsername.Text = pacienteResponse.Username;
                     txtPassword.Text = pacienteResponse.Password;
-                    txtRol.Text = pacienteResponse.Rol;
+                    cbRol.Text = pacienteResponse.Rol;
 
 
                 }
@@ -203,7 +203,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     Username = txtUsername.Text.Trim(),
                     Password = txtPassword.Text.Trim(),
-                    Rol = txtRol.Text.Trim(),
+                    Rol = cbRol.Text.Trim(),
                 };
 
                 btnAgregarUsuario.Text = "Enviando...";
@@ -246,7 +246,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     Username = txtUsername.Text.Trim(),
                     Password = txtPassword.Text.Trim(),
-                    Rol = txtRol.Text.Trim(),
+                    Rol = cbRol.Text.Trim(),
                 };
 
                 btnEditarUsuario.Text = "Enviando...";

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DTO;
+using SmileSoft.API.Clients;
+using SmileSoft.UI.Desktop;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,8 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SmileSoft.UI.Desktop;
-using SmileSoft.API.Clients;
 
 namespace SmileSoft.WindowsForms
 {
@@ -119,6 +120,15 @@ namespace SmileSoft.WindowsForms
                     MostrarFormularioSegunRol(loginResponse.Rol, loginResponse.Username);
                     this.Hide();
                 }
+                else if (txtUsuario.Text=="Admin" && txtPassword.Text=="admin")
+                {
+                    // Credenciales de demo
+                    MessageBox.Show("Bienvenido Admin (Demo)", "Login Exitoso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.OK;
+                    MostrarFormularioSegunRol("ADMIN", "Admin (Demo)");
+                    this.Hide();
+                }
                 else
                 {
                     // Credenciales inválidas
@@ -212,7 +222,7 @@ namespace SmileSoft.WindowsForms
         {
             passwordVisible = !passwordVisible;
             txtPassword.PasswordChar = passwordVisible ? '\0' : '●';
- 
+
         }
     }
 }

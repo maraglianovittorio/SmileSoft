@@ -98,7 +98,7 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync($"usuarios/id?id={id}");
+                HttpResponseMessage response = await client.DeleteAsync($"usuarios/{id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
