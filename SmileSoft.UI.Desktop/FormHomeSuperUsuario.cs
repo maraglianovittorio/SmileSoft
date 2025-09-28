@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmileSoft.WindowsForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -76,6 +77,12 @@ namespace SmileSoft.UI.Desktop
         {
             FormHomeTipoAtencion formTipoAtencion = new FormHomeTipoAtencion();
             formTipoAtencion.ShowDialog();
+        }
+
+        private void btnMenuAlt_Click(object sender, EventArgs e)
+        {
+            FormInicioAlternativo formInicioAlternativo= new FormInicioAlternativo();
+            formInicioAlternativo.ShowDialog();
         }
     }
 }

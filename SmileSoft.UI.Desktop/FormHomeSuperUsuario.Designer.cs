@@ -33,6 +33,7 @@
             btnUsuarios = new Button();
             btnTipoPlan = new Button();
             btnTipoAtencion = new Button();
+            btnMenuAlt = new Button();
             SuspendLayout();
             // 
             // btnPacientes
@@ -90,11 +91,25 @@
             btnTipoAtencion.UseVisualStyleBackColor = true;
             btnTipoAtencion.Click += btnTipoAtencion_Click;
             // 
+            // btnMenuAlt
+            // 
+            btnMenuAlt.BackColor = Color.Orange;
+            btnMenuAlt.ForeColor = SystemColors.MenuHighlight;
+            btnMenuAlt.Location = new Point(223, 159);
+            btnMenuAlt.Margin = new Padding(2);
+            btnMenuAlt.Name = "btnMenuAlt";
+            btnMenuAlt.Size = new Size(111, 46);
+            btnMenuAlt.TabIndex = 5;
+            btnMenuAlt.Text = "Menu alernativo";
+            btnMenuAlt.UseVisualStyleBackColor = false;
+            btnMenuAlt.Click += btnMenuAlt_Click;
+            // 
             // FormHomeSuperUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(858, 349);
+            Controls.Add(btnMenuAlt);
             Controls.Add(btnTipoAtencion);
             Controls.Add(btnTipoPlan);
             Controls.Add(btnUsuarios);
@@ -113,5 +128,6 @@
         private Button btnUsuarios;
         private Button btnTipoPlan;
         private Button btnTipoAtencion;
+        private Button btnMenuAlt;
     }
 }
