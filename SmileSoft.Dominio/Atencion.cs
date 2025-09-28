@@ -14,7 +14,7 @@ namespace SmileSoft.Dominio
         public string Estado { get; set; } = string.Empty;// Los estados posibles son: "Otorgada", "En espera","Cancelada" y "Finalizada"
         public string Observaciones { get; set; } = string.Empty;
 
-        public TipoAtencion TipoAtencion { get; set; } = new TipoAtencion();
+        //public TipoAtencion TipoAtencion { get; set; } = new TipoAtencion();
         public Odontologo Odontologo { get; set; } = new Odontologo();
         public Paciente Paciente { get; set; }
     }

@@ -20,7 +20,7 @@ namespace SmileSoft.WebAPI
                 TipoAtencionService tipoAtencionService = new TipoAtencionService();
                 TipoAtencion dto = tipoAtencionService.GetTipoAtencion(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
-            }).WithName("GetTipoAtencion");
+            }).WithName("GetOneTipoAtencion");
             app.MapPost("/tipoatencion", (TipoAtencionDTO tipoAtencionDTO) =>
             {
                 try

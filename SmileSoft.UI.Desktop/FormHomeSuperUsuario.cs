@@ -35,6 +35,7 @@ namespace SmileSoft.UI.Desktop
                     btnObraSocial.BackColor = Color.FromArgb(70, 130, 180); // Crimson
                     btnUsuarios.BackColor = Color.FromArgb(70, 130, 180); // MediumSeaGreen
                     btnTipoPlan.BackColor = Color.FromArgb(70, 130, 180); // MediumSeaGreen
+                    btnTipoAtencion.BackColor = Color.FromArgb(70, 130, 180); // MediumSeaGreen
                     btn.ForeColor = Color.White;
                     btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                     btn.FlatStyle = FlatStyle.Flat;
@@ -69,6 +70,12 @@ namespace SmileSoft.UI.Desktop
         {
             FormHomeTipoPlan formTipoPlan = new FormHomeTipoPlan();
             formTipoPlan.ShowDialog();
+        }
+
+        private void btnTipoAtencion_Click(object sender, EventArgs e)
+        {
+            FormHomeTipoAtencion formTipoAtencion = new FormHomeTipoAtencion();
+            formTipoAtencion.ShowDialog();
         }
     }
 }

@@ -32,6 +32,7 @@
             btnObraSocial = new Button();
             btnUsuarios = new Button();
             btnTipoPlan = new Button();
+            btnTipoAtencion = new Button();
             SuspendLayout();
             // 
             // btnPacientes
@@ -47,7 +48,7 @@
             // 
             // btnObraSocial
             // 
-            btnObraSocial.Location = new Point(234, 57);
+            btnObraSocial.Location = new Point(223, 57);
             btnObraSocial.Margin = new Padding(2);
             btnObraSocial.Name = "btnObraSocial";
             btnObraSocial.Size = new Size(124, 46);
@@ -58,7 +59,7 @@
             // 
             // btnUsuarios
             // 
-            btnUsuarios.Location = new Point(411, 57);
+            btnUsuarios.Location = new Point(401, 57);
             btnUsuarios.Margin = new Padding(2);
             btnUsuarios.Name = "btnUsuarios";
             btnUsuarios.Size = new Size(111, 46);
@@ -69,7 +70,7 @@
             // 
             // btnTipoPlan
             // 
-            btnTipoPlan.Location = new Point(582, 57);
+            btnTipoPlan.Location = new Point(573, 57);
             btnTipoPlan.Margin = new Padding(2);
             btnTipoPlan.Name = "btnTipoPlan";
             btnTipoPlan.Size = new Size(111, 46);
@@ -78,11 +79,23 @@
             btnTipoPlan.UseVisualStyleBackColor = true;
             btnTipoPlan.Click += btnTipoPlan_Click;
             // 
+            // btnTipoAtencion
+            // 
+            btnTipoAtencion.Location = new Point(46, 159);
+            btnTipoAtencion.Margin = new Padding(2);
+            btnTipoAtencion.Name = "btnTipoAtencion";
+            btnTipoAtencion.Size = new Size(111, 46);
+            btnTipoAtencion.TabIndex = 4;
+            btnTipoAtencion.Text = "Tipos Atencion";
+            btnTipoAtencion.UseVisualStyleBackColor = true;
+            btnTipoAtencion.Click += btnTipoAtencion_Click;
+            // 
             // FormHomeSuperUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(858, 349);
+            Controls.Add(btnTipoAtencion);
             Controls.Add(btnTipoPlan);
             Controls.Add(btnUsuarios);
             Controls.Add(btnObraSocial);
@@ -99,5 +112,6 @@
         private Button btnObraSocial;
         private Button btnUsuarios;
         private Button btnTipoPlan;
+        private Button btnTipoAtencion;
     }
 }
