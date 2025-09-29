@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmileSoft.WindowsForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -48,5 +49,11 @@ namespace SmileSoft.UI.Desktop
             formHomePagePaciente.ShowDialog();
         }
 
+        private void BtnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            FormLogin formLogin = new FormLogin();
+            this.Close();
+            formLogin.Show();
+        }
     }
 }

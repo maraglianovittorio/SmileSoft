@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblNombrePaciente = new Label();
-            lblDNIPaciente = new Label();
-            lblApellidoPaciente = new Label();
+            lblUsername = new Label();
+            lblRol = new Label();
+            lblPassword = new Label();
             txtUsername = new TextBox();
             txtPassword = new TextBox();
             btnAgregarUsuario = new Button();
@@ -39,35 +39,35 @@
             cbRol = new ComboBox();
             SuspendLayout();
             // 
-            // lblNombrePaciente
+            // lblUsername
             // 
-            lblNombrePaciente.AutoSize = true;
-            lblNombrePaciente.Location = new Point(146, 48);
-            lblNombrePaciente.Margin = new Padding(2, 0, 2, 0);
-            lblNombrePaciente.Name = "lblNombrePaciente";
-            lblNombrePaciente.Size = new Size(109, 15);
-            lblNombrePaciente.TabIndex = 0;
-            lblNombrePaciente.Text = "Nombre de usuario";
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new Point(113, 48);
+            lblUsername.Margin = new Padding(2, 0, 2, 0);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(109, 15);
+            lblUsername.TabIndex = 0;
+            lblUsername.Text = "Nombre de usuario";
             // 
-            // lblDNIPaciente
+            // lblRol
             // 
-            lblDNIPaciente.AutoSize = true;
-            lblDNIPaciente.Location = new Point(231, 105);
-            lblDNIPaciente.Margin = new Padding(2, 0, 2, 0);
-            lblDNIPaciente.Name = "lblDNIPaciente";
-            lblDNIPaciente.Size = new Size(24, 15);
-            lblDNIPaciente.TabIndex = 3;
-            lblDNIPaciente.Text = "Rol";
+            lblRol.AutoSize = true;
+            lblRol.Location = new Point(231, 105);
+            lblRol.Margin = new Padding(2, 0, 2, 0);
+            lblRol.Name = "lblRol";
+            lblRol.Size = new Size(24, 15);
+            lblRol.TabIndex = 4;
+            lblRol.Text = "Rol";
             // 
-            // lblApellidoPaciente
+            // lblPassword
             // 
-            lblApellidoPaciente.AutoSize = true;
-            lblApellidoPaciente.Location = new Point(188, 77);
-            lblApellidoPaciente.Margin = new Padding(2, 0, 2, 0);
-            lblApellidoPaciente.Name = "lblApellidoPaciente";
-            lblApellidoPaciente.Size = new Size(67, 15);
-            lblApellidoPaciente.TabIndex = 4;
-            lblApellidoPaciente.Text = "Contraseña";
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(173, 77);
+            lblPassword.Margin = new Padding(2, 0, 2, 0);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(67, 15);
+            lblPassword.TabIndex = 2;
+            lblPassword.Text = "Contraseña";
             // 
             // txtUsername
             // 
@@ -75,7 +75,7 @@
             txtUsername.Margin = new Padding(2);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(124, 23);
-            txtUsername.TabIndex = 8;
+            txtUsername.TabIndex = 1;
             // 
             // txtPassword
             // 
@@ -83,7 +83,7 @@
             txtPassword.Margin = new Padding(2);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(124, 23);
-            txtPassword.TabIndex = 9;
+            txtPassword.TabIndex = 3;
             // 
             // btnAgregarUsuario
             // 
@@ -91,7 +91,7 @@
             btnAgregarUsuario.Margin = new Padding(2);
             btnAgregarUsuario.Name = "btnAgregarUsuario";
             btnAgregarUsuario.Size = new Size(83, 27);
-            btnAgregarUsuario.TabIndex = 16;
+            btnAgregarUsuario.TabIndex = 6;
             btnAgregarUsuario.Text = "Enviar";
             btnAgregarUsuario.UseVisualStyleBackColor = true;
             btnAgregarUsuario.Click += btnEnviar_Click;
@@ -102,7 +102,7 @@
             btnEditarUsuario.Margin = new Padding(2);
             btnEditarUsuario.Name = "btnEditarUsuario";
             btnEditarUsuario.Size = new Size(83, 27);
-            btnEditarUsuario.TabIndex = 18;
+            btnEditarUsuario.TabIndex = 7;
             btnEditarUsuario.Text = "Editar";
             btnEditarUsuario.UseVisualStyleBackColor = true;
             btnEditarUsuario.Click += btnEditarPaciente_Click;
@@ -113,18 +113,18 @@
             lbNuevoUsuario.Font = new Font("Segoe UI", 16F);
             lbNuevoUsuario.Location = new Point(173, 7);
             lbNuevoUsuario.Name = "lbNuevoUsuario";
-            lbNuevoUsuario.Size = new Size(208, 30);
+            lbNuevoUsuario.Size = new Size(0, 30);
             lbNuevoUsuario.TabIndex = 19;
-            lbNuevoUsuario.Text = "Crear nuevo usuario";
             // 
             // cbRol
             // 
+            cbRol.DropDownStyle = ComboBoxStyle.DropDownList;
             cbRol.FormattingEnabled = true;
             cbRol.Items.AddRange(new object[] { "Admin", "Odontologo", "Secretario" });
             cbRol.Location = new Point(270, 102);
             cbRol.Name = "cbRol";
             cbRol.Size = new Size(124, 23);
-            cbRol.TabIndex = 20;
+            cbRol.TabIndex = 5;
             // 
             // FormUsuario
             // 
@@ -137,9 +137,9 @@
             Controls.Add(btnAgregarUsuario);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
-            Controls.Add(lblApellidoPaciente);
-            Controls.Add(lblDNIPaciente);
-            Controls.Add(lblNombrePaciente);
+            Controls.Add(lblPassword);
+            Controls.Add(lblRol);
+            Controls.Add(lblUsername);
             Margin = new Padding(2);
             Name = "FormUsuario";
             ResumeLayout(false);
@@ -148,9 +148,9 @@
 
         #endregion
 
-        private Label lblNombrePaciente;
-        private Label lblDNIPaciente;
-        private Label lblApellidoPaciente;
+        private Label lblUsername;
+        private Label lblRol;
+        private Label lblPassword;
         private TextBox txtUsername;
         private TextBox txtPassword;
         private TextBox txtRol;

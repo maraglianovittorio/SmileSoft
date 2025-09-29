@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             btnPacientes = new Button();
+            BtnCerrarSesion = new Button();
             SuspendLayout();
             // 
             // btnPacientes
@@ -42,11 +43,23 @@
             btnPacientes.UseVisualStyleBackColor = true;
             btnPacientes.Click += btnPacientes_Click;
             // 
+            // BtnCerrarSesion
+            // 
+            BtnCerrarSesion.BackColor = SystemColors.ActiveCaption;
+            BtnCerrarSesion.Location = new Point(511, 271);
+            BtnCerrarSesion.Name = "BtnCerrarSesion";
+            BtnCerrarSesion.Size = new Size(133, 41);
+            BtnCerrarSesion.TabIndex = 9;
+            BtnCerrarSesion.Text = "Cerrar sesion";
+            BtnCerrarSesion.UseVisualStyleBackColor = false;
+            BtnCerrarSesion.Click += BtnCerrarSesion_Click;
+            // 
             // FormHomeOdontologo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(394, 177);
+            ClientSize = new Size(656, 324);
+            Controls.Add(BtnCerrarSesion);
             Controls.Add(btnPacientes);
             Margin = new Padding(2);
             Name = "FormHomeOdontologo";
@@ -57,5 +70,6 @@
         #endregion
 
         private Button btnPacientes;
+        private Button BtnCerrarSesion;
     }
 }

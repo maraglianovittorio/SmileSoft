@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SmileSoft.WindowsForms;
 
 namespace SmileSoft.UI.Desktop
 {
@@ -48,5 +49,11 @@ namespace SmileSoft.UI.Desktop
             formHomePagePaciente.ShowDialog();
         }
 
+        private void BtnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            FormLogin formLogin = new FormLogin();
+            this.Close();
+            formLogin.Show();
+        }
     }
 }

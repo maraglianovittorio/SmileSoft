@@ -32,7 +32,7 @@ namespace SmileSoft.Services
             return usuarioRepository.Delete(id);
         }
         
-        public UsuarioDTO GetUsuario(int id)
+        public UsuarioUpdateDTO GetUsuario(int id)
         {
             var usuarioRepository = new UsuarioRepository();
             Usuario? usuario = usuarioRepository.Get(id);
@@ -40,9 +40,10 @@ namespace SmileSoft.Services
             {
                 throw new Exception("No se encontró el usuario.");
             }
-            return new UsuarioDTO
+            return new UsuarioUpdateDTO
             {
                 Id = usuario.Id,
+                Password = usuario.Password,
                 Username = usuario.Username,
                 Rol = usuario.Rol
             };

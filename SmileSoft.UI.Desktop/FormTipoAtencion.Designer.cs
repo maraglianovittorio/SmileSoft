@@ -96,9 +96,11 @@
             // mskTxtDuracion
             // 
             mskTxtDuracion.Location = new Point(302, 71);
+            mskTxtDuracion.Mask = "00:00";
             mskTxtDuracion.Name = "mskTxtDuracion";
             mskTxtDuracion.Size = new Size(106, 23);
-            mskTxtDuracion.TabIndex = 6;
+            mskTxtDuracion.TabIndex = 3;
+            mskTxtDuracion.ValidatingType = typeof(DateTime);
             // 
             // FormTipoAtencion
             // 

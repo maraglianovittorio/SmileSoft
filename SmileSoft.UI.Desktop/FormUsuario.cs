@@ -47,10 +47,9 @@ namespace SmileSoft.UI.Desktop
                     lbl.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
 
                     // Marcar campos obligatorios con asterisco
-                    if (lbl.Name == "lblNombrePaciente" ||
-                        lbl.Name == "lblApellidoPaciente" ||
-                        lbl.Name == "lblDNIPaciente" ||
-                        lbl.Name == "lblNroHC")
+                    if (lbl.Name == "lblUsername" ||
+                        lbl.Name == "lblPassword" ||
+                        lbl.Name == "lblRol")
                     {
                         lbl.Text = lbl.Text.TrimEnd(':') + " *";
                         lbl.ForeColor = Color.FromArgb(220, 20, 60); // Crimson para campos obligatorios
@@ -92,10 +91,10 @@ namespace SmileSoft.UI.Desktop
             }
 
             // Manejar el evento de redimensionado para mantener todo centrado
-            this.Resize += formPaciente_Resize;
+            this.Resize += formUsuario_Resize;
         }
 
-        private void formPaciente_Resize(object sender, EventArgs e)
+        private void formUsuario_Resize(object sender, EventArgs e)
         {
             // Centrar todos los controles manteniendo sus posiciones relativas
             int centerX = this.ClientSize.Width / 2;
@@ -110,11 +109,11 @@ namespace SmileSoft.UI.Desktop
                 // Obtener posición original relativa al centro
                 int originalX = 0, originalY = 0;
 
-                if (control == lblNombrePaciente) { originalX = 255; originalY = 65; }
+                if (control == lblUsername) { originalX = 255; originalY = 65; }
                 else if (control == txtUsername) { originalX = 435; originalY = 65; }
-                else if (control == lblApellidoPaciente) { originalX = 255; originalY = 115; }
+                else if (control == lblPassword) { originalX = 255; originalY = 115; }
                 else if (control == txtPassword) { originalX = 435; originalY = 109; }
-                else if (control == lblDNIPaciente) { originalX = 255; originalY = 161; }
+                else if (control == lblRol) { originalX = 255; originalY = 161; }
                 else if (control == txtRol) { originalX = 435; originalY = 155; }
                 else if (control == btnAgregarUsuario) { originalX = 385; originalY = 477; }
 
@@ -169,18 +168,18 @@ namespace SmileSoft.UI.Desktop
             LimpiarFormulario();
             try
             {
-                var pacienteResponse = await UsuarioApiClient.GetOneAsync(idUsuario);
-                if (pacienteResponse != null)
+                var usuarioResponse = await UsuarioApiClient.GetOneAsync(idUsuario);
+                if (usuarioResponse != null)
                 {
-                    txtUsername.Text = pacienteResponse.Username;
-                    txtPassword.Text = pacienteResponse.Password;
-                    cbRol.Text = pacienteResponse.Rol;
+                    txtUsername.Text = usuarioResponse.Username;
+                    txtPassword.Text = usuarioResponse.Password;
+                    cbRol.Text = usuarioResponse.Rol;
 
 
                 }
                 else
                 {
-                    MessageBox.Show($"Error al cargar los datos del paciente. Código: {MessageBoxIcon.Error}",
+                    MessageBox.Show($"Error al cargar los datos del usuario. Código: {MessageBoxIcon.Error}",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -238,7 +237,7 @@ namespace SmileSoft.UI.Desktop
             {
                 if (btnEditarUsuario.Tag is not int id)
                 {
-                    MessageBox.Show("Error al obtener el ID del paciente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al obtener el ID del usuario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -253,8 +252,8 @@ namespace SmileSoft.UI.Desktop
                 btnEditarUsuario.Enabled = false;
 
                 await UsuarioApiClient.UpdateAsync(user, (int)btnEditarUsuario.Tag);
-                MessageBox.Show("Paciente editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se editó un paciente
+                MessageBox.Show("Usuario editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK; // Indicar que se editó un usuario 
                 this.Close(); // Cerrar el formulario después del éxito
             }
             catch (HttpRequestException httpEx)

@@ -34,6 +34,7 @@
             btnTipoPlan = new Button();
             btnTipoAtencion = new Button();
             btnMenuAlt = new Button();
+            BtnCerrarSesion = new Button();
             SuspendLayout();
             // 
             // btnPacientes
@@ -85,7 +86,7 @@
             btnTipoAtencion.Location = new Point(46, 159);
             btnTipoAtencion.Margin = new Padding(2);
             btnTipoAtencion.Name = "btnTipoAtencion";
-            btnTipoAtencion.Size = new Size(111, 46);
+            btnTipoAtencion.Size = new Size(118, 60);
             btnTipoAtencion.TabIndex = 4;
             btnTipoAtencion.Text = "Tipos Atencion";
             btnTipoAtencion.UseVisualStyleBackColor = true;
@@ -98,17 +99,29 @@
             btnMenuAlt.Location = new Point(223, 159);
             btnMenuAlt.Margin = new Padding(2);
             btnMenuAlt.Name = "btnMenuAlt";
-            btnMenuAlt.Size = new Size(111, 46);
+            btnMenuAlt.Size = new Size(114, 60);
             btnMenuAlt.TabIndex = 5;
             btnMenuAlt.Text = "Menu alernativo";
             btnMenuAlt.UseVisualStyleBackColor = false;
             btnMenuAlt.Click += btnMenuAlt_Click;
+            // 
+            // BtnCerrarSesion
+            // 
+            BtnCerrarSesion.BackColor = SystemColors.ActiveCaption;
+            BtnCerrarSesion.Location = new Point(702, 296);
+            BtnCerrarSesion.Name = "BtnCerrarSesion";
+            BtnCerrarSesion.Size = new Size(133, 41);
+            BtnCerrarSesion.TabIndex = 8;
+            BtnCerrarSesion.Text = "Cerrar sesion";
+            BtnCerrarSesion.UseVisualStyleBackColor = false;
+            BtnCerrarSesion.Click += BtnVolver_Click;
             // 
             // FormHomeSuperUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(858, 349);
+            Controls.Add(BtnCerrarSesion);
             Controls.Add(btnMenuAlt);
             Controls.Add(btnTipoAtencion);
             Controls.Add(btnTipoPlan);
@@ -129,5 +142,6 @@
         private Button btnTipoPlan;
         private Button btnTipoAtencion;
         private Button btnMenuAlt;
+        private Button BtnCerrarSesion;
     }
 }

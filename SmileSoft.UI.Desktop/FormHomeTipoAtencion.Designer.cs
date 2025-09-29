@@ -98,10 +98,10 @@
             // 
             btnAgregarTipoAtencion.BackColor = SystemColors.MenuHighlight;
             btnAgregarTipoAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnAgregarTipoAtencion.Location = new Point(628, 9);
+            btnAgregarTipoAtencion.Location = new Point(627, 1);
             btnAgregarTipoAtencion.Margin = new Padding(2);
             btnAgregarTipoAtencion.Name = "btnAgregarTipoAtencion";
-            btnAgregarTipoAtencion.Size = new Size(158, 43);
+            btnAgregarTipoAtencion.Size = new Size(158, 60);
             btnAgregarTipoAtencion.TabIndex = 4;
             btnAgregarTipoAtencion.Text = "Agregar tipo atencion";
             btnAgregarTipoAtencion.UseVisualStyleBackColor = false;
@@ -115,7 +115,7 @@
             btnBorrarTipoAtencion.Margin = new Padding(2);
             btnBorrarTipoAtencion.Name = "btnBorrarTipoAtencion";
             btnBorrarTipoAtencion.RightToLeft = RightToLeft.No;
-            btnBorrarTipoAtencion.Size = new Size(134, 42);
+            btnBorrarTipoAtencion.Size = new Size(134, 56);
             btnBorrarTipoAtencion.TabIndex = 5;
             btnBorrarTipoAtencion.Text = "Borrar Tipo Atencion";
             btnBorrarTipoAtencion.UseVisualStyleBackColor = false;
@@ -128,7 +128,7 @@
             btnEditarTipoAtencion.Location = new Point(513, 282);
             btnEditarTipoAtencion.Margin = new Padding(2);
             btnEditarTipoAtencion.Name = "btnEditarTipoAtencion";
-            btnEditarTipoAtencion.Size = new Size(134, 42);
+            btnEditarTipoAtencion.Size = new Size(134, 56);
             btnEditarTipoAtencion.TabIndex = 6;
             btnEditarTipoAtencion.Text = "Editar Tipo Atencion";
             btnEditarTipoAtencion.UseVisualStyleBackColor = false;

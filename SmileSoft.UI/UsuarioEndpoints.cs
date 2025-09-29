@@ -18,7 +18,7 @@ namespace SmileSoft.WebAPI
             app.MapGet($"usuarios/id", (int id) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
-                UsuarioDTO dto = usuarioService.GetUsuario(id);
+                UsuarioUpdateDTO dto = usuarioService.GetUsuario(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("Get Usuario");
             app.MapPost("/usuarios", (UsuarioCreateDTO usuarioDTO) =>

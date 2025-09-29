@@ -17,6 +17,7 @@ namespace SmileSoft.UI.Desktop
         {
             InitializeComponent();
             ConfigurarEstilos();
+            btnMenuAlt.Visible = false; // Lo ocultamos ya que no tiene funcionalidad, es una prueba para entrega 3
         }
         private void ConfigurarEstilos()
         {
@@ -81,8 +82,15 @@ namespace SmileSoft.UI.Desktop
 
         private void btnMenuAlt_Click(object sender, EventArgs e)
         {
-            FormInicioAlternativo formInicioAlternativo= new FormInicioAlternativo();
+            FormInicioAlternativo formInicioAlternativo = new FormInicioAlternativo();
             formInicioAlternativo.ShowDialog();
+        }
+
+        private void BtnVolver_Click(object sender, EventArgs e)
+        {
+            FormLogin formLogin = new FormLogin();
+            this.Close();
+            formLogin.Show();
         }
     }
 }
