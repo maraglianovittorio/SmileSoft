@@ -17,7 +17,7 @@ namespace SmileSoft.UI.Desktop
         {
             InitializeComponent();
             ConfigurarEstilos();
-            btnMenuAlt.Visible = false; // Lo ocultamos ya que no tiene funcionalidad, es una prueba para entrega 3
+            //btnMenuAlt.Visible = false; // Lo ocultamos ya que no tiene funcionalidad, es una prueba para entrega 3
         }
         private void ConfigurarEstilos()
         {

@@ -34,13 +34,17 @@
             dgvPrincipal = new DataGridView();
             btnVolver = new Button();
             btnEditarUsuario = new Button();
-            btnBorrarUsuario = new Button();
-            btnCrearUsuario = new Button();
+            btnBorrar = new Button();
+            btnCrear = new Button();
             tbBuscadorUsuarios = new TextBox();
             tsAlternativo = new ToolStrip();
             tsbInicio = new ToolStripButton();
-            tsbAtencion = new ToolStripButton();
+            tsbTurnos = new ToolStripButton();
             tsbUsuarios = new ToolStripButton();
+            tsbOS = new ToolStripButton();
+            tsbPlanes = new ToolStripButton();
+            tsbPacientes = new ToolStripButton();
+            tsbTiposAtencion = new ToolStripButton();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
             toolStripContainer1.SuspendLayout();
@@ -76,8 +80,8 @@
             tableLayoutPanel1.Controls.Add(dgvPrincipal, 0, 1);
             tableLayoutPanel1.Controls.Add(btnVolver, 0, 2);
             tableLayoutPanel1.Controls.Add(btnEditarUsuario, 1, 2);
-            tableLayoutPanel1.Controls.Add(btnBorrarUsuario, 2, 2);
-            tableLayoutPanel1.Controls.Add(btnCrearUsuario, 2, 0);
+            tableLayoutPanel1.Controls.Add(btnBorrar, 2, 2);
+            tableLayoutPanel1.Controls.Add(btnCrear, 2, 0);
             tableLayoutPanel1.Controls.Add(tbBuscadorUsuarios, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
@@ -107,6 +111,7 @@
             btnVolver.TabIndex = 1;
             btnVolver.Text = "Volver";
             btnVolver.UseVisualStyleBackColor = true;
+            btnVolver.Click += btnVolver_Click;
             // 
             // btnEditarUsuario
             // 
@@ -116,24 +121,27 @@
             btnEditarUsuario.TabIndex = 2;
             btnEditarUsuario.Text = "Editar";
             btnEditarUsuario.UseVisualStyleBackColor = true;
+            btnEditarUsuario.Click += btnEditar_Click;
             // 
-            // btnBorrarUsuario
+            // btnBorrar
             // 
-            btnBorrarUsuario.Location = new Point(722, 399);
-            btnBorrarUsuario.Name = "btnBorrarUsuario";
-            btnBorrarUsuario.Size = new Size(75, 23);
-            btnBorrarUsuario.TabIndex = 3;
-            btnBorrarUsuario.Text = "Borrar";
-            btnBorrarUsuario.UseVisualStyleBackColor = true;
+            btnBorrar.Location = new Point(722, 399);
+            btnBorrar.Name = "btnBorrar";
+            btnBorrar.Size = new Size(75, 23);
+            btnBorrar.TabIndex = 3;
+            btnBorrar.Text = "Borrar";
+            btnBorrar.UseVisualStyleBackColor = true;
+            btnBorrar.Click += btnBorrar_Click;
             // 
-            // btnCrearUsuario
+            // btnCrear
             // 
-            btnCrearUsuario.Location = new Point(722, 3);
-            btnCrearUsuario.Name = "btnCrearUsuario";
-            btnCrearUsuario.Size = new Size(75, 23);
-            btnCrearUsuario.TabIndex = 4;
-            btnCrearUsuario.Text = "Crear usuario";
-            btnCrearUsuario.UseVisualStyleBackColor = true;
+            btnCrear.Location = new Point(722, 3);
+            btnCrear.Name = "btnCrear";
+            btnCrear.Size = new Size(75, 23);
+            btnCrear.TabIndex = 4;
+            btnCrear.Text = "Crear";
+            btnCrear.UseVisualStyleBackColor = true;
+            btnCrear.Click += btnCrear_Click;
             // 
             // tbBuscadorUsuarios
             // 
@@ -149,10 +157,10 @@
             tsAlternativo.AllowMerge = false;
             tsAlternativo.Dock = DockStyle.None;
             tsAlternativo.GripStyle = ToolStripGripStyle.Hidden;
-            tsAlternativo.Items.AddRange(new ToolStripItem[] { tsbInicio, tsbAtencion, tsbUsuarios });
+            tsAlternativo.Items.AddRange(new ToolStripItem[] { tsbInicio, tsbTurnos, tsbUsuarios, tsbOS, tsbPlanes, tsbPacientes, tsbTiposAtencion });
             tsAlternativo.Location = new Point(3, 0);
             tsAlternativo.Name = "tsAlternativo";
-            tsAlternativo.Size = new Size(169, 25);
+            tsAlternativo.Size = new Size(429, 25);
             tsAlternativo.TabIndex = 0;
             // 
             // tsbInicio
@@ -163,14 +171,14 @@
             tsbInicio.Size = new Size(40, 22);
             tsbInicio.Text = "Inicio";
             // 
-            // tsbAtencion
+            // tsbTurnos
             // 
-            tsbAtencion.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            tsbAtencion.Image = (Image)resources.GetObject("tsbAtencion.Image");
-            tsbAtencion.ImageTransparentColor = Color.Magenta;
-            tsbAtencion.Name = "tsbAtencion";
-            tsbAtencion.Size = new Size(70, 22);
-            tsbAtencion.Text = "Atenciones";
+            tsbTurnos.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbTurnos.Image = (Image)resources.GetObject("tsbTurnos.Image");
+            tsbTurnos.ImageTransparentColor = Color.Magenta;
+            tsbTurnos.Name = "tsbTurnos";
+            tsbTurnos.Size = new Size(47, 22);
+            tsbTurnos.Text = "Turnos";
             // 
             // tsbUsuarios
             // 
@@ -181,6 +189,46 @@
             tsbUsuarios.Size = new Size(56, 22);
             tsbUsuarios.Text = "Usuarios";
             tsbUsuarios.Click += tsbUsuarios_Click;
+            // 
+            // tsbOS
+            // 
+            tsbOS.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbOS.Image = (Image)resources.GetObject("tsbOS.Image");
+            tsbOS.ImageTransparentColor = Color.Magenta;
+            tsbOS.Name = "tsbOS";
+            tsbOS.Size = new Size(87, 22);
+            tsbOS.Text = "Obras Sociales";
+            tsbOS.Click += tsbOS_Click;
+            // 
+            // tsbPlanes
+            // 
+            tsbPlanes.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbPlanes.Image = (Image)resources.GetObject("tsbPlanes.Image");
+            tsbPlanes.ImageTransparentColor = Color.Magenta;
+            tsbPlanes.Name = "tsbPlanes";
+            tsbPlanes.Size = new Size(45, 22);
+            tsbPlanes.Text = "Planes";
+            tsbPlanes.Click += tsbPlanes_Click;
+            // 
+            // tsbPacientes
+            // 
+            tsbPacientes.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbPacientes.Image = (Image)resources.GetObject("tsbPacientes.Image");
+            tsbPacientes.ImageTransparentColor = Color.Magenta;
+            tsbPacientes.Name = "tsbPacientes";
+            tsbPacientes.Size = new Size(61, 22);
+            tsbPacientes.Text = "Pacientes";
+            tsbPacientes.Click += tsbPacientes_Click;
+            // 
+            // tsbTiposAtencion
+            // 
+            tsbTiposAtencion.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsbTiposAtencion.Image = (Image)resources.GetObject("tsbTiposAtencion.Image");
+            tsbTiposAtencion.ImageTransparentColor = Color.Magenta;
+            tsbTiposAtencion.Name = "tsbTiposAtencion";
+            tsbTiposAtencion.Size = new Size(90, 22);
+            tsbTiposAtencion.Text = "Tipos Atencion";
+            tsbTiposAtencion.Click += tsbTiposAtencion_Click;
             // 
             // FormInicioAlternativo
             // 
@@ -211,13 +259,17 @@
         private ToolStrip tsAlternativo;
         private ToolStripButton tsbInicio;
         private TableLayoutPanel tableLayoutPanel1;
-        private ToolStripButton tsbAtencion;
+        private ToolStripButton tsbTurnos;
         private ToolStripButton tsbUsuarios;
         private DataGridView dgvPrincipal;
         private Button btnVolver;
         private Button btnEditarUsuario;
-        private Button btnBorrarUsuario;
-        private Button btnCrearUsuario;
+        private Button btnBorrar;
+        private Button btnCrear;
         private TextBox tbBuscadorUsuarios;
+        private ToolStripButton tsbOS;
+        private ToolStripButton tsbPlanes;
+        private ToolStripButton tsbPacientes;
+        private ToolStripButton tsbTiposAtencion;
     }
 }
