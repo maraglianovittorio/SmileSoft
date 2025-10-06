@@ -45,8 +45,7 @@ namespace SmileSoft.Data
         public IEnumerable<TipoAtencion> GetAll()
         {
             using var context = CreateContext();
-            return context.TipoAtenciones
-                .ToList();
+            return context.TipoAtenciones.ToList();
         }
 
         public bool Update(TipoAtencion tipoAtencion)

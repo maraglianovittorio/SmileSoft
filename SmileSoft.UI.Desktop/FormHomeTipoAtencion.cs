@@ -12,7 +12,7 @@ namespace SmileSoft.UI.Desktop
         {
             BaseAddress = new Uri("http://localhost:54145")
         };
-        private List<TipoAtencionDTO> tiposAtencion = new();
+        private List<TipoAtencion> tiposAtencion = new();
 
         public FormHomeTipoAtencion()
         {

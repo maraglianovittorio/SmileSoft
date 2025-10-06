@@ -159,9 +159,9 @@ namespace SmileSoft.WindowsForms
             switch (rol.ToUpper())
             {
                 case "ADMIN":
-                    FormHomeSuperUsuario formHomeSU = new FormHomeSuperUsuario();
-                    formHomeSU.Text = $"SmileSoft - Administrador ({username})";
-                    formHomeSU.ShowDialog();
+                    FormInicioAdmin formInicioAdmin = new FormInicioAdmin();
+                    formInicioAdmin.Text = $"SmileSoft - Administrador ({username})";
+                    formInicioAdmin.ShowDialog();
                     break;
 
                 case "ODONTOLOGO":

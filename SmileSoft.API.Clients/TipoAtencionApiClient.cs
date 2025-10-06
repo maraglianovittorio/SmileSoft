@@ -20,7 +20,7 @@ namespace SmileSoft.API.Clients
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        public static async Task<IEnumerable<TipoAtencionDTO>> GetAllAsync()
+        public static async Task<IEnumerable<TipoAtencion>> GetAllAsync()
         {
             try
             {
@@ -28,7 +28,7 @@ namespace SmileSoft.API.Clients
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<IEnumerable<TipoAtencionDTO>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<TipoAtencion>>();
                 }
                 else
                 {

@@ -104,33 +104,7 @@ namespace SmileSoft.UI.Desktop
         {
             btnBorrarPaciente.Enabled = false;
             btnEditarPaciente.Enabled = false;
-            PacienteDTO vitto = new PacienteDTO
-            {
-                Nombre = "Vittorio",
-                Apellido = "Maragliano",
-                NroDni = "111111",
-                Direccion = "avenida 123",
-                Email = "v@gmail.com",
-                FechaNacimiento = new DateTime(2003, 11, 8),
-                Telefono = "111111",
-                NroAfiliado = "222222os",
-                NroHC = "1"
-            };
-            PacienteDTO lucho = new PacienteDTO
-            {
-                Nombre = "Luciano",
-                Apellido = "Casado",
-                NroDni = "51085",
-                Direccion = "Avenida siempre viva 673",
-                Email = "lucho@gmail.com",
-                FechaNacimiento = new DateTime(1999, 2, 20),
-                Telefono = "11111",
-                NroAfiliado = "22222os",
-                NroHC = "2"
-            };
-            //Descomentar para crear pacientes de prueba
-            //await PacienteApiClient.CreateAsync(vitto);
-            //await PacienteApiClient.CreateAsync(lucho);
+            
             await ObtenerDatos();
         }
 

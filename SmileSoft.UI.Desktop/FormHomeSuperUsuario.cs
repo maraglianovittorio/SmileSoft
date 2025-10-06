@@ -82,7 +82,7 @@ namespace SmileSoft.UI.Desktop
 
         private void btnMenuAlt_Click(object sender, EventArgs e)
         {
-            FormInicioAlternativo formInicioAlternativo = new FormInicioAlternativo();
+            FormInicioAdmin formInicioAlternativo = new FormInicioAdmin();
             formInicioAlternativo.ShowDialog();
         }
 
