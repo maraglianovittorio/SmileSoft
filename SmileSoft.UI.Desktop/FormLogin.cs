@@ -159,7 +159,7 @@ namespace SmileSoft.WindowsForms
             switch (rol.ToUpper())
             {
                 case "ADMIN":
-                    FormInicioAdmin formInicioAdmin = new FormInicioAdmin();
+                    FormHomeSuperUsuario formInicioAdmin = new FormHomeSuperUsuario();
                     formInicioAdmin.Text = $"SmileSoft - Administrador ({username})";
                     formInicioAdmin.ShowDialog();
                     break;

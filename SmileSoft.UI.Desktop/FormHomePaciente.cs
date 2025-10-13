@@ -9,11 +9,11 @@ namespace SmileSoft.UI.Desktop
 {
     public partial class FormHomePaciente : Form
     {
-        private static readonly HttpClient httpClient = new HttpClient()
-        {
-            BaseAddress = new Uri("http://localhost:54145")
+            private static readonly HttpClient httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri("http://localhost:54145")
 
-        };
+            };
         private List<Paciente> pacientes = new();
         public FormHomePaciente()
         {
@@ -97,7 +97,7 @@ namespace SmileSoft.UI.Desktop
             {
                 MessageBox.Show($"Error al cargar los pacientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            }
+            }   
         }
 
         private async void FormHomePacientes_Load(object sender, EventArgs e)

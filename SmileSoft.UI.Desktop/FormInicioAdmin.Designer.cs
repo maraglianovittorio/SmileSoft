@@ -38,7 +38,6 @@
             btnCrear = new Button();
             tbBuscadorUsuarios = new TextBox();
             tsAlternativo = new ToolStrip();
-            tsbInicio = new ToolStripButton();
             tsbTurnos = new ToolStripButton();
             tsbUsuarios = new ToolStripButton();
             tsbOS = new ToolStripButton();
@@ -175,19 +174,11 @@
             tsAlternativo.Dock = DockStyle.None;
             tsAlternativo.GripStyle = ToolStripGripStyle.Hidden;
             tsAlternativo.ImageScalingSize = new Size(24, 24);
-            tsAlternativo.Items.AddRange(new ToolStripItem[] { tsbInicio, tsbTurnos, tsbUsuarios, tsbOS, tsbPlanes, tsbPacientes, tsbTiposAtencion, tsbCerrarSesion, tsbOdontologos });
+            tsAlternativo.Items.AddRange(new ToolStripItem[] { tsbTurnos, tsbUsuarios, tsbOS, tsbPlanes, tsbPacientes, tsbTiposAtencion, tsbCerrarSesion, tsbOdontologos });
             tsAlternativo.Location = new Point(4, 0);
             tsAlternativo.Name = "tsAlternativo";
-            tsAlternativo.Size = new Size(924, 34);
+            tsAlternativo.Size = new Size(820, 34);
             tsAlternativo.TabIndex = 0;
-            // 
-            // tsbInicio
-            // 
-            tsbInicio.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            tsbInicio.ImageTransparentColor = Color.Magenta;
-            tsbInicio.Name = "tsbInicio";
-            tsbInicio.Size = new Size(58, 29);
-            tsbInicio.Text = "Inicio";
             // 
             // tsbTurnos
             // 
@@ -295,7 +286,6 @@
 
         private ToolStripContainer toolStripContainer1;
         private ToolStrip tsAlternativo;
-        private ToolStripButton tsbInicio;
         private TableLayoutPanel tableLayoutPanel1;
         private ToolStripButton tsbTurnos;
         private ToolStripButton tsbUsuarios;

@@ -13,4 +13,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SmileSoft.Dominio\SmileSoft.Dominio.csproj" />
+  </ItemGroup>
+
 </Project>
