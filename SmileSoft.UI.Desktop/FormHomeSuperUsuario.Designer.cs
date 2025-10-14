@@ -35,6 +35,13 @@
             btnTipoAtencion = new Button();
             btnMenuAlt = new Button();
             BtnCerrarSesion = new Button();
+            menuStrip1 = new MenuStrip();
+            toolStripPaciente = new ToolStripMenuItem();
+            toolStripOS = new ToolStripMenuItem();
+            toolStripUsuarios = new ToolStripMenuItem();
+            toolStripTipoPlan = new ToolStripMenuItem();
+            toolStripTipoAtencion = new ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // btnPacientes
@@ -116,6 +123,50 @@
             BtnCerrarSesion.UseVisualStyleBackColor = false;
             BtnCerrarSesion.Click += BtnVolver_Click;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripPaciente, toolStripOS, toolStripUsuarios, toolStripTipoPlan, toolStripTipoAtencion });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(858, 24);
+            menuStrip1.TabIndex = 9;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripPaciente
+            // 
+            toolStripPaciente.Name = "toolStripPaciente";
+            toolStripPaciente.Size = new Size(69, 20);
+            toolStripPaciente.Text = "Pacientes";
+            toolStripPaciente.Click += toolStripPaciente_Click;
+            // 
+            // toolStripOS
+            // 
+            toolStripOS.Name = "toolStripOS";
+            toolStripOS.Size = new Size(95, 20);
+            toolStripOS.Text = "Obras Sociales";
+            toolStripOS.Click += toolStripOS_Click;
+            // 
+            // toolStripUsuarios
+            // 
+            toolStripUsuarios.Name = "toolStripUsuarios";
+            toolStripUsuarios.Size = new Size(64, 20);
+            toolStripUsuarios.Text = "Usuarios";
+            toolStripUsuarios.Click += toolStripUsuarios_Click;
+            // 
+            // toolStripTipoPlan
+            // 
+            toolStripTipoPlan.Name = "toolStripTipoPlan";
+            toolStripTipoPlan.Size = new Size(73, 20);
+            toolStripTipoPlan.Text = "Tipos plan";
+            toolStripTipoPlan.Click += toolStripTipoPlan_Click;
+            // 
+            // toolStripTipoAtencion
+            // 
+            toolStripTipoAtencion.Name = "toolStripTipoAtencion";
+            toolStripTipoAtencion.Size = new Size(96, 20);
+            toolStripTipoAtencion.Text = "Tipos atencion";
+            toolStripTipoAtencion.Click += toolStripTipoAtencion_Click;
+            // 
             // FormHomeSuperUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -128,10 +179,15 @@
             Controls.Add(btnUsuarios);
             Controls.Add(btnObraSocial);
             Controls.Add(btnPacientes);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Margin = new Padding(2);
             Name = "FormHomeSuperUsuario";
             Text = "FormHome";
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -143,5 +199,13 @@
         private Button btnTipoAtencion;
         private Button btnMenuAlt;
         private Button BtnCerrarSesion;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem toolStripPaciente;
+        private ToolStripMenuItem toolStripOS;
+        private ToolStripMenuItem toolStripUsuarios;
+        private ToolStripMenuItem toolStripTipoPlan;
+        private ToolStripMenuItem toolStripTipoAtencion;
+        private ToolStripMenuItem pacientesToolStripMenuItem;
+        private ToolStripMenuItem agregarToolStripMenuItem;
     }
 }

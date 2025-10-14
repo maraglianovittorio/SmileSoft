@@ -92,5 +92,35 @@ namespace SmileSoft.UI.Desktop
             this.Close();
             formLogin.Show();
         }
+
+        private void toolStripPaciente_Click(object sender, EventArgs e)
+        {
+            FormHomePaciente formHomePaciente = new FormHomePaciente();
+            formHomePaciente.ShowDialog();
+        }
+
+        private void toolStripOS_Click(object sender, EventArgs e)
+        {
+            FormHomeOS formHomeOS = new FormHomeOS();
+            formHomeOS.ShowDialog();
+        }
+
+        private void toolStripUsuarios_Click(object sender, EventArgs e)
+        {
+            FormHomeUsuario formUsuario = new FormHomeUsuario();
+            formUsuario.ShowDialog();
+        }
+
+        private void toolStripTipoPlan_Click(object sender, EventArgs e)
+        {
+            FormHomeTipoPlan formTipoPlan = new FormHomeTipoPlan();
+            formTipoPlan.ShowDialog();
+        }
+
+        private void toolStripTipoAtencion_Click(object sender, EventArgs e)
+        {
+            FormHomeTipoAtencion formTipoAtencion = new FormHomeTipoAtencion();
+            formTipoAtencion.ShowDialog();
+        }
     }
 }
