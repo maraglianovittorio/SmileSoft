@@ -122,5 +122,11 @@ namespace SmileSoft.UI.Desktop
             FormHomeTipoAtencion formTipoAtencion = new FormHomeTipoAtencion();
             formTipoAtencion.ShowDialog();
         }
+
+        private void NuevaAtencion_Click(object sender, EventArgs e)
+        {
+            FormAtencion formAtencion = new FormAtencion();
+            formAtencion.ShowDialog();
+        }
     }
 }

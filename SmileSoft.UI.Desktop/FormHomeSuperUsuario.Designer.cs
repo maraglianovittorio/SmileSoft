@@ -41,6 +41,7 @@
             toolStripUsuarios = new ToolStripMenuItem();
             toolStripTipoPlan = new ToolStripMenuItem();
             toolStripTipoAtencion = new ToolStripMenuItem();
+            NuevaAtencion = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -167,11 +168,24 @@
             toolStripTipoAtencion.Text = "Tipos atencion";
             toolStripTipoAtencion.Click += toolStripTipoAtencion_Click;
             // 
+            // NuevaAtencion
+            // 
+            NuevaAtencion.BackColor = Color.Orange;
+            NuevaAtencion.ForeColor = SystemColors.Highlight;
+            NuevaAtencion.Location = new Point(390, 159);
+            NuevaAtencion.Name = "NuevaAtencion";
+            NuevaAtencion.Size = new Size(113, 53);
+            NuevaAtencion.TabIndex = 10;
+            NuevaAtencion.Text = "Nueva atención";
+            NuevaAtencion.UseVisualStyleBackColor = false;
+            NuevaAtencion.Click += NuevaAtencion_Click;
+            // 
             // FormHomeSuperUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(858, 349);
+            Controls.Add(NuevaAtencion);
             Controls.Add(BtnCerrarSesion);
             Controls.Add(btnMenuAlt);
             Controls.Add(btnTipoAtencion);
@@ -207,5 +221,6 @@
         private ToolStripMenuItem toolStripTipoAtencion;
         private ToolStripMenuItem pacientesToolStripMenuItem;
         private ToolStripMenuItem agregarToolStripMenuItem;
+        private Button NuevaAtencion;
     }
 }
