@@ -50,7 +50,14 @@ namespace SmileSoft.Data
                 .Include(tp => tp.ObraSocial)
                 .ToList();
         }
-
+        public IEnumerable<TipoPlan> GetByObraSocialId(int obraSocialId)
+        {
+            using var context = CreateContext();
+            return context.TipoPlanes
+                .Where(tp => tp.ObraSocialId == obraSocialId)
+                //.Include(tp => tp.ObraSocial)
+                .ToList();
+        }
         public bool Update(TipoPlan tipoPlan)
         {
             using var context = CreateContext();

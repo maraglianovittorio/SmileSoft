@@ -45,6 +45,30 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de tipos de plan: {ex.Message}", ex);
             }
         }
+        public static async Task<IEnumerable<TipoPlan>> GetByObraSocialIdAsync(int obraSocialId)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync($"tipoplanes/obraSocial?id={obraSocialId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<IEnumerable<TipoPlan>>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener tipos de plan para Obra Social con Id {obraSocialId}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener tipos de plan para Obra Social con Id {obraSocialId}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener tipos de plan para Obra Social con Id {obraSocialId}: {ex.Message}", ex);
+            }
+        }
         public static async Task<TipoPlan> GetOneAsync(int id)
         {
             try

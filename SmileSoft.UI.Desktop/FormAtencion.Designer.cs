@@ -64,7 +64,7 @@
             lblDni.Location = new Point(208, 83);
             lblDni.Name = "lblDni";
             lblDni.Size = new Size(95, 15);
-            lblDni.TabIndex = 1;
+            lblDni.TabIndex = 0;
             lblDni.Text = "Dni del paciente:";
             // 
             // txtDni
@@ -72,7 +72,7 @@
             txtDni.Location = new Point(321, 80);
             txtDni.Name = "txtDni";
             txtDni.Size = new Size(100, 23);
-            txtDni.TabIndex = 2;
+            txtDni.TabIndex = 1;
             // 
             // label2
             // 
@@ -80,7 +80,7 @@
             label2.Location = new Point(234, 117);
             label2.Name = "label2";
             label2.Size = new Size(69, 15);
-            label2.TabIndex = 3;
+            label2.TabIndex = 5;
             label2.Text = "Obra social:";
             // 
             // textBox1
@@ -89,14 +89,14 @@
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
             textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 4;
+            textBox1.TabIndex = 6;
             // 
             // btnBuscarPaciente
             // 
             btnBuscarPaciente.Location = new Point(442, 79);
             btnBuscarPaciente.Name = "btnBuscarPaciente";
             btnBuscarPaciente.Size = new Size(75, 23);
-            btnBuscarPaciente.TabIndex = 5;
+            btnBuscarPaciente.TabIndex = 2;
             btnBuscarPaciente.Text = "Buscar";
             btnBuscarPaciente.UseVisualStyleBackColor = true;
             btnBuscarPaciente.Click += btnBuscarPaciente_Click;
@@ -107,7 +107,7 @@
             label3.Location = new Point(205, 153);
             label3.Name = "label3";
             label3.Size = new Size(98, 15);
-            label3.TabIndex = 6;
+            label3.TabIndex = 7;
             label3.Text = "Tipo de atencion:";
             // 
             // cbTipoAtencion
@@ -116,7 +116,7 @@
             cbTipoAtencion.Location = new Point(321, 150);
             cbTipoAtencion.Name = "cbTipoAtencion";
             cbTipoAtencion.Size = new Size(121, 23);
-            cbTipoAtencion.TabIndex = 7;
+            cbTipoAtencion.TabIndex = 8;
             // 
             // label4
             // 
@@ -124,7 +124,7 @@
             label4.Location = new Point(228, 192);
             label4.Name = "label4";
             label4.Size = new Size(75, 15);
-            label4.TabIndex = 8;
+            label4.TabIndex = 9;
             label4.Text = "Odontólogo:";
             // 
             // cbOdontologo
@@ -133,7 +133,7 @@
             cbOdontologo.Location = new Point(321, 189);
             cbOdontologo.Name = "cbOdontologo";
             cbOdontologo.Size = new Size(121, 23);
-            cbOdontologo.TabIndex = 9;
+            cbOdontologo.TabIndex = 10;
             // 
             // dgvTurnosDisponibles
             // 
@@ -141,7 +141,7 @@
             dgvTurnosDisponibles.Location = new Point(130, 270);
             dgvTurnosDisponibles.Name = "dgvTurnosDisponibles";
             dgvTurnosDisponibles.Size = new Size(609, 146);
-            dgvTurnosDisponibles.TabIndex = 12;
+            dgvTurnosDisponibles.TabIndex = 15;
             // 
             // label5
             // 
@@ -149,7 +149,7 @@
             label5.Location = new Point(194, 243);
             label5.Name = "label5";
             label5.Size = new Size(109, 15);
-            label5.TabIndex = 13;
+            label5.TabIndex = 14;
             label5.Text = "Turnos disponibles:";
             // 
             // label6
@@ -158,7 +158,7 @@
             label6.Location = new Point(276, 218);
             label6.Name = "label6";
             label6.Size = new Size(27, 15);
-            label6.TabIndex = 14;
+            label6.TabIndex = 11;
             label6.Text = "Día:";
             // 
             // dtpDia
@@ -166,7 +166,7 @@
             dtpDia.Location = new Point(317, 218);
             dtpDia.Name = "dtpDia";
             dtpDia.Size = new Size(256, 23);
-            dtpDia.TabIndex = 15;
+            dtpDia.TabIndex = 12;
             // 
             // label7
             // 
@@ -174,7 +174,7 @@
             label7.Location = new Point(574, 61);
             label7.Name = "label7";
             label7.Size = new Size(108, 15);
-            label7.TabIndex = 16;
+            label7.TabIndex = 3;
             label7.Text = "Nombre y apellido:";
             // 
             // txtNomYApe
@@ -183,14 +183,14 @@
             txtNomYApe.Name = "txtNomYApe";
             txtNomYApe.ReadOnly = true;
             txtNomYApe.Size = new Size(161, 23);
-            txtNomYApe.TabIndex = 17;
+            txtNomYApe.TabIndex = 4;
             // 
             // btnBuscarTurnos
             // 
             btnBuscarTurnos.Location = new Point(593, 220);
             btnBuscarTurnos.Name = "btnBuscarTurnos";
             btnBuscarTurnos.Size = new Size(129, 23);
-            btnBuscarTurnos.TabIndex = 18;
+            btnBuscarTurnos.TabIndex = 13;
             btnBuscarTurnos.Text = "Buscar turnos";
             btnBuscarTurnos.UseVisualStyleBackColor = true;
             // 

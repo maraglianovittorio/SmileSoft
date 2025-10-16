@@ -50,7 +50,7 @@ namespace SmileSoft.Data
         {
             using var context = CreateContext();
             return context.Pacientes
-                //.Include(c => c.Pais)
+                .Include(p => p.TipoPlan)
                 .ToList();
         }
 

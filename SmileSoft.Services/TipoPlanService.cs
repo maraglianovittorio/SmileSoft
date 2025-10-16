@@ -56,7 +56,18 @@ namespace SmileSoft.Services
                 ObraSocialId = tp.ObraSocialId
             }).ToList();
         }
-
+        public IEnumerable<TipoPlanDTO> GetByObraSocialId(int obraSocialId)
+        {
+            var tipoPlanRepository = new TipoPlanRepository();
+            var tipoPlanes = tipoPlanRepository.GetByObraSocialId(obraSocialId);
+            return tipoPlanes.Select(tp => new TipoPlanDTO
+            {
+                Id = tp.Id,
+                Nombre = tp.Nombre,
+                Descripcion = tp.Descripcion,
+                ObraSocialId = tp.ObraSocialId
+            }).ToList();
+        }
         public bool Update(int id, TipoPlanDTO dto)
         {
             var tipoPlanRepository = new TipoPlanRepository();

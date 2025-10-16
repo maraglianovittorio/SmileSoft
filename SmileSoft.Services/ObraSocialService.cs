@@ -43,6 +43,22 @@ namespace SmileSoft.Services
                 Nombre = obraSocial.Nombre,
             };
         }
+        public ObraSocialDTO? GetObraSocialByName(string nombre)
+        {
+            var obraSocialRepository = new ObraSocialRepository();
+            var obrasSociales = obraSocialRepository.GetAll().Where(os => os.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase));
+            var obraSocial = obrasSociales.FirstOrDefault();
+            if (obraSocial == null)
+            {
+                return null;
+            }
+            return new ObraSocialDTO
+            {
+                Id = obraSocial.Id,
+                Nombre = obraSocial.Nombre,
+                
+            };
+        }
         public IEnumerable<ObraSocialDTO> GetAll()
         {
             var obraSocialRepository = new ObraSocialRepository();

@@ -15,6 +15,12 @@ namespace SmileSoft.WebAPI
                 return Results.Ok(dtos);
             }).WithName("GetTipoPlanes")
             .Produces<List<TipoPlanDTO>>(StatusCodes.Status200OK);
+            app.MapGet($"/tipoplanes/obraSocial", (int id) =>
+            {
+                TipoPlanService tipoPlanService = new TipoPlanService();
+                var dtos = tipoPlanService.GetByObraSocialId(id);
+                return Results.Ok(dtos);
+            }).WithName("GetTipoPlanesByObraSocial");
             app.MapGet($"tipoplanes/id", (int id) =>
             {
                 TipoPlanService tipoPlanService = new TipoPlanService();

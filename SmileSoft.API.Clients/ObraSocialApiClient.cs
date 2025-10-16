@@ -72,6 +72,30 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener obra social con Id {id}: {ex.Message}", ex);
             }
         }
+        public static async Task<ObraSocial> GetByNameAsync(string nombre)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync($"obrasocial/nombre?nombre={nombre}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<ObraSocial>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener obra social con nombre '{nombre}'. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener obra social con nombre '{nombre}': {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener obra social con nombre '{nombre}': {ex.Message}", ex);
+            }
+        }
         public async static Task CreateAsync(ObraSocialDTO obraSocial)
         {
             try

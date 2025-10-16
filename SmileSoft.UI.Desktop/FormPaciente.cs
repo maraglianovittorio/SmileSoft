@@ -287,24 +287,24 @@ namespace SmileSoft.UI.Desktop
 
             try
             {
-                if(btnEditarPaciente.Tag is not int id)
+                if (btnEditarPaciente.Tag is not int id)
                 {
                     MessageBox.Show("Error al obtener el ID del paciente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-               
-                    PacienteDTO paciente = new PacienteDTO
-                    {
-                        Nombre = txtNombre.Text.Trim(),
-                        Apellido = txtApellido.Text.Trim(),
-                        FechaNacimiento = dtpFechaNacimiento.Value,
-                        Direccion = txtDireccion.Text.Trim(),
-                        Email = txtEmail.Text.Trim(),
-                        NroDni = txtDNI.Text.Trim(),
-                        NroHC = txtNroHC.Text.Trim(),
-                        Telefono = txtTelefono.Text.Trim(),
-                        NroAfiliado = txtNroAfiliado.Text.Trim()
-                    };
+
+                PacienteDTO paciente = new PacienteDTO
+                {
+                    Nombre = txtNombre.Text.Trim(),
+                    Apellido = txtApellido.Text.Trim(),
+                    FechaNacimiento = dtpFechaNacimiento.Value,
+                    Direccion = txtDireccion.Text.Trim(),
+                    Email = txtEmail.Text.Trim(),
+                    NroDni = txtDNI.Text.Trim(),
+                    NroHC = txtNroHC.Text.Trim(),
+                    Telefono = txtTelefono.Text.Trim(),
+                    NroAfiliado = txtNroAfiliado.Text.Trim()
+                };
 
                 btnEditarPaciente.Text = "Enviando...";
                 btnEditarPaciente.Enabled = false;
@@ -328,6 +328,44 @@ namespace SmileSoft.UI.Desktop
                 btnEditarPaciente.Enabled = true;
             }
 
+        }
+
+        private async void btnBuscarOS_Click(object sender, EventArgs e)
+        {
+            if (txtOS == null || string.IsNullOrWhiteSpace(txtOS.Text))
+            {
+                MessageBox.Show($"Error: Debe ingresar el nombre de la Obra Social", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    ObraSocial obraSocial = await ObraSocialApiClient.GetByNameAsync(txtOS.Text.Trim());
+                    if (obraSocial == null)
+                    {
+                        MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(obraSocial.Id);
+                    if (tiposPlan == null || tiposPlan.Count() == 0)
+                        {
+                        MessageBox.Show($"Error: No se encontraron tipos de plan para la Obra Social '{obraSocial.Nombre}'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        cmbTiposPlan.DisplayMember = "Nombre";
+                        cmbTiposPlan.ValueMember = "Id";
+                        cmbTiposPlan.Enabled = true;
+                        cmbTiposPlan.DataSource = tiposPlan;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
         }
     }
 }

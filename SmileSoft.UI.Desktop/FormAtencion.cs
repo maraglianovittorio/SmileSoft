@@ -33,6 +33,11 @@ namespace SmileSoft.WindowsForms
                     try
                     {
                         Paciente paciente = await PacienteApiClient.GetByDni(txtDni.Text.Trim());
+                        if (paciente == null)
+                        {
+                            MessageBox.Show($"Error: Paciente no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                         txtNomYApe.Text = paciente.Nombre + " " + paciente.Apellido;
                     }
                     catch

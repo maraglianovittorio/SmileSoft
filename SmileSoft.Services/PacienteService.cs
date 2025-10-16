@@ -16,7 +16,7 @@ namespace SmileSoft.Services
                 throw new Exception("Ya existe un paciente con la misma historia clínica.");
             }
             // esta bien poner un 0 aca?
-            Paciente paciente = new Paciente(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.Direccion,dto.Email,dto.FechaNacimiento,dto.Telefono,dto.NroAfiliado,dto.NroHC);
+            Paciente paciente = new Paciente(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.Direccion,dto.Email,dto.FechaNacimiento,dto.Telefono,dto.NroAfiliado,dto.NroHC,dto.TipoPlanId);
 
             pacienteRepository.Add(paciente);
 
@@ -49,13 +49,13 @@ namespace SmileSoft.Services
             };
 
         }
-        public PacienteDTO GetByDni(string dni)
+        public PacienteDTO? GetByDni(string dni)
         {
             var pacienteRepository = new PacienteRepository();
             Paciente? paciente = pacienteRepository.GetByDni(dni);
             if (paciente == null)
             {
-                throw new Exception("No se encontró el paciente.");
+                return null;
             }
             return new PacienteDTO
             {
@@ -98,7 +98,7 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe otro paciente con la Historia Clínica '{dto.NroHC}'.");
             }
 
-            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC);
+            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC,dto.TipoPlanId);
             return pacienteRepository.Update(paciente);
 
         }

@@ -39,6 +39,14 @@ namespace SmileSoft.Data
                 //.Include(p => )
                 .FirstOrDefault(os => os.Id == id);
         }
+        public ObraSocial? GetByName(string nombre)
+        {
+            using var context = CreateContext();
+            return context.ObrasSociales
+                .Include(os => os.TipoPlanes)
+                .FirstOrDefault(os => os.Nombre.ToLower() == nombre.ToLower());
+                
+        }
 
         public IEnumerable<ObraSocial> GetAll()
         {
