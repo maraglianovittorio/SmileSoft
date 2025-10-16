@@ -39,6 +39,12 @@ namespace SmileSoft.Data
                 //.Include(p => )
                 .FirstOrDefault(p => p.Id == id);
         }
+        public Paciente? GetByDni(string dni)
+        {
+            using var context = CreateContext();
+            return context.Pacientes
+                .FirstOrDefault(p => p.NroDni == dni);
+        }
 
         public IEnumerable<Paciente>GetAll()
         {

@@ -49,6 +49,27 @@ namespace SmileSoft.Services
             };
 
         }
+        public PacienteDTO GetByDni(string dni)
+        {
+            var pacienteRepository = new PacienteRepository();
+            Paciente? paciente = pacienteRepository.GetByDni(dni);
+            if (paciente == null)
+            {
+                throw new Exception("No se encontró el paciente.");
+            }
+            return new PacienteDTO
+            {
+                Nombre = paciente.Nombre,
+                Apellido = paciente.Apellido,
+                NroDni = paciente.NroDni,
+                Direccion = paciente.Direccion,
+                Email = paciente.Email,
+                FechaNacimiento = paciente.FechaNacimiento,
+                Telefono = paciente.Telefono,
+                NroAfiliado = paciente.NroAfiliado,
+                NroHC = paciente.NroHC
+            };
+        }
         public IEnumerable<PacienteDTO> GetAll()
         {
             var pacienteRepository = new PacienteRepository();

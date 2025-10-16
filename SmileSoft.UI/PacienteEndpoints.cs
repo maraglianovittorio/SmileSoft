@@ -21,6 +21,7 @@ namespace SmileSoft.WebAPI
                 PacienteDTO dto = pacienteService.GetPaciente(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("Get Paciente");
+            
             app.MapPost("/pacientes", (PacienteDTO pacienteDTO) =>
             {
                 try
@@ -58,6 +59,7 @@ namespace SmileSoft.WebAPI
                 }
 
             }).WithName("CreatePaciente");
+            
             app.MapPut("/pacientes/{id}", (int id,PacienteDTO paciente) =>
             {
                 try
@@ -79,12 +81,21 @@ namespace SmileSoft.WebAPI
                 }
             })
             .WithName("UpdateCliente");
+            
             app.MapDelete("/pacientes/id", (int id) =>
             {
                 PacienteService pacienteService = new PacienteService();
                 var eliminado = pacienteService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
             }).WithName("DeletePaciente");
+
+            app.MapGet("/pacientes/dni", (string dni) =>
+            {
+                PacienteService pacienteService = new PacienteService();
+                PacienteDTO paciente = pacienteService.GetByDni(dni);
+                return paciente;
+
+            }).WithName("PacienteByDni");
         }
     }
 }

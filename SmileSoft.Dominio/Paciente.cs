@@ -39,6 +39,7 @@ namespace SmileSoft.Dominio
             //TipoPlanes = new List<TipoPlan>();
             //Atenciones = new List<Atencion>();
         }
+        public Paciente() { }
 
     }
 }
