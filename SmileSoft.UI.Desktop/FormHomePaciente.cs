@@ -9,11 +9,11 @@ namespace SmileSoft.UI.Desktop
 {
     public partial class FormHomePaciente : Form
     {
-            private static readonly HttpClient httpClient = new HttpClient()
-            {
-                BaseAddress = new Uri("http://localhost:54145")
+        private static readonly HttpClient httpClient = new HttpClient()
+        {
+            BaseAddress = new Uri("http://localhost:54145")
 
-            };
+        };
         private List<Paciente> pacientes = new();
         public FormHomePaciente()
         {
@@ -80,11 +80,14 @@ namespace SmileSoft.UI.Desktop
             try
             {
                 var pacientesResponse = await PacienteApiClient.GetAllAsync();
-                if (pacientesResponse != null && pacientesResponse.Count() > 0 )
+                if (pacientesResponse != null && pacientesResponse.Count() > 0)
                 {
                     dgvFormPaciente.DataSource = pacientesResponse;
                     pacientes = (List<Paciente>)pacientesResponse;
                     dgvFormPaciente.Columns["Id"].Visible = false;
+                    dgvFormPaciente.Columns["Atenciones"].Visible = false;
+                    dgvFormPaciente.Columns["TipoPlanId"].Visible = false;
+                    dgvFormPaciente.Columns["TipoPlan"].Visible = false;
                 }
                 else
                 {
@@ -97,14 +100,14 @@ namespace SmileSoft.UI.Desktop
             {
                 MessageBox.Show($"Error al cargar los pacientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            }   
+            }
         }
 
         private async void FormHomePacientes_Load(object sender, EventArgs e)
         {
             btnBorrarPaciente.Enabled = false;
             btnEditarPaciente.Enabled = false;
-            
+
             await ObtenerDatos();
         }
 
@@ -122,6 +125,9 @@ namespace SmileSoft.UI.Desktop
 
             }
             dgvFormPaciente.Columns["Id"].Visible = false;
+            dgvFormPaciente.Columns["Atenciones"].Visible = false;
+            dgvFormPaciente.Columns["TipoPlanId"].Visible = false;
+            dgvFormPaciente.Columns["TipoPlan"].Visible = false;
 
         }
 
@@ -184,6 +190,11 @@ namespace SmileSoft.UI.Desktop
         private void BtnVolver_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dgvFormPaciente_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

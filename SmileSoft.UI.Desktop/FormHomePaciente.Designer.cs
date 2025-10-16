@@ -58,6 +58,7 @@
             dgvFormPaciente.RowHeadersWidth = 62;
             dgvFormPaciente.Size = new Size(759, 223);
             dgvFormPaciente.TabIndex = 0;
+            dgvFormPaciente.CellContentClick += dgvFormPaciente_CellContentClick;
             dgvFormPaciente.SelectionChanged += dgvFormHomePacientes_SelectionChanged;
             // 
             // textBox1

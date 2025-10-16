@@ -45,7 +45,8 @@ namespace SmileSoft.Services
                 FechaNacimiento = paciente.FechaNacimiento,
                 Telefono = paciente.Telefono,
                 NroAfiliado = paciente.NroAfiliado,
-                NroHC = paciente.NroHC
+                NroHC = paciente.NroHC,
+                TipoPlanId = paciente.TipoPlanId
             };
 
         }

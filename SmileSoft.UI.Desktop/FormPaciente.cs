@@ -220,6 +220,27 @@ namespace SmileSoft.UI.Desktop
                     txtNroHC.Text = pacienteResponse.NroHC;
                     txtTelefono.Text = pacienteResponse.Telefono;
                     txtNroAfiliado.Text = pacienteResponse.NroAfiliado;
+                    if(pacienteResponse.TipoPlanId != -1)
+                    {
+                        var tipoPlan = await TipoPlanApiClient.GetOneAsync(pacienteResponse.TipoPlanId);
+                        if (tipoPlan != null)
+                        {
+                            var obraSocial = await ObraSocialApiClient.GetOneAsync(tipoPlan.ObraSocialId);
+                            if (obraSocial != null)
+                            {
+                                txtOS.Text = obraSocial.Nombre;
+                                var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(tipoPlan.ObraSocialId);
+                                if (tiposPlan != null && tiposPlan.Count() > 0)
+                                {
+                                    cmbTiposPlan.DisplayMember = "Nombre";
+                                    cmbTiposPlan.ValueMember = "Id";
+                                    cmbTiposPlan.Enabled = true;
+                                    cmbTiposPlan.DataSource = tiposPlan;
+                                    cmbTiposPlan.SelectedValue = pacienteResponse.TipoPlanId;
+                                }
+                            }
+                        }
+                    }
 
 
                 }
@@ -254,7 +275,8 @@ namespace SmileSoft.UI.Desktop
                     NroDni = txtDNI.Text.Trim(),
                     NroHC = txtNroHC.Text.Trim(),
                     Telefono = txtTelefono.Text.Trim(),
-                    NroAfiliado = txtNroAfiliado.Text.Trim()
+                    NroAfiliado = txtNroAfiliado.Text.Trim(),
+                    TipoPlanId = cmbTiposPlan.SelectedValue != null ? (int)cmbTiposPlan.SelectedValue : 0
                 };
 
                 btnAgregarPaciente.Text = "Enviando...";
@@ -277,7 +299,14 @@ namespace SmileSoft.UI.Desktop
                 btnAgregarPaciente.Enabled = true;
             }
         }
-
+        private async Task PopulaTipoPlan()
+        {
+            cmbTiposPlan.DataSource = null;
+            cmbTiposPlan.Enabled = false;
+            cmbTiposPlan.Items.Clear();
+            cmbTiposPlan.Text = "";
+            await Task.CompletedTask;
+        }
         private async void btnEditarPaciente_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos())
@@ -303,7 +332,8 @@ namespace SmileSoft.UI.Desktop
                     NroDni = txtDNI.Text.Trim(),
                     NroHC = txtNroHC.Text.Trim(),
                     Telefono = txtTelefono.Text.Trim(),
-                    NroAfiliado = txtNroAfiliado.Text.Trim()
+                    NroAfiliado = txtNroAfiliado.Text.Trim(),
+                    TipoPlanId = cmbTiposPlan.SelectedValue != null ? (int)cmbTiposPlan.SelectedValue : 0
                 };
 
                 btnEditarPaciente.Text = "Enviando...";
@@ -332,6 +362,7 @@ namespace SmileSoft.UI.Desktop
 
         private async void btnBuscarOS_Click(object sender, EventArgs e)
         {
+            await PopulaTipoPlan();
             if (txtOS == null || string.IsNullOrWhiteSpace(txtOS.Text))
             {
                 MessageBox.Show($"Error: Debe ingresar el nombre de la Obra Social", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -346,6 +377,7 @@ namespace SmileSoft.UI.Desktop
                         MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+                    // ver si hay alguna manera de ahorrar hacer esta busqueda.
                     var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(obraSocial.Id);
                     if (tiposPlan == null || tiposPlan.Count() == 0)
                         {
