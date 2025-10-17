@@ -14,7 +14,7 @@ namespace SmileSoft.Services
         public OdontologoDTO Add(OdontologoDTO dto)
         {
             var odontologoRepository = new OdontologoRepository();
-            Odontologo odontologo = new Odontologo(0, dto.Nombre,dto.Apellido,dto.NroMatricula,dto.Email,dto.Username,dto.Password  );
+            Odontologo odontologo = new Odontologo(0, dto.Nombre,dto.Apellido,dto.NroMatricula,dto.Email);
             // Validar que el odontólogo no exista
             if (odontologoRepository.NroMatriculaExists(dto.NroMatricula))
             {
@@ -41,6 +41,9 @@ namespace SmileSoft.Services
             return new OdontologoDTO
             {
                 Nombre = odontologo.Nombre,
+                NroMatricula = odontologo.NroMatricula,
+                Apellido = odontologo.Apellido,
+                Email = odontologo.Email,
             };
         }
         public IEnumerable<OdontologoDTO> GetAll()
@@ -51,7 +54,11 @@ namespace SmileSoft.Services
             {
 
                 Id = o.Id,
-                Nombre = o.Nombre
+                Nombre = o.Nombre,
+                Apellido = o.Apellido,
+                NroMatricula = o.NroMatricula,
+                Email = o.Email
+
             }).ToList();
         }
         public bool Update(int id, OdontologoDTO dto)
@@ -63,7 +70,7 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe otro odontólogo con el nombre '{dto.Nombre},' ',{dto.Id}'.");
             }
 
-            Odontologo odontologo = new Odontologo(id, dto.Nombre,dto.Apellido,dto.NroMatricula,dto.Email,dto.Username,dto.Password);
+            Odontologo odontologo = new Odontologo(id, dto.Nombre,dto.Apellido,dto.NroMatricula,dto.Email);
             return odontologoRepository.Update(odontologo);
 
         }

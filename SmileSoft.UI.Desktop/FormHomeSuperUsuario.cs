@@ -128,5 +128,11 @@ namespace SmileSoft.UI.Desktop
             FormAtencion formAtencion = new FormAtencion();
             formAtencion.ShowDialog();
         }
+
+        private void odontologosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormHomeOdontologo formOdontologo = new FormHomeOdontologo();
+            formOdontologo.ShowDialog();
+        }
     }
 }

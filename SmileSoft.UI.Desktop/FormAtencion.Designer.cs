@@ -32,12 +32,12 @@
             lblDni = new Label();
             txtDni = new TextBox();
             label2 = new Label();
-            textBox1 = new TextBox();
+            txtOS = new TextBox();
             btnBuscarPaciente = new Button();
             label3 = new Label();
-            cbTipoAtencion = new ComboBox();
+            cmbTipoAtencion = new ComboBox();
             label4 = new Label();
-            cbOdontologo = new ComboBox();
+            cmbOdontologo = new ComboBox();
             dgvTurnosDisponibles = new DataGridView();
             label5 = new Label();
             label6 = new Label();
@@ -83,13 +83,13 @@
             label2.TabIndex = 5;
             label2.Text = "Obra social:";
             // 
-            // textBox1
+            // txtOS
             // 
-            textBox1.Location = new Point(321, 114);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 6;
+            txtOS.Location = new Point(321, 114);
+            txtOS.Name = "txtOS";
+            txtOS.ReadOnly = true;
+            txtOS.Size = new Size(100, 23);
+            txtOS.TabIndex = 6;
             // 
             // btnBuscarPaciente
             // 
@@ -110,13 +110,13 @@
             label3.TabIndex = 7;
             label3.Text = "Tipo de atencion:";
             // 
-            // cbTipoAtencion
+            // cmbTipoAtencion
             // 
-            cbTipoAtencion.FormattingEnabled = true;
-            cbTipoAtencion.Location = new Point(321, 150);
-            cbTipoAtencion.Name = "cbTipoAtencion";
-            cbTipoAtencion.Size = new Size(121, 23);
-            cbTipoAtencion.TabIndex = 8;
+            cmbTipoAtencion.FormattingEnabled = true;
+            cmbTipoAtencion.Location = new Point(321, 150);
+            cmbTipoAtencion.Name = "cmbTipoAtencion";
+            cmbTipoAtencion.Size = new Size(121, 23);
+            cmbTipoAtencion.TabIndex = 8;
             // 
             // label4
             // 
@@ -127,13 +127,13 @@
             label4.TabIndex = 9;
             label4.Text = "Odontólogo:";
             // 
-            // cbOdontologo
+            // cmbOdontologo
             // 
-            cbOdontologo.FormattingEnabled = true;
-            cbOdontologo.Location = new Point(321, 189);
-            cbOdontologo.Name = "cbOdontologo";
-            cbOdontologo.Size = new Size(121, 23);
-            cbOdontologo.TabIndex = 10;
+            cmbOdontologo.FormattingEnabled = true;
+            cmbOdontologo.Location = new Point(321, 189);
+            cmbOdontologo.Name = "cmbOdontologo";
+            cmbOdontologo.Size = new Size(121, 23);
+            cmbOdontologo.TabIndex = 10;
             // 
             // dgvTurnosDisponibles
             // 
@@ -206,18 +206,19 @@
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(dgvTurnosDisponibles);
-            Controls.Add(cbOdontologo);
+            Controls.Add(cmbOdontologo);
             Controls.Add(label4);
-            Controls.Add(cbTipoAtencion);
+            Controls.Add(cmbTipoAtencion);
             Controls.Add(label3);
             Controls.Add(btnBuscarPaciente);
-            Controls.Add(textBox1);
+            Controls.Add(txtOS);
             Controls.Add(label2);
             Controls.Add(txtDni);
             Controls.Add(lblDni);
             Controls.Add(label1);
             Name = "FormAtencion";
             Text = "Nueva atención";
+            Load += FormAtencion_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTurnosDisponibles).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -229,12 +230,12 @@
         private Label lblDni;
         private TextBox txtDni;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox txtOS;
         private Button btnBuscarPaciente;
         private Label label3;
-        private ComboBox cbTipoAtencion;
+        private ComboBox cmbTipoAtencion;
         private Label label4;
-        private ComboBox cbOdontologo;
+        private ComboBox cmbOdontologo;
         private DataGridView dgvTurnosDisponibles;
         private Label label5;
         private Label label6;

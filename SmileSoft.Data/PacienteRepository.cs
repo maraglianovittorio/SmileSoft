@@ -36,17 +36,18 @@ namespace SmileSoft.Data
         {
             using var context = CreateContext();
             return context.Pacientes
-                //.Include(p => )
+                .Include(p => p.TipoPlan)
                 .FirstOrDefault(p => p.Id == id);
         }
         public Paciente? GetByDni(string dni)
         {
             using var context = CreateContext();
             return context.Pacientes
+                .Include(p => p.TipoPlan)
                 .FirstOrDefault(p => p.NroDni == dni);
         }
 
-        public IEnumerable<Paciente>GetAll()
+        public IEnumerable<Paciente> GetAll()
         {
             using var context = CreateContext();
             return context.Pacientes

@@ -28,245 +28,144 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblNombrePaciente = new Label();
-            lblFechaNacimiento = new Label();
-            lblDireccionPaciente = new Label();
-            lblDNIPaciente = new Label();
-            lblApellidoPaciente = new Label();
-            lblNroHC = new Label();
-            lblTelefono = new Label();
-            lblNroAfiliado = new Label();
+            lblNombreOdontologo = new Label();
+            lblApellidoOdontologo = new Label();
+            lblNroMatricula = new Label();
+            lblEmail = new Label();
             txtNombre = new TextBox();
             txtApellido = new TextBox();
-            txtDNI = new TextBox();
+            txtNroMatricula = new TextBox();
             txtEmail = new TextBox();
-            txtDireccion = new TextBox();
-            txtTelefono = new TextBox();
-            txtNroAfiliado = new TextBox();
-            btnAgregarPaciente = new Button();
-            lblEmail = new Label();
-            txtNroHC = new TextBox();
-            dtpFechaNacimiento = new DateTimePicker();
-            btnEditarPaciente = new Button();
+            btnAgregarOdontologo = new Button();
+            btnEditarOdontologo = new Button();
             SuspendLayout();
             // 
-            // lblNombrePaciente
+            // lblNombreOdontologo
             // 
-            lblNombrePaciente.AutoSize = true;
-            lblNombrePaciente.Location = new Point(255, 65);
-            lblNombrePaciente.Name = "lblNombrePaciente";
-            lblNombrePaciente.Size = new Size(78, 25);
-            lblNombrePaciente.TabIndex = 0;
-            lblNombrePaciente.Text = "Nombre";
+            lblNombreOdontologo.AutoSize = true;
+            lblNombreOdontologo.Location = new Point(119, 40);
+            lblNombreOdontologo.Margin = new Padding(2, 0, 2, 0);
+            lblNombreOdontologo.Name = "lblNombreOdontologo";
+            lblNombreOdontologo.Size = new Size(51, 15);
+            lblNombreOdontologo.TabIndex = 0;
+            lblNombreOdontologo.Text = "Nombre";
             // 
-            // lblFechaNacimiento
+            // lblApellidoOdontologo
             // 
-            lblFechaNacimiento.AutoSize = true;
-            lblFechaNacimiento.Location = new Point(255, 290);
-            lblFechaNacimiento.Name = "lblFechaNacimiento";
-            lblFechaNacimiento.Size = new Size(152, 25);
-            lblFechaNacimiento.TabIndex = 1;
-            lblFechaNacimiento.Text = "Fecha Nacimiento";
+            lblApellidoOdontologo.AutoSize = true;
+            lblApellidoOdontologo.Location = new Point(119, 70);
+            lblApellidoOdontologo.Margin = new Padding(2, 0, 2, 0);
+            lblApellidoOdontologo.Name = "lblApellidoOdontologo";
+            lblApellidoOdontologo.Size = new Size(51, 15);
+            lblApellidoOdontologo.TabIndex = 2;
+            lblApellidoOdontologo.Text = "Apellido";
             // 
-            // lblDireccionPaciente
+            // lblNroMatricula
             // 
-            lblDireccionPaciente.AutoSize = true;
-            lblDireccionPaciente.Location = new Point(255, 249);
-            lblDireccionPaciente.Name = "lblDireccionPaciente";
-            lblDireccionPaciente.Size = new Size(85, 25);
-            lblDireccionPaciente.TabIndex = 2;
-            lblDireccionPaciente.Text = "Direccion";
-            // 
-            // lblDNIPaciente
-            // 
-            lblDNIPaciente.AutoSize = true;
-            lblDNIPaciente.Location = new Point(255, 161);
-            lblDNIPaciente.Name = "lblDNIPaciente";
-            lblDNIPaciente.Size = new Size(43, 25);
-            lblDNIPaciente.TabIndex = 3;
-            lblDNIPaciente.Text = "DNI";
-            // 
-            // lblApellidoPaciente
-            // 
-            lblApellidoPaciente.AutoSize = true;
-            lblApellidoPaciente.Location = new Point(255, 115);
-            lblApellidoPaciente.Name = "lblApellidoPaciente";
-            lblApellidoPaciente.Size = new Size(78, 25);
-            lblApellidoPaciente.TabIndex = 4;
-            lblApellidoPaciente.Text = "Apellido";
-            // 
-            // lblNroHC
-            // 
-            lblNroHC.AutoSize = true;
-            lblNroHC.Location = new Point(255, 423);
-            lblNroHC.Name = "lblNroHC";
-            lblNroHC.Size = new Size(71, 25);
-            lblNroHC.TabIndex = 5;
-            lblNroHC.Text = "Nro HC";
-            // 
-            // lblTelefono
-            // 
-            lblTelefono.AutoSize = true;
-            lblTelefono.Location = new Point(255, 337);
-            lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(79, 25);
-            lblTelefono.TabIndex = 6;
-            lblTelefono.Text = "Telefono";
-            // 
-            // lblNroAfiliado
-            // 
-            lblNroAfiliado.AutoSize = true;
-            lblNroAfiliado.Location = new Point(255, 380);
-            lblNroAfiliado.Name = "lblNroAfiliado";
-            lblNroAfiliado.Size = new Size(139, 25);
-            lblNroAfiliado.TabIndex = 7;
-            lblNroAfiliado.Text = "Nro afiliado(OS)";
-            // 
-            // txtNombre
-            // 
-            txtNombre.Location = new Point(435, 65);
-            txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(176, 31);
-            txtNombre.TabIndex = 8;
-            // 
-            // txtApellido
-            // 
-            txtApellido.Location = new Point(435, 109);
-            txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(176, 31);
-            txtApellido.TabIndex = 9;
-            // 
-            // txtDNI
-            // 
-            txtDNI.Location = new Point(435, 155);
-            txtDNI.Name = "txtDNI";
-            txtDNI.Size = new Size(176, 31);
-            txtDNI.TabIndex = 10;
-            // 
-            // txtEmail
-            // 
-            txtEmail.Location = new Point(435, 203);
-            txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(176, 31);
-            txtEmail.TabIndex = 11;
-            // 
-            // txtDireccion
-            // 
-            txtDireccion.Location = new Point(435, 243);
-            txtDireccion.Name = "txtDireccion";
-            txtDireccion.Size = new Size(176, 31);
-            txtDireccion.TabIndex = 12;
-            // 
-            // txtTelefono
-            // 
-            txtTelefono.Location = new Point(435, 337);
-            txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(176, 31);
-            txtTelefono.TabIndex = 14;
-            // 
-            // txtNroAfiliado
-            // 
-            txtNroAfiliado.Location = new Point(435, 380);
-            txtNroAfiliado.Name = "txtNroAfiliado";
-            txtNroAfiliado.Size = new Size(176, 31);
-            txtNroAfiliado.TabIndex = 15;
-            // 
-            // btnAgregarPaciente
-            // 
-            btnAgregarPaciente.Location = new Point(352, 481);
-            btnAgregarPaciente.Name = "btnAgregarPaciente";
-            btnAgregarPaciente.Size = new Size(119, 45);
-            btnAgregarPaciente.TabIndex = 16;
-            btnAgregarPaciente.Text = "Enviar";
-            btnAgregarPaciente.UseVisualStyleBackColor = true;
-            btnAgregarPaciente.Click += btnEnviar_Click;
+            lblNroMatricula.AutoSize = true;
+            lblNroMatricula.Location = new Point(119, 100);
+            lblNroMatricula.Margin = new Padding(2, 0, 2, 0);
+            lblNroMatricula.Name = "lblNroMatricula";
+            lblNroMatricula.Size = new Size(83, 15);
+            lblNroMatricula.TabIndex = 4;
+            lblNroMatricula.Text = "Nro. Matrícula";
             // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(255, 209);
+            lblEmail.Location = new Point(119, 130);
+            lblEmail.Margin = new Padding(2, 0, 2, 0);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(54, 25);
-            lblEmail.TabIndex = 17;
+            lblEmail.Size = new Size(36, 15);
+            lblEmail.TabIndex = 6;
             lblEmail.Text = "Email";
             // 
-            // txtNroHC
+            // txtNombre
             // 
-            txtNroHC.Location = new Point(435, 423);
-            txtNroHC.Name = "txtNroHC";
-            txtNroHC.Size = new Size(176, 31);
-            txtNroHC.TabIndex = 16;
+            txtNombre.Location = new Point(245, 40);
+            txtNombre.Margin = new Padding(2);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(200, 23);
+            txtNombre.TabIndex = 1;
             // 
-            // dtpFechaNacimiento
+            // txtApellido
             // 
-            dtpFechaNacimiento.Format = DateTimePickerFormat.Custom;
-            dtpFechaNacimiento.Location = new Point(437, 289);
-            dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            dtpFechaNacimiento.Size = new Size(174, 31);
-            dtpFechaNacimiento.TabIndex = 13;
-            dtpFechaNacimiento.Value = new DateTime(2025, 1, 1, 0, 0, 0, 0);
+            txtApellido.Location = new Point(245, 70);
+            txtApellido.Margin = new Padding(2);
+            txtApellido.Name = "txtApellido";
+            txtApellido.Size = new Size(200, 23);
+            txtApellido.TabIndex = 3;
             // 
-            // btnEditarPaciente
+            // txtNroMatricula
             // 
-            btnEditarPaciente.Location = new Point(477, 481);
-            btnEditarPaciente.Name = "btnEditarPaciente";
-            btnEditarPaciente.Size = new Size(119, 45);
-            btnEditarPaciente.TabIndex = 18;
-            btnEditarPaciente.Text = "Editar";
-            btnEditarPaciente.UseVisualStyleBackColor = true;
-            btnEditarPaciente.Click += btnEditarPaciente_Click;
+            txtNroMatricula.Location = new Point(245, 100);
+            txtNroMatricula.Margin = new Padding(2);
+            txtNroMatricula.Name = "txtNroMatricula";
+            txtNroMatricula.Size = new Size(200, 23);
+            txtNroMatricula.TabIndex = 5;
             // 
-            // FormPaciente
+            // txtEmail
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            txtEmail.Location = new Point(245, 130);
+            txtEmail.Margin = new Padding(2);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(200, 23);
+            txtEmail.TabIndex = 7;
+            // 
+            // btnAgregarOdontologo
+            // 
+            btnAgregarOdontologo.Location = new Point(245, 240);
+            btnAgregarOdontologo.Margin = new Padding(2);
+            btnAgregarOdontologo.Name = "btnAgregarOdontologo";
+            btnAgregarOdontologo.Size = new Size(83, 27);
+            btnAgregarOdontologo.TabIndex = 12;
+            btnAgregarOdontologo.Text = "Enviar";
+            btnAgregarOdontologo.UseVisualStyleBackColor = true;
+            btnAgregarOdontologo.Click += btnEnviar_Click;
+            // 
+            // btnEditarOdontologo
+            // 
+            btnEditarOdontologo.Location = new Point(345, 240);
+            btnEditarOdontologo.Margin = new Padding(2);
+            btnEditarOdontologo.Name = "btnEditarOdontologo";
+            btnEditarOdontologo.Size = new Size(83, 27);
+            btnEditarOdontologo.TabIndex = 13;
+            btnEditarOdontologo.Text = "Editar";
+            btnEditarOdontologo.UseVisualStyleBackColor = true;
+            btnEditarOdontologo.Click += btnEditarOdontologo_Click;
+            // 
+            // FormOdontologo
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(925, 558);
-            Controls.Add(btnEditarPaciente);
-            Controls.Add(dtpFechaNacimiento);
-            Controls.Add(txtNroHC);
-            Controls.Add(lblEmail);
-            Controls.Add(btnAgregarPaciente);
-            Controls.Add(txtNroAfiliado);
-            Controls.Add(txtTelefono);
-            Controls.Add(txtDireccion);
+            ClientSize = new Size(650, 350);
+            Controls.Add(btnEditarOdontologo);
+            Controls.Add(btnAgregarOdontologo);
             Controls.Add(txtEmail);
-            Controls.Add(txtDNI);
+            Controls.Add(txtNroMatricula);
             Controls.Add(txtApellido);
             Controls.Add(txtNombre);
-            Controls.Add(lblNroAfiliado);
-            Controls.Add(lblTelefono);
-            Controls.Add(lblNroHC);
-            Controls.Add(lblApellidoPaciente);
-            Controls.Add(lblDNIPaciente);
-            Controls.Add(lblDireccionPaciente);
-            Controls.Add(lblFechaNacimiento);
-            Controls.Add(lblNombrePaciente);
-            Name = "FormPaciente";
+            Controls.Add(lblEmail);
+            Controls.Add(lblNroMatricula);
+            Controls.Add(lblApellidoOdontologo);
+            Controls.Add(lblNombreOdontologo);
+            Margin = new Padding(2);
+            Name = "FormOdontologo";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label lblNombrePaciente;
-        private Label lblFechaNacimiento;
-        private Label lblDireccionPaciente;
-        private Label lblDNIPaciente;
-        private Label lblApellidoPaciente;
-        private Label lblNroHC;
-        private Label lblTelefono;
-        private Label lblNroAfiliado;
+        private Label lblNombreOdontologo;
+        private Label lblApellidoOdontologo;
+        private Label lblNroMatricula;
+        private Label lblEmail;
         private TextBox txtNombre;
         private TextBox txtApellido;
-        private TextBox txtDNI;
+        private TextBox txtNroMatricula;
         private TextBox txtEmail;
-        private TextBox txtDireccion;
-        private TextBox txtTelefono;
-        private TextBox txtNroAfiliado;
-        private Button btnAgregarPaciente;
-        private Label lblEmail;
-        private TextBox txtNroHC;
-        private DateTimePicker dtpFechaNacimiento;
-        private Button btnEditarPaciente;
+        private Button btnAgregarOdontologo;
+        private Button btnEditarOdontologo;
     }
 }

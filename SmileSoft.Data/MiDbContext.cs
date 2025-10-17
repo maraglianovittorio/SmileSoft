@@ -53,6 +53,10 @@ namespace SmileSoft.Data
                 entity.Property(e => e.NroAfiliado).HasMaxLength(50);
                 entity.Property(e => e.NroHC).IsRequired().HasMaxLength(20);
                 entity.HasIndex(e => e.NroHC).IsUnique();
+                entity.HasOne(e => e.TipoPlan)
+                        .WithMany(tp => tp.Pacientes)
+                        .HasForeignKey(e => e.TipoPlanId)
+                        .OnDelete(DeleteBehavior.Cascade);
             });
             
             modelBuilder.Entity<ObraSocial>(entity =>

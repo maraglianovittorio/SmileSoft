@@ -3,40 +3,38 @@ using System.Net.Http.Json;
 using SmileSoft.API.Clients;
 using DTO;
 using System.Threading.Tasks;
+
 namespace SmileSoft.UI.Desktop
 {
     public partial class FormOdontologo : Form
     {
-
-
         public FormOdontologo()
         {
-
             InitializeComponent();
-            this.Text = "SmileSoft - Agregar Paciente";
-            btnEditarPaciente.Visible = false;
+            this.Text = "SmileSoft - Agregar Odontólogo";
+            btnEditarOdontologo.Visible = false;
             ConfigurarEstilos();
             ConfigurarResponsive();
         }
-        public FormOdontologo(int idPaciente)
-        {
 
+        public FormOdontologo(int idOdontologo)
+        {
             InitializeComponent();
-            this.Text = "SmileSoft - Editar Paciente";
-            btnAgregarPaciente.Visible = false;
-            btnEditarPaciente.Tag = idPaciente; // Guardar el ID del paciente en el botón
+            this.Text = "SmileSoft - Editar Odontólogo";
+            btnAgregarOdontologo.Visible = false;
+            btnEditarOdontologo.Tag = idOdontologo; // Guardar el ID del odontólogo en el botón
             ConfigurarEstilos();
             ConfigurarResponsive();
-            PopularFormPaciente(idPaciente);
+            PopularFormOdontologo(idOdontologo);
         }
 
         private void ConfigurarEstilos()
         {
-            // Estilo verde moderno para POST
+            // Estilo verde moderno
             this.BackColor = Color.FromArgb(245, 255, 250); // MintCream
             this.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.MinimumSize = new Size(925, 558); // Tamaño mínimo
+            this.MinimumSize = new Size(650, 500); // Tamaño mínimo
 
             // Estilo para labels
             foreach (Control control in this.Controls)
@@ -47,10 +45,10 @@ namespace SmileSoft.UI.Desktop
                     lbl.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
 
                     // Marcar campos obligatorios con asterisco
-                    if (lbl.Name == "lblNombrePaciente" ||
-                        lbl.Name == "lblApellidoPaciente" ||
-                        lbl.Name == "lblDNIPaciente" ||
-                        lbl.Name == "lblNroHC")
+                    if (lbl.Name == "lblNombreOdontologo" ||
+                        lbl.Name == "lblApellidoOdontologo" ||
+                        lbl.Name == "lblNroMatricula" ||
+                        lbl.Name == "lblUsername")
                     {
                         lbl.Text = lbl.Text.TrimEnd(':') + " *";
                         lbl.ForeColor = Color.FromArgb(220, 20, 60); // Crimson para campos obligatorios
@@ -72,10 +70,6 @@ namespace SmileSoft.UI.Desktop
                     btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(46, 125, 50); // Darker green
                     btn.Cursor = Cursors.Hand;
                 }
-                else if (control is DateTimePicker dtp)
-                {
-                    dtp.Font = new Font("Segoe UI", 9F);
-                }
             }
         }
 
@@ -92,43 +86,38 @@ namespace SmileSoft.UI.Desktop
             }
 
             // Manejar el evento de redimensionado para mantener todo centrado
-            this.Resize += formPaciente_Resize;
+            this.Resize += formOdontologo_Resize;
         }
 
-        private void formPaciente_Resize(object sender, EventArgs e)
+        private void formOdontologo_Resize(object sender, EventArgs e)
         {
             // Centrar todos los controles manteniendo sus posiciones relativas
             int centerX = this.ClientSize.Width / 2;
             int centerY = this.ClientSize.Height / 2;
 
-            // Calcular offset desde el centro original (925x558)
-            int originalCenterX = 925 / 2;
-            int originalCenterY = 558 / 2;
+            // Calcular offset desde el centro original (650x500)
+            int originalCenterX = 650 / 2;
+            int originalCenterY = 500 / 2;
 
             foreach (Control control in this.Controls)
             {
                 // Obtener posición original relativa al centro
                 int originalX = 0, originalY = 0;
 
-                if (control == lblNombrePaciente) { originalX = 255; originalY = 65; }
-                else if (control == txtNombre) { originalX = 435; originalY = 65; }
-                else if (control == lblApellidoPaciente) { originalX = 255; originalY = 115; }
-                else if (control == txtApellido) { originalX = 435; originalY = 109; }
-                else if (control == lblDNIPaciente) { originalX = 255; originalY = 161; }
-                else if (control == txtDNI) { originalX = 435; originalY = 155; }
-                else if (control == lblEmail) { originalX = 255; originalY = 209; }
-                else if (control == txtEmail) { originalX = 435; originalY = 203; }
-                else if (control == lblDireccionPaciente) { originalX = 255; originalY = 249; }
-                else if (control == txtDireccion) { originalX = 435; originalY = 243; }
-                else if (control == lblFechaNacimiento) { originalX = 255; originalY = 290; }
-                else if (control == dtpFechaNacimiento) { originalX = 437; originalY = 289; }
-                else if (control == lblTelefono) { originalX = 255; originalY = 337; }
-                else if (control == txtTelefono) { originalX = 435; originalY = 337; }
-                else if (control == lblNroAfiliado) { originalX = 255; originalY = 380; }
-                else if (control == txtNroAfiliado) { originalX = 435; originalY = 380; }
-                else if (control == lblNroHC) { originalX = 255; originalY = 423; }
-                else if (control == txtNroHC) { originalX = 435; originalY = 423; }
-                else if (control == btnAgregarPaciente) { originalX = 385; originalY = 477; }
+                if (control == lblNombreOdontologo) { originalX = 119; originalY = 40; }
+                else if (control == txtNombre) { originalX = 245; originalY = 40; }
+                else if (control == lblApellidoOdontologo) { originalX = 119; originalY = 70; }
+                else if (control == txtApellido) { originalX = 245; originalY = 70; }
+                else if (control == lblNroMatricula) { originalX = 119; originalY = 100; }
+                else if (control == txtNroMatricula) { originalX = 245; originalY = 100; }
+                else if (control == lblEmail) { originalX = 119; originalY = 130; }
+                else if (control == txtEmail) { originalX = 245; originalY = 130; }
+                //else if (control == lblUsername) { originalX = 119; originalY = 160; }
+                //else if (control == txtUsername) { originalX = 245; originalY = 160; }
+                //else if (control == lblPassword) { originalX = 119; originalY = 190; }
+                //else if (control == txtPassword) { originalX = 245; originalY = 190; }
+                else if (control == btnAgregarOdontologo) { originalX = 245; originalY = 240; }
+                else if (control == btnEditarOdontologo) { originalX = 345; originalY = 240; }
 
                 // Calcular nueva posición manteniendo la proporción
                 int offsetX = originalX - originalCenterX;
@@ -142,13 +131,10 @@ namespace SmileSoft.UI.Desktop
         {
             txtNombre.Clear();
             txtApellido.Clear();
-            txtDNI.Clear();
+            txtNroMatricula.Clear();
             txtEmail.Clear();
-            txtDireccion.Clear();
-            txtTelefono.Clear();
-            txtNroAfiliado.Clear();
-            txtNroHC.Clear();
-            dtpFechaNacimiento.Value = DateTime.Now;
+            //txtUsername.Clear();
+            //txtPassword.Clear();
 
             // Enfocar el primer campo
             txtNombre.Focus();
@@ -165,11 +151,11 @@ namespace SmileSoft.UI.Desktop
             if (string.IsNullOrWhiteSpace(txtApellido.Text))
                 errores.Add("• El apellido es obligatorio");
 
-            if (string.IsNullOrWhiteSpace(txtDNI.Text))
-                errores.Add("• El DNI es obligatorio");
+            if (string.IsNullOrWhiteSpace(txtNroMatricula.Text))
+                errores.Add("• El número de matrícula es obligatorio");
 
-            if (string.IsNullOrWhiteSpace(txtNroHC.Text))
-                errores.Add("• El número de historia clínica es obligatorio");
+            //if (string.IsNullOrWhiteSpace(txtUsername.Text))
+            //    errores.Add("• El nombre de usuario es obligatorio");
 
             // Validar formato de email si se proporciona
             if (!string.IsNullOrWhiteSpace(txtEmail.Text))
@@ -184,12 +170,11 @@ namespace SmileSoft.UI.Desktop
                 }
             }
 
-            // Validar fecha de nacimiento
-            if (dtpFechaNacimiento.Value > DateTime.Now)
-                errores.Add("• La fecha de nacimiento no puede ser futura");
-
-            if (dtpFechaNacimiento.Value < DateTime.Now.AddYears(-120))
-                errores.Add("• La fecha de nacimiento no es válida");
+            //// Validar password solo en modo agregar
+            //if (btnAgregarOdontologo.Visible && string.IsNullOrWhiteSpace(txtPassword.Text))
+            //{
+            //    errores.Add("• La contraseña es obligatoria");
+            //}
 
             // Mostrar errores si los hay
             if (errores.Count > 0)
@@ -202,30 +187,23 @@ namespace SmileSoft.UI.Desktop
             return true;
         }
 
-        private async Task PopularFormPaciente(int idPaciente)
+        private async Task PopularFormOdontologo(int idOdontologo)
         {
-
             LimpiarFormulario();
             try
             {
-                var pacienteResponse = await PacienteApiClient.GetOneAsync(idPaciente);
-                if (pacienteResponse != null)
+                var odontologoResponse = await OdontologoApiClient.GetOneAsync(idOdontologo);
+                if (odontologoResponse != null)
                 {
-                    txtNombre.Text = pacienteResponse.Nombre;
-                    txtApellido.Text = pacienteResponse.Apellido;
-                    dtpFechaNacimiento.Value = pacienteResponse.FechaNacimiento;
-                    txtDireccion.Text = pacienteResponse.Direccion;
-                    txtEmail.Text = pacienteResponse.Email;
-                    txtDNI.Text = pacienteResponse.NroDni;
-                    txtNroHC.Text = pacienteResponse.NroHC;
-                    txtTelefono.Text = pacienteResponse.Telefono;
-                    txtNroAfiliado.Text = pacienteResponse.NroAfiliado;
-
-
+                    txtNombre.Text = odontologoResponse.Nombre;
+                    txtApellido.Text = odontologoResponse.Apellido;
+                    txtNroMatricula.Text = odontologoResponse.NroMatricula;
+                    txtEmail.Text = odontologoResponse.Email;
+                    //txtUsername.Text = odontologoResponse.Username;
                 }
                 else
                 {
-                    MessageBox.Show($"Error al cargar los datos del paciente. Código: {MessageBoxIcon.Error}",
+                    MessageBox.Show($"Error al cargar los datos del odontólogo. Código: {MessageBoxIcon.Error}",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -234,6 +212,7 @@ namespace SmileSoft.UI.Desktop
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private async void btnEnviar_Click(object sender, EventArgs e)
         {
             // Validar campos antes de enviar
@@ -244,28 +223,23 @@ namespace SmileSoft.UI.Desktop
 
             try
             {
-                PacienteDTO paciente = new PacienteDTO
+                OdontologoDTO odontologo = new OdontologoDTO
                 {
                     Nombre = txtNombre.Text.Trim(),
                     Apellido = txtApellido.Text.Trim(),
-                    FechaNacimiento = dtpFechaNacimiento.Value,
-                    Direccion = txtDireccion.Text.Trim(),
+                    NroMatricula = txtNroMatricula.Text.Trim(),
                     Email = txtEmail.Text.Trim(),
-                    NroDni = txtDNI.Text.Trim(),
-                    NroHC = txtNroHC.Text.Trim(),
-                    Telefono = txtTelefono.Text.Trim(),
-                    NroAfiliado = txtNroAfiliado.Text.Trim()
+                    //Username = txtUsername.Text.Trim(),
+                    //Password = txtPassword.Text.Trim()
                 };
 
-                btnAgregarPaciente.Text = "Enviando...";
-                btnAgregarPaciente.Enabled = false;
+                btnAgregarOdontologo.Text = "Enviando...";
+                btnAgregarOdontologo.Enabled = false;
 
-                await PacienteApiClient.CreateAsync(paciente);
-                MessageBox.Show("Paciente creado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se creo un paciente
+                await OdontologoApiClient.CreateAsync(odontologo);
+                MessageBox.Show("Odontólogo creado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK; // Indicar que se creó un odontólogo
                 this.Close(); // Cerrar el formulario después del éxito
-
-
             }
             catch (Exception ex)
             {
@@ -273,12 +247,12 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnAgregarPaciente.Text = "Enviar";
-                btnAgregarPaciente.Enabled = true;
+                btnAgregarOdontologo.Text = "Enviar";
+                btnAgregarOdontologo.Enabled = true;
             }
         }
 
-        private async void btnEditarPaciente_Click(object sender, EventArgs e)
+        private async void btnEditarOdontologo_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos())
             {
@@ -287,31 +261,28 @@ namespace SmileSoft.UI.Desktop
 
             try
             {
-                if(btnEditarPaciente.Tag is not int id)
+                if (btnEditarOdontologo.Tag is not int id)
                 {
-                    MessageBox.Show("Error al obtener el ID del paciente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al obtener el ID del odontólogo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-               
-                    PacienteDTO paciente = new PacienteDTO
-                    {
-                        Nombre = txtNombre.Text.Trim(),
-                        Apellido = txtApellido.Text.Trim(),
-                        FechaNacimiento = dtpFechaNacimiento.Value,
-                        Direccion = txtDireccion.Text.Trim(),
-                        Email = txtEmail.Text.Trim(),
-                        NroDni = txtDNI.Text.Trim(),
-                        NroHC = txtNroHC.Text.Trim(),
-                        Telefono = txtTelefono.Text.Trim(),
-                        NroAfiliado = txtNroAfiliado.Text.Trim()
-                    };
 
-                btnEditarPaciente.Text = "Enviando...";
-                btnEditarPaciente.Enabled = false;
+                OdontologoDTO odontologo = new OdontologoDTO
+                {
+                    Nombre = txtNombre.Text.Trim(),
+                    Apellido = txtApellido.Text.Trim(),
+                    NroMatricula = txtNroMatricula.Text.Trim(),
+                    Email = txtEmail.Text.Trim(),
+                    //Username = txtUsername.Text.Trim(),
+                    //Password = string.IsNullOrWhiteSpace(txtPassword.Text) ? "" : txtPassword.Text.Trim()
+                };
 
-                await PacienteApiClient.UpdateAsync(paciente, (int)btnEditarPaciente.Tag);
-                MessageBox.Show("Paciente editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se editó un paciente
+                btnEditarOdontologo.Text = "Enviando...";
+                btnEditarOdontologo.Enabled = false;
+
+                await OdontologoApiClient.UpdateAsync(odontologo, (int)btnEditarOdontologo.Tag);
+                MessageBox.Show("Odontólogo editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK; // Indicar que se editó un odontólogo
                 this.Close(); // Cerrar el formulario después del éxito
             }
             catch (HttpRequestException httpEx)
@@ -324,12 +295,9 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnEditarPaciente.Text = "Enviar";
-                btnEditarPaciente.Enabled = true;
+                btnEditarOdontologo.Text = "Enviar";
+                btnEditarOdontologo.Enabled = true;
             }
-
         }
     }
 }
-
-                      

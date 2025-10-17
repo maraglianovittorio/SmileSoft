@@ -58,8 +58,8 @@ namespace SmileSoft.Data
                 existingOdontologo.Apellido = odontologo.Apellido;
                 existingOdontologo.NroMatricula = odontologo.NroMatricula;
                 existingOdontologo.Email = odontologo.Email;
-                existingOdontologo.Username = odontologo.Username;
-                existingOdontologo.Password = odontologo.Password;
+                //existingOdontologo.Username = odontologo.Username;
+                //existingOdontologo.Password = odontologo.Password;
                 existingOdontologo.ObrasSociales = odontologo.ObrasSociales;
 
                 context.SaveChanges();

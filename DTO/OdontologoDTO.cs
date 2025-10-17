@@ -26,10 +26,10 @@ namespace DTO
         [EmailAddress(ErrorMessage = "El formato del email no es válido")]
         [StringLength(100, ErrorMessage = "El email no puede exceder 100 caracteres")]
         public string Email { get; set; } = string.Empty;
-        [StringLength(50, ErrorMessage = "El username no puede exceder 50 caracteres")]
-        public string Username { get; set; } = string.Empty;
-        [StringLength(20, ErrorMessage = "El password no puede exceder 20 caracteres")]
-        public string Password { get; set; } = string.Empty;
+        //[StringLength(50, ErrorMessage = "El username no puede exceder 50 caracteres")]
+        //public string Username { get; set; } = string.Empty;
+        //[StringLength(20, ErrorMessage = "El password no puede exceder 20 caracteres")]
+        //public string Password { get; set; } = string.Empty;
         //public List<ObraSocial> ObrasSociales { get; set; } = new List<ObraSocial>();
     }
 }

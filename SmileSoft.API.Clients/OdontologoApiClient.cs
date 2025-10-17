@@ -20,11 +20,11 @@ namespace SmileSoft.API.Clients
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        public static async Task<IEnumerable<Odontologo>> GetAllAsync()
+        public static async Task<IEnumerable<Odontologo>>? GetAllAsync()
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("odontologo");
+                HttpResponseMessage response = await client.GetAsync("odontologos");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -33,7 +33,8 @@ namespace SmileSoft.API.Clients
                 else
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al obtener lista de odontologos. Status: {response.StatusCode}, Detalle: {errorContent}");
+                    //throw new Exception($"Error al obtener lista de odontologos. Status: {response.StatusCode}, Detalle: {errorContent}");
+                    return null;
                 }
             }
             catch (HttpRequestException ex)
@@ -49,7 +50,7 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"odontologo/id?id={id}");
+                HttpResponseMessage response = await client.GetAsync($"odontologos/id?id={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -74,7 +75,7 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("odontologo", odontologo);
+                HttpResponseMessage response = await client.PostAsJsonAsync("odontologos", odontologo);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -98,7 +99,7 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync($"odontologo/{id}");
+                HttpResponseMessage response = await client.DeleteAsync($"odontologos/{id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -120,7 +121,7 @@ namespace SmileSoft.API.Clients
             try
             {
 
-                HttpResponseMessage response = await client.PutAsJsonAsync($"odontologo/{id}", odontologo);
+                HttpResponseMessage response = await client.PutAsJsonAsync($"odontologos/{id}", odontologo);
 
                 if (!response.IsSuccessStatusCode)
                 {

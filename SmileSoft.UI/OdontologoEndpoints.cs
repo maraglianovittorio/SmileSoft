@@ -19,7 +19,7 @@ namespace SmileSoft.WebAPI
             {
                 OdontologoService odontologoService = new OdontologoService();
                 OdontologoDTO dto = odontologoService.GetOdontologo(id);
-                return dto is not null ? Results.Ok(new { Odontologo = dto, Nombre = dto.Nombre }) : Results.NotFound();
+                return dto is not null ? Results.Ok(new { Odontologo = dto }) : Results.NotFound();
             }).WithName("GetOdontologo");
             app.MapPost("/odontologos", (OdontologoDTO odontologoDTO) =>
             {
