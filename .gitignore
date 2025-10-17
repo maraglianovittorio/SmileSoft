@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /SmileSoft.Data/appsettings.json
 /SmileSoft.UI/appsettings.json
+/SmileSoft.Data/Migrations
