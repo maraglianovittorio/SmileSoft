@@ -40,7 +40,12 @@ namespace SmileSoft.WindowsForms
                         }
                         txtNomYApe.Text = paciente.Nombre + " " + paciente.Apellido;
                         // ver como ahorrarse esta llamada
-                        var tipoPlan = await TipoPlanApiClient.GetOneAsync(paciente.TipoPlanId);
+                        if (paciente.TipoPlanId == null)
+                        {
+                            txtOS.Text = "Sin obra social";
+                            return;
+                        }
+                        var tipoPlan = await TipoPlanApiClient.GetOneAsync(paciente.TipoPlanId.Value);
                         var obraSocial = await ObraSocialApiClient.GetOneAsync(tipoPlan.ObraSocialId);
                         txtOS.Text = obraSocial != null ? obraSocial.Nombre : "Sin obra social";
                     }

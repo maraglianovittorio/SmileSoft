@@ -86,7 +86,7 @@ namespace SmileSoft.UI.Desktop
                     pacientes = (List<Paciente>)pacientesResponse;
                     dgvFormPaciente.Columns["Id"].Visible = false;
                     dgvFormPaciente.Columns["Atenciones"].Visible = false;
-                    dgvFormPaciente.Columns["TipoPlanId"].Visible = false;
+                    //dgvFormPaciente.Columns["TipoPlanId"].Visible = false;
                     dgvFormPaciente.Columns["TipoPlan"].Visible = false;
                 }
                 else

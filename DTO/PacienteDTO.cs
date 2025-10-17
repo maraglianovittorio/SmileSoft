@@ -32,11 +32,15 @@ namespace DTO
 
         [StringLength(50, ErrorMessage = "El número de afiliado no puede exceder 50 caracteres")]
         public string NroAfiliado { get; set; } = string.Empty;
-        public int TipoPlanId { get; set; }
+        public int? TipoPlanId { get; set; } 
 
         [Required(ErrorMessage = "El número de historia clínica es obligatorio")]
         [StringLength(20, ErrorMessage = "El número de historia clínica no puede exceder 20 caracteres")]
         
         public string NroHC { get; set; } = string.Empty;
+        public PacienteDTO()
+        {
+
+        }
     }
 }

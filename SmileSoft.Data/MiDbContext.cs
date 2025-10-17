@@ -40,6 +40,7 @@ namespace SmileSoft.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Paciente>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -56,7 +57,8 @@ namespace SmileSoft.Data
                 entity.HasOne(e => e.TipoPlan)
                         .WithMany(tp => tp.Pacientes)
                         .HasForeignKey(e => e.TipoPlanId)
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .IsRequired(false)
+                        .OnDelete(DeleteBehavior.SetNull);
             });
             
             modelBuilder.Entity<ObraSocial>(entity =>

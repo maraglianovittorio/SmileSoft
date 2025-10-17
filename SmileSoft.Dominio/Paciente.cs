@@ -20,11 +20,11 @@ namespace SmileSoft.Dominio
         public string NroHC { get; set; }
 
         //public Tutor Tutor { get; set; }
-        public int TipoPlanId { get; set; }
-        public TipoPlan TipoPlan { get; set; }
+        public int? TipoPlanId { get; set; }
+        public TipoPlan? TipoPlan { get; set; }
         public ICollection<Atencion> Atenciones { get; set; } = new List<Atencion>();
 
-        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string nroAfiliado, string nroHC,int tipoPlanId)
+        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string nroAfiliado, string nroHC, int? tipoPlanId)
         {
             Id = id;
             Nombre = nombre;

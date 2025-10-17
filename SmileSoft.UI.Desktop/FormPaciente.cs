@@ -222,7 +222,9 @@ namespace SmileSoft.UI.Desktop
                     txtNroAfiliado.Text = pacienteResponse.NroAfiliado;
                     if(pacienteResponse.TipoPlanId != -1)
                     {
-                        var tipoPlan = await TipoPlanApiClient.GetOneAsync(pacienteResponse.TipoPlanId);
+                        if (pacienteResponse.TipoPlanId == null)
+                            return;
+                        var tipoPlan = await TipoPlanApiClient.GetOneAsync(pacienteResponse.TipoPlanId.Value);
                         if (tipoPlan != null)
                         {
                             var obraSocial = await ObraSocialApiClient.GetOneAsync(tipoPlan.ObraSocialId);
@@ -276,7 +278,7 @@ namespace SmileSoft.UI.Desktop
                     NroHC = txtNroHC.Text.Trim(),
                     Telefono = txtTelefono.Text.Trim(),
                     NroAfiliado = txtNroAfiliado.Text.Trim(),
-                    TipoPlanId = cmbTiposPlan.SelectedValue != null ? (int)cmbTiposPlan.SelectedValue : 0
+                    TipoPlanId = cmbTiposPlan.SelectedValue != null ? (int?)cmbTiposPlan.SelectedValue : null
                 };
 
                 btnAgregarPaciente.Text = "Enviando...";
@@ -333,7 +335,7 @@ namespace SmileSoft.UI.Desktop
                     NroHC = txtNroHC.Text.Trim(),
                     Telefono = txtTelefono.Text.Trim(),
                     NroAfiliado = txtNroAfiliado.Text.Trim(),
-                    TipoPlanId = cmbTiposPlan.SelectedValue != null ? (int)cmbTiposPlan.SelectedValue : 0
+                    TipoPlanId = cmbTiposPlan.SelectedValue != null ? (int?)cmbTiposPlan.SelectedValue : null
                 };
 
                 btnEditarPaciente.Text = "Enviando...";
