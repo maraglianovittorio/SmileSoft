@@ -26,6 +26,16 @@ namespace DTO
         [EmailAddress(ErrorMessage = "El formato del email no es válido")]
         [StringLength(100, ErrorMessage = "El email no puede exceder 100 caracteres")]
         public string Email { get; set; } = string.Empty;
+        [StringLength(20, ErrorMessage = "El teléfono no puede exceder 20 caracteres")]
+        public string Telefono { get; set; } = string.Empty;
+        [Required(ErrorMessage = "El dni es obligatorio")]
+        [StringLength(20, ErrorMessage = "El dni no puede exceder 20 caracteres")]
+        public string NroDni { get; set; } = string.Empty;
+        [Required(ErrorMessage = "La fecha de nacimiento es obligatoria")]
+        public DateTime FechaNacimiento { get; set; }
+        [Required(ErrorMessage = "La dirección es obligatoria")]
+        [StringLength(200, ErrorMessage = "La dirección no puede exceder 200 caracteres")]
+        public string Direccion { get; set; } = string.Empty;
         //[StringLength(50, ErrorMessage = "El username no puede exceder 50 caracteres")]
         //public string Username { get; set; } = string.Empty;
         //[StringLength(20, ErrorMessage = "El password no puede exceder 20 caracteres")]

@@ -5,36 +5,30 @@ using DTO;
 using System.Threading.Tasks;
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormPaciente : Form
+    public partial class FormTutor : Form
     {
-        private int? _idTutor = null;
-        private string? _nombreTutor = null;
 
-        public FormPaciente()
+        public int IdTutorCreado { get; private set; }
+        public string NombreTutor { get; private set; } = string.Empty;
+        public FormTutor()
         {
 
             InitializeComponent();
-            this.Text = "SmileSoft - Agregar Paciente";
-            btnEditarPaciente.Visible = false;
-            btnAgregarTutor.Visible = false;
-            lblTutor.Visible = false;
-            txtTutor.Visible = false;
+            this.Text = "SmileSoft - Agregar Tutor";
+            btnEditarTutor.Visible = false;
             ConfigurarEstilos();
             ConfigurarResponsive();
         }
-        public FormPaciente(int idPaciente)
+        public FormTutor(int idPersona)
         {
 
             InitializeComponent();
-            this.Text = "SmileSoft - Editar Paciente";
-            btnAgregarPaciente.Visible = false;
-            btnEditarPaciente.Tag = idPaciente; // Guardar el ID del paciente en el botón
+            this.Text = "SmileSoft - Editar Tutor";
+            btnEditarTutor.Tag = idPersona; // Guardar el ID de la persona en el botón
             btnAgregarTutor.Visible = false;
-            lblTutor.Visible = false;
-            txtTutor.Visible = false;
             ConfigurarEstilos();
             ConfigurarResponsive();
-            PopularFormPaciente(idPaciente);
+            PopularFormPersona(idPersona);
         }
 
         private void ConfigurarEstilos()
@@ -99,10 +93,10 @@ namespace SmileSoft.UI.Desktop
             }
 
             // Manejar el evento de redimensionado para mantener todo centrado
-            this.Resize += formPaciente_Resize;
+            this.Resize += formPersona_Resize;
         }
 
-        private void formPaciente_Resize(object sender, EventArgs e)
+        private void formPersona_Resize(object sender, EventArgs e)
         {
             // Centrar todos los controles manteniendo sus posiciones relativas
             int centerX = this.ClientSize.Width / 2;
@@ -131,11 +125,7 @@ namespace SmileSoft.UI.Desktop
                 else if (control == dtpFechaNacimiento) { originalX = 437; originalY = 289; }
                 else if (control == lblTelefono) { originalX = 255; originalY = 337; }
                 else if (control == txtTelefono) { originalX = 435; originalY = 337; }
-                else if (control == lblNroAfiliado) { originalX = 255; originalY = 380; }
-                else if (control == txtNroAfiliado) { originalX = 435; originalY = 380; }
-                else if (control == lblNroHC) { originalX = 255; originalY = 423; }
-                else if (control == txtNroHC) { originalX = 435; originalY = 423; }
-                else if (control == btnAgregarPaciente) { originalX = 385; originalY = 477; }
+                else if (control == btnAgregarTutor) { originalX = 385; originalY = 477; }
 
                 // Calcular nueva posición manteniendo la proporción
                 int offsetX = originalX - originalCenterX;
@@ -153,8 +143,6 @@ namespace SmileSoft.UI.Desktop
             txtEmail.Clear();
             txtDireccion.Clear();
             txtTelefono.Clear();
-            txtNroAfiliado.Clear();
-            txtNroHC.Clear();
             dtpFechaNacimiento.Value = DateTime.Now;
 
             // Enfocar el primer campo
@@ -175,8 +163,6 @@ namespace SmileSoft.UI.Desktop
             if (string.IsNullOrWhiteSpace(txtDNI.Text))
                 errores.Add("• El DNI es obligatorio");
 
-            if (string.IsNullOrWhiteSpace(txtNroHC.Text))
-                errores.Add("• El número de historia clínica es obligatorio");
 
             // Validar formato de email si se proporciona
             if (!string.IsNullOrWhiteSpace(txtEmail.Text))
@@ -198,11 +184,9 @@ namespace SmileSoft.UI.Desktop
             if (dtpFechaNacimiento.Value < DateTime.Now.AddYears(-120))
                 errores.Add("• La fecha de nacimiento no es válida");
             //si la fecha de nacimiento es < 16 años, mando una alerta y hago dar de alta un tutor
-            if (dtpFechaNacimiento.Value > DateTime.Now.AddYears(-16) && _idTutor == null )
+            if (dtpFechaNacimiento.Value > DateTime.Now.AddYears(-18))
             {
-                MessageBox.Show("El paciente es menor de 16 años, debe asignarle un tutor a este paciente.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                btnAgregarTutor.Visible = true;
-                errores.Add("• El paciente es menor de 16 años, debe asignarle un tutor.");
+                MessageBox.Show("El tutor es menor de 18 años, debe asignarle un tutor a este paciente.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
 
@@ -217,47 +201,23 @@ namespace SmileSoft.UI.Desktop
             return true;
         }
 
-        private async Task PopularFormPaciente(int idPaciente)
+        private async Task PopularFormPersona(int idPersona)
         {
 
             LimpiarFormulario();
             try
             {
-                var pacienteResponse = await PacienteApiClient.GetOneAsync(idPaciente);
-                if (pacienteResponse != null)
+                var personaResponse = await PersonaApiClient.GetOneAsync(idPersona);
+                if (personaResponse != null)
                 {
-                    txtNombre.Text = pacienteResponse.Nombre;
-                    txtApellido.Text = pacienteResponse.Apellido;
-                    dtpFechaNacimiento.Value = pacienteResponse.FechaNacimiento;
-                    txtDireccion.Text = pacienteResponse.Direccion;
-                    txtEmail.Text = pacienteResponse.Email;
-                    txtDNI.Text = pacienteResponse.NroDni;
-                    txtNroHC.Text = pacienteResponse.NroHC;
-                    txtTelefono.Text = pacienteResponse.Telefono;
-                    txtNroAfiliado.Text = pacienteResponse.NroAfiliado;
-                    if (pacienteResponse.TipoPlanId != -1)
-                    {
-                        if (pacienteResponse.TipoPlanId == null)
-                            return;
-                        var tipoPlan = await TipoPlanApiClient.GetOneAsync(pacienteResponse.TipoPlanId.Value);
-                        if (tipoPlan != null)
-                        {
-                            var obraSocial = await ObraSocialApiClient.GetOneAsync(tipoPlan.ObraSocialId);
-                            if (obraSocial != null)
-                            {
-                                txtOS.Text = obraSocial.Nombre;
-                                var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(tipoPlan.ObraSocialId);
-                                if (tiposPlan != null && tiposPlan.Count() > 0)
-                                {
-                                    cmbTiposPlan.DisplayMember = "Nombre";
-                                    cmbTiposPlan.ValueMember = "Id";
-                                    cmbTiposPlan.Enabled = true;
-                                    cmbTiposPlan.DataSource = tiposPlan;
-                                    cmbTiposPlan.SelectedValue = pacienteResponse.TipoPlanId;
-                                }
-                            }
-                        }
-                    }
+                    txtNombre.Text = personaResponse.Nombre;
+                    txtApellido.Text = personaResponse.Apellido;
+                    dtpFechaNacimiento.Value = personaResponse.FechaNacimiento;
+                    txtDireccion.Text = personaResponse.Direccion;
+                    txtEmail.Text = personaResponse.Email;
+                    txtDNI.Text = personaResponse.NroDni;
+                    txtTelefono.Text = personaResponse.Telefono;
+                    
 
 
                 }
@@ -282,7 +242,7 @@ namespace SmileSoft.UI.Desktop
 
             try
             {
-                PacienteDTO paciente = new PacienteDTO
+                PersonaDTO persona = new PersonaDTO
                 {
                     Nombre = txtNombre.Text.Trim(),
                     Apellido = txtApellido.Text.Trim(),
@@ -290,19 +250,18 @@ namespace SmileSoft.UI.Desktop
                     Direccion = txtDireccion.Text.Trim(),
                     Email = txtEmail.Text.Trim(),
                     NroDni = txtDNI.Text.Trim(),
-                    NroHC = txtNroHC.Text.Trim(),
                     Telefono = txtTelefono.Text.Trim(),
-                    NroAfiliado = txtNroAfiliado.Text.Trim(),
-                    TipoPlanId = cmbTiposPlan.SelectedValue != null ? (int?)cmbTiposPlan.SelectedValue : null,
-                    TutorId = _idTutor
                 };
 
-                btnAgregarPaciente.Text = "Enviando...";
-                btnAgregarPaciente.Enabled = false;
+                btnAgregarTutor.Text = "Enviando...";
+                btnAgregarTutor.Enabled = false;
 
-                await PacienteApiClient.CreateAsync(paciente);
-                MessageBox.Show("Paciente creado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se creo un paciente
+                await PersonaApiClient.CreateAsync(persona);
+                var createdPersona = await PersonaApiClient.GetByDni(persona.NroDni);
+                this.IdTutorCreado = createdPersona.Id; // Guardar el ID del tutor creado
+                this.NombreTutor = $"{createdPersona.Nombre} {createdPersona.Apellido}";
+                MessageBox.Show("Persona creada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK; // Indicar que se creo una persona
                 this.Close(); // Cerrar el formulario después del éxito
 
 
@@ -313,17 +272,9 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnAgregarPaciente.Text = "Enviar";
-                btnAgregarPaciente.Enabled = true;
+                btnAgregarTutor.Text = "Enviar";
+                btnAgregarTutor.Enabled = true;
             }
-        }
-        private async Task PopulaTipoPlan()
-        {
-            cmbTiposPlan.DataSource = null;
-            cmbTiposPlan.Enabled = false;
-            cmbTiposPlan.Items.Clear();
-            cmbTiposPlan.Text = "";
-            await Task.CompletedTask;
         }
         private async void btnEditarPaciente_Click(object sender, EventArgs e)
         {
@@ -334,13 +285,13 @@ namespace SmileSoft.UI.Desktop
 
             try
             {
-                if (btnEditarPaciente.Tag is not int id)
+                if (btnEditarTutor.Tag is not int id)
                 {
                     MessageBox.Show("Error al obtener el ID del paciente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                PacienteDTO paciente = new PacienteDTO
+                PersonaDTO persona = new PersonaDTO
                 {
                     Nombre = txtNombre.Text.Trim(),
                     Apellido = txtApellido.Text.Trim(),
@@ -348,19 +299,15 @@ namespace SmileSoft.UI.Desktop
                     Direccion = txtDireccion.Text.Trim(),
                     Email = txtEmail.Text.Trim(),
                     NroDni = txtDNI.Text.Trim(),
-                    NroHC = txtNroHC.Text.Trim(),
                     Telefono = txtTelefono.Text.Trim(),
-                    NroAfiliado = txtNroAfiliado.Text.Trim(),
-                    TipoPlanId = cmbTiposPlan.SelectedValue != null ? (int?)cmbTiposPlan.SelectedValue : null,
-                    TutorId = _idTutor
                 };
 
-                btnEditarPaciente.Text = "Enviando...";
-                btnEditarPaciente.Enabled = false;
+                btnEditarTutor.Text = "Enviando...";
+                btnEditarTutor.Enabled = false;
 
-                await PacienteApiClient.UpdateAsync(paciente, (int)btnEditarPaciente.Tag);
-                MessageBox.Show("Paciente editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se editó un paciente
+                await PersonaApiClient.UpdateAsync(persona, (int)btnEditarTutor.Tag);
+                MessageBox.Show("Persona editada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK; // Indicar que se editó una persona
                 this.Close(); // Cerrar el formulario después del éxito
             }
             catch (HttpRequestException httpEx)
@@ -373,98 +320,10 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnEditarPaciente.Text = "Enviar";
-                btnEditarPaciente.Enabled = true;
+                btnEditarTutor.Text = "Enviar";
+                btnEditarTutor.Enabled = true;
             }
 
-        }
-
-        private async void btnBuscarOS_Click(object sender, EventArgs e)
-        {
-            await PopulaTipoPlan();
-            if (txtOS == null || string.IsNullOrWhiteSpace(txtOS.Text))
-            {
-                MessageBox.Show($"Error: Debe ingresar el nombre de la Obra Social", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                try
-                {
-                    ObraSocial obraSocial = await ObraSocialApiClient.GetByNameAsync(txtOS.Text.Trim());
-                    if (obraSocial == null)
-                    {
-                        MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    // ver si hay alguna manera de ahorrar hacer esta busqueda.
-                    var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(obraSocial.Id);
-                    if (tiposPlan == null || tiposPlan.Count() == 0)
-                    {
-                        MessageBox.Show($"Error: No se encontraron tipos de plan para la Obra Social '{obraSocial.Nombre}'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    else
-                    {
-                        cmbTiposPlan.DisplayMember = "Nombre";
-                        cmbTiposPlan.ValueMember = "Id";
-                        cmbTiposPlan.Enabled = true;
-                        cmbTiposPlan.DataSource = tiposPlan;
-                    }
-                }
-                catch
-                {
-                    MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-            }
-        }
-        // no se usa este evento porque ValueChanged se dispara cada vez que se cambia el valor, incluso al inicializar el control
-        private void dtpFechaNacimiento_ValueChanged(object sender, EventArgs e)
-        {
-            //// valido que, si la edad es menor a 16 años, muestre un mensaje
-            //if (dtpFechaNacimiento.Value > DateTime.Now.AddYears(-16))
-            //{
-            //    MessageBox.Show("El paciente es menor de 16 años, debe asignarle un tutor a este paciente.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    btnAgregarTutor.Visible = true;
-            //}
-        }
-
-        private void dtpFechaNacimiento_Leave(object sender, EventArgs e)
-        {
-            if (dtpFechaNacimiento.Value > DateTime.Now.AddYears(-16) && string.IsNullOrWhiteSpace(txtTutor.Text))
-            {
-                MessageBox.Show("El paciente es menor de 16 años, debe asignarle un tutor a este paciente.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                btnAgregarTutor.Visible = true;
-            }
-            // si tiene más de 16 años, oculto el botón de agregar tutor
-            else
-            {
-                btnAgregarTutor.Visible = false;
-            }
-        }
-
-        private void btnAgregarTutor_Click(object sender, EventArgs e)
-        {
-            //FormTutor formTutor= new FormTutor();
-            //formTutor.ShowDialog();
-            using (var formTutor = new FormTutor())
-            {
-                var result = formTutor.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    lblTutor.Visible = true;
-                    txtTutor.Visible = true;
-                    _idTutor = formTutor.IdTutorCreado;
-                    _nombreTutor = formTutor.NombreTutor;
-                    txtTutor.Text = _nombreTutor;
-                    btnAgregarTutor.Visible = false;
-                    MessageBox.Show("Tutor asignado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("No se asignó ningún tutor.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
         }
     }
 }

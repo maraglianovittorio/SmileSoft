@@ -15,7 +15,11 @@ namespace SmileSoft.Dominio
         public string Observaciones { get; set; } = string.Empty;
 
         //public TipoAtencion TipoAtencion { get; set; } = new TipoAtencion();
+        public int OdontologoId { get; set; }
         public Odontologo Odontologo { get; set; }
+        public int PacienteId { get; set; }
         public Paciente Paciente { get; set; }
+        public int TipoAtencionId { get; set; }
+        public TipoAtencion TipoAtencion { get; set; }
     }
 }

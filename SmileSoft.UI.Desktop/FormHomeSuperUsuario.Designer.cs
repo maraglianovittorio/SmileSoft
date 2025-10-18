@@ -41,8 +41,9 @@
             toolStripUsuarios = new ToolStripMenuItem();
             toolStripTipoPlan = new ToolStripMenuItem();
             toolStripTipoAtencion = new ToolStripMenuItem();
-            NuevaAtencion = new Button();
             odontologosToolStripMenuItem = new ToolStripMenuItem();
+            NuevaAtencion = new Button();
+            tutoresToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -127,7 +128,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripPaciente, toolStripOS, toolStripUsuarios, toolStripTipoPlan, toolStripTipoAtencion, odontologosToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripPaciente, toolStripOS, toolStripUsuarios, toolStripTipoPlan, toolStripTipoAtencion, odontologosToolStripMenuItem, tutoresToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(858, 24);
@@ -169,6 +170,13 @@
             toolStripTipoAtencion.Text = "Tipos atencion";
             toolStripTipoAtencion.Click += toolStripTipoAtencion_Click;
             // 
+            // odontologosToolStripMenuItem
+            // 
+            odontologosToolStripMenuItem.Name = "odontologosToolStripMenuItem";
+            odontologosToolStripMenuItem.Size = new Size(89, 20);
+            odontologosToolStripMenuItem.Text = "Odontologos";
+            odontologosToolStripMenuItem.Click += odontologosToolStripMenuItem_Click;
+            // 
             // NuevaAtencion
             // 
             NuevaAtencion.BackColor = Color.Orange;
@@ -181,12 +189,12 @@
             NuevaAtencion.UseVisualStyleBackColor = false;
             NuevaAtencion.Click += NuevaAtencion_Click;
             // 
-            // odontologosToolStripMenuItem
+            // tutoresToolStripMenuItem
             // 
-            odontologosToolStripMenuItem.Name = "odontologosToolStripMenuItem";
-            odontologosToolStripMenuItem.Size = new Size(89, 20);
-            odontologosToolStripMenuItem.Text = "Odontologos";
-            odontologosToolStripMenuItem.Click += odontologosToolStripMenuItem_Click;
+            tutoresToolStripMenuItem.Name = "tutoresToolStripMenuItem";
+            tutoresToolStripMenuItem.Size = new Size(58, 20);
+            tutoresToolStripMenuItem.Text = "Tutores";
+            tutoresToolStripMenuItem.Click += tutoresToolStripMenuItem_Click;
             // 
             // FormHomeSuperUsuario
             // 
@@ -231,5 +239,6 @@
         private ToolStripMenuItem agregarToolStripMenuItem;
         private Button NuevaAtencion;
         private ToolStripMenuItem odontologosToolStripMenuItem;
+        private ToolStripMenuItem tutoresToolStripMenuItem;
     }
 }

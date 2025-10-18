@@ -86,8 +86,21 @@ namespace SmileSoft.UI.Desktop
                     pacientes = (List<Paciente>)pacientesResponse;
                     dgvFormPaciente.Columns["Id"].Visible = false;
                     dgvFormPaciente.Columns["Atenciones"].Visible = false;
-                    //dgvFormPaciente.Columns["TipoPlanId"].Visible = false;
                     dgvFormPaciente.Columns["TipoPlan"].Visible = false;
+                    dgvFormPaciente.Columns["TutorId"].Visible = false;
+                    dgvFormPaciente.Columns["Tutor"].Visible = false;
+
+                    // Ordenar las columnas visibles
+                    dgvFormPaciente.Columns["NroHC"].DisplayIndex = 0;
+                    dgvFormPaciente.Columns["Apellido"].DisplayIndex = 1;
+                    dgvFormPaciente.Columns["Nombre"].DisplayIndex = 2;
+                    dgvFormPaciente.Columns["NroDni"].DisplayIndex = 3;
+                    dgvFormPaciente.Columns["Telefono"].DisplayIndex = 4;
+                    dgvFormPaciente.Columns["Email"].DisplayIndex = 5;
+                    dgvFormPaciente.Columns["Direccion"].DisplayIndex = 6;
+                    dgvFormPaciente.Columns["FechaNacimiento"].DisplayIndex = 7;
+                    dgvFormPaciente.Columns["NroAfiliado"].DisplayIndex = 8;
+                    dgvFormPaciente.Columns["TipoPlanId"].DisplayIndex = 9;
                 }
                 else
                 {

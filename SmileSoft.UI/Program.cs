@@ -26,6 +26,7 @@ namespace SmileSoft.WebAPI
             app.MapTipoPlanesEndpoints();
             app.MapTipoAtencionEndpoints();
             app.MapOdontologoEndpoints();
+            app.MapPersonaEndpoints();
             app.Run();
 
         }

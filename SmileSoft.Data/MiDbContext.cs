@@ -18,6 +18,8 @@ namespace SmileSoft.Data
         public DbSet<Odontologo> Odontologos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<TipoAtencion> TipoAtenciones { get; set; }
+        public DbSet<Persona> Personas { get; set; }
+        public DbSet<Atencion> Atenciones { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -40,20 +42,35 @@ namespace SmileSoft.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Paciente>(entity =>
+            // preguntar si esto va
+            modelBuilder.Entity<Persona>().ToTable("Personas");
+            modelBuilder.Entity<Paciente>().ToTable("Pacientes");
+            modelBuilder.Entity<Odontologo>().ToTable("Odontologos");
+
+            modelBuilder.Entity<Persona>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Nombre).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Apellido).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.NroDni).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.Direccion).HasMaxLength(200);
                 entity.Property(e => e.Email).HasMaxLength(100);
+                entity.Property(e => e.Telefono).HasMaxLength(20);
+            });
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Paciente>(entity =>
+            {
+                entity.Property(e => e.NroDni).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.FechaNacimiento).IsRequired();
                 entity.Property(e => e.Telefono).HasMaxLength(20);
                 entity.Property(e => e.NroAfiliado).HasMaxLength(50);
                 entity.Property(e => e.NroHC).IsRequired().HasMaxLength(20);
                 entity.HasIndex(e => e.NroHC).IsUnique();
+                entity.HasOne(e => e.Tutor)
+                        .WithMany(t => t.PacientesTutelados)
+                        .HasForeignKey(e => e.TutorId)
+                        .IsRequired(false)
+                        .OnDelete(DeleteBehavior.Restrict); // no se deja borrar una persona que es tutora de otra
                 entity.HasOne(e => e.TipoPlan)
                         .WithMany(tp => tp.Pacientes)
                         .HasForeignKey(e => e.TipoPlanId)
@@ -85,12 +102,12 @@ namespace SmileSoft.Data
             
             modelBuilder.Entity<Odontologo>(entity =>
             {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Nombre).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Apellido).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.NroMatricula).IsRequired().HasMaxLength(50);
                 entity.HasIndex(e => e.NroMatricula).IsUnique();
-                entity.Property(e => e.Email).HasMaxLength(100);
+                entity.HasMany(e=> e.Atenciones)
+                      .WithOne(a => a.Odontologo)
+                      .HasForeignKey(a => a.OdontologoId)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Usuario>(entity =>
             {
@@ -106,6 +123,24 @@ namespace SmileSoft.Data
                 entity.Property(e => e.Descripcion).HasMaxLength(250);
                 entity.Property(e => e.Duracion).IsRequired().HasMaxLength(100);
             });
+            modelBuilder.Entity<Atencion>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.FechaHoraAtencion).IsRequired();
+                entity.HasOne(e => e.Paciente)
+                      .WithMany(p => p.Atenciones)
+                      .HasForeignKey(e => e.PacienteId)
+                      .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.Odontologo)
+                      .WithMany(o => o.Atenciones)
+                      .HasForeignKey(e => e.OdontologoId)
+                      .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.TipoAtencion)
+                      .WithMany(ta => ta.Atenciones)
+                      .HasForeignKey(e => e.TipoAtencionId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
         }
     }
 }

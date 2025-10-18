@@ -134,5 +134,11 @@ namespace SmileSoft.UI.Desktop
             FormHomeOdontologo formOdontologo = new FormHomeOdontologo();
             formOdontologo.ShowDialog();
         }
+
+        private void tutoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormHomeTutor formTutor = new FormHomeTutor();
+            formTutor.ShowDialog();
+        }
     }
 }

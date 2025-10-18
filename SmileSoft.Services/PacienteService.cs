@@ -15,7 +15,7 @@ namespace SmileSoft.Services
             {
                 throw new Exception("Ya existe un paciente con la misma historia clínica.");
             }
-            Paciente paciente = new Paciente(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.Direccion,dto.Email,dto.FechaNacimiento,dto.Telefono,dto.NroAfiliado,dto.NroHC,dto.TipoPlanId);
+            Paciente paciente = new Paciente(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.Direccion,dto.Email,dto.FechaNacimiento,dto.Telefono,dto.NroAfiliado,dto.NroHC,dto.TutorId,dto.TipoPlanId);
 
             pacienteRepository.Add(paciente);
 
@@ -100,7 +100,7 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe otro paciente con la Historia Clínica '{dto.NroHC}'.");
             }
 
-            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC,dto.TipoPlanId);
+            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC,dto.TutorId, dto.TipoPlanId);
             return pacienteRepository.Update(paciente);
 
         }

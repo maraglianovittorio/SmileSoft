@@ -6,25 +6,20 @@ using System.Threading.Tasks;
 
 namespace SmileSoft.Dominio
 {
-    public class Paciente
+    public class Paciente: Persona
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string NroDni { get; set; }
-        public string Direccion { get; set; }
-        public string Email { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public string Telefono { get; set; }
+        //public DateTime FechaNacimiento { get; set; }
         public string NroAfiliado { get; set; }
         public string NroHC { get; set; }
+        //public string NroDni { get; set; }
 
-        //public Tutor Tutor { get; set; }
+        public int? TutorId { get; set; } = 0;
+        public Persona? Tutor { get; set; } = null;
         public int? TipoPlanId { get; set; }
         public TipoPlan? TipoPlan { get; set; }
         public ICollection<Atencion> Atenciones { get; set; } = new List<Atencion>();
 
-        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string nroAfiliado, string nroHC, int? tipoPlanId)
+        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string nroAfiliado, string nroHC,int? tutorId,int? tipoPlanId):base(id,nombre,apellido,nroDni,fechaNacimiento,direccion,email,telefono)
         {
             Id = id;
             Nombre = nombre;
@@ -36,10 +31,10 @@ namespace SmileSoft.Dominio
             Telefono = telefono;
             NroAfiliado = nroAfiliado;
             NroHC = nroHC;
-            //Tutor = new Tutor();
+            TutorId = tutorId;
             TipoPlanId = tipoPlanId;
         }
-        public Paciente() { }
+        public Paciente():base() { }
 
     }
 }
