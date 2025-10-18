@@ -1,5 +1,8 @@
-﻿using SmileSoft.Dominio;
-using DTO;
+﻿using DTO;
+using Microsoft.EntityFrameworkCore;
+using SmileSoft.Data;
+using SmileSoft.Dominio;
+using System;
 namespace SmileSoft.WebAPI
 {
     public class Program
@@ -10,6 +13,8 @@ namespace SmileSoft.WebAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddHttpLogging(o => { });
+            //builder.Services.AddDbContext<MiDbContext>(options =>
+            //     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             var app = builder.Build();
             if (app.Environment.IsDevelopment())
             {

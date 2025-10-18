@@ -64,9 +64,9 @@ namespace SmileSoft.Data
             var existingTipoPlan = context.TipoPlanes.Find(tipoPlan.Id);
             if (existingTipoPlan != null)
             {
-                existingTipoPlan.Nombre = tipoPlan.Nombre;
-                existingTipoPlan.Descripcion = tipoPlan.Descripcion;
-                existingTipoPlan.ObraSocialId = tipoPlan.ObraSocialId;
+                existingTipoPlan.SetNombre(tipoPlan.Nombre);
+                existingTipoPlan.SetDescripcion(tipoPlan.Descripcion);
+                existingTipoPlan.SetObraSocialId(tipoPlan.ObraSocialId);
 
                 context.SaveChanges();
                 return true;

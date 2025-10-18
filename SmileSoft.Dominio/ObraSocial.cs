@@ -8,15 +8,22 @@ namespace SmileSoft.Dominio
 {
     public class ObraSocial
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public ICollection<TipoPlan> TipoPlanes { get; set; }
+        public int Id { get; private set; }
+        public string Nombre { get; private set; }
+        public ICollection<TipoPlan> TipoPlanes { get; private set; } = new List<TipoPlan>();
 
         public ObraSocial(int id, string nombre)
         {
-            Id = id;
-            Nombre = nombre;
-            TipoPlanes = new List<TipoPlan>();
+            SetNombre(nombre);
         }
+        public void SetNombre(string nombre)
+        {
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                throw new ArgumentException("El nombre de la obra social no puede estar vacío.");
+            }
+            Nombre = nombre;
+        }
+
     }
 }

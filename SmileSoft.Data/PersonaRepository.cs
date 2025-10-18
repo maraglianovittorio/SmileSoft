@@ -69,14 +69,13 @@ namespace SmileSoft.Data
             var existingPersona = context.Personas.Find(persona.Id);
             if (existingPersona != null)
             {
-                existingPersona.Nombre = persona.Nombre;
-                existingPersona.Apellido = persona.Apellido;
-                existingPersona.NroDni = persona.NroDni;
-                existingPersona.Direccion = persona.Direccion;
-                existingPersona.Direccion = persona.Direccion;
-                existingPersona.Email = persona.Email;
-                existingPersona.FechaNacimiento = persona.FechaNacimiento;
-                existingPersona.Telefono = persona.Telefono;
+                existingPersona.SetNombre(persona.Nombre);
+                existingPersona.SetApellido(persona.Apellido);
+                existingPersona.SetNroDni(persona.NroDni);
+                existingPersona.SetDireccion(persona.Direccion);
+                existingPersona.SetEmail(persona.Email);
+                existingPersona.SetFechaNacimiento(persona.FechaNacimiento);
+                existingPersona.SetTelefono(persona.Telefono);
 
                 context.SaveChanges();
                 return true;

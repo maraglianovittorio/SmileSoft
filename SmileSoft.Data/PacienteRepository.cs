@@ -61,16 +61,17 @@ namespace SmileSoft.Data
             var existingPaciente = context.Pacientes.Find(paciente.Id);
             if (existingPaciente != null)
             {
-                existingPaciente.Nombre = paciente.Nombre;
-                existingPaciente.Apellido = paciente.Apellido;
-                existingPaciente.NroDni = paciente.NroDni;
-                existingPaciente.Direccion = paciente.Direccion;
-                existingPaciente.Direccion = paciente.Direccion;
-                existingPaciente.Email = paciente.Email;
-                existingPaciente.FechaNacimiento = paciente.FechaNacimiento;
-                existingPaciente.Telefono = paciente.Telefono;
-                existingPaciente.NroAfiliado = paciente.NroAfiliado;
-                existingPaciente.NroHC = paciente.NroHC;
+                existingPaciente.SetNombre(paciente.Nombre);
+                existingPaciente.SetApellido(paciente.Apellido);
+                existingPaciente.SetNroDni(paciente.NroDni);
+                existingPaciente.SetDireccion(paciente.Direccion);
+                existingPaciente.SetEmail(paciente.Email);
+                existingPaciente.SetFechaNacimiento(paciente.FechaNacimiento);
+                existingPaciente.SetTelefono(paciente.Telefono);
+                existingPaciente.SetNroAfiliado(paciente.NroAfiliado);
+                existingPaciente.SetNroHC(paciente.NroHC);
+                existingPaciente.SetTipoPlanId(paciente.TipoPlanId);
+                existingPaciente.SetTutorId(paciente.TutorId);
 
                 context.SaveChanges();
                 return true;

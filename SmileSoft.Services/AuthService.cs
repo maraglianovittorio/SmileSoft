@@ -27,7 +27,7 @@ namespace SmileSoft.Services
 
             var usuario = usuarioRepository.GetByUsername(request.Username);
 
-            if (usuario == null || request.Password != usuario.Password)
+            if (usuario == null || !usuario.ValidatePassword(request.Password))
                 return null;
             //if (usuario == null || !usuario.ValidatePassword(request.Password))
             //    return null;

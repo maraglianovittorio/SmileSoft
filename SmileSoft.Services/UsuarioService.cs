@@ -32,7 +32,46 @@ namespace SmileSoft.Services
             return usuarioRepository.Delete(id);
         }
         
-        public UsuarioUpdateDTO GetUsuario(int id)
+        public UsuarioDTO? GetUsuario(int id)
+        {
+            var usuarioRepository = new UsuarioRepository();
+            Usuario? usuario = usuarioRepository.Get(id);
+            if (usuario == null)
+            {
+                throw new Exception("No se encontró el usuario.");
+            }
+            return new UsuarioDTO
+            {
+                Id = usuario.Id,
+                Username = usuario.Username,
+                Rol = usuario.Rol
+            };
+        }
+        public UsuarioDTO? GetByUsername(string username)
+        {
+            var usuarioRepository = new UsuarioRepository();
+            if (usuarioRepository.UsernameExists(username))
+            {
+                Usuario? usuario = usuarioRepository.GetByUsername(username);
+                if (usuario == null)
+                {
+                    throw new Exception("No se encontró el usuario.");
+                }
+                return new UsuarioDTO
+                {
+                    Id = usuario.Id,
+                    Username = usuario.Username,
+                    Rol = usuario.Rol
+                };
+            }
+            else
+            {
+                return null;
+            }
+
+
+        }
+        public UsuarioUpdateDTO GetUsuarioForUpdate(int id)
         {
             var usuarioRepository = new UsuarioRepository();
             Usuario? usuario = usuarioRepository.Get(id);
@@ -42,9 +81,8 @@ namespace SmileSoft.Services
             }
             return new UsuarioUpdateDTO
             {
-                Id = usuario.Id,
-                Password = usuario.Password,
                 Username = usuario.Username,
+                Password = "",
                 Rol = usuario.Rol
             };
         }
@@ -65,30 +103,25 @@ namespace SmileSoft.Services
         {
             var usuarioRepository = new UsuarioRepository();
             // Validar que el nombre de usuario no exista en otro usuario
-            if (usuarioRepository.UsernameExists(dto.Username, id))
+            var usuario = usuarioRepository.GetByUsername(dto.Username);
+            if (usuario != null)
             {
                 throw new ArgumentException($"Ya existe otro usuario con el nombre de usuario '{dto.Username}'.");
             }
-            
-            Usuario usuario = new Usuario
+            usuario.SetUsername(dto.Username);
+            usuario.SetRol(dto.Rol);
+            if (!string.IsNullOrEmpty(dto.Password))
             {
-                Id = id,
-                Username = dto.Username,
-                Password = dto.Password,
-                Rol = dto.Rol
-            };
+                usuario.SetPassword(dto.Password);
+            }
             return usuarioRepository.Update(usuario);
         }
 
-        public Usuario? ValidateCredentials(string username, string password)
-        {
-            var usuarioRepository = new UsuarioRepository();
-            return usuarioRepository.ValidateCredentials(username, password);
-        }
-        public Usuario? GetByUsername(string username)
-        {
-            var usuarioRepository = new UsuarioRepository();
-            return usuarioRepository.GetByUsername(username);
-        }
+        //public Usuario? ValidateCredentials(string username, string password)
+        //{
+        //    var usuarioRepository = new UsuarioRepository();
+        //    return usuarioRepository.ValidateCredentials(username, password);
+        //}
+
     }
 }

@@ -108,11 +108,11 @@ namespace SmileSoft.Data
             var existingAtencion = context.Atenciones.Find(atencion.Id);
             if (existingAtencion != null)
             {
-                existingAtencion.OdontologoId = atencion.OdontologoId;
-                existingAtencion.PacienteId = atencion.PacienteId;
-                existingAtencion.TipoAtencionId = atencion.TipoAtencionId;
-                existingAtencion.FechaHoraAtencion = atencion.FechaHoraAtencion;
-                existingAtencion.Estado = atencion.Estado;
+                existingAtencion.SetOdontologoId(atencion.OdontologoId);
+                existingAtencion.SetPacienteId(atencion.PacienteId);
+                existingAtencion.SetTipoAtencionId(atencion.TipoAtencionId);
+                existingAtencion.SetFechaHoraAtencion(atencion.FechaHoraAtencion);
+                existingAtencion.SetEstado(atencion.Estado);
 
                 context.SaveChanges();
                 return true;

@@ -35,7 +35,7 @@ namespace SmileSoft.API.Clients
                 if (response.IsSuccessStatusCode)
                 {
                     // Login exitoso - obtener información del usuario
-                    Usuario user = await UsuarioApiClient.GetByUsernameAsync(username);
+                    UsuarioDTO user = await UsuarioApiClient.GetByUsernameAsync(username);
                     if (user == null)
                         return null;
 

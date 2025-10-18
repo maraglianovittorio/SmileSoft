@@ -18,7 +18,7 @@ namespace SmileSoft.WebAPI
             app.MapGet($"usuarios/id", (int id) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
-                UsuarioUpdateDTO dto = usuarioService.GetUsuario(id);
+                UsuarioDTO dto = usuarioService.GetUsuario(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("Get Usuario");
             app.MapPost("/usuarios", (UsuarioCreateDTO usuarioDTO) =>
@@ -31,7 +31,7 @@ namespace SmileSoft.WebAPI
                     if (string.IsNullOrWhiteSpace(usuarioDTO.Username))
                         errores.Add("El username es obligatorio");
                     if (string.IsNullOrWhiteSpace(usuarioDTO.Password))
-                        errores.Add("El password es obligatorio");
+                        errores.Add("El password esfafasd obligatorio");
                     if (string.IsNullOrWhiteSpace(usuarioDTO.Rol))
                         errores.Add("El rol es obligatorio");
                     if (errores.Count > 0)
@@ -82,11 +82,11 @@ namespace SmileSoft.WebAPI
                 var eliminado = usuarioService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
             }).WithName("DeleteUsuario");
-            app.MapGet("/usuarios/{username}", (string username) =>
+                app.MapGet("/usuarios/{username}", (string username) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
                 var usuario = usuarioService.GetByUsername(username);
-                return usuario is not null ? Results.Ok(usuario) : Results.NotFound();
+                return usuario;
             }).WithName("GetUsuarioByUsername");
         }
     }

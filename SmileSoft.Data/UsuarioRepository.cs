@@ -46,16 +46,8 @@ namespace SmileSoft.Data
         public Usuario? GetByUsername(string username)
         {
             using var context = CreateContext();
-            var usuario = context.Usuarios.FirstOrDefault(u => u.Username.ToLower() == username.ToLower());
-            if (usuario == null) return null;
-
-            return new Usuario
-            {
-                Id = usuario.Id,
-                Username = usuario.Username,
-                Password = usuario.Password,
-                Rol = usuario.Rol
-            };
+            return context.Usuarios
+                .FirstOrDefault(u => u.Username == username);
         }
 
         public IEnumerable<Usuario> GetAll()
@@ -69,17 +61,9 @@ namespace SmileSoft.Data
         public bool Update(Usuario usuario)
         {
             using var context = CreateContext();
-            var existingUsuario = context.Usuarios.Find(usuario.Id);
-            if (existingUsuario != null)
-            {
-                existingUsuario.Username = usuario.Username;
-                existingUsuario.Password = usuario.Password;
-                existingUsuario.Rol = usuario.Rol;
-
-                context.SaveChanges();
-                return true;
-            }
-            return false;
+            context.Usuarios.Update(usuario);
+            context.SaveChanges();
+            return true;
         }
 
         public bool UsernameExists(string username, int? excludeId = null)
@@ -93,12 +77,12 @@ namespace SmileSoft.Data
             return query.Any();
         }
 
-        public Usuario? ValidateCredentials(string username, string password)
-        {
-            using var context = CreateContext();
-            return context.Usuarios.FirstOrDefault(u => 
-                u.Username.ToLower() == username.ToLower() && 
-                u.Password == password);
-        }
+        //public Usuario? ValidateCredentials(string username, string password)
+        //{
+        //    using var context = CreateContext();
+        //    return context.Usuarios.FirstOrDefault(u => 
+        //        u.Username.ToLower() == username.ToLower() && 
+        //        u.Password == password);
+        //}
     }
 }

@@ -54,14 +54,12 @@ namespace SmileSoft.Data
             var existingOdontologo = context.Odontologos.Find(odontologo.Id);
             if (existingOdontologo != null)
             {
-                existingOdontologo.Nombre = odontologo.Nombre;
-                existingOdontologo.Apellido = odontologo.Apellido;
-                existingOdontologo.NroMatricula = odontologo.NroMatricula;
-                existingOdontologo.Email = odontologo.Email;
-                //existingOdontologo.Username = odontologo.Username;
-                //existingOdontologo.Password = odontologo.Password;
-                existingOdontologo.ObrasSociales = odontologo.ObrasSociales;
-
+                existingOdontologo.SetNombre(odontologo.Nombre);
+                existingOdontologo.SetApellido(odontologo.Apellido);
+                existingOdontologo.SetNroMatricula(odontologo.NroMatricula);
+                existingOdontologo.SetEmail(odontologo.Email);
+                //existingOdontologo.SetUsername(odontologo.Username);
+                //existingOdontologo.SetPassword(odontologo.Password);
                 context.SaveChanges();
                 return true;
             }

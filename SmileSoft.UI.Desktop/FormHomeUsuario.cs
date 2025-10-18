@@ -25,7 +25,7 @@ namespace SmileSoft.UI.Desktop
             BaseAddress = new Uri("http://localhost:54145")
 
         };
-        private List<Usuario> usuarios = new();
+        private List<UsuarioDTO> usuarios = new();
         public FormHomeUsuario()
         {
             InitializeComponent();
@@ -94,7 +94,7 @@ namespace SmileSoft.UI.Desktop
                 if (usuarioResponse != null && usuarioResponse.Count() > 0 )
                 {
                     dgvFormUsuario.DataSource = usuarioResponse;
-                    usuarios = (List<Usuario>)usuarioResponse;
+                    usuarios = (List<UsuarioDTO>)usuarioResponse;
                     dgvFormUsuario.Columns["Id"].Visible = false;
                 }
                 else
@@ -164,7 +164,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormUsuario.SelectedRows.Count > 0)
             {
-                var usuarioSeleccionado = dgvFormUsuario.SelectedRows[0].DataBoundItem as Usuario;
+                var usuarioSeleccionado = dgvFormUsuario.SelectedRows[0].DataBoundItem as UsuarioUpdateDTO;
                 if (usuarioSeleccionado != null)
                 {
                     FormUsuario formUsuario = new FormUsuario(usuarioSeleccionado.Id);
@@ -178,7 +178,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormUsuario.SelectedRows.Count > 0)
             {
-                var usuarioSeleccionado = dgvFormUsuario.SelectedRows[0].DataBoundItem as Usuario;
+                var usuarioSeleccionado = dgvFormUsuario.SelectedRows[0].DataBoundItem as UsuarioDTO;
                 if (usuarioSeleccionado != null)
                 {
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este usuario?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

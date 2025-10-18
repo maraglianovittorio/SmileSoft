@@ -172,7 +172,7 @@ namespace SmileSoft.UI.Desktop
                 if (usuarioResponse != null)
                 {
                     txtUsername.Text = usuarioResponse.Username;
-                    txtPassword.Text = usuarioResponse.Password;
+                    txtPassword.Text = usuarioResponse.PasswordHash;
                     cbRol.Text = usuarioResponse.Rol;
 
 

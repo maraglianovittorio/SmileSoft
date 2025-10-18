@@ -1,6 +1,7 @@
 ﻿using SmileSoft.API.Clients;
 using SmileSoft.Dominio;
 using SmileSoft.UI.Desktop;
+using DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -99,7 +100,7 @@ namespace SmileSoft.WindowsForms
         private async void tsbUsuarios_Click(object sender, EventArgs e)
         {
             EntidadSeleccionada = "Usuarios";
-            await CargarEntidad<Usuario>(
+            await CargarEntidad<UsuarioDTO>(
                 UsuarioApiClient.GetAllAsync,
                 "usuarios"
             );
@@ -179,7 +180,7 @@ namespace SmileSoft.WindowsForms
                             {
                                 var formUsuario = new FormUsuario(usuario.Id);
                                 formUsuario.ShowDialog();
-                                await CargarEntidad<Usuario>(
+                                await CargarEntidad<UsuarioDTO>(
                                     UsuarioApiClient.GetAllAsync,
                                     "usuarios"
                                 );
@@ -267,7 +268,7 @@ namespace SmileSoft.WindowsForms
                                 {
                                     await UsuarioApiClient.DeleteAsync(usuario.Id);
                                     MessageBox.Show("Usuario eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    await CargarEntidad<Usuario>(
+                                    await CargarEntidad<UsuarioDTO>(
                                         UsuarioApiClient.GetAllAsync,
                                         "usuarios"
                                     );
@@ -359,7 +360,7 @@ namespace SmileSoft.WindowsForms
                     {
                         var formUsuario = new FormUsuario();
                         formUsuario.ShowDialog();
-                        await CargarEntidad<Usuario>(
+                        await CargarEntidad<UsuarioDTO>(
                             UsuarioApiClient.GetAllAsync,
                             "usuarios"
                         );

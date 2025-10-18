@@ -80,7 +80,7 @@ namespace SmileSoft.WebAPI
                     return Results.BadRequest(new { error = ex.Message });
                 }
             })
-            .WithName("UpdateCliente");
+            .WithName("UpdatePaciente");
             
             app.MapDelete("/pacientes/id", (int id) =>
             {

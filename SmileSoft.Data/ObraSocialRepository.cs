@@ -62,7 +62,7 @@ namespace SmileSoft.Data
             var existingObraSocial = context.ObrasSociales.Find(obraSocial.Id);
             if (existingObraSocial != null)
             {
-                existingObraSocial.Nombre = obraSocial.Nombre;
+                existingObraSocial.SetNombre(obraSocial.Nombre);
 
                 context.SaveChanges();
                 return true;

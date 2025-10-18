@@ -54,8 +54,8 @@ namespace SmileSoft.Data
             var existingTipoAtencion = context.TipoAtenciones.Find(tipoAtencion.Id);
             if (existingTipoAtencion != null)
             {
-                existingTipoAtencion.Descripcion = tipoAtencion.Descripcion;
-                existingTipoAtencion.Duracion = tipoAtencion.Duracion;
+                existingTipoAtencion.SetDescripcion(tipoAtencion.Descripcion);
+                existingTipoAtencion.SetDuracion(tipoAtencion.Duracion);
 
                 context.SaveChanges();
                 return true;
