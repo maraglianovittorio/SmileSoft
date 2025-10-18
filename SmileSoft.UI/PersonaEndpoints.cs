@@ -27,6 +27,12 @@ namespace SmileSoft.WebAPI
                 PersonaDTO dto = personaService.GetPersona(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("GetPersona");
+            app.MapGet("/personas/tutor/dni", (string dni) =>
+            {
+                PersonaService personaService = new PersonaService();
+                PersonaDTO persona = personaService.GetTutorByDni(dni);
+                return persona is not null ? Results.Ok(persona) : Results.NotFound();
+            }).WithName("TutorByDni");
 
             app.MapPost("/personas", (PersonaDTO personaDTO) =>
             {

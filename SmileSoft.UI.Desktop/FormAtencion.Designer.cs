@@ -41,10 +41,11 @@
             dgvTurnosDisponibles = new DataGridView();
             label5 = new Label();
             label6 = new Label();
-            dtpDia = new DateTimePicker();
+            dtpDiaAtencion = new DateTimePicker();
             label7 = new Label();
             txtNomYApe = new TextBox();
             btnBuscarTurnos = new Button();
+            btnAgregarAtencion = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvTurnosDisponibles).BeginInit();
             SuspendLayout();
             // 
@@ -161,12 +162,12 @@
             label6.TabIndex = 11;
             label6.Text = "Día:";
             // 
-            // dtpDia
+            // dtpDiaAtencion
             // 
-            dtpDia.Location = new Point(317, 218);
-            dtpDia.Name = "dtpDia";
-            dtpDia.Size = new Size(256, 23);
-            dtpDia.TabIndex = 12;
+            dtpDiaAtencion.Location = new Point(317, 218);
+            dtpDiaAtencion.Name = "dtpDiaAtencion";
+            dtpDiaAtencion.Size = new Size(256, 23);
+            dtpDiaAtencion.TabIndex = 12;
             // 
             // label7
             // 
@@ -194,15 +195,26 @@
             btnBuscarTurnos.Text = "Buscar turnos";
             btnBuscarTurnos.UseVisualStyleBackColor = true;
             // 
+            // btnAgregarAtencion
+            // 
+            btnAgregarAtencion.Location = new Point(367, 432);
+            btnAgregarAtencion.Name = "btnAgregarAtencion";
+            btnAgregarAtencion.Size = new Size(75, 23);
+            btnAgregarAtencion.TabIndex = 16;
+            btnAgregarAtencion.Text = "Agregar";
+            btnAgregarAtencion.UseVisualStyleBackColor = true;
+            btnAgregarAtencion.Click += btnAgregarAtencion_Click;
+            // 
             // FormAtencion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(801, 480);
+            Controls.Add(btnAgregarAtencion);
             Controls.Add(btnBuscarTurnos);
             Controls.Add(txtNomYApe);
             Controls.Add(label7);
-            Controls.Add(dtpDia);
+            Controls.Add(dtpDiaAtencion);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(dgvTurnosDisponibles);
@@ -239,9 +251,10 @@
         private DataGridView dgvTurnosDisponibles;
         private Label label5;
         private Label label6;
-        private DateTimePicker dtpDia;
+        private DateTimePicker dtpDiaAtencion;
         private Label label7;
         private TextBox txtNomYApe;
         private Button btnBuscarTurnos;
+        private Button btnAgregarAtencion;
     }
 }

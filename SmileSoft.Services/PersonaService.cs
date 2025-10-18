@@ -112,5 +112,25 @@ namespace SmileSoft.Services
             return personaRepository.Update(persona);
 
         }
+        public PersonaDTO? GetTutorByDni(string dni)
+        {
+            var personaRepository = new PersonaRepository();
+            Persona? persona = personaRepository.GetTutorByDni(dni);
+            if (persona == null)
+            {
+                return null;
+            }
+            return new PersonaDTO
+            {
+                Id = persona.Id,
+                Nombre = persona.Nombre,
+                Apellido = persona.Apellido,
+                NroDni = persona.NroDni,
+                Direccion = persona.Direccion,
+                Email = persona.Email,
+                FechaNacimiento = persona.FechaNacimiento,
+                Telefono = persona.Telefono
+            };
+        }
     }
 }

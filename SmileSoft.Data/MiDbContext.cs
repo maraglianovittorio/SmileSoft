@@ -20,6 +20,7 @@ namespace SmileSoft.Data
         public DbSet<TipoAtencion> TipoAtenciones { get; set; }
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Atencion> Atenciones { get; set; }
+        public DbSet<Horario> Horarios { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -108,6 +109,10 @@ namespace SmileSoft.Data
                       .WithOne(a => a.Odontologo)
                       .HasForeignKey(a => a.OdontologoId)
                       .OnDelete(DeleteBehavior.Restrict);
+                entity.HasMany(e => e.Horarios)
+                      .WithOne(h => h.Odontologo)
+                      .HasForeignKey(h => h.OdontologoId)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Usuario>(entity =>
             {
@@ -138,6 +143,18 @@ namespace SmileSoft.Data
                 entity.HasOne(e => e.TipoAtencion)
                       .WithMany(ta => ta.Atenciones)
                       .HasForeignKey(e => e.TipoAtencionId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+            modelBuilder.Entity<Horario>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.HasIndex(e => new { e.OdontologoId, e.DiaDeLaSemana }).IsUnique(); // esto significa que un odontologo no puede tener dos horarios para el mismo dia
+                entity.Property(e => e.DiaDeLaSemana).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.HoraDesde).IsRequired();
+                entity.Property(e => e.HoraHasta).IsRequired();
+                entity.HasOne(e => e.Odontologo)
+                      .WithMany(o => o.Horarios)
+                      .HasForeignKey(e => e.OdontologoId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
 

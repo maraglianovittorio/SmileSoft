@@ -32,6 +32,9 @@
     <Compile Update="FormHomeOS.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormHomeAtencion.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormHomeTutor.cs">
       <SubType>Form</SubType>
     </Compile>

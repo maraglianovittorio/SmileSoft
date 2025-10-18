@@ -140,5 +140,11 @@ namespace SmileSoft.UI.Desktop
             FormHomeTutor formTutor = new FormHomeTutor();
             formTutor.ShowDialog();
         }
+
+        private void atencionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormHomeAtencion formAtencion = new FormHomeAtencion();
+            formAtencion.ShowDialog();
+        }
     }
 }

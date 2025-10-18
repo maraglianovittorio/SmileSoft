@@ -9,6 +9,7 @@
         public ICollection<ObraSocial> ObrasSociales { get; set; } = new List<ObraSocial>();
         public string NombreCompleto => $"{Nombre} {Apellido}";
         public ICollection<Atencion> Atenciones { get; set; } = new List<Atencion>();
+        public ICollection<Horario> Horarios { get; set; } = new List<Horario>();
         public Odontologo(int id, string nombre, string apellido, string nroDni, DateTime fechaNacimiento, string direccion, string email, string telefono,string nroMatricula): base(id,nombre, apellido, nroDni,fechaNacimiento,direccion, email, telefono)
         {
             NroMatricula = nroMatricula;

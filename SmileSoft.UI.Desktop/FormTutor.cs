@@ -234,13 +234,25 @@ namespace SmileSoft.UI.Desktop
         }
         private async void btnEnviar_Click(object sender, EventArgs e)
         {
+            var personaExistente = await PersonaApiClient.GetTutorByDni(txtDNI.Text.Trim());
+            if (personaExistente != null)
+            {
+                IdTutorCreado = personaExistente.Id;
+                NombreTutor = $"{personaExistente.Nombre} {personaExistente.Apellido}";
+                MessageBox.Show("Ya existe una persona con ese DNI, se va a utilizar como tutor.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.DialogResult = DialogResult.OK; // Indicar que se creo una persona
+                this.Close(); // Cerrar el formulario después del éxito            
+                return;
+            }
             // Validar campos antes de enviar
             if (!ValidarCampos())
             {
                 return;
             }
+            //valido que la persona no exista ya por DNI
 
-            try
+                try
             {
                 PersonaDTO persona = new PersonaDTO
                 {

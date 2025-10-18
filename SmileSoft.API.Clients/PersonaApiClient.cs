@@ -91,6 +91,31 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener persona con Id {id}: {ex.Message}", ex);
             }
         }
+        public static async Task<Persona>? GetTutorByDni(string dni) { 
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync($"personas/tutor/dni?dni={dni}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<Persona>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    return null;
+
+                    //throw new Exception($"Error al obtener tutor con DNI {dni}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener tutor con DNI {dni}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener tutor con DNI {dni}: {ex.Message}", ex);
+            }
+        }
         public static async Task<Persona> GetByDni(string dni)
         {
             try

@@ -82,11 +82,49 @@ namespace SmileSoft.WindowsForms
                 cmbOdontologo.DataSource = odontologos.ToList();
                 cmbOdontologo.DisplayMember = "NombreCompleto";
                 cmbOdontologo.ValueMember = "Id";
-                cmbOdontologo.SelectedIndex = -1; 
+                cmbOdontologo.SelectedIndex = -1;
             }
             else
             {
                 MessageBox.Show("No se encontraron odontólogos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private async void btnAgregarAtencion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtDni.Text) || string.IsNullOrWhiteSpace(txtNomYApe.Text))
+                {
+                    MessageBox.Show("Debe buscar y seleccionar un paciente antes de agregar una atención.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (cmbTipoAtencion.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar un tipo de atención.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (cmbOdontologo.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar un odontólogo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                var paciente = await PacienteApiClient.GetByDni(txtDni.Text.Trim());
+                AtencionDTO atencionCreada = new AtencionDTO
+                {
+                    PacienteId = paciente.Id,
+                    TipoAtencionId = (int)cmbTipoAtencion.SelectedValue,
+                    OdontologoId = (int)cmbOdontologo.SelectedValue,
+                    FechaHoraAtencion = dtpDiaAtencion.Value
+                };
+                await AtencionApiClient.CreateAsync(atencionCreada);
+                // Aquí podrías agregar la lógica para guardar la nueva atención en la base de datos o enviarla a través de una API.
+                MessageBox.Show("Atención agregada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al agregar la atención: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);    
             }
         }
     }

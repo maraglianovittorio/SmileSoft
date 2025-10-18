@@ -36,6 +36,7 @@ namespace SmileSoft.Services
             }
             return new PacienteDTO
             {
+                Id = paciente.Id,
                 Nombre = paciente.Nombre,
                 Apellido = paciente.Apellido,
                 NroDni = paciente.NroDni,
@@ -59,6 +60,7 @@ namespace SmileSoft.Services
             }
             return new PacienteDTO
             {
+                Id = paciente.Id,
                 Nombre = paciente.Nombre,
                 Apellido = paciente.Apellido,
                 NroDni = paciente.NroDni,
