@@ -38,6 +38,10 @@
             txtEmail = new TextBox();
             btnAgregarOdontologo = new Button();
             btnEditarOdontologo = new Button();
+            lblDni = new Label();
+            txtDni = new TextBox();
+            label1 = new Label();
+            dtpFechaNac = new DateTimePicker();
             SuspendLayout();
             // 
             // lblNombreOdontologo
@@ -119,7 +123,7 @@
             btnAgregarOdontologo.Name = "btnAgregarOdontologo";
             btnAgregarOdontologo.Size = new Size(83, 27);
             btnAgregarOdontologo.TabIndex = 12;
-            btnAgregarOdontologo.Text = "Enviar";
+            btnAgregarOdontologo.Text = "Guardar";
             btnAgregarOdontologo.UseVisualStyleBackColor = true;
             btnAgregarOdontologo.Click += btnEnviar_Click;
             // 
@@ -134,11 +138,50 @@
             btnEditarOdontologo.UseVisualStyleBackColor = true;
             btnEditarOdontologo.Click += btnEditarOdontologo_Click;
             // 
+            // lblDni
+            // 
+            lblDni.AutoSize = true;
+            lblDni.Location = new Point(119, 160);
+            lblDni.Name = "lblDni";
+            lblDni.Size = new Size(27, 15);
+            lblDni.TabIndex = 14;
+            lblDni.Text = "DNI";
+            // 
+            // txtDni
+            // 
+            txtDni.Location = new Point(245, 160);
+            txtDni.Name = "txtDni";
+            txtDni.Size = new Size(200, 23);
+            txtDni.TabIndex = 15;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(117, 194);
+            label1.Name = "label1";
+            label1.Size = new Size(77, 15);
+            label1.TabIndex = 16;
+            label1.Text = "Fecha nacim.";
+            // 
+            // dtpFechaNac
+            // 
+            dtpFechaNac.Format = DateTimePickerFormat.Short;
+            dtpFechaNac.Location = new Point(245, 189);
+            dtpFechaNac.MaxDate = new DateTime(2100, 12, 31, 0, 0, 0, 0);
+            dtpFechaNac.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
+            dtpFechaNac.Name = "dtpFechaNac";
+            dtpFechaNac.Size = new Size(200, 23);
+            dtpFechaNac.TabIndex = 17;
+            // 
             // FormOdontologo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(650, 350);
+            Controls.Add(dtpFechaNac);
+            Controls.Add(label1);
+            Controls.Add(txtDni);
+            Controls.Add(lblDni);
             Controls.Add(btnEditarOdontologo);
             Controls.Add(btnAgregarOdontologo);
             Controls.Add(txtEmail);
@@ -167,5 +210,9 @@
         private TextBox txtEmail;
         private Button btnAgregarOdontologo;
         private Button btnEditarOdontologo;
+        private Label lblDni;
+        private TextBox txtDni;
+        private Label label1;
+        private DateTimePicker dtpFechaNac;
     }
 }

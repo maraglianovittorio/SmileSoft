@@ -1,0 +1,54 @@
+﻿@using SmileSoft.API.Clients;
+@using SmileSoft.Dominio;
+@page "/"
+
+
+<PageTitle>Inicio</PageTitle>
+
+<h1>Bienvenido </h1>
+
+Turnos:
+
+
+@if (atenciones == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha y hora</th>
+                <th>Paciente</th>
+                <th>Estado</th>
+                <th>Tipo de atencion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var atencion in atenciones)
+            {
+                <tr>
+                    <td>@atencion.FechaHoraAtencion</td>
+                    <td>@atencion.Paciente</td>
+                    <td>@atencion.Estado</td>
+                    <td>@atencion.TipoAtencion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Atencion[]? atenciones;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var atencionesResponse = await AtencionApiClient.GetAllAsync();
+        if (atencionesResponse != null && atencionesResponse.Count() > 0)
+        {
+            atenciones = atencionesResponse.ToArray();
+        }
+    }
+
+}
