@@ -97,14 +97,14 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones con estado '{estado}': {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<Atencion>> GetByOdontologoIdAsync(int odontologoId)
+        public static async Task<ICollection<AtencionDetalleDTO>> GetByOdontologoIdAsync(int odontologoId)
         {
             try
             {
                 HttpResponseMessage response = await client.GetAsync($"atenciones/odontologo?id={odontologoId}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ICollection<Atencion>>();
+                    return await response.Content.ReadAsAsync<ICollection<AtencionDetalleDTO>>();
                 }
                 else
                 {

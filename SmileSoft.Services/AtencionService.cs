@@ -25,12 +25,14 @@ namespace SmileSoft.Services
 
             return dto;
         }
+        
         public bool Delete(int id)
         {
             var atencionRepository = new AtencionRepository();
             return atencionRepository.Delete(id);
         }
-        public AtencionDTO GetAtencion(int id)
+        
+        public AtencionDetalleDTO GetAtencion(int id)
         {
             var atencionRepository = new AtencionRepository();
             Atencion? atencion = atencionRepository.Get(id);
@@ -38,16 +40,26 @@ namespace SmileSoft.Services
             {
                 throw new Exception("No se encontró la atención.");
             }
-            return new AtencionDTO
+            return new AtencionDetalleDTO
             {
+                Id = atencion.Id,
                 OdontologoId = atencion.OdontologoId,
                 PacienteId = atencion.PacienteId,
                 TipoAtencionId = atencion.TipoAtencionId,
                 FechaHoraAtencion = atencion.FechaHoraAtencion,
-                Estado = atencion.Estado
+                Estado = atencion.Estado,
+                Observaciones = atencion.Observaciones,
+                PacienteNombre = atencion.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = atencion.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = atencion.Paciente?.NroDni ?? string.Empty,
+                OdontologoNombre = atencion.Odontologo?.Nombre ?? string.Empty,
+                OdontologoApellido = atencion.Odontologo?.Apellido ?? string.Empty,
+                TipoAtencionDescripcion = atencion.TipoAtencion?.Descripcion ?? string.Empty,
+                TipoAtencionDuracion = atencion.TipoAtencion?.Duracion ?? TimeSpan.Zero
             };
         }
-        public IEnumerable<AtencionDTO>? GetAtencionesByEstado(string estado)
+        
+        public IEnumerable<AtencionDetalleDTO>? GetAtencionesByEstado(string estado)
         {
             var atencionRepository = new AtencionRepository();
             var atenciones = atencionRepository.GetByEstado(estado);
@@ -55,80 +67,140 @@ namespace SmileSoft.Services
             {
                 return null;
             }
-            return atenciones.Select(a => new AtencionDTO
+            return atenciones.Select(a => new AtencionDetalleDTO
             {
+                Id = a.Id,
                 OdontologoId = a.OdontologoId,
                 PacienteId = a.PacienteId,
                 TipoAtencionId = a.TipoAtencionId,
                 FechaHoraAtencion = a.FechaHoraAtencion,
-                Estado = a.Estado
+                Estado = a.Estado,
+                Observaciones = a.Observaciones,
+                PacienteNombre = a.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = a.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = a.Paciente?.NroDni ?? string.Empty,
+                OdontologoNombre = a.Odontologo?.Nombre ?? string.Empty,
+                OdontologoApellido = a.Odontologo?.Apellido ?? string.Empty,
+                TipoAtencionDescripcion = a.TipoAtencion?.Descripcion ?? string.Empty,
+                TipoAtencionDuracion = a.TipoAtencion?.Duracion ?? TimeSpan.Zero
             });
         }
-        public IEnumerable<AtencionDTO> GetAllByPaciente(int pacienteId)
+        
+        public IEnumerable<AtencionDetalleDTO> GetAllByPaciente(int pacienteId)
         {
             var atencionRepository = new AtencionRepository();
             var atenciones = atencionRepository.GetAllByPaciente(pacienteId);
-            return atenciones.Select(a => new AtencionDTO
+            return atenciones.Select(a => new AtencionDetalleDTO
             {
+                Id = a.Id,
                 OdontologoId = a.OdontologoId,
                 PacienteId = a.PacienteId,
                 TipoAtencionId = a.TipoAtencionId,
                 FechaHoraAtencion = a.FechaHoraAtencion,
-                Estado = a.Estado
+                Estado = a.Estado,
+                Observaciones = a.Observaciones,
+                PacienteNombre = a.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = a.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = a.Paciente?.NroDni ?? string.Empty,
+                OdontologoNombre = a.Odontologo?.Nombre ?? string.Empty,
+                OdontologoApellido = a.Odontologo?.Apellido ?? string.Empty,
+                TipoAtencionDescripcion = a.TipoAtencion?.Descripcion ?? string.Empty,
+                TipoAtencionDuracion = a.TipoAtencion?.Duracion ?? TimeSpan.Zero
             });
         }
-        public IEnumerable<AtencionDTO> GetAllByOdontologo(int odontologoId)
+        
+        public IEnumerable<AtencionDetalleDTO> GetAllByOdontologo(int odontologoId)
         {
             var atencionRepository = new AtencionRepository();
             var atenciones = atencionRepository.GetAllByOdontologo(odontologoId);
-            return atenciones.Select(a => new AtencionDTO
+            return atenciones.Select(a => new AtencionDetalleDTO
             {
+                Id = a.Id,
                 OdontologoId = a.OdontologoId,
                 PacienteId = a.PacienteId,
                 TipoAtencionId = a.TipoAtencionId,
                 FechaHoraAtencion = a.FechaHoraAtencion,
-                Estado = a.Estado
+                Estado = a.Estado,
+                Observaciones = a.Observaciones,
+                PacienteNombre = a.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = a.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = a.Paciente?.NroDni ?? string.Empty,
+                OdontologoNombre = a.Odontologo?.Nombre ?? string.Empty,
+                OdontologoApellido = a.Odontologo?.Apellido ?? string.Empty,
+                TipoAtencionDescripcion = a.TipoAtencion?.Descripcion ?? string.Empty,
+                TipoAtencionDuracion = a.TipoAtencion?.Duracion ?? TimeSpan.Zero
             });
         }
-        public IEnumerable<AtencionDTO> GetAllByTipoAtencion(int tipoAtencionId)
+        
+        public IEnumerable<AtencionDetalleDTO> GetAllByTipoAtencion(int tipoAtencionId)
         {
             var atencionRepository = new AtencionRepository();
             var atenciones = atencionRepository.GetAllByTipoAtencion(tipoAtencionId);
-            return atenciones.Select(a => new AtencionDTO
+            return atenciones.Select(a => new AtencionDetalleDTO
             {
+                Id = a.Id,
                 OdontologoId = a.OdontologoId,
                 PacienteId = a.PacienteId,
                 TipoAtencionId = a.TipoAtencionId,
                 FechaHoraAtencion = a.FechaHoraAtencion,
-                Estado = a.Estado
+                Estado = a.Estado,
+                Observaciones = a.Observaciones,
+                PacienteNombre = a.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = a.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = a.Paciente?.NroDni ?? string.Empty,
+                OdontologoNombre = a.Odontologo?.Nombre ?? string.Empty,
+                OdontologoApellido = a.Odontologo?.Apellido ?? string.Empty,
+                TipoAtencionDescripcion = a.TipoAtencion?.Descripcion ?? string.Empty,
+                TipoAtencionDuracion = a.TipoAtencion?.Duracion ?? TimeSpan.Zero
             });
         }
-        public IEnumerable<AtencionDTO> GetAllByRango(DateTime startDate, DateTime endDate)
+        
+        public IEnumerable<AtencionDetalleDTO> GetAllByRango(DateTime startDate, DateTime endDate)
         {
             var atencionRepository = new AtencionRepository();
             var atenciones = atencionRepository.GetAllByRango(startDate, endDate);
-            return atenciones.Select(a => new AtencionDTO
+            return atenciones.Select(a => new AtencionDetalleDTO
             {
+                Id = a.Id,
                 OdontologoId = a.OdontologoId,
                 PacienteId = a.PacienteId,
                 TipoAtencionId = a.TipoAtencionId,
                 FechaHoraAtencion = a.FechaHoraAtencion,
-                Estado = a.Estado
+                Estado = a.Estado,
+                Observaciones = a.Observaciones,
+                PacienteNombre = a.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = a.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = a.Paciente?.NroDni ?? string.Empty,
+                OdontologoNombre = a.Odontologo?.Nombre ?? string.Empty,
+                OdontologoApellido = a.Odontologo?.Apellido ?? string.Empty,
+                TipoAtencionDescripcion = a.TipoAtencion?.Descripcion ?? string.Empty,
+                TipoAtencionDuracion = a.TipoAtencion?.Duracion ?? TimeSpan.Zero
             });
         }
-        public IEnumerable<AtencionDTO> GetAll()
+        
+        public IEnumerable<AtencionDetalleDTO> GetAll()
         {
             var atencionRepository = new AtencionRepository();
             var atenciones = atencionRepository.GetAll();
-            return atenciones.Select(a => new AtencionDTO
+            return atenciones.Select(a => new AtencionDetalleDTO
             {
+                Id = a.Id,
                 OdontologoId = a.OdontologoId,
                 PacienteId = a.PacienteId,
                 TipoAtencionId = a.TipoAtencionId,
                 FechaHoraAtencion = a.FechaHoraAtencion,
-                Estado = a.Estado
+                Estado = a.Estado,
+                Observaciones = a.Observaciones,
+                PacienteNombre = a.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = a.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = a.Paciente?.NroDni ?? string.Empty,
+                OdontologoNombre = a.Odontologo?.Nombre ?? string.Empty,
+                OdontologoApellido = a.Odontologo?.Apellido ?? string.Empty,
+                TipoAtencionDescripcion = a.TipoAtencion?.Descripcion ?? string.Empty,
+                TipoAtencionDuracion = a.TipoAtencion?.Duracion ?? TimeSpan.Zero
             });
         }
+        
         public bool Update(int id, AtencionDTO dto)
         {
             var atencionRepository = new AtencionRepository();
@@ -140,7 +212,6 @@ namespace SmileSoft.Services
 
             Atencion atencion = new Atencion(dto.FechaHoraAtencion, dto.Estado, dto.Observaciones, dto.OdontologoId, dto.PacienteId, dto.TipoAtencionId);
             return atencionRepository.Update(atencion);
-
         }
     }
 }

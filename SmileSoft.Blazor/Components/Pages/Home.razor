@@ -1,11 +1,11 @@
 ﻿@using SmileSoft.API.Clients;
-@using SmileSoft.Dominio;
+@using DTO;
 @page "/"
 
 
 <PageTitle>Inicio</PageTitle>
 
-<h1>Bienvenido </h1>
+<h1>Bienvenido (odontólogo que inició sesión)</h1>
 
 Turnos:
 
@@ -30,9 +30,9 @@ else
             {
                 <tr>
                     <td>@atencion.FechaHoraAtencion</td>
-                    <td>@atencion.Paciente</td>
+                    <td>@atencion.PacienteNombre @atencion.PacienteApellido</td>
                     <td>@atencion.Estado</td>
-                    <td>@atencion.TipoAtencion</td>
+                    <td>@atencion.TipoAtencionDescripcion</td>
                 </tr>
             }
         </tbody>
@@ -40,11 +40,11 @@ else
 }
 
 @code {
-    private Atencion[]? atenciones;
+    private AtencionDetalleDTO[]? atenciones;
 
     protected override async Task OnInitializedAsync()
     {
-        var atencionesResponse = await AtencionApiClient.GetAllAsync();
+        var atencionesResponse = await AtencionApiClient.GetByOdontologoIdAsync(5); //TODO reemplazar por el id del odontólogo logueado
         if (atencionesResponse != null && atencionesResponse.Count() > 0)
         {
             atenciones = atencionesResponse.ToArray();

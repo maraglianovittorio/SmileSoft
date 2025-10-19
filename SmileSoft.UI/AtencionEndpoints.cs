@@ -13,7 +13,9 @@ namespace SmileSoft.WebAPI
                 AtencionService atencionService = new AtencionService();
                 var dtos = atencionService.GetAll();
                 return Results.Ok(dtos);
-            }).WithName("GetAtenciones");
+            }).WithName("GetAtenciones")
+            .Produces<List<AtencionDetalleDTO>>(StatusCodes.Status200OK);
+
             app.MapGet($"/atenciones/estado=estado", (string estado) =>
             {
             AtencionService atencionService = new AtencionService();
@@ -30,14 +32,16 @@ namespace SmileSoft.WebAPI
             })
                 .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
                 .WithName("GetAtencionesByPaciente");
-            app.MapGet($"/atenciones/odontologo=odontologoId", (int odontologoId) =>
+            
+            app.MapGet($"/atenciones/odontologo", (int id) =>
             {
                 AtencionService atencionService = new AtencionService();
-                var dtos = atencionService.GetAllByOdontologo(odontologoId);
+                var dtos = atencionService.GetAllByOdontologo(id);
                 return Results.Ok(dtos);
             })
-                .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
+                .Produces<List<AtencionDetalleDTO>>(StatusCodes.Status200OK)
                 .WithName("GetAtencionesByOdontologo");
+            
             app.MapGet($"/atenciones/tipoatencion=tipoAtencionId", (int tipoAtencionId) =>
             {
                 AtencionService atencionService = new AtencionService();
@@ -57,7 +61,7 @@ namespace SmileSoft.WebAPI
             app.MapGet($"atenciones/id", (int id) =>
             {
                 AtencionService atencionService = new AtencionService();
-                AtencionDTO dto = atencionService.GetAtencion(id);
+                AtencionDetalleDTO dto = atencionService.GetAtencion(id);
                 return dto is not null ? Results.Ok(new { Atencion = dto }) : Results.NotFound();
             }).WithName("GetAtencion");
             app.MapPost("/atenciones", (AtencionDTO atencionDTO) =>

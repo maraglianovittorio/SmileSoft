@@ -23,8 +23,28 @@ namespace DTO
         public int PacienteId { get; set; }
         [Required(ErrorMessage = "El id del tipo de atencion es obligatorio")]
         public int TipoAtencionId { get; set; }
+    }
 
-
-
+    // DTO with navigation properties for display purposes
+    public class AtencionDetalleDTO
+    {
+        public int Id { get; set; }
+        public DateTime FechaHoraAtencion { get; set; }
+        public string Estado { get; set; } = string.Empty;
+        public string Observaciones { get; set; } = string.Empty;
+        
+        // Foreign Keys
+        public int OdontologoId { get; set; }
+        public int PacienteId { get; set; }
+        public int TipoAtencionId { get; set; }
+        
+        // Navigation properties for display
+        public string PacienteNombre { get; set; } = string.Empty;
+        public string PacienteApellido { get; set; } = string.Empty;
+        public string PacienteDni { get; set; } = string.Empty;
+        public string OdontologoNombre { get; set; } = string.Empty;
+        public string OdontologoApellido { get; set; } = string.Empty;
+        public string TipoAtencionDescripcion { get; set; } = string.Empty;
+        public TimeSpan TipoAtencionDuracion { get; set; }
     }
 }
