@@ -80,11 +80,11 @@ namespace SmileSoft.UI.Desktop
             formTipoAtencion.ShowDialog();
         }
 
-        private void btnMenuAlt_Click(object sender, EventArgs e)
-        {
-            FormInicioAdmin formInicioAlternativo = new FormInicioAdmin();
-            formInicioAlternativo.ShowDialog();
-        }
+        //private void btnMenuAlt_Click(object sender, EventArgs e)
+        //{
+        //    FormInicioAdmin formInicioAlternativo = new FormInicioAdmin();
+        //    formInicioAlternativo.ShowDialog();
+        //}
 
         private void BtnVolver_Click(object sender, EventArgs e)
         {

@@ -231,10 +231,12 @@
             dtpFechaNacimiento.Format = DateTimePickerFormat.Custom;
             dtpFechaNacimiento.Location = new Point(247, 174);
             dtpFechaNacimiento.Margin = new Padding(2);
+            dtpFechaNacimiento.MaxDate = new DateTime(2030, 12, 31, 0, 0, 0, 0);
+            dtpFechaNacimiento.MinDate = new DateTime(1930, 1, 1, 0, 0, 0, 0);
             dtpFechaNacimiento.Name = "dtpFechaNacimiento";
             dtpFechaNacimiento.Size = new Size(123, 23);
             dtpFechaNacimiento.TabIndex = 11;
-            dtpFechaNacimiento.Value = new DateTime(2025, 1, 1, 0, 0, 0, 0);
+            dtpFechaNacimiento.Value = new DateTime(2025, 10, 19, 0, 0, 0, 0);
             dtpFechaNacimiento.ValueChanged += dtpFechaNacimiento_ValueChanged;
             dtpFechaNacimiento.Leave += dtpFechaNacimiento_Leave;
             // 

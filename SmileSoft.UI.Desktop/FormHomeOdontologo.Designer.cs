@@ -112,7 +112,7 @@
             btnBorrarOdontologo.Location = new Point(651, 282);
             btnBorrarOdontologo.Margin = new Padding(2);
             btnBorrarOdontologo.Name = "btnBorrarOdontologo";
-            btnBorrarOdontologo.Size = new Size(134, 46);
+            btnBorrarOdontologo.Size = new Size(141, 55);
             btnBorrarOdontologo.TabIndex = 5;
             btnBorrarOdontologo.Text = "Borrar Odontólogo";
             btnBorrarOdontologo.UseVisualStyleBackColor = false;
@@ -122,10 +122,10 @@
             // 
             btnEditarOdontologo.BackColor = Color.YellowGreen;
             btnEditarOdontologo.ForeColor = SystemColors.ButtonHighlight;
-            btnEditarOdontologo.Location = new Point(513, 282);
+            btnEditarOdontologo.Location = new Point(500, 282);
             btnEditarOdontologo.Margin = new Padding(2);
             btnEditarOdontologo.Name = "btnEditarOdontologo";
-            btnEditarOdontologo.Size = new Size(134, 46);
+            btnEditarOdontologo.Size = new Size(147, 55);
             btnEditarOdontologo.TabIndex = 6;
             btnEditarOdontologo.Text = "Editar Odontólogo";
             btnEditarOdontologo.UseVisualStyleBackColor = false;

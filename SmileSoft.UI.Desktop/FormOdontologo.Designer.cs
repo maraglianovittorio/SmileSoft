@@ -41,7 +41,11 @@
             lblDni = new Label();
             txtDni = new TextBox();
             label1 = new Label();
-            dtpFechaNac = new DateTimePicker();
+            dtpFechaNacimiento = new DateTimePicker();
+            lblDireccion = new Label();
+            txtDireccion = new TextBox();
+            lblTelefono = new Label();
+            txtTelefono = new TextBox();
             SuspendLayout();
             // 
             // lblNombreOdontologo
@@ -118,22 +122,22 @@
             // 
             // btnAgregarOdontologo
             // 
-            btnAgregarOdontologo.Location = new Point(245, 240);
+            btnAgregarOdontologo.Location = new Point(247, 292);
             btnAgregarOdontologo.Margin = new Padding(2);
             btnAgregarOdontologo.Name = "btnAgregarOdontologo";
             btnAgregarOdontologo.Size = new Size(83, 27);
-            btnAgregarOdontologo.TabIndex = 12;
+            btnAgregarOdontologo.TabIndex = 14;
             btnAgregarOdontologo.Text = "Guardar";
             btnAgregarOdontologo.UseVisualStyleBackColor = true;
             btnAgregarOdontologo.Click += btnEnviar_Click;
             // 
             // btnEditarOdontologo
             // 
-            btnEditarOdontologo.Location = new Point(345, 240);
+            btnEditarOdontologo.Location = new Point(347, 292);
             btnEditarOdontologo.Margin = new Padding(2);
             btnEditarOdontologo.Name = "btnEditarOdontologo";
             btnEditarOdontologo.Size = new Size(83, 27);
-            btnEditarOdontologo.TabIndex = 13;
+            btnEditarOdontologo.TabIndex = 15;
             btnEditarOdontologo.Text = "Editar";
             btnEditarOdontologo.UseVisualStyleBackColor = true;
             btnEditarOdontologo.Click += btnEditarOdontologo_Click;
@@ -141,44 +145,83 @@
             // lblDni
             // 
             lblDni.AutoSize = true;
-            lblDni.Location = new Point(119, 160);
+            lblDni.Location = new Point(119, 215);
             lblDni.Name = "lblDni";
             lblDni.Size = new Size(27, 15);
-            lblDni.TabIndex = 14;
+            lblDni.TabIndex = 10;
             lblDni.Text = "DNI";
+            lblDni.Click += lblDni_Click;
             // 
             // txtDni
             // 
-            txtDni.Location = new Point(245, 160);
+            txtDni.Location = new Point(247, 212);
             txtDni.Name = "txtDni";
             txtDni.Size = new Size(200, 23);
-            txtDni.TabIndex = 15;
+            txtDni.TabIndex = 11;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(117, 194);
+            label1.Location = new Point(119, 246);
             label1.Name = "label1";
             label1.Size = new Size(77, 15);
-            label1.TabIndex = 16;
+            label1.TabIndex = 12;
             label1.Text = "Fecha nacim.";
             // 
-            // dtpFechaNac
+            // dtpFechaNacimiento
             // 
-            dtpFechaNac.Format = DateTimePickerFormat.Short;
-            dtpFechaNac.Location = new Point(245, 189);
-            dtpFechaNac.MaxDate = new DateTime(2100, 12, 31, 0, 0, 0, 0);
-            dtpFechaNac.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
-            dtpFechaNac.Name = "dtpFechaNac";
-            dtpFechaNac.Size = new Size(200, 23);
-            dtpFechaNac.TabIndex = 17;
+            dtpFechaNacimiento.CustomFormat = "mm/hh/yyyy";
+            dtpFechaNacimiento.Format = DateTimePickerFormat.Short;
+            dtpFechaNacimiento.Location = new Point(247, 241);
+            dtpFechaNacimiento.MaxDate = new DateTime(2030, 12, 31, 0, 0, 0, 0);
+            dtpFechaNacimiento.MinDate = new DateTime(1930, 1, 1, 0, 0, 0, 0);
+            dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            dtpFechaNacimiento.Size = new Size(200, 23);
+            dtpFechaNacimiento.TabIndex = 13;
+            // 
+            // lblDireccion
+            // 
+            lblDireccion.AutoSize = true;
+            lblDireccion.Location = new Point(119, 159);
+            lblDireccion.Name = "lblDireccion";
+            lblDireccion.Size = new Size(57, 15);
+            lblDireccion.TabIndex = 8;
+            lblDireccion.Text = "Direccion";
+            // 
+            // txtDireccion
+            // 
+            txtDireccion.Location = new Point(245, 157);
+            txtDireccion.Margin = new Padding(2);
+            txtDireccion.Name = "txtDireccion";
+            txtDireccion.Size = new Size(200, 23);
+            txtDireccion.TabIndex = 9;
+            // 
+            // lblTelefono
+            // 
+            lblTelefono.AutoSize = true;
+            lblTelefono.Location = new Point(119, 186);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new Size(52, 15);
+            lblTelefono.TabIndex = 16;
+            lblTelefono.Text = "Telefono";
+            // 
+            // txtTelefono
+            // 
+            txtTelefono.Location = new Point(245, 183);
+            txtTelefono.Name = "txtTelefono";
+            txtTelefono.Size = new Size(200, 23);
+            txtTelefono.TabIndex = 17;
             // 
             // FormOdontologo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(650, 350);
-            Controls.Add(dtpFechaNac);
+            Controls.Add(txtTelefono);
+            Controls.Add(lblTelefono);
+            Controls.Add(txtDireccion);
+            Controls.Add(lblDireccion);
+            Controls.Add(dtpFechaNacimiento);
             Controls.Add(label1);
             Controls.Add(txtDni);
             Controls.Add(lblDni);
@@ -213,6 +256,10 @@
         private Label lblDni;
         private TextBox txtDni;
         private Label label1;
-        private DateTimePicker dtpFechaNac;
+        private DateTimePicker dtpFechaNacimiento;
+        private Label lblDireccion;
+        private TextBox txtDireccion;
+        private Label lblTelefono;
+        private TextBox txtTelefono;
     }
 }

@@ -14,7 +14,7 @@ namespace SmileSoft.Services
         public OdontologoDTO Add(OdontologoDTO dto)
         {
             var odontologoRepository = new OdontologoRepository();
-            Odontologo odontologo = new Odontologo(0, dto.Nombre,dto.Apellido,dto.NroDni,dto.FechaNacimiento,dto.Direccion,dto.Email,dto.Telefono,dto.NroMatricula);
+            Odontologo odontologo = new Odontologo(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.FechaNacimiento,dto.Direccion,dto.Email,dto.Telefono,dto.NroMatricula);
             // Validar que el odontólogo no exista
             if (odontologoRepository.NroMatriculaExists(dto.NroMatricula))
             {
@@ -44,20 +44,28 @@ namespace SmileSoft.Services
                 NroMatricula = odontologo.NroMatricula,
                 Apellido = odontologo.Apellido,
                 Email = odontologo.Email,
+                Direccion = odontologo.Direccion,
+                Telefono = odontologo.Telefono,
+                NroDni = odontologo.NroDni, 
+                FechaNacimiento = odontologo.FechaNacimiento,
             };
         }
         public IEnumerable<OdontologoDTO> GetAll()
         {
             var odontologoRepository = new OdontologoRepository();
             var odontologos = odontologoRepository.GetAll();
-            return odontologos.Select(o => new OdontologoDTO
+            return odontologos.Select(odontologo => new OdontologoDTO
             {
 
-                Id = o.Id,
-                Nombre = o.Nombre,
-                Apellido = o.Apellido,
-                NroMatricula = o.NroMatricula,
-                Email = o.Email
+                Id = odontologo.Id,
+                Nombre = odontologo.Nombre,
+                NroMatricula = odontologo.NroMatricula,
+                Apellido = odontologo.Apellido,
+                Email = odontologo.Email,
+                Direccion = odontologo.Direccion,
+                Telefono = odontologo.Telefono,
+                NroDni = odontologo.NroDni,
+                FechaNacimiento = odontologo.FechaNacimiento,
 
             }).ToList();
         }

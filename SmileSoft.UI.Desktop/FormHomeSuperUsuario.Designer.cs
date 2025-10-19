@@ -114,7 +114,7 @@
             btnMenuAlt.TabIndex = 5;
             btnMenuAlt.Text = "Menu alernativo";
             btnMenuAlt.UseVisualStyleBackColor = false;
-            btnMenuAlt.Click += btnMenuAlt_Click;
+            //btnMenuAlt.Click += btnMenuAlt_Click;
             // 
             // BtnCerrarSesion
             // 

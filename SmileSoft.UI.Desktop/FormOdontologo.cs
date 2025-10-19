@@ -48,7 +48,10 @@ namespace SmileSoft.UI.Desktop
                     if (lbl.Name == "lblNombreOdontologo" ||
                         lbl.Name == "lblApellidoOdontologo" ||
                         lbl.Name == "lblNroMatricula" ||
-                        lbl.Name == "lblUsername")
+                        lbl.Name == "lblDni" ||
+                        lbl.Name == "lblDireccion" ||
+                        lbl.Name == "lblTelefono" ||
+                        lbl.Name == "lblEmail")
                     {
                         lbl.Text = lbl.Text.TrimEnd(':') + " *";
                         lbl.ForeColor = Color.FromArgb(220, 20, 60); // Crimson para campos obligatorios
@@ -199,6 +202,11 @@ namespace SmileSoft.UI.Desktop
                     txtApellido.Text = odontologoResponse.Apellido;
                     txtNroMatricula.Text = odontologoResponse.NroMatricula;
                     txtEmail.Text = odontologoResponse.Email;
+                    txtTelefono.Text = odontologoResponse.Telefono;
+                    txtDireccion.Text = odontologoResponse.Direccion;
+                    txtDni.Text = odontologoResponse.NroDni;
+                    dtpFechaNacimiento.Value = odontologoResponse.FechaNacimiento;
+
                     //txtUsername.Text = odontologoResponse.Username;
                 }
                 else
@@ -229,6 +237,10 @@ namespace SmileSoft.UI.Desktop
                     Apellido = txtApellido.Text.Trim(),
                     NroMatricula = txtNroMatricula.Text.Trim(),
                     Email = txtEmail.Text.Trim(),
+                    Direccion = txtDireccion.Text.Trim(),
+                    Telefono = txtTelefono.Text.Trim(),
+                    NroDni = txtDni.Text.Trim(),
+                    FechaNacimiento = dtpFechaNacimiento.Value,
                     //Username = txtUsername.Text.Trim(),
                     //Password = txtPassword.Text.Trim()
                 };
@@ -273,6 +285,10 @@ namespace SmileSoft.UI.Desktop
                     Apellido = txtApellido.Text.Trim(),
                     NroMatricula = txtNroMatricula.Text.Trim(),
                     Email = txtEmail.Text.Trim(),
+                    Direccion = txtDireccion.Text.Trim(),
+                    Telefono = txtTelefono.Text.Trim(),
+                    NroDni = txtDni.Text.Trim(),
+                    FechaNacimiento = dtpFechaNacimiento.Value,
                     //Username = txtUsername.Text.Trim(),
                     //Password = string.IsNullOrWhiteSpace(txtPassword.Text) ? "" : txtPassword.Text.Trim()
                 };
@@ -298,6 +314,11 @@ namespace SmileSoft.UI.Desktop
                 btnEditarOdontologo.Text = "Enviar";
                 btnEditarOdontologo.Enabled = true;
             }
+        }
+
+        private void lblDni_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

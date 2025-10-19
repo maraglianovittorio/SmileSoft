@@ -14,7 +14,7 @@ namespace SmileSoft.UI.Desktop
             BaseAddress = new Uri("http://localhost:54145")
 
         };
-        private List<Paciente> pacientes = new();
+        private List<PacienteDTO> pacientes = new();
         public FormHomePaciente()
         {
             InitializeComponent();
@@ -83,12 +83,12 @@ namespace SmileSoft.UI.Desktop
                 if (pacientesResponse != null && pacientesResponse.Count() > 0)
                 {
                     dgvFormPaciente.DataSource = pacientesResponse;
-                    pacientes = (List<Paciente>)pacientesResponse;
+                    pacientes = (List<PacienteDTO>)pacientesResponse;
                     dgvFormPaciente.Columns["Id"].Visible = false;
-                    dgvFormPaciente.Columns["Atenciones"].Visible = false;
-                    dgvFormPaciente.Columns["TipoPlan"].Visible = false;
+                    //dgvFormPaciente.Columns["Atenciones"].Visible = false;
+                    //dgvFormPaciente.Columns["TipoPlan"].Visible = false;
                     dgvFormPaciente.Columns["TutorId"].Visible = false;
-                    dgvFormPaciente.Columns["Tutor"].Visible = false;
+                    //dgvFormPaciente.Columns["Tutor"].Visible = false;
 
                     // Ordenar las columnas visibles
                     dgvFormPaciente.Columns["NroHC"].DisplayIndex = 0;
