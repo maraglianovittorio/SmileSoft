@@ -7,29 +7,41 @@
 
 <h1>Bienvenido (odontólogo que inició sesión)</h1>
 
-Turnos:
+<div class="date-navigation">
+    <span>Turnos para el día:</span>
+    <button class="btn btn-sm btn-outline-primary" @onclick="PreviousDay">◀</button>
+    <input type="date" class="form-control d-inline-block mx-2" style="width: auto;" 
+           value="@selectedDate.ToString("yyyy-MM-dd")" 
+           @onchange="OnDateChanged" />
+    <button class="btn btn-sm btn-outline-primary" @onclick="NextDay">▶</button>
+</div>
 
-
-@if (atenciones == null)
+@if (atencionesFiltradas == null)
 {
     <p><em>Cargando...</em></p>
 }
+else if (!atencionesFiltradas.Any())
+{
+    <div class="alert alert-info mt-3">
+        No hay atenciones programadas para el día @selectedDate.ToString("dd/MM/yyyy")
+    </div>
+}
 else
 {
-    <table class="table">
+    <table class="table table-striped mt-3">
         <thead>
             <tr>
                 <th>Fecha y hora</th>
                 <th>Paciente</th>
                 <th>Estado</th>
-                <th>Tipo de atencion</th>
+                <th>Tipo de atención</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var atencion in atenciones)
+            @foreach (var atencion in atencionesFiltradas)
             {
                 <tr>
-                    <td>@atencion.FechaHoraAtencion</td>
+                    <td>@atencion.FechaHoraAtencion.ToString("HH:mm")</td>
                     <td>@atencion.PacienteNombre @atencion.PacienteApellido</td>
                     <td>@atencion.Estado</td>
                     <td>@atencion.TipoAtencionDescripcion</td>
@@ -41,14 +53,58 @@ else
 
 @code {
     private AtencionDetalleDTO[]? atenciones;
+    private IEnumerable<AtencionDetalleDTO>? atencionesFiltradas;
+    private DateTime selectedDate = DateTime.Today;
 
     protected override async Task OnInitializedAsync()
+    {
+        await LoadAtenciones();
+    }
+
+    private async Task LoadAtenciones()
     {
         var atencionesResponse = await AtencionApiClient.GetByOdontologoIdAsync(5); //TODO reemplazar por el id del odontólogo logueado
         if (atencionesResponse != null && atencionesResponse.Count() > 0)
         {
             atenciones = atencionesResponse.ToArray();
+            FilterAtencionesByDate();
+        }
+        else
+        {
+            atenciones = Array.Empty<AtencionDetalleDTO>();
+            atencionesFiltradas = Array.Empty<AtencionDetalleDTO>();
         }
     }
 
+    private void FilterAtencionesByDate()
+    {
+        if (atenciones != null)
+        {
+            atencionesFiltradas = atenciones
+                .Where(a => a.FechaHoraAtencion.Date == selectedDate.Date)
+                .OrderBy(a => a.FechaHoraAtencion)
+                .ToList();
+        }
+    }
+
+    private void PreviousDay()
+    {
+        selectedDate = selectedDate.AddDays(-1);
+        FilterAtencionesByDate();
+    }
+
+    private void NextDay()
+    {
+        selectedDate = selectedDate.AddDays(1);
+        FilterAtencionesByDate();
+    }
+
+    private void OnDateChanged(ChangeEventArgs e)
+    {
+        if (DateTime.TryParse(e.Value?.ToString(), out DateTime newDate))
+        {
+            selectedDate = newDate;
+            FilterAtencionesByDate();
+        }
+    }
 }

@@ -49,3 +49,27 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+/* Date Navigation Styles */
+.date-navigation {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.date-navigation span {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.date-navigation input[type="date"] {
+    max-width: 180px;
+}
+
+.date-navigation .btn {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.2rem;
+    line-height: 1;
+}
