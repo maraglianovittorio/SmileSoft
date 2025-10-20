@@ -58,6 +58,15 @@ namespace SmileSoft.WebAPI
             })
                 .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
                 .WithName("GetAtencionesByRango");
+
+            app.MapGet($"/atenciones1", (DateTime startDate, DateTime endDate,int id) =>
+            {
+                AtencionService atencionService = new AtencionService();
+                var dtos = atencionService.GetAllByRangoAndOdo(startDate, endDate,id);
+                return Results.Ok(dtos);
+            })
+            .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
+            .WithName("GetAtencionesByRangoAndOdo");
             app.MapGet($"atenciones/id", (int id) =>
             {
                 AtencionService atencionService = new AtencionService();

@@ -194,6 +194,34 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones entre {fechaInicio} y {fechaFin}: {ex.Message}", ex);
             }
         }
+        public static async Task<ICollection<Atencion>> GetByFechaRangeAndOdoAsync(DateTime fechaInicio, DateTime fechaFin,int id)
+        {
+            try
+            {
+                var fechaIni = fechaInicio.Date;
+                // sumo un segundo para incluir todo el dia de fechaFin
+                var fechaF = fechaIni.AddDays(1);
+                string url = $"atenciones1?startdate={fechaIni}&enddate={fechaF}&id={id}";
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<ICollection<Atencion>>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener atenciones entre {fechaInicio} y {fechaFin} para el odontologo {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener atenciones entre {fechaInicio} y {fechaFin}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener atenciones entre {fechaInicio} y {fechaFin}: {ex.Message}", ex);
+            }
+        }
         public async static Task CreateAsync(AtencionDTO atencion)
         {
             try

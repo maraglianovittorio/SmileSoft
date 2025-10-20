@@ -102,6 +102,17 @@ namespace SmileSoft.Data
                 .ToList();
         }
 
+        public IEnumerable<Atencion> GetAllByRangoAndOdo(DateTime startDate, DateTime endDate,int id)
+        {
+            using var context = CreateContext();
+            return context.Atenciones
+                .Include(a => a.Odontologo)
+                .Include(a => a.Paciente)
+                .Include(a => a.TipoAtencion)
+                .Where(a => a.FechaHoraAtencion >= startDate && a.FechaHoraAtencion <= endDate && a.OdontologoId == id)
+                .ToList();
+        }
+
         public bool Update(Atencion atencion)
         {
             using var context = CreateContext();

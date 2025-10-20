@@ -124,7 +124,33 @@ namespace SmileSoft.WindowsForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al agregar la atención: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);    
+                MessageBox.Show($"Error al agregar la atención: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void btnBuscarTurnos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var atenciones = await AtencionApiClient.GetByFechaRangeAndOdoAsync(dtpDiaAtencion.Value, dtpDiaAtencion.Value, (int)cmbOdontologo.SelectedValue);
+                dgvTurnosDisponibles.DataSource = atenciones;
+                var tipoAtencion = await TipoAtencionApiClient.GetOneAsync((int)cmbTipoAtencion.SelectedValue);
+                //populamos cmbHorario con los horarios de 8 a 17 subdvidido por tipoAtencion.Duracion
+                // creo una lista con los horarios de 8 a 17 dividios cada media hora
+                var horarios = new List<string>();
+                var duracion = tipoAtencion.Duracion;
+                var horaInicio = new DateTime(1, 1, 1, 8, 0, 0);
+                var horaFin = new DateTime(1, 1, 1, 17, 0, 0);
+                while (horaInicio < horaFin)
+                {
+                    horarios.Add(horaInicio.ToString("HH:mm"));
+                    horaInicio = horaInicio.AddMinutes(30);
+                }
+                cmbHorario.DataSource = horarios;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar turnos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

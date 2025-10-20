@@ -45,6 +45,7 @@ namespace SmileSoft.Dominio
         public void SetTipoPlanId(int? tipoPlanId)
         {
             TipoPlanId = tipoPlanId;
+
         }
         public Paciente():base() { }
 
