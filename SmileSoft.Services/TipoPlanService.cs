@@ -21,7 +21,7 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe un tipo de plan con el nombre '{dto.Nombre}' para esta obra social.");
             }
 
-            TipoPlan tipoPlan = new TipoPlan(id: 0, nombre: dto.Nombre, descripcion: dto.Descripcion, obraSocialId: dto.ObraSocialId);
+            TipoPlan tipoPlan = new TipoPlan(0,dto.Nombre,dto.Descripcion,dto.ObraSocialId);
             tipoPlanRepository.Add(tipoPlan);
 
             return dto;

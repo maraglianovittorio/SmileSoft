@@ -66,6 +66,30 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de tutores: {ex.Message}", ex);
             }
         }
+        public static async Task<Persona> GetTutorById(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync($"personas/tutor/id?id={id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<Persona>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener tutor con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener tutor con Id {id}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener tutor con Id {id}: {ex.Message}", ex);
+            }
+        }
         public static async Task<Persona> GetOneAsync(int id)
         {
             try
@@ -116,14 +140,14 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener tutor con DNI {dni}: {ex.Message}", ex);
             }
         }
-        public static async Task<Persona> GetByDni(string dni)
+        public static async Task<PersonaDTO> GetByDni(string dni)
         {
             try
             {
                 HttpResponseMessage response = await client.GetAsync($"personas/dni?dni={dni}");
                 if(response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<Persona>();
+                    return await response.Content.ReadAsAsync<PersonaDTO>();
                 }
                 else
                 {

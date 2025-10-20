@@ -99,6 +99,26 @@ namespace SmileSoft.Services
                 Telefono = p.Telefono,
             }).ToList();
         }
+        public PersonaDTO GetTutor(int id)
+        {
+            var personaRepository = new PersonaRepository();
+            Persona? persona = personaRepository.GetTutorById(id);
+            if (persona == null)
+            {
+                throw new Exception("No se encontró el tutor.");
+            }
+            return new PersonaDTO
+            {
+                Id = persona.Id,
+                Nombre = persona.Nombre,
+                Apellido = persona.Apellido,
+                NroDni = persona.NroDni,
+                Direccion = persona.Direccion,
+                Email = persona.Email,
+                FechaNacimiento = persona.FechaNacimiento,
+                Telefono = persona.Telefono
+            };
+        }
         public bool Update(int id, PersonaDTO dto)
         {
             var personaRepository = new PersonaRepository();

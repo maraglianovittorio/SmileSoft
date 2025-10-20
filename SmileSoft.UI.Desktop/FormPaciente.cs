@@ -9,6 +9,10 @@ namespace SmileSoft.UI.Desktop
     {
         private int? _idTutor = null;
         private string? _nombreTutor = null;
+        private string? _direccionTutor = null;
+        private string? _telefonoTutor = null;
+        private string? _emailTutor = null;
+
 
         public FormPaciente()
         {
@@ -198,7 +202,7 @@ namespace SmileSoft.UI.Desktop
             if (dtpFechaNacimiento.Value < DateTime.Now.AddYears(-120))
                 errores.Add("• La fecha de nacimiento no es válida");
             //si la fecha de nacimiento es < 16 años, mando una alerta y hago dar de alta un tutor
-            if (dtpFechaNacimiento.Value > DateTime.Now.AddYears(-16) && _idTutor == null )
+            if (dtpFechaNacimiento.Value > DateTime.Now.AddYears(-16) && _idTutor == null)
             {
                 MessageBox.Show("El paciente es menor de 16 años, debe asignarle un tutor a este paciente.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnAgregarTutor.Visible = true;
@@ -235,17 +239,16 @@ namespace SmileSoft.UI.Desktop
                     txtNroHC.Text = pacienteResponse.NroHC;
                     txtTelefono.Text = pacienteResponse.Telefono;
                     txtNroAfiliado.Text = pacienteResponse.NroAfiliado;
-                    if (pacienteResponse.TipoPlanId != -1)
+                    if (pacienteResponse.TipoPlanId > 0)
                     {
-                        if (pacienteResponse.TipoPlanId == null)
-                            return;
                         var tipoPlan = await TipoPlanApiClient.GetOneAsync(pacienteResponse.TipoPlanId.Value);
                         if (tipoPlan != null)
                         {
                             var obraSocial = await ObraSocialApiClient.GetOneAsync(tipoPlan.ObraSocialId);
                             if (obraSocial != null)
                             {
-                                txtOS.Text = obraSocial.Nombre;
+                                cmbOS.DisplayMember = "Nombre";
+                                cmbOS.SelectedValue = obraSocial.Id;
                                 var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(tipoPlan.ObraSocialId);
                                 if (tiposPlan != null && tiposPlan.Count() > 0)
                                 {
@@ -317,14 +320,7 @@ namespace SmileSoft.UI.Desktop
                 btnAgregarPaciente.Enabled = true;
             }
         }
-        private async Task PopulaTipoPlan()
-        {
-            cmbTiposPlan.DataSource = null;
-            cmbTiposPlan.Enabled = false;
-            cmbTiposPlan.Items.Clear();
-            cmbTiposPlan.Text = "";
-            await Task.CompletedTask;
-        }
+
         private async void btnEditarPaciente_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos())
@@ -381,53 +377,45 @@ namespace SmileSoft.UI.Desktop
 
         private async void btnBuscarOS_Click(object sender, EventArgs e)
         {
-            await PopulaTipoPlan();
-            if (txtOS == null || string.IsNullOrWhiteSpace(txtOS.Text))
-            {
-                MessageBox.Show($"Error: Debe ingresar el nombre de la Obra Social", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                try
-                {
-                    ObraSocial obraSocial = await ObraSocialApiClient.GetByNameAsync(txtOS.Text.Trim());
-                    if (obraSocial == null)
-                    {
-                        MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    // ver si hay alguna manera de ahorrar hacer esta busqueda.
-                    var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(obraSocial.Id);
-                    if (tiposPlan == null || tiposPlan.Count() == 0)
-                    {
-                        MessageBox.Show($"Error: No se encontraron tipos de plan para la Obra Social '{obraSocial.Nombre}'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    else
-                    {
-                        cmbTiposPlan.DisplayMember = "Nombre";
-                        cmbTiposPlan.ValueMember = "Id";
-                        cmbTiposPlan.Enabled = true;
-                        cmbTiposPlan.DataSource = tiposPlan;
-                    }
-                }
-                catch
-                {
-                    MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-            }
-        }
-        // no se usa este evento porque ValueChanged se dispara cada vez que se cambia el valor, incluso al inicializar el control
-        private void dtpFechaNacimiento_ValueChanged(object sender, EventArgs e)
-        {
-            //// valido que, si la edad es menor a 16 años, muestre un mensaje
-            //if (dtpFechaNacimiento.Value > DateTime.Now.AddYears(-16))
+            //await PopulaTipoPlan();
+            //if (txtOS == null || string.IsNullOrWhiteSpace(txtOS.Text))
             //{
-            //    MessageBox.Show("El paciente es menor de 16 años, debe asignarle un tutor a este paciente.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    btnAgregarTutor.Visible = true;
+            //    MessageBox.Show($"Error: Debe ingresar el nombre de la Obra Social", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //else
+            //{
+            //    try
+            //    {
+            //        ObraSocial obraSocial = await ObraSocialApiClient.GetByNameAsync(txtOS.Text.Trim());
+            //        if (obraSocial == null)
+            //        {
+            //            MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            return;
+            //        }
+            //        // ver si hay alguna manera de ahorrar hacer esta busqueda.
+            //        var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(obraSocial.Id);
+            //        if (tiposPlan == null || tiposPlan.Count() == 0)
+            //        {
+            //            MessageBox.Show($"Error: No se encontraron tipos de plan para la Obra Social '{obraSocial.Nombre}'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            return;
+            //        }
+            //        else
+            //        {
+            //            cmbTiposPlan.DisplayMember = "Nombre";
+            //            cmbTiposPlan.ValueMember = "Id";
+            //            cmbTiposPlan.Enabled = true;
+            //            cmbTiposPlan.DataSource = tiposPlan;
+            //        }
+            //    }
+            //    catch
+            //    {
+            //        MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+
             //}
         }
+        // no se usa este evento porque ValueChanged se dispara cada vez que se cambia el valor, incluso al inicializar el control
+
 
         private void dtpFechaNacimiento_Leave(object sender, EventArgs e)
         {
@@ -442,7 +430,6 @@ namespace SmileSoft.UI.Desktop
                 btnAgregarTutor.Visible = false;
             }
         }
-
         private void btnAgregarTutor_Click(object sender, EventArgs e)
         {
             //FormTutor formTutor= new FormTutor();
@@ -456,14 +443,100 @@ namespace SmileSoft.UI.Desktop
                     txtTutor.Visible = true;
                     _idTutor = formTutor.IdTutorCreado;
                     _nombreTutor = formTutor.NombreTutor;
+                    _direccionTutor = formTutor.DireccionTutor;
+                    _telefonoTutor = formTutor.TelefonoTutor;
+                    _emailTutor = formTutor.EmailTutor;
                     txtTutor.Text = _nombreTutor;
+                    txtEmail.Text = _emailTutor;
+                    txtTelefono.Text = _telefonoTutor;
+                    txtDireccion.Text = _direccionTutor;
                     btnAgregarTutor.Visible = false;
-                    MessageBox.Show("Tutor asignado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtDireccion.ReadOnly = true;
+                    txtTelefono.ReadOnly = true;
+                    txtEmail.ReadOnly = true;
+                    txtEmail.BackColor = System.Drawing.SystemColors.Control;
+                    txtTelefono.BackColor = System.Drawing.SystemColors.Control;
+                    txtDireccion.BackColor = System.Drawing.SystemColors.Control;
+                    MessageBox.Show("Tutor asignado correctamente. Sus datos de contacto han sido agregados al paciente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     MessageBox.Show("No se asignó ningún tutor.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            }
+        }
+
+        private async void FormPaciente_Load(object sender, EventArgs e)
+        {
+            txtNroAfiliado.Enabled = false;
+            cmbTiposPlan.Enabled = false;
+            await CargarObrasSociales();
+        }
+        private async Task CargarObrasSociales()
+        {
+            try
+            {
+                var obrasSociales = await ObraSocialApiClient.GetAllAsync();
+                if (obrasSociales != null && obrasSociales.Count() > 0)
+                {
+                    cmbOS.SelectedIndexChanged -= cmbOS_SelectedIndexChanged;
+                    cmbOS.DisplayMember = "Nombre";
+                    cmbOS.ValueMember = "Id";
+                    cmbOS.DataSource = obrasSociales;
+                    cmbOS.SelectedIndex = -1; // No seleccionar nada por defecto
+                    cmbOS.SelectedIndexChanged += cmbOS_SelectedIndexChanged;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar las obras sociales: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void cmbOS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmbOS.SelectedIndex == -1)
+            {
+                return;
+            }
+            int selectedValue = (int)cmbOS.SelectedValue;
+            int obraSocialId = selectedValue;
+            if(obraSocialId > 0)    
+            {
+                txtNroAfiliado.Enabled = true;
+                await CargarTiposPlan(obraSocialId);
+
+            }
+            else {                 
+                cmbTiposPlan.Enabled = false;
+                cmbTiposPlan.DataSource = null;
+                txtNroAfiliado.Enabled = false;
+                txtNroAfiliado.Clear();
+            }
+        }
+        private async Task CargarTiposPlan(int obraSocialId)
+        {
+            try
+            {
+                var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(obraSocialId);
+                if (tiposPlan != null && tiposPlan.Count() > 0)
+                {
+                    cmbTiposPlan.DisplayMember = "Nombre";
+                    cmbTiposPlan.ValueMember = "Id";
+                    cmbTiposPlan.Enabled = true;
+                    cmbTiposPlan.DataSource = tiposPlan;
+                    cmbTiposPlan.SelectedIndex = -1; // No seleccionar nada por defecto
+                }
+                else
+                {
+                    cmbTiposPlan.DataSource = null;
+                    cmbTiposPlan.Enabled = false;
+                    MessageBox.Show($"No se encontraron tipos de plan para la Obra Social seleccionada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los tipos de plan: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

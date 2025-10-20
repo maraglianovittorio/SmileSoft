@@ -50,14 +50,13 @@
             dtpFechaNacimiento = new DateTimePicker();
             btnEditarPaciente = new Button();
             lblOS = new Label();
-            txtOS = new TextBox();
             cmbTiposPlan = new ComboBox();
             tipoPlanBindingSource = new BindingSource(components);
             lblTipoPlan = new Label();
-            btnBuscarOS = new Button();
             btnAgregarTutor = new Button();
             lblTutor = new Label();
             txtTutor = new TextBox();
+            cmbOS = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)tipoPlanBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -237,7 +236,6 @@
             dtpFechaNacimiento.Size = new Size(123, 23);
             dtpFechaNacimiento.TabIndex = 11;
             dtpFechaNacimiento.Value = new DateTime(2025, 10, 19, 0, 0, 0, 0);
-            dtpFechaNacimiento.ValueChanged += dtpFechaNacimiento_ValueChanged;
             dtpFechaNacimiento.Leave += dtpFechaNacimiento_Leave;
             // 
             // btnEditarPaciente
@@ -260,13 +258,6 @@
             lblOS.TabIndex = 18;
             lblOS.Text = "Obra Social";
             // 
-            // txtOS
-            // 
-            txtOS.Location = new Point(245, 283);
-            txtOS.Name = "txtOS";
-            txtOS.Size = new Size(124, 23);
-            txtOS.TabIndex = 19;
-            // 
             // cmbTiposPlan
             // 
             cmbTiposPlan.FormattingEnabled = true;
@@ -287,16 +278,6 @@
             lblTipoPlan.Size = new Size(56, 15);
             lblTipoPlan.TabIndex = 20;
             lblTipoPlan.Text = "Tipo Plan";
-            // 
-            // btnBuscarOS
-            // 
-            btnBuscarOS.Location = new Point(386, 282);
-            btnBuscarOS.Name = "btnBuscarOS";
-            btnBuscarOS.Size = new Size(75, 23);
-            btnBuscarOS.TabIndex = 24;
-            btnBuscarOS.Text = "Buscar";
-            btnBuscarOS.UseVisualStyleBackColor = true;
-            btnBuscarOS.Click += btnBuscarOS_Click;
             // 
             // btnAgregarTutor
             // 
@@ -325,18 +306,27 @@
             txtTutor.Size = new Size(121, 23);
             txtTutor.TabIndex = 27;
             // 
+            // cmbOS
+            // 
+            cmbOS.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbOS.FormattingEnabled = true;
+            cmbOS.Location = new Point(245, 282);
+            cmbOS.Name = "cmbOS";
+            cmbOS.Size = new Size(121, 23);
+            cmbOS.TabIndex = 28;
+            cmbOS.SelectedIndexChanged += cmbOS_SelectedIndexChanged;
+            // 
             // FormPaciente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(688, 487);
+            Controls.Add(cmbOS);
             Controls.Add(txtTutor);
             Controls.Add(lblTutor);
             Controls.Add(btnAgregarTutor);
-            Controls.Add(btnBuscarOS);
             Controls.Add(lblTipoPlan);
             Controls.Add(cmbTiposPlan);
-            Controls.Add(txtOS);
             Controls.Add(lblOS);
             Controls.Add(btnEditarPaciente);
             Controls.Add(dtpFechaNacimiento);
@@ -360,6 +350,7 @@
             Controls.Add(lblNombrePaciente);
             Margin = new Padding(2);
             Name = "FormPaciente";
+            Load += FormPaciente_Load;
             ((System.ComponentModel.ISupportInitialize)tipoPlanBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -388,13 +379,12 @@
         private DateTimePicker dtpFechaNacimiento;
         private Button btnEditarPaciente;
         private Label lblOS;
-        private TextBox txtOS;
         private ComboBox cmbTiposPlan;
         private BindingSource tipoPlanBindingSource;
         private Label lblTipoPlan;
-        private Button btnBuscarOS;
         private Button btnAgregarTutor;
         private Label lblTutor;
         private TextBox txtTutor;
+        private ComboBox cmbOS;
     }
 }

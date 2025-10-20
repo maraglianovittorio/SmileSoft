@@ -57,6 +57,13 @@ namespace SmileSoft.Data
                 .Where(p => p.PacientesTutelados.Any())
                 .ToList();
         }
+        public Persona? GetTutorById(int id)
+        {
+            using var context = CreateContext();
+            return context.Personas
+                .FirstOrDefault(p => p.Id == id); 
+                //&& p.PacientesTutelados.Any
+        }
         public Persona? GetTutorByDni(string dni)
         {
             using var context = CreateContext();

@@ -40,6 +40,7 @@ namespace SmileSoft.Services
             }
             return new ObraSocialDTO
             {
+                Id = obraSocial.Id,
                 Nombre = obraSocial.Nombre,
             };
         }

@@ -10,6 +10,9 @@ namespace SmileSoft.UI.Desktop
 
         public int IdTutorCreado { get; private set; }
         public string NombreTutor { get; private set; } = string.Empty;
+        public string EmailTutor { get; private set; } = string.Empty;
+        public string DireccionTutor { get; private set; } = string.Empty;
+        public string TelefonoTutor { get; private set; } = string.Empty;
         public FormTutor()
         {
 
@@ -234,11 +237,15 @@ namespace SmileSoft.UI.Desktop
         }
         private async void btnEnviar_Click(object sender, EventArgs e)
         {
+            // si la persona ya existe, devuelvo los datos de esa persona
             var personaExistente = await PersonaApiClient.GetTutorByDni(txtDNI.Text.Trim());
             if (personaExistente != null)
             {
                 IdTutorCreado = personaExistente.Id;
                 NombreTutor = $"{personaExistente.Nombre} {personaExistente.Apellido}";
+                DireccionTutor = personaExistente.Direccion;
+                EmailTutor = personaExistente.Email;
+                TelefonoTutor = personaExistente.Telefono;
                 MessageBox.Show("Ya existe una persona con ese DNI, se va a utilizar como tutor.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.DialogResult = DialogResult.OK; // Indicar que se creo una persona
@@ -252,7 +259,7 @@ namespace SmileSoft.UI.Desktop
             }
             //valido que la persona no exista ya por DNI
 
-                try
+            try
             {
                 PersonaDTO persona = new PersonaDTO
                 {
@@ -272,6 +279,10 @@ namespace SmileSoft.UI.Desktop
                 var createdPersona = await PersonaApiClient.GetByDni(persona.NroDni);
                 this.IdTutorCreado = createdPersona.Id; // Guardar el ID del tutor creado
                 this.NombreTutor = $"{createdPersona.Nombre} {createdPersona.Apellido}";
+                this.DireccionTutor = createdPersona.Direccion;
+                this.EmailTutor = createdPersona.Email;
+                this.TelefonoTutor = createdPersona.Telefono;
+
                 MessageBox.Show("Persona creada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK; // Indicar que se creo una persona
                 this.Close(); // Cerrar el formulario después del éxito

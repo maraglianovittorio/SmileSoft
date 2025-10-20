@@ -33,7 +33,19 @@ namespace SmileSoft.WebAPI
                 PersonaDTO persona = personaService.GetTutorByDni(dni);
                 return persona is not null ? Results.Ok(persona) : Results.NotFound();
             }).WithName("TutorByDni");
-
+            app.MapGet("/personas/tutor/id", (int id) =>
+            {
+                try
+                {
+                    PersonaService personaService = new PersonaService();
+                    var dto = personaService.GetTutor(id);
+                    return Results.Ok(dto);
+                }
+                catch (Exception ex)
+                {
+                    return Results.NotFound(new { error = ex.Message });
+                }
+            }).WithName("GetTutorById");
             app.MapPost("/personas", (PersonaDTO personaDTO) =>
             {
                 try
@@ -57,7 +69,7 @@ namespace SmileSoft.WebAPI
                         });
                     }
                     var dto = personaService.Add(personaDTO);
-                    return Results.Created($"/personas/{dto.Id}", dto);
+                    return Results.Created($"/personas/{dto.Id}", new { Persona = dto });
                 }
                 catch (Exception ex)
                 {
@@ -70,7 +82,7 @@ namespace SmileSoft.WebAPI
 
             }).WithName("CreatePersona");
 
-            app.MapPut("/personas/{id}", (int id, PersonaDTO persona) =>
+            app.MapPut("/personas/id", (int id, PersonaDTO persona) =>
             {
                 try
                 {
@@ -91,7 +103,7 @@ namespace SmileSoft.WebAPI
             })
             .WithName("UpdatePersona");
 
-            app.MapDelete("/personas/{id}", (int id) =>
+            app.MapDelete("/personas/id", (int id) =>
             {
                 PersonaService personaService = new PersonaService();
                 var eliminado = personaService.Delete(id);
