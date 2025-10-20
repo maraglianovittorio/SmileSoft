@@ -86,7 +86,7 @@ namespace SmileSoft.Services
         public IEnumerable<PersonaDTO> GetTutores()
         {
             var personaRepository = new PersonaRepository();
-            var tutores = personaRepository.GetAllTutors();
+            var tutores = personaRepository.GetAllTutores();
             return tutores.Select(p => new PersonaDTO
             {
                 Id = p.Id,

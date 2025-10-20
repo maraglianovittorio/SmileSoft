@@ -17,9 +17,13 @@ namespace SmileSoft.Dominio
             SetId(id);
             SetNombre(nombre);
         }
+        //public ObraSocial(string nombre)
+        //{
+        //    SetNombre(nombre);
+        //}
         public void SetId(int id)
         {
-            if (id <= 0)
+            if (id < 0)
             {
                 throw new ArgumentException("El Id debe ser un número positivo.");
             }

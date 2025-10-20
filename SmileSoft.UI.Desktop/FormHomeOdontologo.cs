@@ -92,6 +92,7 @@ namespace SmileSoft.UI.Desktop
                     //dgvFormOdontologo.Columns["Password"].Visible = false;
                     //dgvFormOdontologo.Columns["Rol"].Visible = false;
                     dgvFormOdontologo.Columns["ObrasSociales"].Visible = false;
+                    dgvFormOdontologo.Columns["PacientesTutelados"].Visible = false;
                 }
                 else
                 {

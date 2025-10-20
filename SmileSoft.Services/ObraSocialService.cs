@@ -14,7 +14,7 @@ namespace SmileSoft.Services
         public ObraSocialDTO Add(ObraSocialDTO dto)
         {
             var obraSocialRepository = new ObraSocialRepository();
-            ObraSocial obraSocial = new ObraSocial(0, dto.Nombre);
+            ObraSocial obraSocial = new ObraSocial(0,dto.Nombre);
             // Validar que la obra social no exista
             if (obraSocialRepository.OSExists(dto.Nombre))
             {

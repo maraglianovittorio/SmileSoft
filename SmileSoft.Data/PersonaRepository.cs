@@ -50,7 +50,7 @@ namespace SmileSoft.Data
             using var context = CreateContext();
             return context.Personas.ToList();
         }
-        public IEnumerable<Persona> GetAllTutors()
+        public IEnumerable<Persona> GetAllTutores()
         {
             using var context = CreateContext();
             return context.Personas

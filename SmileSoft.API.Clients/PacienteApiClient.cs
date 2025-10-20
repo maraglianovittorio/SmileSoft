@@ -67,14 +67,14 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener paciente con Id {id}: {ex.Message}", ex);
             }
         }
-        public static async Task<Paciente> GetByDni(string dni)
+        public static async Task<PacienteDTO> GetByDni(string dni)
         {
             try
             {
                 HttpResponseMessage response = await client.GetAsync($"pacientes/dni?dni={dni}");
                 if(response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<Paciente>();
+                    return await response.Content.ReadAsAsync<PacienteDTO>();
                 }
                 else
                 {

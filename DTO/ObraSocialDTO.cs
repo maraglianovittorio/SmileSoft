@@ -14,5 +14,8 @@ namespace DTO
         [StringLength(100, ErrorMessage = "El nombre no puede exceder 100 caracteres")]
         public string Nombre { get; set; } = string.Empty;
 
+        public ObraSocialDTO()
+        {
+        }
     }
 }

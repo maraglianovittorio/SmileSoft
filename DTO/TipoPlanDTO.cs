@@ -19,6 +19,9 @@ namespace DTO
         public string Descripcion { get; set; } = string.Empty;
 
         public int ObraSocialId { get; set; }
+        public TipoPlanDTO()
+        {
+        }
 
 
     }

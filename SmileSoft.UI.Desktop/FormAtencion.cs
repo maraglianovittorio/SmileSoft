@@ -32,7 +32,7 @@ namespace SmileSoft.WindowsForms
                 {
                     try
                     {
-                        Paciente paciente = await PacienteApiClient.GetByDni(txtDni.Text.Trim());
+                        PacienteDTO paciente = await PacienteApiClient.GetByDni(txtDni.Text.Trim());
                         if (paciente == null)
                         {
                             MessageBox.Show($"Error: Paciente no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

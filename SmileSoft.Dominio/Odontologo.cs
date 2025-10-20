@@ -11,7 +11,7 @@
         //public string Rol { get; set; } = "Odontologo";
         public Odontologo(int id, string nombre, string apellido, string nroDni, DateTime fechaNacimiento, string direccion, string email, string telefono,string nroMatricula): base(id,nombre, apellido, nroDni,fechaNacimiento,direccion, email, telefono)
         {
-            NroMatricula = nroMatricula;
+            SetNroMatricula(nroMatricula);
             //Username = username;
             //Password = password;
         }

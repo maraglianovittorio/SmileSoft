@@ -115,13 +115,13 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener persona con Id {id}: {ex.Message}", ex);
             }
         }
-        public static async Task<Persona>? GetTutorByDni(string dni) { 
+        public static async Task<PersonaDTO>? GetTutorByDni(string dni) { 
             try
             {
                 HttpResponseMessage response = await client.GetAsync($"personas/tutor/dni?dni={dni}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<Persona>();
+                    return await response.Content.ReadAsAsync<PersonaDTO>();
                 }
                 else
                 {

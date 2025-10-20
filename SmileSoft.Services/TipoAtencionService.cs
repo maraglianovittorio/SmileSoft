@@ -21,7 +21,7 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe un tipo de atención con la descripción '{dto.Descripcion}' y duración '{dto.Duracion}'  .");
             }
 
-            TipoAtencion tipoAtencion = new TipoAtencion(id: 0, descripcion: dto.Descripcion, duracion: dto.Duracion);
+            TipoAtencion tipoAtencion = new TipoAtencion(0,dto.Descripcion, dto.Duracion);
             tipoAtencionRepository.Add(tipoAtencion);
 
             return dto;
