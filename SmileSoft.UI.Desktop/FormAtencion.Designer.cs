@@ -48,6 +48,7 @@
             btnAgregarAtencion = new Button();
             cmbHorario = new ComboBox();
             lblHorario = new Label();
+            lblTurnos = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvTurnosDisponibles).BeginInit();
             SuspendLayout();
             // 
@@ -55,7 +56,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(287, 9);
+            label1.Location = new Point(334, 9);
             label1.Name = "label1";
             label1.Size = new Size(182, 32);
             label1.TabIndex = 0;
@@ -64,7 +65,7 @@
             // lblDni
             // 
             lblDni.AutoSize = true;
-            lblDni.Location = new Point(275, 53);
+            lblDni.Location = new Point(322, 53);
             lblDni.Name = "lblDni";
             lblDni.Size = new Size(28, 15);
             lblDni.TabIndex = 0;
@@ -72,7 +73,7 @@
             // 
             // txtDni
             // 
-            txtDni.Location = new Point(321, 50);
+            txtDni.Location = new Point(368, 50);
             txtDni.Name = "txtDni";
             txtDni.Size = new Size(125, 23);
             txtDni.TabIndex = 1;
@@ -80,7 +81,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(234, 117);
+            label2.Location = new Point(281, 117);
             label2.Name = "label2";
             label2.Size = new Size(69, 15);
             label2.TabIndex = 5;
@@ -88,7 +89,7 @@
             // 
             // txtOS
             // 
-            txtOS.Location = new Point(321, 114);
+            txtOS.Location = new Point(368, 114);
             txtOS.Name = "txtOS";
             txtOS.ReadOnly = true;
             txtOS.Size = new Size(125, 23);
@@ -96,7 +97,7 @@
             // 
             // btnBuscarPaciente
             // 
-            btnBuscarPaciente.Location = new Point(472, 50);
+            btnBuscarPaciente.Location = new Point(519, 50);
             btnBuscarPaciente.Name = "btnBuscarPaciente";
             btnBuscarPaciente.Size = new Size(75, 23);
             btnBuscarPaciente.TabIndex = 2;
@@ -107,7 +108,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(205, 153);
+            label3.Location = new Point(252, 153);
             label3.Name = "label3";
             label3.Size = new Size(98, 15);
             label3.TabIndex = 7;
@@ -116,7 +117,7 @@
             // cmbTipoAtencion
             // 
             cmbTipoAtencion.FormattingEnabled = true;
-            cmbTipoAtencion.Location = new Point(321, 150);
+            cmbTipoAtencion.Location = new Point(368, 150);
             cmbTipoAtencion.Name = "cmbTipoAtencion";
             cmbTipoAtencion.Size = new Size(125, 23);
             cmbTipoAtencion.TabIndex = 8;
@@ -125,7 +126,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(228, 187);
+            label4.Location = new Point(275, 187);
             label4.Name = "label4";
             label4.Size = new Size(75, 15);
             label4.TabIndex = 9;
@@ -134,7 +135,7 @@
             // cmbOdontologo
             // 
             cmbOdontologo.FormattingEnabled = true;
-            cmbOdontologo.Location = new Point(321, 184);
+            cmbOdontologo.Location = new Point(368, 184);
             cmbOdontologo.Name = "cmbOdontologo";
             cmbOdontologo.Size = new Size(125, 23);
             cmbOdontologo.TabIndex = 10;
@@ -142,17 +143,22 @@
             // 
             // dgvTurnosDisponibles
             // 
+            dgvTurnosDisponibles.AllowUserToAddRows = false;
+            dgvTurnosDisponibles.AllowUserToDeleteRows = false;
+            dgvTurnosDisponibles.BackgroundColor = Color.PapayaWhip;
             dgvTurnosDisponibles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTurnosDisponibles.Location = new Point(130, 270);
+            dgvTurnosDisponibles.GridColor = Color.PapayaWhip;
+            dgvTurnosDisponibles.Location = new Point(24, 270);
             dgvTurnosDisponibles.Name = "dgvTurnosDisponibles";
+            dgvTurnosDisponibles.ReadOnly = true;
             dgvTurnosDisponibles.RowHeadersWidth = 62;
-            dgvTurnosDisponibles.Size = new Size(609, 146);
+            dgvTurnosDisponibles.Size = new Size(843, 146);
             dgvTurnosDisponibles.TabIndex = 15;
             // 
             // lblTurnosOcupados
             // 
             lblTurnosOcupados.AutoSize = true;
-            lblTurnosOcupados.Location = new Point(202, 252);
+            lblTurnosOcupados.Location = new Point(249, 252);
             lblTurnosOcupados.Name = "lblTurnosOcupados";
             lblTurnosOcupados.Size = new Size(101, 15);
             lblTurnosOcupados.TabIndex = 14;
@@ -161,7 +167,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(276, 224);
+            label6.Location = new Point(323, 224);
             label6.Name = "label6";
             label6.Size = new Size(27, 15);
             label6.TabIndex = 11;
@@ -170,17 +176,17 @@
             // dtpDiaAtencion
             // 
             dtpDiaAtencion.Format = DateTimePickerFormat.Short;
-            dtpDiaAtencion.Location = new Point(321, 218);
+            dtpDiaAtencion.Location = new Point(368, 218);
             dtpDiaAtencion.Name = "dtpDiaAtencion";
             dtpDiaAtencion.Size = new Size(125, 23);
             dtpDiaAtencion.TabIndex = 12;
-            dtpDiaAtencion.Value = new DateTime(2025, 10, 20, 0, 0, 0, 0);
+            dtpDiaAtencion.Value = new DateTime(2025, 10, 21, 0, 0, 0, 0);
             dtpDiaAtencion.ValueChanged += dtpDiaAtencion_ValueChanged;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(248, 82);
+            label7.Location = new Point(295, 82);
             label7.Name = "label7";
             label7.Size = new Size(55, 15);
             label7.TabIndex = 3;
@@ -188,7 +194,7 @@
             // 
             // txtNomYApe
             // 
-            txtNomYApe.Location = new Point(321, 79);
+            txtNomYApe.Location = new Point(368, 79);
             txtNomYApe.Name = "txtNomYApe";
             txtNomYApe.ReadOnly = true;
             txtNomYApe.Size = new Size(125, 23);
@@ -196,7 +202,7 @@
             // 
             // btnBuscarTurnos
             // 
-            btnBuscarTurnos.Location = new Point(472, 218);
+            btnBuscarTurnos.Location = new Point(519, 218);
             btnBuscarTurnos.Name = "btnBuscarTurnos";
             btnBuscarTurnos.Size = new Size(129, 23);
             btnBuscarTurnos.TabIndex = 13;
@@ -206,7 +212,7 @@
             // 
             // btnAgregarAtencion
             // 
-            btnAgregarAtencion.Location = new Point(647, 508);
+            btnAgregarAtencion.Location = new Point(694, 508);
             btnAgregarAtencion.Name = "btnAgregarAtencion";
             btnAgregarAtencion.Size = new Size(92, 37);
             btnAgregarAtencion.TabIndex = 16;
@@ -217,7 +223,7 @@
             // cmbHorario
             // 
             cmbHorario.FormattingEnabled = true;
-            cmbHorario.Location = new Point(321, 429);
+            cmbHorario.Location = new Point(368, 429);
             cmbHorario.Margin = new Padding(2);
             cmbHorario.Name = "cmbHorario";
             cmbHorario.Size = new Size(129, 23);
@@ -226,18 +232,31 @@
             // lblHorario
             // 
             lblHorario.AutoSize = true;
-            lblHorario.Location = new Point(185, 432);
+            lblHorario.Location = new Point(232, 432);
             lblHorario.Margin = new Padding(2, 0, 2, 0);
             lblHorario.Name = "lblHorario";
             lblHorario.Size = new Size(118, 15);
             lblHorario.TabIndex = 18;
             lblHorario.Text = "Horarios disponibles:";
             // 
+            // lblTurnos
+            // 
+            lblTurnos.AutoSize = true;
+            lblTurnos.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTurnos.ForeColor = Color.DarkGreen;
+            lblTurnos.Location = new Point(368, 252);
+            lblTurnos.Name = "lblTurnos";
+            lblTurnos.Size = new Size(289, 15);
+            lblTurnos.TabIndex = 19;
+            lblTurnos.Text = "Todos los horarios del odontólogo estan disponibles";
+            lblTurnos.Visible = false;
+            // 
             // FormAtencion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(841, 557);
+            ClientSize = new Size(891, 557);
+            Controls.Add(lblTurnos);
             Controls.Add(lblHorario);
             Controls.Add(cmbHorario);
             Controls.Add(btnAgregarAtencion);
@@ -289,5 +308,6 @@
         private Button btnAgregarAtencion;
         private ComboBox cmbHorario;
         private Label lblHorario;
+        private Label lblTurnos;
     }
 }

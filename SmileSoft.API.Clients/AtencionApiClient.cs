@@ -201,7 +201,7 @@ namespace SmileSoft.API.Clients
                 var fechaIni = fechaInicio.Date;
                 // sumo un segundo para incluir todo el dia de fechaFin
                 var fechaF = fechaIni.AddDays(1);
-                string url = $"atenciones1?startdate={fechaIni}&enddate={fechaF}&id={id}";
+                string url = $"atenciones1?startdate={fechaIni:yyyy-MM-dd}&enddate={fechaF:yyyy-MM-dd}&id={id}";
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {

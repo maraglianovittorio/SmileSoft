@@ -2,6 +2,7 @@
 @using DTO;
 @page "/"
 
+@rendermode InteractiveServer
 
 <PageTitle>Inicio</PageTitle>
 
@@ -33,8 +34,10 @@ else
             <tr>
                 <th>Fecha y hora</th>
                 <th>Paciente</th>
+                <th>Dni</th>
                 <th>Estado</th>
                 <th>Tipo de atención</th>
+                <th></th> <!--columna para boton para registrar observaciones-->
             </tr>
         </thead>
         <tbody>
@@ -43,8 +46,12 @@ else
                 <tr>
                     <td>@atencion.FechaHoraAtencion.ToString("HH:mm")</td>
                     <td>@atencion.PacienteNombre @atencion.PacienteApellido</td>
+                    <td>@atencion.PacienteDni</td>
                     <td>@atencion.Estado</td>
                     <td>@atencion.TipoAtencionDescripcion</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">Registrar Observaciones</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -63,7 +70,7 @@ else
 
     private async Task LoadAtenciones()
     {
-        var atencionesResponse = await AtencionApiClient.GetByOdontologoIdAsync(5); //TODO reemplazar por el id del odontólogo logueado
+        var atencionesResponse = await AtencionApiClient.GetByOdontologoIdAsync(1); //TODO reemplazar por el id del odontólogo logueado
         if (atencionesResponse != null && atencionesResponse.Count() > 0)
         {
             atenciones = atencionesResponse.ToArray();

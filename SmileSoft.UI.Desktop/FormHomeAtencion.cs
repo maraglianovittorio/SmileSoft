@@ -22,7 +22,7 @@ namespace SmileSoft.UI.Desktop
             ConfigurarEstilos();
             ConfigurarResponsive();
         }
-
+        #region
         private void ConfigurarEstilos()
         {
             // Estilo principal
@@ -75,7 +75,7 @@ namespace SmileSoft.UI.Desktop
             int startX = (this.ClientSize.Width - totalWidth) / 2;
             int centerY = this.ClientSize.Height / 2;
         }
-
+        #endregion
         private async Task ObtenerDatos()
         {
             try

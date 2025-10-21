@@ -66,6 +66,7 @@ namespace SmileSoft.WindowsForms
 
         private async void FormAtencion_Load(object sender, EventArgs e)
         {
+            dtpDiaAtencion.Value = DateTime.Today;
             tiposAtencion = (await TipoAtencionApiClient.GetAllAsync()).ToList();
             if (tiposAtencion != null && tiposAtencion.Count() > 0)
             {
@@ -163,10 +164,38 @@ namespace SmileSoft.WindowsForms
         {
             if (cmbOdontologo.SelectedIndex != -1 && cmbTipoAtencion.SelectedIndex != -1 && dtpDiaAtencion.Value != null)
             {
+                lblTurnos.Visible = false;
                 try
                 {
                     atencionesDelDia = (await AtencionApiClient.GetByFechaRangeAndOdoAsync(dtpDiaAtencion.Value.Date, dtpDiaAtencion.Value.Date, (int)cmbOdontologo.SelectedValue)).ToList();
+                    foreach (var atencion in atencionesDelDia)
+                    {
+                        atencion.PacienteNombre = $"{atencion.PacienteApellido}, {atencion.PacienteNombre}";
+                        atencion.OdontologoNombre = $"{atencion.OdontologoApellido}, {atencion.OdontologoNombre}";
+                    }
                     dgvTurnosDisponibles.DataSource = atencionesDelDia;
+                    dgvTurnosDisponibles.Columns["Id"].Visible = false;
+                    dgvTurnosDisponibles.Columns["FechaHoraAtencion"].HeaderText = "Fecha y hora";
+                    dgvTurnosDisponibles.Columns["TipoAtencionId"].Visible = false;
+                    dgvTurnosDisponibles.Columns["Observaciones"].Visible = false;
+                    dgvTurnosDisponibles.Columns["OdontologoId"].Visible = false;
+                    dgvTurnosDisponibles.Columns["PacienteId"].Visible = false;
+                    dgvTurnosDisponibles.Columns["PacienteNombre"].HeaderText = "Paciente";
+                    dgvTurnosDisponibles.Columns["PacienteApellido"].Visible = false;
+                    dgvTurnosDisponibles.Columns["PacienteDni"].HeaderText = "Dni";
+                    dgvTurnosDisponibles.Columns["OdontologoNombre"].HeaderText = "Odontólogo";
+                    dgvTurnosDisponibles.Columns["OdontologoApellido"].Visible = false;
+                    dgvTurnosDisponibles.Columns["TipoAtencionDescripcion"].HeaderText = "Atención";
+                    dgvTurnosDisponibles.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
+
+                    // Configurar anchos de columnas
+                    dgvTurnosDisponibles.Columns["FechaHoraAtencion"].Width = 100;
+                    dgvTurnosDisponibles.Columns["PacienteNombre"].Width = 150;
+                    dgvTurnosDisponibles.Columns["PacienteDni"].Width = 100;
+                    dgvTurnosDisponibles.Columns["OdontologoNombre"].Width = 150;
+                    dgvTurnosDisponibles.Columns["Estado"].Width = 100;
+                    dgvTurnosDisponibles.Columns["TipoAtencionDescripcion"].Width = 100;
+                    dgvTurnosDisponibles.Columns["TipoAtencionDuracion"].Width = 75;
 
                     var tipoAtencionSeleccionado = tiposAtencion.FirstOrDefault(t => t.Id == (int)cmbTipoAtencion.SelectedValue);
                     if (tipoAtencionSeleccionado == null) return;
@@ -210,7 +239,8 @@ namespace SmileSoft.WindowsForms
                     
                     if (atencionesDelDia.Count == 0 && horariosDisponibles.Count > 0)
                     {
-                        MessageBox.Show("Todos los horarios están disponibles", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("Todos los horarios están disponibles", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        lblTurnos.Visible= true;
                     }
 
                     cmbHorario.DataSource = horariosDisponibles;
