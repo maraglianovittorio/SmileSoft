@@ -194,7 +194,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones entre {fechaInicio} y {fechaFin}: {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<Atencion>> GetByFechaRangeAndOdoAsync(DateTime fechaInicio, DateTime fechaFin,int id)
+        public static async Task<ICollection<AtencionDetalleDTO>> GetByFechaRangeAndOdoAsync(DateTime fechaInicio, DateTime fechaFin,int id)
         {
             try
             {
@@ -205,7 +205,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ICollection<Atencion>>();
+                    return await response.Content.ReadAsAsync<ICollection<AtencionDetalleDTO>>();
                 }
                 else
                 {

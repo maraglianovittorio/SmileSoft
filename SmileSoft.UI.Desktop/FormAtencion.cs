@@ -19,7 +19,8 @@ namespace SmileSoft.WindowsForms
         {
             InitializeComponent();
         }
-
+        private List<TipoAtencion> tiposAtencion;
+        private List<AtencionDetalleDTO> atencionesDelDia;
         private async void btnBuscarPaciente_Click(object sender, EventArgs e)
         {
             if (txtDni == null || string.IsNullOrWhiteSpace(txtDni.Text))
@@ -64,13 +65,15 @@ namespace SmileSoft.WindowsForms
 
         private async void FormAtencion_Load(object sender, EventArgs e)
         {
-            var tiposAtencion = await TipoAtencionApiClient.GetAllAsync();
+            tiposAtencion = (await TipoAtencionApiClient.GetAllAsync()).ToList();
             if (tiposAtencion != null && tiposAtencion.Count() > 0)
             {
+                cmbTipoAtencion.SelectedValueChanged -= cmb_SelectedValueChanged;
                 cmbTipoAtencion.DataSource = tiposAtencion.ToList();
                 cmbTipoAtencion.DisplayMember = "Descripcion";
                 cmbTipoAtencion.ValueMember = "Id";
                 cmbTipoAtencion.SelectedIndex = -1; // No seleccionar nada al cargar
+                cmbTipoAtencion.SelectedValueChanged += cmb_SelectedValueChanged;
             }
             else
             {
@@ -79,10 +82,12 @@ namespace SmileSoft.WindowsForms
             var odontologos = await OdontologoApiClient.GetAllAsync();
             if (odontologos != null && odontologos.Count() > 0)
             {
+                cmbOdontologo.SelectedValueChanged -= cmb_SelectedValueChanged;
                 cmbOdontologo.DataSource = odontologos.ToList();
                 cmbOdontologo.DisplayMember = "NombreCompleto";
                 cmbOdontologo.ValueMember = "Id";
                 cmbOdontologo.SelectedIndex = -1;
+                cmbOdontologo.SelectedValueChanged += cmb_SelectedValueChanged;
             }
             else
             {
@@ -109,13 +114,38 @@ namespace SmileSoft.WindowsForms
                     MessageBox.Show("Debe seleccionar un odontólogo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                if (cmbHorario.SelectedItem == null)
+                {
+                    MessageBox.Show("Debe seleccionar un horario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Combinar fecha y hora
+                DateTime fechaSeleccionada = dtpDiaAtencion.Value.Date;
+                TimeSpan horaSeleccionada = TimeSpan.Parse(cmbHorario.SelectedItem.ToString());
+                DateTime fechaHoraCompleta = fechaSeleccionada + horaSeleccionada;
+
+                var tipoAtencion = tiposAtencion?.FirstOrDefault(t => t.Id == (int)cmbTipoAtencion.SelectedValue);
+                var duracion = tipoAtencion?.Duracion;
+                //if (duracion != null)
+                //{
+                //    // Verificar si el horario seleccionado más la duración excede el horario de atención (17:00)
+                //    DateTime horaFinAtencion = fechaHoraCompleta.AddMinutes(duracion.Value);
+                //    DateTime horaCierre = fechaSeleccionada.AddHours(17); // 17:00 del mismo día
+                //    if (horaFinAtencion > horaCierre)
+                //    {
+                //        MessageBox.Show("El horario seleccionado más la duración de la atención excede el horario de atención (hasta las 17:00). Por favor, seleccione otro horario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //        return;
+                //    }
+                //}
+                var turnosDelDia = await AtencionApiClient.GetByFechaRangeAndOdoAsync(fechaSeleccionada, fechaSeleccionada, (int)cmbOdontologo.SelectedValue);
                 var paciente = await PacienteApiClient.GetByDni(txtDni.Text.Trim());
                 AtencionDTO atencionCreada = new AtencionDTO
                 {
                     PacienteId = paciente.Id,
                     TipoAtencionId = (int)cmbTipoAtencion.SelectedValue,
                     OdontologoId = (int)cmbOdontologo.SelectedValue,
-                    FechaHoraAtencion = dtpDiaAtencion.Value
+                    FechaHoraAtencion = fechaHoraCompleta
                 };
                 await AtencionApiClient.CreateAsync(atencionCreada);
                 // Aquí podrías agregar la lógica para guardar la nueva atención en la base de datos o enviarla a través de una API.
@@ -128,30 +158,87 @@ namespace SmileSoft.WindowsForms
             }
         }
 
+        private async Task BuscarTurnosPorOdontologo()
+        {
+            if (cmbOdontologo.SelectedIndex != -1 && cmbTipoAtencion.SelectedIndex != -1 && dtpDiaAtencion.Value != null)
+            {
+                try
+                {
+                    atencionesDelDia = (await AtencionApiClient.GetByFechaRangeAndOdoAsync(dtpDiaAtencion.Value.Date, dtpDiaAtencion.Value.Date, (int)cmbOdontologo.SelectedValue)).ToList();
+                    dgvTurnosDisponibles.DataSource = atencionesDelDia;
+
+                    var tipoAtencionSeleccionado = tiposAtencion.FirstOrDefault(t => t.Id == (int)cmbTipoAtencion.SelectedValue);
+                    if (tipoAtencionSeleccionado == null) return;
+
+                    var duracionNuevoTurno = tipoAtencionSeleccionado.Duracion;
+                    var horariosDisponibles = new List<string>();
+
+                    var horaInicioDia = TimeSpan.FromHours(8);
+                    var horaFinDia = TimeSpan.FromHours(17);
+                    var intervaloMinutos = 30;
+
+                    for (var hora = horaInicioDia; hora < horaFinDia; hora = hora.Add(TimeSpan.FromMinutes(intervaloMinutos)))
+                    {
+                        if (hora.Add(duracionNuevoTurno) > horaFinDia)
+                        {
+                            break; 
+                        }
+
+                        bool horarioOcupado = false;
+                        var inicioNuevoTurno = hora;
+                        var finNuevoTurno = hora.Add(duracionNuevoTurno);
+
+                        foreach (var atencionExistente in atencionesDelDia)
+                        {
+                            var inicioTurnoExistente = atencionExistente.FechaHoraAtencion.TimeOfDay;
+                            var finTurnoExistente = inicioTurnoExistente.Add(atencionExistente.TipoAtencionDuracion);
+
+                            if (inicioNuevoTurno < finTurnoExistente && finNuevoTurno > inicioTurnoExistente)
+                            {
+                                horarioOcupado = true;
+                                break; 
+                            }
+                        }
+
+                        // 4. Si el horario no está ocupado, agregarlo a la lista
+                        if (!horarioOcupado)
+                        {
+                            horariosDisponibles.Add(hora.ToString(@"hh\:mm"));
+                        }
+                    }
+                    
+                    if (atencionesDelDia.Count == 0 && horariosDisponibles.Count > 0)
+                    {
+                        MessageBox.Show("Todos los horarios están disponibles", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    cmbHorario.DataSource = horariosDisponibles;
+                    if (horariosDisponibles.Count == 0)
+                    {
+                        MessageBox.Show("No hay horarios disponibles para la selección actual.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al buscar turnos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
         private async void btnBuscarTurnos_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var atenciones = await AtencionApiClient.GetByFechaRangeAndOdoAsync(dtpDiaAtencion.Value, dtpDiaAtencion.Value, (int)cmbOdontologo.SelectedValue);
-                dgvTurnosDisponibles.DataSource = atenciones;
-                var tipoAtencion = await TipoAtencionApiClient.GetOneAsync((int)cmbTipoAtencion.SelectedValue);
-                //populamos cmbHorario con los horarios de 8 a 17 subdvidido por tipoAtencion.Duracion
-                // creo una lista con los horarios de 8 a 17 dividios cada media hora
-                var horarios = new List<string>();
-                var duracion = tipoAtencion.Duracion;
-                var horaInicio = new DateTime(1, 1, 1, 8, 0, 0);
-                var horaFin = new DateTime(1, 1, 1, 17, 0, 0);
-                while (horaInicio < horaFin)
-                {
-                    horarios.Add(horaInicio.ToString("HH:mm"));
-                    horaInicio = horaInicio.AddMinutes(30);
-                }
-                cmbHorario.DataSource = horarios;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al buscar turnos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            await BuscarTurnosPorOdontologo();
+
+        }
+
+
+        private async void cmb_SelectedValueChanged(object sender, EventArgs e)
+        {
+            await BuscarTurnosPorOdontologo();
+        }
+
+        private async void dtpDiaAtencion_ValueChanged(object sender, EventArgs e)
+        {
+            await BuscarTurnosPorOdontologo();
         }
     }
 }

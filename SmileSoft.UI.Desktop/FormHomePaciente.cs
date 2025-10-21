@@ -172,7 +172,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormPaciente.SelectedRows.Count > 0)
             {
-                var pacienteSeleccionado = dgvFormPaciente.SelectedRows[0].DataBoundItem as Paciente;
+                var pacienteSeleccionado = dgvFormPaciente.SelectedRows[0].DataBoundItem as PacienteDTO;
                 if (pacienteSeleccionado != null)
                 {
                     FormPaciente formPaciente = new FormPaciente(pacienteSeleccionado.Id);
@@ -186,7 +186,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormPaciente.SelectedRows.Count > 0)
             {
-                var pacienteSeleccionado = dgvFormPaciente.SelectedRows[0].DataBoundItem as Paciente;
+                var pacienteSeleccionado = dgvFormPaciente.SelectedRows[0].DataBoundItem as PacienteDTO;
                 if (pacienteSeleccionado != null)
                 {
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este paciente?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
