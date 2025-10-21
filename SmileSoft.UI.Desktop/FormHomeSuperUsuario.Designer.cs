@@ -33,7 +33,6 @@
             btnUsuarios = new Button();
             btnTipoPlan = new Button();
             btnTipoAtencion = new Button();
-            btnMenuAlt = new Button();
             BtnCerrarSesion = new Button();
             menuStrip1 = new MenuStrip();
             toolStripPaciente = new ToolStripMenuItem();
@@ -43,8 +42,8 @@
             toolStripTipoAtencion = new ToolStripMenuItem();
             odontologosToolStripMenuItem = new ToolStripMenuItem();
             tutoresToolStripMenuItem = new ToolStripMenuItem();
-            NuevaAtencion = new Button();
             atencionesToolStripMenuItem = new ToolStripMenuItem();
+            NuevaAtencion = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -102,19 +101,6 @@
             btnTipoAtencion.Text = "Tipos Atencion";
             btnTipoAtencion.UseVisualStyleBackColor = true;
             btnTipoAtencion.Click += btnTipoAtencion_Click;
-            // 
-            // btnMenuAlt
-            // 
-            btnMenuAlt.BackColor = Color.Orange;
-            btnMenuAlt.ForeColor = SystemColors.MenuHighlight;
-            btnMenuAlt.Location = new Point(223, 159);
-            btnMenuAlt.Margin = new Padding(2);
-            btnMenuAlt.Name = "btnMenuAlt";
-            btnMenuAlt.Size = new Size(114, 60);
-            btnMenuAlt.TabIndex = 5;
-            btnMenuAlt.Text = "Menu alernativo";
-            btnMenuAlt.UseVisualStyleBackColor = false;
-            //btnMenuAlt.Click += btnMenuAlt_Click;
             // 
             // BtnCerrarSesion
             // 
@@ -185,24 +171,24 @@
             tutoresToolStripMenuItem.Text = "Tutores";
             tutoresToolStripMenuItem.Click += tutoresToolStripMenuItem_Click;
             // 
-            // NuevaAtencion
-            // 
-            NuevaAtencion.BackColor = Color.Orange;
-            NuevaAtencion.ForeColor = SystemColors.Highlight;
-            NuevaAtencion.Location = new Point(390, 159);
-            NuevaAtencion.Name = "NuevaAtencion";
-            NuevaAtencion.Size = new Size(113, 53);
-            NuevaAtencion.TabIndex = 10;
-            NuevaAtencion.Text = "Nueva atención";
-            NuevaAtencion.UseVisualStyleBackColor = false;
-            NuevaAtencion.Click += NuevaAtencion_Click;
-            // 
             // atencionesToolStripMenuItem
             // 
             atencionesToolStripMenuItem.Name = "atencionesToolStripMenuItem";
             atencionesToolStripMenuItem.Size = new Size(78, 20);
             atencionesToolStripMenuItem.Text = "Atenciones";
             atencionesToolStripMenuItem.Click += atencionesToolStripMenuItem_Click;
+            // 
+            // NuevaAtencion
+            // 
+            NuevaAtencion.BackColor = Color.Orange;
+            NuevaAtencion.ForeColor = SystemColors.Highlight;
+            NuevaAtencion.Location = new Point(223, 159);
+            NuevaAtencion.Name = "NuevaAtencion";
+            NuevaAtencion.Size = new Size(124, 60);
+            NuevaAtencion.TabIndex = 10;
+            NuevaAtencion.Text = "Nueva atención";
+            NuevaAtencion.UseVisualStyleBackColor = false;
+            NuevaAtencion.Click += NuevaAtencion_Click;
             // 
             // FormHomeSuperUsuario
             // 
@@ -211,7 +197,6 @@
             ClientSize = new Size(858, 349);
             Controls.Add(NuevaAtencion);
             Controls.Add(BtnCerrarSesion);
-            Controls.Add(btnMenuAlt);
             Controls.Add(btnTipoAtencion);
             Controls.Add(btnTipoPlan);
             Controls.Add(btnUsuarios);
@@ -221,7 +206,9 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(2);
             Name = "FormHomeSuperUsuario";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormHome";
+            WindowState = FormWindowState.Maximized;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -235,7 +222,6 @@
         private Button btnUsuarios;
         private Button btnTipoPlan;
         private Button btnTipoAtencion;
-        private Button btnMenuAlt;
         private Button BtnCerrarSesion;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem toolStripPaciente;

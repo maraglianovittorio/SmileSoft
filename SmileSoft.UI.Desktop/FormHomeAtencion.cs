@@ -15,7 +15,7 @@ namespace SmileSoft.UI.Desktop
             BaseAddress = new Uri("http://localhost:54145")
 
         };
-        private List<Atencion> atenciones = new();
+        private List<AtencionDetalleDTO> atenciones = new();
         public FormHomeAtencion()
         {
             InitializeComponent();
@@ -83,18 +83,42 @@ namespace SmileSoft.UI.Desktop
                 var atencionesResponse = await AtencionApiClient.GetAllAsync();
                 if (atencionesResponse != null && atencionesResponse.Count() > 0)
                 {
-                    dgvFormAtencion.DataSource = atencionesResponse;
-                    atenciones = (List<Atencion>)atencionesResponse;
-                    dgvFormAtencion.Columns["Id"].Visible = false;
-                    dgvFormAtencion.Columns["TipoAtencion"].Visible = false;
-                    dgvFormAtencion.Columns["Odontologo"].Visible = false;
-                    dgvFormAtencion.Columns["Paciente"].Visible = false;
+                    var atencionesList = atencionesResponse.ToList();
+                    foreach (var atencion in atencionesList)
+                    {
+                        atencion.PacienteNombre = $"{atencion.PacienteApellido}, {atencion.PacienteNombre}";
+                        atencion.OdontologoNombre = $"{atencion.OdontologoApellido}, {atencion.OdontologoNombre}";
+                    }
 
+                    dgvFormAtencion.DataSource = atencionesList;
+                    atenciones = atencionesList;
+                    dgvFormAtencion.Columns["Id"].Visible = false;
+                    dgvFormAtencion.Columns["FechaHoraAtencion"].HeaderText = "Fecha y hora";
+                    dgvFormAtencion.Columns["TipoAtencionId"].Visible = false;
+                    dgvFormAtencion.Columns["Observaciones"].Visible = false;
+                    dgvFormAtencion.Columns["OdontologoId"].Visible = false;
+                    dgvFormAtencion.Columns["PacienteId"].Visible = false;
+                    dgvFormAtencion.Columns["PacienteNombre"].HeaderText = "Paciente";
+                    dgvFormAtencion.Columns["PacienteApellido"].Visible = false;
+                    dgvFormAtencion.Columns["PacienteDni"].HeaderText = "Dni";
+                    dgvFormAtencion.Columns["OdontologoNombre"].HeaderText = "Odontólogo";
+                    dgvFormAtencion.Columns["OdontologoApellido"].Visible = false;
+                    dgvFormAtencion.Columns["TipoAtencionDescripcion"].HeaderText = "Atención";
+                    dgvFormAtencion.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
+
+                    // Configurar anchos de columnas
+                    dgvFormAtencion.Columns["FechaHoraAtencion"].Width = 150;
+                    dgvFormAtencion.Columns["PacienteNombre"].Width = 200;
+                    dgvFormAtencion.Columns["PacienteDni"].Width = 100;
+                    dgvFormAtencion.Columns["OdontologoNombre"].Width = 200;
+                    dgvFormAtencion.Columns["Estado"].Width = 100;
+                    dgvFormAtencion.Columns["TipoAtencionDescripcion"].Width = 150;
+                    dgvFormAtencion.Columns["TipoAtencionDuracion"].Width = 100;
                 }
                 else
                 {
                     dgvFormAtencion.DataSource = null;
-                    atenciones.Clear();
+                    //atenciones.Clear();
                     MessageBox.Show("No se encontraron atenciones.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -119,7 +143,7 @@ namespace SmileSoft.UI.Desktop
             string filtro = txtBuscarAtencion.Text.ToLower();
             if (!string.IsNullOrWhiteSpace(filtro))
             {
-                var filtrados = atenciones.Where(a => a.Paciente.Apellido.ToLower().Contains(filtro) || a.Paciente.NroDni.Contains(filtro)).ToList();
+                var filtrados = atenciones.Where(a => a.PacienteApellido.ToLower().Contains(filtro) || a.PacienteDni.Contains(filtro)).ToList();
                 dgvFormAtencion.DataSource = filtrados;
             }
             else

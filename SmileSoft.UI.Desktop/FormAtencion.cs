@@ -21,6 +21,7 @@ namespace SmileSoft.WindowsForms
         }
         private List<TipoAtencion> tiposAtencion;
         private List<AtencionDetalleDTO> atencionesDelDia;
+
         private async void btnBuscarPaciente_Click(object sender, EventArgs e)
         {
             if (txtDni == null || string.IsNullOrWhiteSpace(txtDni.Text))

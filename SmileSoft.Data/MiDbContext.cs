@@ -20,7 +20,7 @@ namespace SmileSoft.Data
         public DbSet<TipoAtencion> TipoAtenciones { get; set; }
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Atencion> Atenciones { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
@@ -32,8 +32,23 @@ namespace SmileSoft.Data
                 string connectionString = configuration.GetConnectionString("DefaultConnection");
                 optionsBuilder.UseSqlServer(connectionString);
             }
+        }*/
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .Build();
+
+                string connectionString = configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
+                //optionsBuilder.UseSqlServer(connectionString);
+                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            }
         }
-        
+
         public MiDbContext()
         {
             this.Database.EnsureCreated();
