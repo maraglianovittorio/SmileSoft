@@ -10,21 +10,22 @@
 
 <div class="date-navigation">
     <span>Turnos para el día:</span>
-    <button class="btn btn-sm btn-outline-primary" @onclick="PreviousDay">◀</button>
+    <button class="btn btn-sm btn-outline-primary" @onclick="PreviousDay" disabled="@isLoading">◀</button>
     <input type="date" class="form-control d-inline-block mx-2" style="width: auto;" 
-           value="@selectedDate.ToString("yyyy-MM-dd")" 
-           @onchange="OnDateChanged" />
-    <button class="btn btn-sm btn-outline-primary" @onclick="NextDay">▶</button>
+           value="@fechaSeleccionada.ToString("yyyy-MM-dd")" 
+           @onchange="OnDateChanged"
+           disabled="@isLoading" />
+    <button class="btn btn-sm btn-outline-primary" @onclick="NextDay" disabled="@isLoading">▶</button>
 </div>
 
-@if (atencionesFiltradas == null)
+@if (isLoading)
 {
     <p><em>Cargando...</em></p>
 }
-else if (!atencionesFiltradas.Any())
+else if (atencionesFiltradas == null || !atencionesFiltradas.Any())
 {
     <div class="alert alert-info mt-3">
-        No hay atenciones programadas para el día @selectedDate.ToString("dd/MM/yyyy")
+        No hay atenciones programadas para el día @fechaSeleccionada.ToString("dd/MM/yyyy")
     </div>
 }
 else
@@ -44,7 +45,7 @@ else
             @foreach (var atencion in atencionesFiltradas)
             {
                 <tr>
-                    <td>@atencion.FechaHoraAtencion.ToString("HH:mm")</td>
+                    <td>@atencion.FechaHoraAtencion.ToString("dd/MM/yyyy HH:mm")</td>
                     <td>@atencion.PacienteNombre @atencion.PacienteApellido</td>
                     <td>@atencion.PacienteDni</td>
                     <td>@atencion.Estado</td>
@@ -59,59 +60,63 @@ else
 }
 
 @code {
-    private AtencionDetalleDTO[]? atenciones;
     private IEnumerable<AtencionDetalleDTO>? atencionesFiltradas;
-    private DateTime selectedDate = DateTime.Today;
+    private DateTime fechaSeleccionada = DateTime.Today;
+    private bool isLoading = false;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadAtenciones();
+        await LoadAtenciones(fechaSeleccionada);
     }
 
-    private async Task LoadAtenciones()
+    private async Task LoadAtenciones(DateTime fecha)
     {
-        var atencionesResponse = await AtencionApiClient.GetByOdontologoIdAsync(1); //TODO reemplazar por el id del odontólogo logueado
-        if (atencionesResponse != null && atencionesResponse.Count() > 0)
+        isLoading = true;
+        StateHasChanged(); // Force UI update to show loading state
+        
+        try
         {
-            atenciones = atencionesResponse.ToArray();
-            FilterAtencionesByDate();
+            var atencionesResponse = await AtencionApiClient.GetByFechaRangeAndOdoAsync(
+                fecha.Date,
+                fecha.Date.AddDays(1),
+                1 //TODO reemplazar por el id del odontólogo logueado
+            );
+            
+            atencionesFiltradas = (atencionesResponse != null && atencionesResponse.Any())
+                ? atencionesResponse.OrderBy(a => a.FechaHoraAtencion).ToList()
+                : Array.Empty<AtencionDetalleDTO>();
         }
-        else
+        finally
         {
-            atenciones = Array.Empty<AtencionDetalleDTO>();
-            atencionesFiltradas = Array.Empty<AtencionDetalleDTO>();
-        }
-    }
-
-    private void FilterAtencionesByDate()
-    {
-        if (atenciones != null)
-        {
-            atencionesFiltradas = atenciones
-                .Where(a => a.FechaHoraAtencion.Date == selectedDate.Date)
-                .OrderBy(a => a.FechaHoraAtencion)
-                .ToList();
+            isLoading = false;
+            StateHasChanged(); // Force UI update after data load
         }
     }
 
-    private void PreviousDay()
+    private async Task PreviousDay()
     {
-        selectedDate = selectedDate.AddDays(-1);
-        FilterAtencionesByDate();
+        if (isLoading) return; // Prevent multiple simultaneous requests
+        
+        fechaSeleccionada = fechaSeleccionada.AddDays(-1);
+        await LoadAtenciones(fechaSeleccionada);
     }
 
-    private void NextDay()
+    private async Task NextDay()
     {
-        selectedDate = selectedDate.AddDays(1);
-        FilterAtencionesByDate();
+        if (isLoading) return; // Prevent multiple simultaneous requests
+        
+        fechaSeleccionada = fechaSeleccionada.AddDays(1);
+        await LoadAtenciones(fechaSeleccionada);
     }
 
-    private void OnDateChanged(ChangeEventArgs e)
+    private async Task OnDateChanged(ChangeEventArgs e)
     {
+        if (isLoading) return; // Prevent multiple simultaneous requests
+        
         if (DateTime.TryParse(e.Value?.ToString(), out DateTime newDate))
         {
-            selectedDate = newDate;
-            FilterAtencionesByDate();
+            fechaSeleccionada = newDate;
+            await LoadAtenciones(fechaSeleccionada);
         }
     }
 }
