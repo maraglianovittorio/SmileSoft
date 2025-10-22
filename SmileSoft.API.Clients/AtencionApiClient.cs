@@ -169,15 +169,15 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones para el tipo de atención con Id {tipoAtencionId}: {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<Atencion>> GetByFechaRangeAsync(DateTime fechaInicio, DateTime fechaFin)
+        public static async Task<ICollection<AtencionDetalleDTO>> GetByFechaRangeAsync(DateTime fechaInicio, DateTime fechaFin)
         {
             try
             {
-                string url = $"atenciones/fecharange?fechaInicio={fechaInicio.ToString("o")}&fechaFin={fechaFin.ToString("o")}";
+                string url = $"atenciones/rango?startDate={fechaInicio}&endDate={fechaFin}";
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ICollection<Atencion>>();
+                    return await response.Content.ReadAsAsync<ICollection<AtencionDetalleDTO>>();
                 }
                 else
                 {
@@ -201,7 +201,7 @@ namespace SmileSoft.API.Clients
                 var fechaIni = fechaInicio.Date;
                 // sumo un segundo para incluir todo el dia de fechaFin
                 var fechaF = fechaIni.AddDays(1);
-                string url = $"atenciones1?startdate={fechaIni:yyyy-MM-dd}&enddate={fechaF:yyyy-MM-dd}&id={id}";
+                string url = $"atenciones/rangoYOdo?startdate={fechaIni:yyyy-MM-dd}&enddate={fechaF:yyyy-MM-dd}&id={id}";
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {

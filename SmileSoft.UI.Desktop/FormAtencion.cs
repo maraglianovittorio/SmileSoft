@@ -163,6 +163,7 @@ namespace SmileSoft.WindowsForms
         {
             if (cmbOdontologo.SelectedIndex != -1 && cmbTipoAtencion.SelectedIndex != -1 && dtpDiaAtencion.Value != null)
             {
+                lblTurnos.Visible = false;
                 lblAviso.Visible = false;
                 try
                 {
