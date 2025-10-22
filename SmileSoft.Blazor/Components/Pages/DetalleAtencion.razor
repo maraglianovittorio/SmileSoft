@@ -8,6 +8,7 @@
 
 <PageTitle>Detalle de Atención</PageTitle>
 <button class="btn btn-sm btn-primary" @onclick="@(() => Navigation.NavigateTo(""))">◀ Volver</button>
+<button class="btn btn-sm btn-secondary" @onclick="@(() => VerHistoriaClinica(atencion.PacienteId))">Ver historia clínica</button>
 <h1>Detalle de Atención</h1>
 
 @if (!string.IsNullOrEmpty(mensajeError))
@@ -81,12 +82,15 @@ else
     private string mensajeExito = string.Empty;
     AtencionDetalleDTO atencion = new AtencionDetalleDTO();
 
-
     protected override async Task OnInitializedAsync()
     {
         await BuscaAtencion(IdAtencion);
     }
 
+    private void VerHistoriaClinica(int pacienteId)
+    {
+        Navigation.NavigateTo($"/historiaClinica/{pacienteId}");
+    }
     private async Task BuscaAtencion(int IdAtencion)
     {
         isLoading = true;

@@ -1,0 +1,80 @@
+﻿@using SmileSoft.API.Clients;
+@using DTO;
+@page "/historiaClinica/{PacienteId:int}"
+
+<h3>Historia Clínica</h3>
+@if (!string.IsNullOrEmpty(mensajeError))
+{
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        @mensajeError
+        <button type="button" class="btn-close" @onclick="() => mensajeError = string.Empty"></button>
+    </div>
+}
+@if (!string.IsNullOrEmpty(mensajeExito))
+{
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        @mensajeExito
+        <button type="button" class="btn-close" @onclick="() => mensajeExito = string.Empty"></button>
+    </div>
+}
+@if (isLoading)
+{
+    <p><em>Cargando...</em></p>
+}
+else if (historiaClinica == null)
+{
+    <div class="alert alert-info mt-3">
+        No se encontró la historia clínica.
+    </div>
+}
+else
+{
+    <div class="mt-3">
+        <p><strong>ID Paciente:</strong> @historiaClinica.PacienteId</p>
+        <p><strong>Nombre:</strong> @historiaClinica.PacienteNombre @historiaClinica.PacienteApellido</p>
+        <p><strong>DNI:</strong> @historiaClinica.PacienteDni</p>
+    </div>
+    <h4>Antecedentes Médicos</h4>
+    <div class="border p-3 mb-3" style="background-color: #f8f9fa; min-height: 100px;">
+        @if (historiaClinica.Observaciones.Count == 0)
+        {
+            <em>No hay antecedentes médicos registrados.</em>
+        }
+        else
+        {
+            <textarea class="form-control" rows="5" disabled>@string.Join(Environment.NewLine, historiaClinica.Observaciones)</textarea>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int PacienteId { get; set; }
+
+    private HistoriaClinicaDTO historiaClinica;
+    private bool isLoading = true;
+    private string mensajeError = string.Empty;
+    private string mensajeExito = string.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarHistoriaClinica(PacienteId);
+    }
+    private async Task CargarHistoriaClinica(int pacienteId)
+    {
+        try
+        {
+            isLoading = true;
+            mensajeError = string.Empty;
+            historiaClinica = await AtencionApiClient.GetHistoriaClinicaAsync(pacienteId);
+        }
+        catch (Exception ex)
+        {
+            mensajeError = $"Error al cargar la historia clínica: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+}

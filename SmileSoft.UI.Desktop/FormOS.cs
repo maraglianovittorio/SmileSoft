@@ -31,7 +31,7 @@ namespace SmileSoft.UI.Desktop
             this.Text = "SmileSoft - Editar Obra Social";
             LimpiarFormulario();
             ConfigurarEstilos();
-            btnAgregarOS.Visible = false; // Ocultar botón de agregar
+            btnGuardarOS.Visible = false; // Ocultar botón de agregar
             btnEditarOS.Tag = idOS; // Guardar el ID de la obra social en el Tag del botón de editar
             PopularFormOS(idOS);
         }
@@ -117,8 +117,8 @@ namespace SmileSoft.UI.Desktop
                     Nombre = txtNombreOS.Text.Trim(),
                 };
 
-                btnAgregarOS.Text = "Enviando...";
-                btnAgregarOS.Enabled = false;
+                btnGuardarOS.Text = "Enviando...";
+                btnGuardarOS.Enabled = false;
 
                 await ObraSocialApiClient.CreateAsync(obraSocial);
                 MessageBox.Show("Obra social agregada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -133,8 +133,8 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnAgregarOS.Text = "Enviar";
-                btnAgregarOS.Enabled = true;
+                btnGuardarOS.Text = "Enviar";
+                btnGuardarOS.Enabled = true;
             }
         }
         public async void PopularFormOS(int idOS)

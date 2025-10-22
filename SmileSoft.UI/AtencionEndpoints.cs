@@ -9,6 +9,13 @@ namespace SmileSoft.WebAPI
 
         public static void MapAtencionEndpoints(this WebApplication app)
         {
+            app.MapGet("/atenciones/historiaclinica", (int pacienteId) =>
+            {
+                AtencionService atencionService = new AtencionService();
+                var dto = atencionService.GetHistoriaClinica(pacienteId);
+                return dto is not null ? Results.Ok(dto) : Results.NotFound();
+            }).WithName("GetHistoriaClinica");
+
             app.MapPut("/atenciones/{id}/observaciones", (int id, [FromBody] string observaciones) =>
             {
                 try

@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace SmileSoft.API.Clients
 {
@@ -21,6 +22,30 @@ namespace SmileSoft.API.Clients
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+        public static async Task<HistoriaClinicaDTO> GetHistoriaClinicaAsync(int pacienteId)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync($"atenciones/historiaclinica?pacienteId={pacienteId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<HistoriaClinicaDTO>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener la historia clínica para el paciente con Id {pacienteId}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener la historia clínica para el paciente con Id {pacienteId}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener la historia clínica para el paciente con Id {pacienteId}: {ex.Message}", ex);
+            }
         }
         public static async Task<IEnumerable<AtencionDetalleDTO>> GetAllAsync()
         {

@@ -137,7 +137,7 @@ namespace SmileSoft.Data
             var existingAtencion = context.Atenciones.Find(id);
             if (existingAtencion != null)
             {
-                existingAtencion.SetObservaciones(observaciones);
+                existingAtencion.AppendObservacion(observaciones);
                 context.SaveChanges();
                 return true;
             }

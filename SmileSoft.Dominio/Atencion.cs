@@ -42,8 +42,17 @@ namespace SmileSoft.Dominio
         }
         public void SetObservaciones(string observaciones)
         {
-            // hago append para no perder las observaciones anteriores 
-            Observaciones += observaciones ?? string.Empty;
+            Observaciones = observaciones ?? string.Empty;
+        }
+
+        public void AppendObservacion(string nuevaObservacion)
+        {
+            // Append con timestamp
+            if (!string.IsNullOrWhiteSpace(nuevaObservacion))
+            {
+                string nuevoRegistro = $"\n[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]\n{nuevaObservacion}";
+                Observaciones += nuevoRegistro;
+            }
         }
         public void SetOdontologoId(int odontologoId)
         {

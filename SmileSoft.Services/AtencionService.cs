@@ -11,6 +11,32 @@ namespace SmileSoft.Services
 {
     public class AtencionService
     {
+        public HistoriaClinicaDTO GetHistoriaClinica(int pacienteId)
+        {
+            var atencionRepository = new AtencionRepository();
+            var atenciones = atencionRepository.GetAllByPaciente(pacienteId);
+            if (atenciones == null || !atenciones.Any())
+            {
+                return null;
+            }
+            var paciente = atenciones.First().Paciente;
+            if (paciente == null)
+            {
+                return null;
+            }
+            var historiaClinicaDTO = new HistoriaClinicaDTO
+            {
+                PacienteId = paciente.Id,
+                PacienteNombre = paciente.Nombre,
+                PacienteApellido = paciente.Apellido,
+                PacienteDni = paciente.NroDni,
+                Observaciones = atenciones
+                    .Where(a => !string.IsNullOrEmpty(a.Observaciones))
+                    .Select(a => a.Observaciones)
+                    .ToList()
+            };
+            return historiaClinicaDTO;
+        }
         public AtencionDTO Add(AtencionDTO dto)
         {
             var atencionRepository = new AtencionRepository();
