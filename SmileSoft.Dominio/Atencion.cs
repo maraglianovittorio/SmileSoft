@@ -53,6 +53,7 @@ namespace SmileSoft.Dominio
                 string nuevoRegistro = $"\n[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]\n{nuevaObservacion}";
                 Observaciones += nuevoRegistro;
             }
+            SetEstado("Atendido");
         }
         public void SetOdontologoId(int odontologoId)
         {

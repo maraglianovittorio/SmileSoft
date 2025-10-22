@@ -57,7 +57,11 @@ else
                     <td>@atencion.FechaHoraAtencion.ToString("dd/MM/yyyy HH:mm")</td>
                     <td>@atencion.PacienteNombre @atencion.PacienteApellido</td>
                     <td>@atencion.PacienteDni</td>
-                    <td>@atencion.Estado</td>
+                    <td style="@(atencion.Estado.ToLower() == "en espera" ? "color: green; font-weight: 600;" : 
+                                  atencion.Estado.ToLower() == "cancelada" ? "color: red; font-weight: 500;" : 
+                                  "color: black;")">
+                        @atencion.Estado
+                    </td>
                     <td>@atencion.TipoAtencionDescripcion</td>
                     <td>
                         <button class="btn btn-sm btn-primary" @onclick="() => AgregarDetalle(atencion.Id)">Registrar Observaciones</button>
