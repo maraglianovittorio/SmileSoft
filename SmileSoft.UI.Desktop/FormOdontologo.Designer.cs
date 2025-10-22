@@ -46,6 +46,10 @@
             txtDireccion = new TextBox();
             lblTelefono = new Label();
             txtTelefono = new TextBox();
+            txtUsername = new TextBox();
+            lblUsername = new Label();
+            txtPassword = new TextBox();
+            lblPassword = new Label();
             SuspendLayout();
             // 
             // lblNombreOdontologo
@@ -122,7 +126,7 @@
             // 
             // btnAgregarOdontologo
             // 
-            btnAgregarOdontologo.Location = new Point(247, 292);
+            btnAgregarOdontologo.Location = new Point(243, 340);
             btnAgregarOdontologo.Margin = new Padding(2);
             btnAgregarOdontologo.Name = "btnAgregarOdontologo";
             btnAgregarOdontologo.Size = new Size(83, 27);
@@ -133,7 +137,7 @@
             // 
             // btnEditarOdontologo
             // 
-            btnEditarOdontologo.Location = new Point(347, 292);
+            btnEditarOdontologo.Location = new Point(343, 340);
             btnEditarOdontologo.Margin = new Padding(2);
             btnEditarOdontologo.Name = "btnEditarOdontologo";
             btnEditarOdontologo.Size = new Size(83, 27);
@@ -212,11 +216,47 @@
             txtTelefono.Size = new Size(200, 23);
             txtTelefono.TabIndex = 17;
             // 
+            // txtUsername
+            // 
+            txtUsername.Location = new Point(247, 270);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(200, 23);
+            txtUsername.TabIndex = 19;
+            // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new Point(119, 273);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(109, 15);
+            lblUsername.TabIndex = 18;
+            lblUsername.Text = "Nombre de usuario";
+            // 
+            // txtPassword
+            // 
+            txtPassword.Location = new Point(247, 299);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(200, 23);
+            txtPassword.TabIndex = 21;
+            // 
+            // lblPassword
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(119, 302);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(67, 15);
+            lblPassword.TabIndex = 20;
+            lblPassword.Text = "Contraseña";
+            // 
             // FormOdontologo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(650, 350);
+            ClientSize = new Size(664, 397);
+            Controls.Add(txtPassword);
+            Controls.Add(lblPassword);
+            Controls.Add(txtUsername);
+            Controls.Add(lblUsername);
             Controls.Add(txtTelefono);
             Controls.Add(lblTelefono);
             Controls.Add(txtDireccion);
@@ -261,5 +301,9 @@
         private TextBox txtDireccion;
         private Label lblTelefono;
         private TextBox txtTelefono;
+        private TextBox txtUsername;
+        private Label lblUsername;
+        private TextBox txtPassword;
+        private Label lblPassword;
     }
 }

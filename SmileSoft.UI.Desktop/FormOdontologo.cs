@@ -231,7 +231,7 @@ namespace SmileSoft.UI.Desktop
 
             try
             {
-                OdontologoDTO odontologo = new OdontologoDTO
+                OdontologoCreacionDTO odontologo = new OdontologoCreacionDTO
                 {
                     Nombre = txtNombre.Text.Trim(),
                     Apellido = txtApellido.Text.Trim(),
@@ -241,8 +241,8 @@ namespace SmileSoft.UI.Desktop
                     Telefono = txtTelefono.Text.Trim(),
                     NroDni = txtDni.Text.Trim(),
                     FechaNacimiento = dtpFechaNacimiento.Value,
-                    //Username = txtUsername.Text.Trim(),
-                    //Password = txtPassword.Text.Trim()
+                    Username = txtUsername.Text.Trim(),
+                    Password = txtPassword.Text.Trim()
                 };
 
                 btnAgregarOdontologo.Text = "Enviando...";

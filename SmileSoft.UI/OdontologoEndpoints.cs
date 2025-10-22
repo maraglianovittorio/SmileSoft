@@ -21,14 +21,14 @@ namespace SmileSoft.WebAPI
                 OdontologoDTO dto = odontologoService.GetOdontologo(id);
                 return dto is not null ? Results.Ok(new { Odontologo = dto }) : Results.NotFound();
             }).WithName("GetOdontologo");
-            app.MapPost("/odontologos", (OdontologoDTO odontologoDTO) =>
+            app.MapPost("/odontologos", (OdontologoCreacionDTO odontologoCreacionDTO) =>
             {
                 try
                 {
                     OdontologoService odontologoService = new OdontologoService();
                     // Validación de campos obligatorios
                     var errores = new List<string>();
-                    if (string.IsNullOrWhiteSpace(odontologoDTO.Nombre))
+                    if (string.IsNullOrWhiteSpace(odontologoCreacionDTO.Nombre))
                         errores.Add("El nombre es obligatorio");
                     if (errores.Count > 0)
                     {
@@ -39,7 +39,7 @@ namespace SmileSoft.WebAPI
                             details = errores
                         });
                     }
-                    var dto = odontologoService.Add(odontologoDTO);
+                    var dto = odontologoService.Add(odontologoCreacionDTO);
                     return Results.Created($"/odontologos/{dto.Id}", dto);
                 }
                 catch (Exception ex)
@@ -52,7 +52,7 @@ namespace SmileSoft.WebAPI
                 }
 
             }).WithName("CreateOdontologo");
-            app.MapPut("/odontologos/{id}", (int id, OdontologoDTO odontologo) =>
+            app.MapPut("/odontologos/{id}", (int id, OdontologoCreacionDTO odontologo) =>
             {
                 try
                 {

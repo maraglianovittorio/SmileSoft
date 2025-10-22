@@ -36,6 +36,7 @@ namespace SmileSoft.UI.Desktop
             btnAgregarTutor.Visible = false;
             lblTutor.Visible = false;
             txtTutor.Visible = false;
+            dtpFechaNacimiento.Value = DateTime.Now; // Valor por defecto a 18 años atrás
             ConfigurarEstilos();
             ConfigurarResponsive();
             PopularFormPaciente(idPaciente);

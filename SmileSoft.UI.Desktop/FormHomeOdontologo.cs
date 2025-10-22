@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SmileSoft.WindowsForms;
 using SmileSoft.API.Clients;
+using DTO;
 using SmileSoft.Dominio;
 
 namespace SmileSoft.UI.Desktop
@@ -19,7 +20,7 @@ namespace SmileSoft.UI.Desktop
         {
             BaseAddress = new Uri("http://localhost:54145")
         };
-        private List<Odontologo> odontologos = new();
+        private List<OdontologoDTO> odontologos = new();
 
         public FormHomeOdontologo()
         {
@@ -87,12 +88,12 @@ namespace SmileSoft.UI.Desktop
                 if (odontologosResponse != null && odontologosResponse.Count() > 0)
                 {
                     dgvFormOdontologo.DataSource = odontologosResponse;
-                    odontologos = (List<Odontologo>)odontologosResponse;
+                    odontologos = (List<OdontologoDTO>)odontologosResponse;
                     dgvFormOdontologo.Columns["Id"].Visible = false;
                     //dgvFormOdontologo.Columns["Password"].Visible = false;
                     //dgvFormOdontologo.Columns["Rol"].Visible = false;
-                    dgvFormOdontologo.Columns["ObrasSociales"].Visible = false;
-                    dgvFormOdontologo.Columns["PacientesTutelados"].Visible = false;
+                    //dgvFormOdontologo.Columns["ObrasSociales"].Visible = false;
+                    //dgvFormOdontologo.Columns["PacientesTutelados"].Visible = false;
                 }
                 else
                 {

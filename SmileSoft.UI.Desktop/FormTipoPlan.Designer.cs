@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             lblNombreTipoPlan = new Label();
-            btnAgregarTipoPlan = new Button();
+            btnGuardarTipoPlan = new Button();
             txtNombreTipoPlan = new TextBox();
             btnEditarTipoPlan = new Button();
             txtDescripcionTipoPlan = new TextBox();
@@ -51,16 +51,16 @@
             lblNombreTipoPlan.TabIndex = 0;
             lblNombreTipoPlan.Text = "Nombre";
             // 
-            // btnAgregarTipoPlan
+            // btnGuardarTipoPlan
             // 
-            btnAgregarTipoPlan.Location = new Point(182, 211);
-            btnAgregarTipoPlan.Margin = new Padding(2);
-            btnAgregarTipoPlan.Name = "btnAgregarTipoPlan";
-            btnAgregarTipoPlan.Size = new Size(79, 33);
-            btnAgregarTipoPlan.TabIndex = 8;
-            btnAgregarTipoPlan.Text = "Enviar";
-            btnAgregarTipoPlan.UseVisualStyleBackColor = true;
-            btnAgregarTipoPlan.Click += btnEnviarTipoPlan_Click;
+            btnGuardarTipoPlan.Location = new Point(182, 211);
+            btnGuardarTipoPlan.Margin = new Padding(2);
+            btnGuardarTipoPlan.Name = "btnGuardarTipoPlan";
+            btnGuardarTipoPlan.Size = new Size(79, 33);
+            btnGuardarTipoPlan.TabIndex = 8;
+            btnGuardarTipoPlan.Text = "Guardar";
+            btnGuardarTipoPlan.UseVisualStyleBackColor = true;
+            btnGuardarTipoPlan.Click += btnEnviarTipoPlan_Click;
             // 
             // txtNombreTipoPlan
             // 
@@ -135,7 +135,7 @@
             Controls.Add(txtDescripcionTipoPlan);
             Controls.Add(btnEditarTipoPlan);
             Controls.Add(txtNombreTipoPlan);
-            Controls.Add(btnAgregarTipoPlan);
+            Controls.Add(btnGuardarTipoPlan);
             Controls.Add(lblNombreTipoPlan);
             Margin = new Padding(2);
             Name = "FormTipoPlan";
@@ -149,7 +149,7 @@
         #endregion
 
         private Label lblNombreTipoPlan;
-        private Button btnAgregarTipoPlan;
+        private Button btnGuardarTipoPlan;
         private TextBox txtNombreTipoPlan;
         private Button btnEditarTipoPlan;
         private TextBox txtDescripcionTipoPlan;

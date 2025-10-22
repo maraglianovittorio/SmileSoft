@@ -28,25 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnPacientes = new Button();
+            components = new System.ComponentModel.Container();
             BtnCerrarSesion = new Button();
+            menuStrip1 = new MenuStrip();
+            atencionesToolStripMenuItem = new ToolStripMenuItem();
+            pacientesToolStripMenuItem = new ToolStripMenuItem();
+            tutoresToolStripMenuItem = new ToolStripMenuItem();
+            OSToolStripMenuItem = new ToolStripMenuItem();
+            dgvAtencionesDelDia = new DataGridView();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            fechaHoraAtencionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            estadoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            observacionesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            odontologoIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            odontologoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            pacienteIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            pacienteDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            tipoAtencionIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            tipoAtencionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            atencionBindingSource = new BindingSource(components);
+            lblAtencionesDelDia = new Label();
+            menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvAtencionesDelDia).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)atencionBindingSource).BeginInit();
             SuspendLayout();
-            // 
-            // btnPacientes
-            // 
-            btnPacientes.Location = new Point(139, 67);
-            btnPacientes.Margin = new Padding(2);
-            btnPacientes.Name = "btnPacientes";
-            btnPacientes.Size = new Size(109, 46);
-            btnPacientes.TabIndex = 0;
-            btnPacientes.Text = "Pacientes";
-            btnPacientes.UseVisualStyleBackColor = true;
-            btnPacientes.Click += btnPacientes_Click;
             // 
             // BtnCerrarSesion
             // 
             BtnCerrarSesion.BackColor = SystemColors.ActiveCaption;
-            BtnCerrarSesion.Location = new Point(544, 263);
+            BtnCerrarSesion.Location = new Point(543, 329);
             BtnCerrarSesion.Name = "BtnCerrarSesion";
             BtnCerrarSesion.Size = new Size(133, 41);
             BtnCerrarSesion.TabIndex = 9;
@@ -54,22 +64,180 @@
             BtnCerrarSesion.UseVisualStyleBackColor = false;
             BtnCerrarSesion.Click += BtnCerrarSesion_Click;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { atencionesToolStripMenuItem, pacientesToolStripMenuItem, tutoresToolStripMenuItem, OSToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(707, 24);
+            menuStrip1.TabIndex = 10;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // atencionesToolStripMenuItem
+            // 
+            atencionesToolStripMenuItem.Name = "atencionesToolStripMenuItem";
+            atencionesToolStripMenuItem.Size = new Size(78, 20);
+            atencionesToolStripMenuItem.Text = "Atenciones";
+            atencionesToolStripMenuItem.Click += atencionesToolStripMenuItem_Click;
+            // 
+            // pacientesToolStripMenuItem
+            // 
+            pacientesToolStripMenuItem.Name = "pacientesToolStripMenuItem";
+            pacientesToolStripMenuItem.Size = new Size(69, 20);
+            pacientesToolStripMenuItem.Text = "Pacientes";
+            pacientesToolStripMenuItem.Click += pacientesToolStripMenuItem_Click;
+            // 
+            // tutoresToolStripMenuItem
+            // 
+            tutoresToolStripMenuItem.Name = "tutoresToolStripMenuItem";
+            tutoresToolStripMenuItem.Size = new Size(58, 20);
+            tutoresToolStripMenuItem.Text = "Tutores";
+            tutoresToolStripMenuItem.Click += tutoresToolStripMenuItem_Click;
+            // 
+            // OSToolStripMenuItem
+            // 
+            OSToolStripMenuItem.Name = "OSToolStripMenuItem";
+            OSToolStripMenuItem.Size = new Size(95, 20);
+            OSToolStripMenuItem.Text = "Obras Sociales";
+            OSToolStripMenuItem.Click += oToolStripMenuItem_Click;
+            // 
+            // dgvAtencionesDelDia
+            // 
+            dgvAtencionesDelDia.AutoGenerateColumns = false;
+            dgvAtencionesDelDia.BackgroundColor = Color.PapayaWhip;
+            dgvAtencionesDelDia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAtencionesDelDia.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, fechaHoraAtencionDataGridViewTextBoxColumn, estadoDataGridViewTextBoxColumn, observacionesDataGridViewTextBoxColumn, odontologoIdDataGridViewTextBoxColumn, odontologoDataGridViewTextBoxColumn, pacienteIdDataGridViewTextBoxColumn, pacienteDataGridViewTextBoxColumn, tipoAtencionIdDataGridViewTextBoxColumn, tipoAtencionDataGridViewTextBoxColumn });
+            dgvAtencionesDelDia.DataSource = atencionBindingSource;
+            dgvAtencionesDelDia.Location = new Point(12, 51);
+            dgvAtencionesDelDia.Name = "dgvAtencionesDelDia";
+            dgvAtencionesDelDia.Size = new Size(653, 228);
+            dgvAtencionesDelDia.TabIndex = 11;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fechaHoraAtencionDataGridViewTextBoxColumn
+            // 
+            fechaHoraAtencionDataGridViewTextBoxColumn.DataPropertyName = "FechaHoraAtencion";
+            fechaHoraAtencionDataGridViewTextBoxColumn.HeaderText = "FechaHoraAtencion";
+            fechaHoraAtencionDataGridViewTextBoxColumn.Name = "fechaHoraAtencionDataGridViewTextBoxColumn";
+            fechaHoraAtencionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // estadoDataGridViewTextBoxColumn
+            // 
+            estadoDataGridViewTextBoxColumn.DataPropertyName = "Estado";
+            estadoDataGridViewTextBoxColumn.HeaderText = "Estado";
+            estadoDataGridViewTextBoxColumn.Name = "estadoDataGridViewTextBoxColumn";
+            estadoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // observacionesDataGridViewTextBoxColumn
+            // 
+            observacionesDataGridViewTextBoxColumn.DataPropertyName = "Observaciones";
+            observacionesDataGridViewTextBoxColumn.HeaderText = "Observaciones";
+            observacionesDataGridViewTextBoxColumn.Name = "observacionesDataGridViewTextBoxColumn";
+            observacionesDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // odontologoIdDataGridViewTextBoxColumn
+            // 
+            odontologoIdDataGridViewTextBoxColumn.DataPropertyName = "OdontologoId";
+            odontologoIdDataGridViewTextBoxColumn.HeaderText = "OdontologoId";
+            odontologoIdDataGridViewTextBoxColumn.Name = "odontologoIdDataGridViewTextBoxColumn";
+            odontologoIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // odontologoDataGridViewTextBoxColumn
+            // 
+            odontologoDataGridViewTextBoxColumn.DataPropertyName = "Odontologo";
+            odontologoDataGridViewTextBoxColumn.HeaderText = "Odontologo";
+            odontologoDataGridViewTextBoxColumn.Name = "odontologoDataGridViewTextBoxColumn";
+            odontologoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pacienteIdDataGridViewTextBoxColumn
+            // 
+            pacienteIdDataGridViewTextBoxColumn.DataPropertyName = "PacienteId";
+            pacienteIdDataGridViewTextBoxColumn.HeaderText = "PacienteId";
+            pacienteIdDataGridViewTextBoxColumn.Name = "pacienteIdDataGridViewTextBoxColumn";
+            pacienteIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pacienteDataGridViewTextBoxColumn
+            // 
+            pacienteDataGridViewTextBoxColumn.DataPropertyName = "Paciente";
+            pacienteDataGridViewTextBoxColumn.HeaderText = "Paciente";
+            pacienteDataGridViewTextBoxColumn.Name = "pacienteDataGridViewTextBoxColumn";
+            pacienteDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tipoAtencionIdDataGridViewTextBoxColumn
+            // 
+            tipoAtencionIdDataGridViewTextBoxColumn.DataPropertyName = "TipoAtencionId";
+            tipoAtencionIdDataGridViewTextBoxColumn.HeaderText = "TipoAtencionId";
+            tipoAtencionIdDataGridViewTextBoxColumn.Name = "tipoAtencionIdDataGridViewTextBoxColumn";
+            tipoAtencionIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tipoAtencionDataGridViewTextBoxColumn
+            // 
+            tipoAtencionDataGridViewTextBoxColumn.DataPropertyName = "TipoAtencion";
+            tipoAtencionDataGridViewTextBoxColumn.HeaderText = "TipoAtencion";
+            tipoAtencionDataGridViewTextBoxColumn.Name = "tipoAtencionDataGridViewTextBoxColumn";
+            tipoAtencionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // atencionBindingSource
+            // 
+            atencionBindingSource.DataSource = typeof(Dominio.Atencion);
+            // 
+            // lblAtencionesDelDia
+            // 
+            lblAtencionesDelDia.AutoSize = true;
+            lblAtencionesDelDia.Font = new Font("Segoe UI", 13F);
+            lblAtencionesDelDia.Location = new Point(12, 23);
+            lblAtencionesDelDia.Name = "lblAtencionesDelDia";
+            lblAtencionesDelDia.Size = new Size(157, 25);
+            lblAtencionesDelDia.TabIndex = 12;
+            lblAtencionesDelDia.Text = "Atenciones del dia";
+            // 
             // FormHomeSecretario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(701, 316);
+            ClientSize = new Size(707, 382);
+            Controls.Add(lblAtencionesDelDia);
+            Controls.Add(dgvAtencionesDelDia);
             Controls.Add(BtnCerrarSesion);
-            Controls.Add(btnPacientes);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Margin = new Padding(2);
             Name = "FormHomeSecretario";
             Text = "FormHome";
+            Load += FormHomeSecretario_Load;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvAtencionesDelDia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)atencionBindingSource).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private Button btnPacientes;
         private Button BtnCerrarSesion;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem atencionesToolStripMenuItem;
+        private ToolStripMenuItem pacientesToolStripMenuItem;
+        private ToolStripMenuItem tutoresToolStripMenuItem;
+        private ToolStripMenuItem OSToolStripMenuItem;
+        private DataGridView dgvAtencionesDelDia;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn fechaHoraAtencionDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn estadoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn observacionesDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn odontologoIdDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn odontologoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn pacienteIdDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn pacienteDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn tipoAtencionIdDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn tipoAtencionDataGridViewTextBoxColumn;
+        private BindingSource atencionBindingSource;
+        private Label lblAtencionesDelDia;
     }
 }

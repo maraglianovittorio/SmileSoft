@@ -42,7 +42,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de pacientes: {ex.Message}", ex);
             }
         }
-        public static async Task<Paciente> GetOneAsync(int id)
+        public static async Task<PacienteDTO> GetOneAsync(int id)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace SmileSoft.API.Clients
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<Paciente>();
+                    return await response.Content.ReadAsAsync<PacienteDTO>();
                 }
                 else
                 {

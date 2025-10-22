@@ -23,7 +23,7 @@ namespace SmileSoft.UI.Desktop
 
             InitializeComponent();
             this.Text = "SmileSoft - Editar Usuario";
-            btnAgregarUsuario.Visible = false;
+            btnGuardarUsuario.Visible = false;
             btnEditarUsuario.Tag = idUsuario; // Guardar el ID del usuario en el botón
             ConfigurarEstilos();
             ConfigurarResponsive();
@@ -115,7 +115,7 @@ namespace SmileSoft.UI.Desktop
                 else if (control == txtPassword) { originalX = 435; originalY = 109; }
                 else if (control == lblRol) { originalX = 255; originalY = 161; }
                 else if (control == txtRol) { originalX = 435; originalY = 155; }
-                else if (control == btnAgregarUsuario) { originalX = 385; originalY = 477; }
+                else if (control == btnGuardarUsuario) { originalX = 385; originalY = 477; }
 
                 // Calcular nueva posición manteniendo la proporción
                 int offsetX = originalX - originalCenterX;
@@ -205,8 +205,8 @@ namespace SmileSoft.UI.Desktop
                     Rol = cbRol.Text.Trim(),
                 };
 
-                btnAgregarUsuario.Text = "Enviando...";
-                btnAgregarUsuario.Enabled = false;
+                btnGuardarUsuario.Text = "Enviando...";
+                btnGuardarUsuario.Enabled = false;
 
                 await UsuarioApiClient.CreateAsync(user);
                 MessageBox.Show("Usuario creado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -221,8 +221,8 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnAgregarUsuario.Text = "Enviar";
-                btnAgregarUsuario.Enabled = true;
+                btnGuardarUsuario.Text = "Enviar";
+                btnGuardarUsuario.Enabled = true;
             }
         }
 

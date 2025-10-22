@@ -11,10 +11,16 @@ namespace SmileSoft.Services
 {
     public class OdontologoService
     {
-        public OdontologoDTO Add(OdontologoDTO dto)
+        public OdontologoCreacionDTO Add(OdontologoCreacionDTO dto)
         {
             var odontologoRepository = new OdontologoRepository();
-            Odontologo odontologo = new Odontologo(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.FechaNacimiento,dto.Direccion,dto.Email,dto.Telefono,dto.NroMatricula);
+            var usuarioRepository = new UsuarioRepository();
+            if(usuarioRepository.UsernameExists(dto.Username))
+            {
+                throw new ArgumentException($"Ya existe un usuario con el nombre de usuario '{dto.Username}'.");
+            }
+            var nuevoUsuario = new Usuario(dto.Username, dto.Password, "Odontologo");
+            Odontologo odontologo = new Odontologo(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.FechaNacimiento,dto.Direccion,dto.Email,dto.Telefono,dto.NroMatricula,nuevoUsuario);
             // Validar que el odontólogo no exista
             if (odontologoRepository.NroMatriculaExists(dto.NroMatricula))
             {
@@ -67,18 +73,22 @@ namespace SmileSoft.Services
                 NroDni = odontologo.NroDni,
                 FechaNacimiento = odontologo.FechaNacimiento,
 
+
             }).ToList();
         }
-        public bool Update(int id, OdontologoDTO dto)
+        public bool Update(int id, OdontologoCreacionDTO dto)
         {
             var odontologoRepository = new OdontologoRepository();
+            var usuarioRepository = new UsuarioRepository();
+            var usuario = usuarioRepository.GetByUsername(dto.Username);
+
             // Validar que el nombre del odontólogo no exista
             if (odontologoRepository.NroMatriculaExists(dto.NroMatricula, id))
             {
                 throw new ArgumentException($"Ya existe otro odontólogo con el nombre '{dto.Nombre},' ',{dto.Id}'.");
             }
 
-            Odontologo odontologo = new Odontologo(0, dto.Nombre, dto.Apellido, dto.NroDni, dto.FechaNacimiento, dto.Direccion, dto.Email, dto.Telefono, dto.NroMatricula);
+            Odontologo odontologo = new Odontologo(0, dto.Nombre, dto.Apellido, dto.NroDni, dto.FechaNacimiento, dto.Direccion, dto.Email, dto.Telefono, dto.NroMatricula, usuario);
             return odontologoRepository.Update(odontologo);
 
         }

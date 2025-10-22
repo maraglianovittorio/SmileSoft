@@ -44,8 +44,8 @@ namespace SmileSoft.Data
 
                 string connectionString = configuration.GetConnectionString("DefaultConnection");
                 optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
-                //optionsBuilder.UseSqlServer(connectionString);
-                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                optionsBuilder.UseSqlServer(connectionString);
+                //optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             }
         }
 
@@ -123,6 +123,10 @@ namespace SmileSoft.Data
                 entity.HasMany(e=> e.Atenciones)
                       .WithOne(a => a.Odontologo)
                       .HasForeignKey(a => a.OdontologoId)
+                      .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.Usuario)
+                      .WithMany()
+                      .HasForeignKey(e => e.UsuarioId)
                       .OnDelete(DeleteBehavior.Restrict);
 
             });

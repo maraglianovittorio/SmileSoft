@@ -49,6 +49,7 @@
             cmbHorario = new ComboBox();
             lblHorario = new Label();
             lblTurnos = new Label();
+            lblAviso = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvTurnosDisponibles).BeginInit();
             SuspendLayout();
             // 
@@ -251,11 +252,23 @@
             lblTurnos.Text = "Todos los horarios del odontólogo estan disponibles";
             lblTurnos.Visible = false;
             // 
+            // lblAviso
+            // 
+            lblAviso.AutoSize = true;
+            lblAviso.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAviso.ForeColor = Color.Red;
+            lblAviso.Location = new Point(660, 221);
+            lblAviso.Name = "lblAviso";
+            lblAviso.Size = new Size(145, 15);
+            lblAviso.TabIndex = 20;
+            lblAviso.Text = "Faltan completar campos";
+            // 
             // FormAtencion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(891, 557);
+            Controls.Add(lblAviso);
             Controls.Add(lblTurnos);
             Controls.Add(lblHorario);
             Controls.Add(cmbHorario);
@@ -309,5 +322,6 @@
         private ComboBox cmbHorario;
         private Label lblHorario;
         private Label lblTurnos;
+        private Label lblAviso;
     }
 }

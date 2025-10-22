@@ -68,6 +68,7 @@ namespace SmileSoft.WindowsForms
         {
             dtpDiaAtencion.Value = DateTime.Today;
             tiposAtencion = (await TipoAtencionApiClient.GetAllAsync()).ToList();
+            lblAviso.Visible = false;
             if (tiposAtencion != null && tiposAtencion.Count() > 0)
             {
                 cmbTipoAtencion.SelectedValueChanged -= cmb_SelectedValueChanged;
@@ -122,7 +123,6 @@ namespace SmileSoft.WindowsForms
                     return;
                 }
 
-                // Combinar fecha y hora
                 DateTime fechaSeleccionada = dtpDiaAtencion.Value.Date;
                 TimeSpan horaSeleccionada = TimeSpan.Parse(cmbHorario.SelectedItem.ToString());
                 DateTime fechaHoraCompleta = fechaSeleccionada + horaSeleccionada;
@@ -150,7 +150,6 @@ namespace SmileSoft.WindowsForms
                     FechaHoraAtencion = fechaHoraCompleta
                 };
                 await AtencionApiClient.CreateAsync(atencionCreada);
-                // Aquí podrías agregar la lógica para guardar la nueva atención en la base de datos o enviarla a través de una API.
                 MessageBox.Show("Atención agregada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
@@ -164,7 +163,7 @@ namespace SmileSoft.WindowsForms
         {
             if (cmbOdontologo.SelectedIndex != -1 && cmbTipoAtencion.SelectedIndex != -1 && dtpDiaAtencion.Value != null)
             {
-                lblTurnos.Visible = false;
+                lblAviso.Visible = false;
                 try
                 {
                     atencionesDelDia = (await AtencionApiClient.GetByFechaRangeAndOdoAsync(dtpDiaAtencion.Value.Date, dtpDiaAtencion.Value.Date, (int)cmbOdontologo.SelectedValue)).ToList();
@@ -230,7 +229,6 @@ namespace SmileSoft.WindowsForms
                             }
                         }
 
-                        // 4. Si el horario no está ocupado, agregarlo a la lista
                         if (!horarioOcupado)
                         {
                             horariosDisponibles.Add(hora.ToString(@"hh\:mm"));
@@ -253,6 +251,10 @@ namespace SmileSoft.WindowsForms
                 {
                     MessageBox.Show($"Error al buscar turnos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            else
+            {
+                lblAviso.Visible = true;
             }
         }
         private async void btnBuscarTurnos_Click(object sender, EventArgs e)

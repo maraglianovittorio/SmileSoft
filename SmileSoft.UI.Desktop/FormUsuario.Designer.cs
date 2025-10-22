@@ -33,7 +33,7 @@
             lblPassword = new Label();
             txtUsername = new TextBox();
             txtPassword = new TextBox();
-            btnAgregarUsuario = new Button();
+            btnGuardarUsuario = new Button();
             btnEditarUsuario = new Button();
             lbNuevoUsuario = new Label();
             cbRol = new ComboBox();
@@ -85,16 +85,16 @@
             txtPassword.Size = new Size(124, 23);
             txtPassword.TabIndex = 3;
             // 
-            // btnAgregarUsuario
+            // btnGuardarUsuario
             // 
-            btnAgregarUsuario.Location = new Point(246, 289);
-            btnAgregarUsuario.Margin = new Padding(2);
-            btnAgregarUsuario.Name = "btnAgregarUsuario";
-            btnAgregarUsuario.Size = new Size(83, 27);
-            btnAgregarUsuario.TabIndex = 6;
-            btnAgregarUsuario.Text = "Enviar";
-            btnAgregarUsuario.UseVisualStyleBackColor = true;
-            btnAgregarUsuario.Click += btnEnviar_Click;
+            btnGuardarUsuario.Location = new Point(246, 289);
+            btnGuardarUsuario.Margin = new Padding(2);
+            btnGuardarUsuario.Name = "btnGuardarUsuario";
+            btnGuardarUsuario.Size = new Size(83, 27);
+            btnGuardarUsuario.TabIndex = 6;
+            btnGuardarUsuario.Text = "Guardar";
+            btnGuardarUsuario.UseVisualStyleBackColor = true;
+            btnGuardarUsuario.Click += btnEnviar_Click;
             // 
             // btnEditarUsuario
             // 
@@ -134,7 +134,7 @@
             Controls.Add(cbRol);
             Controls.Add(lbNuevoUsuario);
             Controls.Add(btnEditarUsuario);
-            Controls.Add(btnAgregarUsuario);
+            Controls.Add(btnGuardarUsuario);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
             Controls.Add(lblPassword);
@@ -154,7 +154,7 @@
         private TextBox txtUsername;
         private TextBox txtPassword;
         private TextBox txtRol;
-        private Button btnAgregarUsuario;
+        private Button btnGuardarUsuario;
         private Button btnEditarUsuario;
         private Label lbNuevoUsuario;
         private ComboBox cbRol;

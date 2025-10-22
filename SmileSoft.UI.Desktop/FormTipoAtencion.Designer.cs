@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            btnAgregarTipoAtencion = new Button();
+            btnGuardarTipoAtencion = new Button();
             btnEditarTipoAtencion = new Button();
             txtDescripcionTipoAtencion = new TextBox();
             lblDescripcionTipoAtencion = new Label();
             obraSocialBindingSource = new BindingSource(components);
             lblDuracionTipoAtencion = new Label();
-            mskTxtDuracion = new MaskedTextBox();
+            cmbDuracion = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)obraSocialBindingSource).BeginInit();
             SuspendLayout();
             // 
-            // btnAgregarTipoAtencion
+            // btnGuardarTipoAtencion
             // 
-            btnAgregarTipoAtencion.Location = new Point(182, 211);
-            btnAgregarTipoAtencion.Margin = new Padding(2);
-            btnAgregarTipoAtencion.Name = "btnAgregarTipoAtencion";
-            btnAgregarTipoAtencion.Size = new Size(79, 33);
-            btnAgregarTipoAtencion.TabIndex = 4;
-            btnAgregarTipoAtencion.Text = "Enviar";
-            btnAgregarTipoAtencion.UseVisualStyleBackColor = true;
-            btnAgregarTipoAtencion.Click += btnEnviarTipoAtencion_Click;
+            btnGuardarTipoAtencion.Location = new Point(182, 211);
+            btnGuardarTipoAtencion.Margin = new Padding(2);
+            btnGuardarTipoAtencion.Name = "btnGuardarTipoAtencion";
+            btnGuardarTipoAtencion.Size = new Size(79, 33);
+            btnGuardarTipoAtencion.TabIndex = 4;
+            btnGuardarTipoAtencion.Text = "Guardar";
+            btnGuardarTipoAtencion.UseVisualStyleBackColor = true;
+            btnGuardarTipoAtencion.Click += btnEnviarTipoAtencion_Click;
             // 
             // btnEditarTipoAtencion
             // 
@@ -93,26 +93,26 @@
             lblDuracionTipoAtencion.TabIndex = 2;
             lblDuracionTipoAtencion.Text = "Duracion";
             // 
-            // mskTxtDuracion
+            // cmbDuracion
             // 
-            mskTxtDuracion.Location = new Point(302, 71);
-            mskTxtDuracion.Mask = "00:00";
-            mskTxtDuracion.Name = "mskTxtDuracion";
-            mskTxtDuracion.Size = new Size(106, 23);
-            mskTxtDuracion.TabIndex = 3;
-            mskTxtDuracion.ValidatingType = typeof(DateTime);
+            cmbDuracion.FormattingEnabled = true;
+            cmbDuracion.Items.AddRange(new object[] { "00:30", "01:00", "01:30" });
+            cmbDuracion.Location = new Point(302, 71);
+            cmbDuracion.Name = "cmbDuracion";
+            cmbDuracion.Size = new Size(121, 23);
+            cmbDuracion.TabIndex = 6;
             // 
             // FormTipoAtencion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(560, 270);
-            Controls.Add(mskTxtDuracion);
+            Controls.Add(cmbDuracion);
             Controls.Add(lblDuracionTipoAtencion);
             Controls.Add(lblDescripcionTipoAtencion);
             Controls.Add(txtDescripcionTipoAtencion);
             Controls.Add(btnEditarTipoAtencion);
-            Controls.Add(btnAgregarTipoAtencion);
+            Controls.Add(btnGuardarTipoAtencion);
             Margin = new Padding(2);
             Name = "FormTipoAtencion";
             Text = "FormOS";
@@ -122,12 +122,12 @@
         }
 
         #endregion
-        private Button btnAgregarTipoAtencion;
+        private Button btnGuardarTipoAtencion;
         private Button btnEditarTipoAtencion;
         private TextBox txtDescripcionTipoAtencion;
         private Label lblDescripcionTipoAtencion;
         private BindingSource obraSocialBindingSource;
         private Label lblDuracionTipoAtencion;
-        private MaskedTextBox mskTxtDuracion;
+        private ComboBox cmbDuracion;
     }
 }

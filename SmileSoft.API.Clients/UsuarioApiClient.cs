@@ -162,7 +162,7 @@ namespace SmileSoft.API.Clients
             }
         }
         public static async Task<UsuarioDTO> GetByUsernameAsync(string username)
-        {
+         {
             try
             {
                 HttpResponseMessage response = await client.GetAsync($"usuarios/{username}");

@@ -20,7 +20,7 @@ namespace SmileSoft.API.Clients
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        public static async Task<IEnumerable<Odontologo>>? GetAllAsync()
+        public static async Task<IEnumerable<OdontologoDTO>>? GetAllAsync()
         {
             try
             {
@@ -28,7 +28,7 @@ namespace SmileSoft.API.Clients
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<IEnumerable<Odontologo>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<OdontologoDTO>>();
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener odontologo con Id {id}: {ex.Message}", ex);
             }
         }
-        public async static Task CreateAsync(OdontologoDTO odontologo)
+        public async static Task CreateAsync(OdontologoCreacionDTO odontologo)
         {
             try
             {

@@ -34,7 +34,7 @@ namespace SmileSoft.UI.Desktop
             this.Text = "SmileSoft - Editar Tipo de Plan";
             LimpiarFormulario();
             ConfigurarEstilos();
-            btnAgregarTipoPlan.Visible = false; 
+            btnGuardarTipoPlan.Visible = false; 
             btnEditarTipoPlan.Tag = idTipoPlan;
         }
 
@@ -173,8 +173,8 @@ namespace SmileSoft.UI.Desktop
                     ObraSocialId = (int)cmbObraSocial.SelectedValue
                 };
 
-                btnAgregarTipoPlan.Text = "Enviando...";
-                btnAgregarTipoPlan.Enabled = false;
+                btnGuardarTipoPlan.Text = "Enviando...";
+                btnGuardarTipoPlan.Enabled = false;
 
                 await TipoPlanApiClient.CreateAsync(tipoPlan);
                 MessageBox.Show("Tipo de plan agregado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -187,8 +187,8 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnAgregarTipoPlan.Text = "Enviar";
-                btnAgregarTipoPlan.Enabled = true;
+                btnGuardarTipoPlan.Text = "Enviar";
+                btnGuardarTipoPlan.Enabled = true;
             }
         }
 

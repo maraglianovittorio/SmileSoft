@@ -35,7 +35,7 @@ namespace SmileSoft.UI.Desktop
             LimpiarFormulario();
             ConfigurarEstilos();
             PopularFormTipoAtencion(idTipoAtencion);
-            btnAgregarTipoAtencion.Visible = false;
+            btnGuardarTipoAtencion.Visible = false;
             btnEditarTipoAtencion.Tag = idTipoAtencion;
         }
 
@@ -107,7 +107,7 @@ namespace SmileSoft.UI.Desktop
         private void LimpiarFormulario()
         {
             txtDescripcionTipoAtencion.Clear();
-            mskTxtDuracion.Clear();
+            cmbDuracion.SelectedIndex = -1;
 
             txtDescripcionTipoAtencion.Focus();
         }
@@ -123,12 +123,12 @@ namespace SmileSoft.UI.Desktop
                 TipoAtencionDTO tipoAtencion = new TipoAtencionDTO
                 {
                     Descripcion = txtDescripcionTipoAtencion.Text.Trim(),
-                    Duracion = TimeSpan.Parse(mskTxtDuracion.Text.Trim())
+                    Duracion = cmbDuracion.SelectedItem != null ? TimeSpan.Parse(cmbDuracion.SelectedItem.ToString()) : TimeSpan.Zero
 
                 };
 
-                btnAgregarTipoAtencion.Text = "Enviando...";
-                btnAgregarTipoAtencion.Enabled = false;
+                btnGuardarTipoAtencion.Text = "Enviando...";
+                btnGuardarTipoAtencion.Enabled = false;
 
                 await TipoAtencionApiClient.CreateAsync(tipoAtencion);
                 MessageBox.Show("Tipo de atención agregado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -141,8 +141,8 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnAgregarTipoAtencion.Text = "Enviar";
-                btnAgregarTipoAtencion.Enabled = true;
+                btnGuardarTipoAtencion.Text = "Enviar";
+                btnGuardarTipoAtencion.Enabled = true;
             }
         }
 
@@ -155,7 +155,7 @@ namespace SmileSoft.UI.Desktop
                 if (tipoAtencionResponse != null)
                 {
                     txtDescripcionTipoAtencion.Text = tipoAtencionResponse.Descripcion;
-                    mskTxtDuracion.Text = tipoAtencionResponse.Duracion.ToString(@"hh\:mm\:ss"); ;
+                    cmbDuracion.SelectedValue = tipoAtencionResponse.Duracion.ToString(@"hh\:mm\:ss");
                 }
                 else
                 {
@@ -188,7 +188,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     Id = id,
                     Descripcion = txtDescripcionTipoAtencion.Text.Trim(),
-                    Duracion = TimeSpan.Parse(mskTxtDuracion.Text.Trim())
+                    Duracion = TimeSpan.Parse(cmbDuracion.Text.Trim())
                 };
 
                 btnEditarTipoAtencion.Text = "Enviando...";

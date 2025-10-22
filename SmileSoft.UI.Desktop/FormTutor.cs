@@ -28,7 +28,7 @@ namespace SmileSoft.UI.Desktop
             InitializeComponent();
             this.Text = "SmileSoft - Editar Tutor";
             btnEditarTutor.Tag = idPersona; // Guardar el ID de la persona en el botón
-            btnAgregarTutor.Visible = false;
+            btnGuardarTutor.Visible = false;
             ConfigurarEstilos();
             ConfigurarResponsive();
             PopularFormPersona(idPersona);
@@ -128,7 +128,7 @@ namespace SmileSoft.UI.Desktop
                 else if (control == dtpFechaNacimiento) { originalX = 437; originalY = 289; }
                 else if (control == lblTelefono) { originalX = 255; originalY = 337; }
                 else if (control == txtTelefono) { originalX = 435; originalY = 337; }
-                else if (control == btnAgregarTutor) { originalX = 385; originalY = 477; }
+                else if (control == btnGuardarTutor) { originalX = 385; originalY = 477; }
 
                 // Calcular nueva posición manteniendo la proporción
                 int offsetX = originalX - originalCenterX;
@@ -272,8 +272,8 @@ namespace SmileSoft.UI.Desktop
                     Telefono = txtTelefono.Text.Trim(),
                 };
 
-                btnAgregarTutor.Text = "Enviando...";
-                btnAgregarTutor.Enabled = false;
+                btnGuardarTutor.Text = "Enviando...";
+                btnGuardarTutor.Enabled = false;
 
                 await PersonaApiClient.CreateAsync(persona);
                 var createdPersona = await PersonaApiClient.GetByDni(persona.NroDni);
@@ -295,8 +295,8 @@ namespace SmileSoft.UI.Desktop
             }
             finally
             {
-                btnAgregarTutor.Text = "Enviar";
-                btnAgregarTutor.Enabled = true;
+                btnGuardarTutor.Text = "Enviar";
+                btnGuardarTutor.Enabled = true;
             }
         }
         private async void btnEditarPaciente_Click(object sender, EventArgs e)

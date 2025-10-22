@@ -41,7 +41,7 @@
             txtEmail = new TextBox();
             txtDireccion = new TextBox();
             txtTelefono = new TextBox();
-            btnAgregarTutor = new Button();
+            btnGuardarTutor = new Button();
             lblEmail = new Label();
             dtpFechaNacimiento = new DateTimePicker();
             btnEditarTutor = new Button();
@@ -157,16 +157,16 @@
             txtTelefono.Size = new Size(124, 23);
             txtTelefono.TabIndex = 13;
             // 
-            // btnAgregarTutor
+            // btnGuardarTutor
             // 
-            btnAgregarTutor.Location = new Point(225, 288);
-            btnAgregarTutor.Margin = new Padding(2);
-            btnAgregarTutor.Name = "btnAgregarTutor";
-            btnAgregarTutor.Size = new Size(83, 27);
-            btnAgregarTutor.TabIndex = 22;
-            btnAgregarTutor.Text = "Enviar";
-            btnAgregarTutor.UseVisualStyleBackColor = true;
-            btnAgregarTutor.Click += btnEnviar_Click;
+            btnGuardarTutor.Location = new Point(225, 288);
+            btnGuardarTutor.Margin = new Padding(2);
+            btnGuardarTutor.Name = "btnGuardarTutor";
+            btnGuardarTutor.Size = new Size(83, 27);
+            btnGuardarTutor.TabIndex = 22;
+            btnGuardarTutor.Text = "Guardar";
+            btnGuardarTutor.UseVisualStyleBackColor = true;
+            btnGuardarTutor.Click += btnEnviar_Click;
             // 
             // lblEmail
             // 
@@ -211,7 +211,7 @@
             Controls.Add(btnEditarTutor);
             Controls.Add(dtpFechaNacimiento);
             Controls.Add(lblEmail);
-            Controls.Add(btnAgregarTutor);
+            Controls.Add(btnGuardarTutor);
             Controls.Add(txtTelefono);
             Controls.Add(txtDireccion);
             Controls.Add(txtEmail);
@@ -245,7 +245,7 @@
         private TextBox txtEmail;
         private TextBox txtDireccion;
         private TextBox txtTelefono;
-        private Button btnAgregarTutor;
+        private Button btnGuardarTutor;
         private Label lblEmail;
         private DateTimePicker dtpFechaNacimiento;
         private Button btnEditarTutor;
