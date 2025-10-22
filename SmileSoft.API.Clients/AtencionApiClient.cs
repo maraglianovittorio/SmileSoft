@@ -287,6 +287,46 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al actualizar atencion con Id {id}: {ex.Message}", ex);
             }
         }
+        public static async Task CancelaAtencionAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsync($"atenciones/{id}/cancelar", null);
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al cancelar atencion con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al cancelar atencion con Id {id}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al cancelar atencion con Id {id}: {ex.Message}", ex);
+            }
+        }
+        public static async Task ActualizaLlegada(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsync($"atenciones/{id}/llegada", null);
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al actualizar llegada de atencion con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al actualizar llegada de atencion con Id {id}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al actualizar llegada de atencion con Id {id}: {ex.Message}", ex);
+            }
+        }
 
         public static async Task UpdateObservacionesAsync(int id, string observaciones)
         {

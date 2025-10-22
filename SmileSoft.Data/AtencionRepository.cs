@@ -143,7 +143,28 @@ namespace SmileSoft.Data
             }
             return false;
         }
-
+        public bool CancelaAtencion(int id) {
+            using var context = CreateContext();
+            var existingAtencion = context.Atenciones.Find(id);
+            if (existingAtencion != null)
+            {
+                existingAtencion.SetEstado("Cancelada");
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        public bool ActualizaLlegada(int id)
+        {   
+            using var context = CreateContext();
+            var existingAtencion = context.Atenciones.Find(id);
+            if (existingAtencion != null) {
+                existingAtencion.SetEstado("En sala de espera");
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
 
         //public IEnumerable<Paciente> GetByCriteria(PacienteCriteria criteria)
         //{

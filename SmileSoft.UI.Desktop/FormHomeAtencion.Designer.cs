@@ -36,7 +36,7 @@
             lupaPng = new PictureBox();
             atencionBindingSource = new BindingSource(components);
             btnAgregarAtencion = new Button();
-            btnBorrarAtencion = new Button();
+            btnCancelarAtencion = new Button();
             btnEditarAtencion = new Button();
             BtnVolver = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvFormAtencion).BeginInit();
@@ -106,18 +106,18 @@
             btnAgregarAtencion.UseVisualStyleBackColor = false;
             btnAgregarAtencion.Click += btnAgregarAtencion_Click;
             // 
-            // btnBorrarAtencion
+            // btnCancelarAtencion
             // 
-            btnBorrarAtencion.BackColor = Color.Red;
-            btnBorrarAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnBorrarAtencion.Location = new Point(651, 282);
-            btnBorrarAtencion.Margin = new Padding(2);
-            btnBorrarAtencion.Name = "btnBorrarAtencion";
-            btnBorrarAtencion.Size = new Size(134, 42);
-            btnBorrarAtencion.TabIndex = 5;
-            btnBorrarAtencion.Text = "Borrar atencion";
-            btnBorrarAtencion.UseVisualStyleBackColor = false;
-            btnBorrarAtencion.Click += BtnBorrarAtencion_Click;
+            btnCancelarAtencion.BackColor = Color.Red;
+            btnCancelarAtencion.ForeColor = SystemColors.ButtonHighlight;
+            btnCancelarAtencion.Location = new Point(651, 282);
+            btnCancelarAtencion.Margin = new Padding(2);
+            btnCancelarAtencion.Name = "btnCancelarAtencion";
+            btnCancelarAtencion.Size = new Size(134, 42);
+            btnCancelarAtencion.TabIndex = 5;
+            btnCancelarAtencion.Text = "Cancelar atencion";
+            btnCancelarAtencion.UseVisualStyleBackColor = false;
+            btnCancelarAtencion.Click += BtnBorrarAtencion_Click;
             // 
             // btnEditarAtencion
             // 
@@ -150,7 +150,7 @@
             ClientSize = new Size(803, 339);
             Controls.Add(BtnVolver);
             Controls.Add(btnEditarAtencion);
-            Controls.Add(btnBorrarAtencion);
+            Controls.Add(btnCancelarAtencion);
             Controls.Add(btnAgregarAtencion);
             Controls.Add(lupaPng);
             Controls.Add(txtBuscarAtencion);
@@ -176,7 +176,7 @@
         private PictureBox lupaPng;
         private BindingSource atencionBindingSource;
         private Button btnAgregarAtencion;
-        private Button btnBorrarAtencion;
+        private Button btnCancelarAtencion;
         private Button btnEditarAtencion;
         private Button BtnVolver;
     }

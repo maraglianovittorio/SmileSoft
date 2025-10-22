@@ -179,6 +179,16 @@ namespace SmileSoft.WebAPI
                 var eliminado = atencionService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
             }).WithName("DeleteAtencion");
+            app.MapPut("atenciones/{id}/cancelar",(int id)=>{
+               AtencionService atencionService = new AtencionService();
+                var actualizado = atencionService.CancelaAtencion(id);
+                return actualizado ? Results.NoContent() : Results.NotFound();
+            }).WithName("CancelarAtencion");
+            app.MapPut("atenciones/{id}/llegada",(int id)=>{
+               AtencionService atencionService = new AtencionService();
+                var actualizado = atencionService.ActualizaLlegada(id);
+                return actualizado ? Results.NoContent() : Results.NotFound();
+            }).WithName("CambiarEstadoAtencion");
         }
     }
 }

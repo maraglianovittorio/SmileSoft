@@ -38,14 +38,14 @@ namespace SmileSoft.UI.Desktop
                 if (control is Button btn)
                 {
                     btnAgregarAtencion.BackColor = Color.FromArgb(70, 130, 180); // SteelBlue
-                    btnBorrarAtencion.BackColor = Color.FromArgb(220, 20, 60); // Crimson
+                    btnCancelarAtencion.BackColor = Color.FromArgb(220, 20, 60); // Crimson
                     btnEditarAtencion.BackColor = Color.FromArgb(34, 139, 34); // ForestGreen
                     btn.ForeColor = Color.White;
                     btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                     btn.FlatStyle = FlatStyle.Flat;
                     btn.FlatAppearance.BorderSize = 0;
                     btnAgregarAtencion.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
-                    btnBorrarAtencion.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 99, 71); // Tomato
+                    btnCancelarAtencion.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 99, 71); // Tomato
                     btnEditarAtencion.FlatAppearance.MouseOverBackColor = Color.FromArgb(144, 238, 144); // LightGreen
                     btn.Cursor = Cursors.Hand;
                 }
@@ -131,7 +131,7 @@ namespace SmileSoft.UI.Desktop
 
         private async void FormHomeAtenciones_Load(object sender, EventArgs e)
         {
-            btnBorrarAtencion.Enabled = false;
+            btnCancelarAtencion.Enabled = false;
             btnEditarAtencion.Enabled = false;
 
 
@@ -172,12 +172,12 @@ namespace SmileSoft.UI.Desktop
             if (dgvFormAtencion.SelectedRows.Count > 0)
             {
                 btnEditarAtencion.Enabled = true;
-                btnBorrarAtencion.Enabled = true;
+                btnCancelarAtencion.Enabled = true;
             }
             else
             {
                 btnEditarAtencion.Enabled = false;
-                btnBorrarAtencion.Enabled = false;
+                btnCancelarAtencion.Enabled = false;
 
             }
         }
@@ -198,20 +198,15 @@ namespace SmileSoft.UI.Desktop
 
         private async void BtnBorrarAtencion_Click(object sender, EventArgs e)
         {
-            if (dgvFormAtencion.SelectedRows.Count > 0)
+            MessageBox.Show("¿Está seguro que desea cancelar la atención seleccionada?", "Confirmar cancelación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var atencion = dgvFormAtencion.SelectedRows[0].DataBoundItem as AtencionDetalleDTO;
+            if (atencion != null)
             {
-                var atencionSeleccionada = dgvFormAtencion.SelectedRows[0].DataBoundItem as Atencion;
-                if (atencionSeleccionada != null)
-                {
-                    var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar esta atención?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (confirmResult == DialogResult.Yes)
-                    {
-                        await AtencionApiClient.DeleteAsync(atencionSeleccionada.Id);
-                        MessageBox.Show("Atención eliminada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        await ObtenerDatos();
-                    }
-                }
+
+                await AtencionApiClient.CancelaAtencionAsync(atencion.Id);
+
             }
+            await ObtenerDatos();
         }
 
         private void BtnVolver_Click(object sender, EventArgs e)
