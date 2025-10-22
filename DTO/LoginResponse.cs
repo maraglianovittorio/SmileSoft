@@ -11,9 +11,7 @@ namespace DTO
         public string Username { get; set; } = string.Empty;
         public string Rol { get; set; } = string.Empty;
         public bool IsSuccess { get; set; } = false;
-        
-        // Propiedades para futuro uso con tokens JWT
-        // public string Token { get; set; } = string.Empty;
-        // public DateTime ExpiresAt { get; set; }
+        public string Token { get; set; } = string.Empty;
+        public DateTime ExpiresAt { get; set; }
     }
 }

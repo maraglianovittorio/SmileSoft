@@ -2,12 +2,20 @@
 @using DTO;
 @page "/"
 @inject NavigationManager Navigation
+@inject IAuthService AuthService
 
 @rendermode InteractiveServer
 
 <PageTitle>Inicio</PageTitle>
-
-<h1>Bienvenido (odontólogo que inició sesión)</h1>
+@if (isLoading)
+{
+    <p>Verificando autenticación...</p>
+}
+else if (isAuthenticated)
+{
+    <p>Usuario: @username</p>
+}
+<h1>Bienvenido @username</h1>
 
 <div class="date-navigation">
     <span>Turnos para el día:</span>
@@ -73,6 +81,8 @@ else
 }
 
 @code {
+    private bool isAuthenticated = false;
+    private string username = "";
     private IEnumerable<AtencionDetalleDTO>? atencionesFiltradas;
     private List<AtencionDetalleDTO> atencionesFiltradasOriginal = new();
     private DateTime fechaSeleccionada = DateTime.Today;
@@ -82,7 +92,24 @@ else
     {
         await LoadAtenciones(fechaSeleccionada);
     }
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            isAuthenticated = await AuthService.IsAuthenticatedAsync();
+            username = isAuthenticated ? await AuthService.GetUsernameAsync() ?? "" : "";
+            
+            if (!isAuthenticated)
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
 
+            isLoading = false;
+            StateHasChanged();
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
     private async Task LoadAtenciones(DateTime fecha)
     {
         isLoading = true;

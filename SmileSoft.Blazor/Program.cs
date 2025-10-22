@@ -1,4 +1,7 @@
 using SmileSoft.Blazor.Components;
+using Microsoft.AspNetCore.Components.Web;
+using SmileSoft.API.Clients;
+using SmileSoft.Services;
 
 namespace SmileSoft.Blazor
 {
@@ -12,7 +15,14 @@ namespace SmileSoft.Blazor
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            // Configurar autenticación
+            //builder.Services.AddScoped<IAuthService, AuthService>();
+            
             var app = builder.Build();
+
+            // Configurar AuthServiceProvider para ApiClients
+            //var authService = app.Services.GetRequiredService<IAuthService>();
+            //AuthServiceProvider.Register(authService);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
