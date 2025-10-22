@@ -1,5 +1,6 @@
 ﻿using DTO;
 using SmileSoft.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SmileSoft.WebAPI
 {
@@ -8,6 +9,49 @@ namespace SmileSoft.WebAPI
 
         public static void MapAtencionEndpoints(this WebApplication app)
         {
+            app.MapPut("/atenciones/{id}/observaciones", (int id, [FromBody] string observaciones) =>
+            {
+                try
+                {
+                    // Validate input
+                    if (id <= 0)
+                    {
+                        return Results.BadRequest(new { error = "El ID debe ser un número positivo." });
+                    }
+
+                    if (observaciones == null)
+                    {
+                        return Results.BadRequest(new { error = "Las observaciones no pueden ser nulas." });
+                    }
+
+                    AtencionService atencionService = new AtencionService();
+                    bool updated = atencionService.UpdateObservaciones(id, observaciones);
+                    
+                    if (!updated)
+                    {
+                        return Results.NotFound(new { error = $"No se encontró la atención con ID {id}." });
+                    }
+                    
+                    return Results.NoContent();
+                }
+                catch (ArgumentException ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem(
+                        detail: ex.Message,
+                        statusCode: StatusCodes.Status500InternalServerError,
+                        title: "Error al actualizar observaciones"
+                    );
+                }
+            }).WithName("UpdateAtencionObservaciones")
+              .Produces(StatusCodes.Status204NoContent)
+              .Produces(StatusCodes.Status400BadRequest)
+              .Produces(StatusCodes.Status404NotFound)
+              .Produces(StatusCodes.Status500InternalServerError);
+
             app.MapGet("/atenciones", () =>
             {
                 AtencionService atencionService = new AtencionService();
@@ -50,6 +94,7 @@ namespace SmileSoft.WebAPI
             })
                 .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
                 .WithName("GetAtencionesByTipoAtencion");
+            
             app.MapGet($"/atenciones/startdate=startDate/enddate=endDate", (DateTime startDate, DateTime endDate) =>
             {
                 AtencionService atencionService = new AtencionService();
@@ -67,12 +112,14 @@ namespace SmileSoft.WebAPI
             })
             .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
             .WithName("GetAtencionesByRangoAndOdo");
+            
             app.MapGet($"atenciones/id", (int id) =>
             {
                 AtencionService atencionService = new AtencionService();
                 AtencionDetalleDTO dto = atencionService.GetAtencion(id);
-                return dto is not null ? Results.Ok(new { Atencion = dto }) : Results.NotFound();
+                return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("GetAtencion");
+            
             app.MapPost("/atenciones", (AtencionDTO atencionDTO) =>
             {
                 try
@@ -104,6 +151,7 @@ namespace SmileSoft.WebAPI
                 }
 
             }).WithName("CreateAtencion");
+            
             app.MapPut("/atenciones/{id}", (int id, AtencionDTO atencion) =>
             {
                 try
@@ -124,6 +172,7 @@ namespace SmileSoft.WebAPI
                 }
             })
             .WithName("UpdateAtencion");
+            
             app.MapDelete("/atenciones/{id}", (int id) =>
             {
                 AtencionService atencionService = new AtencionService();

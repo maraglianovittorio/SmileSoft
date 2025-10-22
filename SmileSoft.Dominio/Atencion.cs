@@ -42,7 +42,8 @@ namespace SmileSoft.Dominio
         }
         public void SetObservaciones(string observaciones)
         {
-            Observaciones = observaciones;
+            // hago append para no perder las observaciones anteriores 
+            Observaciones += observaciones ?? string.Empty;
         }
         public void SetOdontologoId(int odontologoId)
         {

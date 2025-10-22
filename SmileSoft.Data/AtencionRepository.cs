@@ -131,6 +131,19 @@ namespace SmileSoft.Data
             return false;
         }
 
+        public bool UpdateObservaciones(int id, string observaciones)
+        {
+            using var context = CreateContext();
+            var existingAtencion = context.Atenciones.Find(id);
+            if (existingAtencion != null)
+            {
+                existingAtencion.SetObservaciones(observaciones);
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
 
         //public IEnumerable<Paciente> GetByCriteria(PacienteCriteria criteria)
         //{

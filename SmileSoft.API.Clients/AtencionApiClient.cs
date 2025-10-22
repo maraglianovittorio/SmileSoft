@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace SmileSoft.API.Clients
 {
@@ -46,7 +47,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de atenciones: {ex.Message}", ex);
             }
         }
-        public static async Task<Atencion> GetOneAsync(int id)
+        public static async Task<AtencionDetalleDTO> GetOneAsync(int id)
         {
             try
             {
@@ -54,8 +55,7 @@ namespace SmileSoft.API.Clients
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<Atencion>();
-
+                    return await response.Content.ReadAsAsync<AtencionDetalleDTO>();
 
                 }
                 else
@@ -194,7 +194,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones entre {fechaInicio} y {fechaFin}: {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<AtencionDetalleDTO>> GetByFechaRangeAndOdoAsync(DateTime fechaInicio, DateTime fechaFin,int id)
+        public static async Task<ICollection<AtencionDetalleDTO>> GetByFechaRangeAndOdoAsync(DateTime fechaInicio, DateTime fechaFin, int id)
         {
             try
             {
@@ -285,6 +285,40 @@ namespace SmileSoft.API.Clients
             catch (TaskCanceledException ex)
             {
                 throw new Exception($"Timeout al actualizar atencion con Id {id}: {ex.Message}", ex);
+            }
+        }
+
+        public static async Task UpdateObservacionesAsync(int id, string observaciones)
+        {
+            try
+            {
+                // Validate input parameters
+                if (id <= 0)
+                {
+                    throw new ArgumentException("El ID debe ser un número positivo.", nameof(id));
+                }
+
+                if (observaciones == null)
+                {
+                    throw new ArgumentNullException(nameof(observaciones), "Las observaciones no pueden ser nulas.");
+                }
+
+                var content = new StringContent($"\"{observaciones}\"", Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync($"atenciones/{id}/observaciones", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al actualizar observaciones de atencion con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al actualizar observaciones de atencion con Id {id}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al actualizar observaciones de atencion con Id {id}: {ex.Message}", ex);
             }
         }
     }

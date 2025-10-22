@@ -236,6 +236,29 @@ namespace SmileSoft.Services
             Atencion atencion = new Atencion(dto.FechaHoraAtencion, dto.Estado, dto.Observaciones, dto.OdontologoId, dto.PacienteId, dto.TipoAtencionId);
             return atencionRepository.Update(atencion);
         }
+        public bool UpdateObservaciones(int id, string observaciones)
+        {
+            // Validate observaciones
+            if (observaciones == null)
+            {
+                throw new ArgumentNullException(nameof(observaciones), "Las observaciones no pueden ser nulas.");
+            }
+
+            const int MaxLength = 5000; // ajustar
+            if (observaciones.Length > MaxLength)
+            {
+                throw new ArgumentException($"Las observaciones no pueden exceder {MaxLength} caracteres.", nameof(observaciones));
+            }
+
+            var atencionRepository = new AtencionRepository();
+            // Validar que la atención exista
+            var atencion = atencionRepository.Get(id);
+            if (atencion == null)
+            {
+                throw new ArgumentException($"No se encontró la atención con el ID '{id}'.");
+            }
+            return atencionRepository.UpdateObservaciones(id, observaciones);
+        }
     }
 }
 
