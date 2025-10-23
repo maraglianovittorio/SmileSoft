@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API.Auth.Blazor.Server\API.Auth.Blazor.Server.csproj" />
     <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\SmileSoft.API.Clients\SmileSoft.API.Clients.csproj" />
     <ProjectReference Include="..\SmileSoft.Dominio\SmileSoft.Dominio.csproj" />
