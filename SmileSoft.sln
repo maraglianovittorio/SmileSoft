@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.Services", "Smile
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.Blazor", "SmileSoft.Blazor\SmileSoft.Blazor.csproj", "{2DE465E1-B5CD-4C58-BF69-BA878677CE04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.API.Auth.WindowsForms", "SmileSoft.API.Auth.WindowsForms\SmileSoft.API.Auth.WindowsForms.csproj", "{902142C7-4D90-4828-9C5A-E010D03D5059}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{2DE465E1-B5CD-4C58-BF69-BA878677CE04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DE465E1-B5CD-4C58-BF69-BA878677CE04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DE465E1-B5CD-4C58-BF69-BA878677CE04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{902142C7-4D90-4828-9C5A-E010D03D5059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{902142C7-4D90-4828-9C5A-E010D03D5059}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{902142C7-4D90-4828-9C5A-E010D03D5059}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{902142C7-4D90-4828-9C5A-E010D03D5059}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

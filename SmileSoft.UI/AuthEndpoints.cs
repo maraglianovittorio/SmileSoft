@@ -31,8 +31,8 @@ namespace SmileSoft.WebAPI
             .WithName("Login")
             .Produces<LoginResponse>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized)
-            .Produces(StatusCodes.Status500InternalServerError);
-            //.AllowAnonymous(); // Este endpoint NO requiere autenticación
+            .Produces(StatusCodes.Status500InternalServerError)
+            .AllowAnonymous(); // Este endpoint NO requiere autenticación
         }
     }
 }

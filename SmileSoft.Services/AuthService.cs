@@ -2,11 +2,7 @@
 using SmileSoft.Dominio;
 using Microsoft.Extensions.Configuration;
 using SmileSoft.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,7 +10,7 @@ using SmileSoft.API.Clients;
 
 namespace SmileSoft.Services
 {
-    public class AuthService// : IAuthService
+    public class AuthService
     {
         private readonly UsuarioRepository usuarioRepository;
         private readonly IConfiguration configuration;
@@ -61,7 +57,6 @@ namespace SmileSoft.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
                 new Claim(ClaimTypes.Name, usuario.Username),
-                //new Claim(ClaimTypes.Email, usuario.Email),
                 new Claim("jti", Guid.NewGuid().ToString())
             };
 

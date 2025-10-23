@@ -15,6 +15,7 @@ namespace SmileSoft.WindowsForms
 {
     public partial class FormLogin : Form
     {
+        public string Username { get; private set; } 
         public FormLogin()
         {
             InitializeComponent();
@@ -109,26 +110,44 @@ namespace SmileSoft.WindowsForms
 
             try
             {
-                var loginResponse = await AuthApiClient.LoginAsync(txtUsuario.Text, txtPassword.Text);
-
-                if (loginResponse != null && loginResponse.IsSuccess)
+                var authService = AuthServiceProvider.Instance;
+                bool success = await authService.LoginAsync(txtUsuario.Text, txtPassword.Text);
+                if(success)
                 {
-                    MessageBox.Show($"Bienvenido {loginResponse.Username}", "Login Exitoso",
+                    this.Username = txtUsuario.Text;
+                    var usuario = await UsuarioApiClient.GetByUsernameAsync(txtUsuario.Text);
+                    MessageBox.Show($"Bienvenido {txtUsuario.Text}", "Login Exitoso",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MostrarFormularioSegunRol(usuario.Rol, usuario.Username);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
 
-                    this.DialogResult = DialogResult.OK;
-                    MostrarFormularioSegunRol(loginResponse.Rol, loginResponse.Username);
-                    this.Hide();
                 }
-                else if (txtUsuario.Text=="Admin" && txtPassword.Text=="admin")
-                {
-                    // Credenciales de demo
-                    MessageBox.Show("Bienvenido Admin (Demo)", "Login Exitoso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                    MostrarFormularioSegunRol("ADMIN", "Admin (Demo)");
-                    this.Hide();
-                }
+                //LoginRequest request = new LoginRequest
+                //{
+                //    Username = txtUsuario.Text,
+                //    Password = txtPassword.Text
+                //};
+                //var loginResponse = await AuthApiClient.LoginAsync(request);
+
+                    //if (loginResponse != null && loginResponse.IsSuccess)
+                    //{
+                    //    MessageBox.Show($"Bienvenido {loginResponse.Username}", "Login Exitoso",
+                    //        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    //    this.DialogResult = DialogResult.OK;
+                    //    MostrarFormularioSegunRol(loginResponse.Rol, loginResponse.Username);
+                    //    this.Hide();
+                    //}
+                    //else if (txtUsuario.Text=="Admin" && txtPassword.Text=="admin")
+                    //{
+                    //    // Credenciales de demo
+                    //    MessageBox.Show("Bienvenido Admin (Demo)", "Login Exitoso",
+                    //        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //    this.DialogResult = DialogResult.OK;
+                    //    MostrarFormularioSegunRol("ADMIN", "Admin (Demo)");
+                    //    this.Hide();
+                    //}
                 else
                 {
                     // Credenciales inválidas
@@ -154,7 +173,7 @@ namespace SmileSoft.WindowsForms
             }
         }
 
-        private void MostrarFormularioSegunRol(string rol, string username)
+        public static void MostrarFormularioSegunRol(string rol, string username)
         {
             switch (rol.ToUpper())
             {
