@@ -109,7 +109,7 @@ namespace SmileSoft.WindowsForms
 
             try
             {
-                var loginResponse = await AuthApiClient.Login(txtUsuario.Text, txtPassword.Text);
+                var loginResponse = await AuthApiClient.LoginAsync(txtUsuario.Text, txtPassword.Text);
 
                 if (loginResponse != null && loginResponse.IsSuccess)
                 {
@@ -165,10 +165,11 @@ namespace SmileSoft.WindowsForms
                     break;
 
                 case "ODONTOLOGO":
-                    // Por el momento, odontologo tiene las mismas funciones que secretario
-                    FormHomeOdontologo formHomeOdontologo = new FormHomeOdontologo();
-                    formHomeOdontologo.Text = $"SmileSoft - Odontólogo ({username})";
-                    formHomeOdontologo.ShowDialog();
+                    //FormHomeOdontologo formHomeOdontologo = new FormHomeOdontologo();
+                    //formHomeOdontologo.Text = $"SmileSoft - Odontólogo ({username})";
+                    //formHomeOdontologo.ShowDialog();
+                    MessageBox.Show("Funcionalidad de odontologo en Blazor por ahora.",
+                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
 
                 case "SECRETARIO":

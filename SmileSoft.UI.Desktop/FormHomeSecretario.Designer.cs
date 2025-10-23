@@ -32,6 +32,7 @@
             BtnCerrarSesion = new Button();
             menuStrip1 = new MenuStrip();
             atencionesToolStripMenuItem = new ToolStripMenuItem();
+            agregarAtencionToolStripMenuItem = new ToolStripMenuItem();
             pacientesToolStripMenuItem = new ToolStripMenuItem();
             tutoresToolStripMenuItem = new ToolStripMenuItem();
             OSToolStripMenuItem = new ToolStripMenuItem();
@@ -48,6 +49,9 @@
             tipoAtencionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             atencionBindingSource = new BindingSource(components);
             lblAtencionesDelDia = new Label();
+            btnCancelarAtencion = new Button();
+            btnRegistrarLlegada = new Button();
+            verAtencionesToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAtencionesDelDia).BeginInit();
             ((System.ComponentModel.ISupportInitialize)atencionBindingSource).BeginInit();
@@ -56,7 +60,7 @@
             // BtnCerrarSesion
             // 
             BtnCerrarSesion.BackColor = SystemColors.ActiveCaption;
-            BtnCerrarSesion.Location = new Point(543, 329);
+            BtnCerrarSesion.Location = new Point(12, 329);
             BtnCerrarSesion.Name = "BtnCerrarSesion";
             BtnCerrarSesion.Size = new Size(133, 41);
             BtnCerrarSesion.TabIndex = 9;
@@ -75,10 +79,18 @@
             // 
             // atencionesToolStripMenuItem
             // 
+            atencionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { agregarAtencionToolStripMenuItem, verAtencionesToolStripMenuItem });
             atencionesToolStripMenuItem.Name = "atencionesToolStripMenuItem";
             atencionesToolStripMenuItem.Size = new Size(78, 20);
             atencionesToolStripMenuItem.Text = "Atenciones";
             atencionesToolStripMenuItem.Click += atencionesToolStripMenuItem_Click;
+            // 
+            // agregarAtencionToolStripMenuItem
+            // 
+            agregarAtencionToolStripMenuItem.Name = "agregarAtencionToolStripMenuItem";
+            agregarAtencionToolStripMenuItem.Size = new Size(167, 22);
+            agregarAtencionToolStripMenuItem.Text = "Agregar Atencion";
+            agregarAtencionToolStripMenuItem.Click += agregarAtencionToolStripMenuItem_Click;
             // 
             // pacientesToolStripMenuItem
             // 
@@ -110,7 +122,7 @@
             dgvAtencionesDelDia.DataSource = atencionBindingSource;
             dgvAtencionesDelDia.Location = new Point(12, 51);
             dgvAtencionesDelDia.Name = "dgvAtencionesDelDia";
-            dgvAtencionesDelDia.Size = new Size(653, 228);
+            dgvAtencionesDelDia.Size = new Size(683, 266);
             dgvAtencionesDelDia.TabIndex = 11;
             // 
             // idDataGridViewTextBoxColumn
@@ -197,11 +209,44 @@
             lblAtencionesDelDia.TabIndex = 12;
             lblAtencionesDelDia.Text = "Atenciones del dia";
             // 
+            // btnCancelarAtencion
+            // 
+            btnCancelarAtencion.BackColor = Color.Red;
+            btnCancelarAtencion.ForeColor = SystemColors.ButtonHighlight;
+            btnCancelarAtencion.Location = new Point(553, 322);
+            btnCancelarAtencion.Margin = new Padding(2);
+            btnCancelarAtencion.Name = "btnCancelarAtencion";
+            btnCancelarAtencion.Size = new Size(143, 54);
+            btnCancelarAtencion.TabIndex = 13;
+            btnCancelarAtencion.Text = "Cancelar atencion";
+            btnCancelarAtencion.UseVisualStyleBackColor = false;
+            // 
+            // btnRegistrarLlegada
+            // 
+            btnRegistrarLlegada.BackColor = Color.YellowGreen;
+            btnRegistrarLlegada.ForeColor = SystemColors.ButtonHighlight;
+            btnRegistrarLlegada.Location = new Point(401, 323);
+            btnRegistrarLlegada.Margin = new Padding(2);
+            btnRegistrarLlegada.Name = "btnRegistrarLlegada";
+            btnRegistrarLlegada.Size = new Size(134, 48);
+            btnRegistrarLlegada.TabIndex = 14;
+            btnRegistrarLlegada.Text = "Editar atencion";
+            btnRegistrarLlegada.UseVisualStyleBackColor = false;
+            // 
+            // verAtencionesToolStripMenuItem
+            // 
+            verAtencionesToolStripMenuItem.Name = "verAtencionesToolStripMenuItem";
+            verAtencionesToolStripMenuItem.Size = new Size(180, 22);
+            verAtencionesToolStripMenuItem.Text = "Ver Atenciones";
+            verAtencionesToolStripMenuItem.Click += verAtencionesToolStripMenuItem_Click;
+            // 
             // FormHomeSecretario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(707, 382);
+            Controls.Add(btnRegistrarLlegada);
+            Controls.Add(btnCancelarAtencion);
             Controls.Add(lblAtencionesDelDia);
             Controls.Add(dgvAtencionesDelDia);
             Controls.Add(BtnCerrarSesion);
@@ -239,5 +284,9 @@
         private DataGridViewTextBoxColumn tipoAtencionDataGridViewTextBoxColumn;
         private BindingSource atencionBindingSource;
         private Label lblAtencionesDelDia;
+        private ToolStripMenuItem agregarAtencionToolStripMenuItem;
+        private Button btnCancelarAtencion;
+        private Button btnRegistrarLlegada;
+        private ToolStripMenuItem verAtencionesToolStripMenuItem;
     }
 }

@@ -61,6 +61,7 @@ namespace SmileSoft.Data
                 .Where(a => a.PacienteId == pacienteId)
                 .ToList();
         }
+
         public IEnumerable<Atencion> GetAllByOdontologo(int odontologoId)
         {
             using var context = CreateContext();

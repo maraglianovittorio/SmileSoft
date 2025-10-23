@@ -57,8 +57,8 @@ namespace SmileSoft.UI.Desktop
 
         private void atencionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormHomeAtencion formHomeAtencion = new FormHomeAtencion();
-            formHomeAtencion.ShowDialog();
+            //FormHomeAtencion formHomeAtencion = new FormHomeAtencion();
+            //formHomeAtencion.ShowDialog();
         }
 
         private void pacientesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,6 +84,18 @@ namespace SmileSoft.UI.Desktop
         {
             var turnosDelDia = await AtencionApiClient.GetByFechaRangeAsync(DateTime.Today, DateTime.Today.AddHours(23));
             dgvAtencionesDelDia.DataSource = turnosDelDia;
+        }
+
+        private void agregarAtencionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAtencion formAtencion = new FormAtencion();
+            formAtencion.ShowDialog();
+        }
+
+        private void verAtencionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormHomeAtencion formHomeAtencion = new FormHomeAtencion();
+            formHomeAtencion.ShowDialog();
         }
     }
 }

@@ -47,13 +47,29 @@ namespace DTO
         public string TipoAtencionDescripcion { get; set; } = string.Empty;
         public TimeSpan TipoAtencionDuracion { get; set; }
     }
+}
+public class AtencionSecretarioDTO()
+{
+    public int Id { get; set; }
+    public DateTime FechaHoraAtencion { get; set; }
+    public string Estado { get; set; } = string.Empty;
+    public int OdontologoId { get; set; }
+    public int PacienteId { get; set; }
+    public int TipoAtencionId { get; set; }
+    public string PacienteNombre { get; set; } = string.Empty;
+    public string PacienteApellido { get; set; } = string.Empty;
+    public string PacienteDni { get; set; } = string.Empty;
+    public string OdontologoNombre { get; set; } = string.Empty;
+    public string OdontologoApellido { get; set; } = string.Empty;
+    public string TipoAtencionDescripcion { get; set; } = string.Empty;
+    public TimeSpan TipoAtencionDuracion { get; set; }
 
-    public class HistoriaClinicaDTO 
-    {
-        public int PacienteId { get; set; }
-        public string PacienteNombre { get; set; } = string.Empty;
-        public string PacienteApellido { get; set; } = string.Empty;
-        public string PacienteDni { get; set; } = string.Empty;
-        public List<string> Observaciones { get; set; } = new List<string>();
-    }
+}
+public class HistoriaClinicaDTO
+{
+    public int PacienteId { get; set; }
+    public string PacienteNombre { get; set; } = string.Empty;
+    public string PacienteApellido { get; set; } = string.Empty;
+    public string PacienteDni { get; set; } = string.Empty;
+    public List<string> Observaciones { get; set; } = new List<string>();
 }

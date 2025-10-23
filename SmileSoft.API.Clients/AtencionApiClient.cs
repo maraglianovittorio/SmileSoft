@@ -72,6 +72,30 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de atenciones: {ex.Message}", ex);
             }
         }
+        public static async Task<IEnumerable<AtencionSecretarioDTO>> GetAllForSecretarioAsync()
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync("atenciones/secretario");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<IEnumerable<AtencionSecretarioDTO>>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener lista de atenciones para secretario. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener lista de atenciones para secretario: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener lista de atenciones para secretario: {ex.Message}", ex);
+            }
+        }
         public static async Task<AtencionDetalleDTO> GetOneAsync(int id)
         {
             try

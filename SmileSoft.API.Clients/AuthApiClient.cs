@@ -20,7 +20,7 @@ namespace SmileSoft.API.Clients
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
         
-        public async static Task<LoginResponse?> Login(string username, string password)
+        public async static Task<LoginResponse?> LoginAsync(string username, string password)
         {
             try
             {

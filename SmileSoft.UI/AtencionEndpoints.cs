@@ -67,6 +67,14 @@ namespace SmileSoft.WebAPI
             }).WithName("GetAtenciones")
             .Produces<List<AtencionDetalleDTO>>(StatusCodes.Status200OK);
 
+            app.MapGet("/atenciones/secretario", () =>
+            {
+                AtencionService atencionService = new AtencionService();
+                var dtos = atencionService.GetAllAtencionesSecretario();
+                return Results.Ok(dtos);
+            }).WithName("GetAtencionesSecretario")
+            .Produces<List<AtencionSecretarioDTO>>(StatusCodes.Status200OK);
+
             app.MapGet($"/atenciones/estado", (string estado) =>
             {
             AtencionService atencionService = new AtencionService();

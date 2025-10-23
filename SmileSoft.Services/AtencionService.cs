@@ -249,7 +249,24 @@ namespace SmileSoft.Services
                 TipoAtencionDuracion = a.TipoAtencion?.Duracion ?? TimeSpan.Zero
             });
         }
-        
+        public IEnumerable<AtencionSecretarioDTO> GetAllAtencionesSecretario()
+        {
+            var atencionRepository = new AtencionRepository();
+            var atenciones = atencionRepository.GetAll();
+            return atenciones.Select(a => new AtencionSecretarioDTO
+            {
+                Id = a.Id,
+                OdontologoId = a.OdontologoId,
+                PacienteId = a.PacienteId,
+                TipoAtencionId = a.TipoAtencionId,
+                FechaHoraAtencion = a.FechaHoraAtencion,
+                Estado = a.Estado,
+                PacienteNombre = a.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = a.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = a.Paciente?.NroDni ?? string.Empty
+            });
+        }
+
         public bool Update(int id, AtencionDTO dto)
         {
             var atencionRepository = new AtencionRepository();
