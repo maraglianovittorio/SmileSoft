@@ -33,6 +33,7 @@
             menuStrip1 = new MenuStrip();
             atencionesToolStripMenuItem = new ToolStripMenuItem();
             agregarAtencionToolStripMenuItem = new ToolStripMenuItem();
+            verAtencionesToolStripMenuItem = new ToolStripMenuItem();
             pacientesToolStripMenuItem = new ToolStripMenuItem();
             tutoresToolStripMenuItem = new ToolStripMenuItem();
             OSToolStripMenuItem = new ToolStripMenuItem();
@@ -50,8 +51,7 @@
             atencionBindingSource = new BindingSource(components);
             lblAtencionesDelDia = new Label();
             btnCancelarAtencion = new Button();
-            btnRegistrarLlegada = new Button();
-            verAtencionesToolStripMenuItem = new ToolStripMenuItem();
+            btnEditarAtencion = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAtencionesDelDia).BeginInit();
             ((System.ComponentModel.ISupportInitialize)atencionBindingSource).BeginInit();
@@ -91,6 +91,13 @@
             agregarAtencionToolStripMenuItem.Size = new Size(167, 22);
             agregarAtencionToolStripMenuItem.Text = "Agregar Atencion";
             agregarAtencionToolStripMenuItem.Click += agregarAtencionToolStripMenuItem_Click;
+            // 
+            // verAtencionesToolStripMenuItem
+            // 
+            verAtencionesToolStripMenuItem.Name = "verAtencionesToolStripMenuItem";
+            verAtencionesToolStripMenuItem.Size = new Size(167, 22);
+            verAtencionesToolStripMenuItem.Text = "Ver Atenciones";
+            verAtencionesToolStripMenuItem.Click += verAtencionesToolStripMenuItem_Click;
             // 
             // pacientesToolStripMenuItem
             // 
@@ -221,31 +228,25 @@
             btnCancelarAtencion.Text = "Cancelar atencion";
             btnCancelarAtencion.UseVisualStyleBackColor = false;
             // 
-            // btnRegistrarLlegada
+            // btnEditarAtencion
             // 
-            btnRegistrarLlegada.BackColor = Color.YellowGreen;
-            btnRegistrarLlegada.ForeColor = SystemColors.ButtonHighlight;
-            btnRegistrarLlegada.Location = new Point(401, 323);
-            btnRegistrarLlegada.Margin = new Padding(2);
-            btnRegistrarLlegada.Name = "btnRegistrarLlegada";
-            btnRegistrarLlegada.Size = new Size(134, 48);
-            btnRegistrarLlegada.TabIndex = 14;
-            btnRegistrarLlegada.Text = "Editar atencion";
-            btnRegistrarLlegada.UseVisualStyleBackColor = false;
-            // 
-            // verAtencionesToolStripMenuItem
-            // 
-            verAtencionesToolStripMenuItem.Name = "verAtencionesToolStripMenuItem";
-            verAtencionesToolStripMenuItem.Size = new Size(180, 22);
-            verAtencionesToolStripMenuItem.Text = "Ver Atenciones";
-            verAtencionesToolStripMenuItem.Click += verAtencionesToolStripMenuItem_Click;
+            btnEditarAtencion.BackColor = Color.YellowGreen;
+            btnEditarAtencion.ForeColor = SystemColors.ButtonHighlight;
+            btnEditarAtencion.Location = new Point(401, 323);
+            btnEditarAtencion.Margin = new Padding(2);
+            btnEditarAtencion.Name = "btnEditarAtencion";
+            btnEditarAtencion.Size = new Size(134, 48);
+            btnEditarAtencion.TabIndex = 14;
+            btnEditarAtencion.Text = "Editar atencion";
+            btnEditarAtencion.UseVisualStyleBackColor = false;
+            btnEditarAtencion.Click += btnEditarAtencion_Click;
             // 
             // FormHomeSecretario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(707, 382);
-            Controls.Add(btnRegistrarLlegada);
+            Controls.Add(btnEditarAtencion);
             Controls.Add(btnCancelarAtencion);
             Controls.Add(lblAtencionesDelDia);
             Controls.Add(dgvAtencionesDelDia);
@@ -286,7 +287,7 @@
         private Label lblAtencionesDelDia;
         private ToolStripMenuItem agregarAtencionToolStripMenuItem;
         private Button btnCancelarAtencion;
-        private Button btnRegistrarLlegada;
+        private Button btnEditarAtencion;
         private ToolStripMenuItem verAtencionesToolStripMenuItem;
     }
 }

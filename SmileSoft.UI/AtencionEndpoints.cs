@@ -16,6 +16,13 @@ namespace SmileSoft.WebAPI
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("GetHistoriaClinica");
 
+            app.MapGet("/atenciones/secretario/{id}", (int id) =>
+            {
+                AtencionService atencionService = new AtencionService();
+                var dto = atencionService.GetOneForSecretario(id);
+                return dto is not null ? Results.Ok(dto) : Results.NotFound();
+            }).WithName("GetAtencionForSecretario");
+
             app.MapPut("/atenciones/{id}/observaciones", (int id, [FromBody] string observaciones) =>
             {
                 try

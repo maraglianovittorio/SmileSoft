@@ -186,10 +186,10 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormAtencion.SelectedRows.Count > 0)
             {
-                var atencionSeleccionada = dgvFormAtencion.SelectedRows[0].DataBoundItem as Atencion;
+                var atencionSeleccionada = dgvFormAtencion.SelectedRows[0].DataBoundItem as AtencionDetalleDTO;
                 if (atencionSeleccionada != null)
                 {
-                    FormAtencion formAtencion = new FormAtencion();
+                    FormAtencion formAtencion = new FormAtencion(atencionSeleccionada.Id);
                     formAtencion.ShowDialog();
                     await ObtenerDatos();
                 }

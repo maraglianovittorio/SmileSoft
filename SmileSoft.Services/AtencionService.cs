@@ -37,6 +37,27 @@ namespace SmileSoft.Services
             };
             return historiaClinicaDTO;
         }
+        public AtencionSecretarioDTO? GetOneForSecretario(int id)
+        {
+            var atencionRepository = new AtencionRepository();
+            Atencion? atencion = atencionRepository.Get(id);
+            if (atencion == null)
+            {
+                throw new Exception("No se encontró la atención.");
+            }
+            return new AtencionSecretarioDTO
+            {
+                Id = atencion.Id,
+                OdontologoId = atencion.OdontologoId,
+                PacienteId = atencion.PacienteId,
+                TipoAtencionId = atencion.TipoAtencionId,
+                FechaHoraAtencion = atencion.FechaHoraAtencion,
+                Estado = atencion.Estado,
+                PacienteNombre = atencion.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = atencion.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = atencion.Paciente?.NroDni ?? string.Empty
+            };
+        }
         public AtencionDTO Add(AtencionDTO dto)
         {
             var atencionRepository = new AtencionRepository();

@@ -1,4 +1,6 @@
-﻿using SmileSoft.API.Clients;
+﻿using DTO;
+using SmileSoft.API.Clients;
+using SmileSoft.Dominio;
 using SmileSoft.WindowsForms;
 using System;
 using System.Collections.Generic;
@@ -82,20 +84,75 @@ namespace SmileSoft.UI.Desktop
 
         private async void FormHomeSecretario_Load(object sender, EventArgs e)
         {
-            var turnosDelDia = await AtencionApiClient.GetByFechaRangeAsync(DateTime.Today, DateTime.Today.AddHours(23));
-            dgvAtencionesDelDia.DataSource = turnosDelDia;
+            await ObtenerDatos();
+
+        }
+        private async Task ObtenerDatos()
+        {
+            try
+            {
+                var turnosDelDia = await AtencionApiClient.GetByFechaRangeAsync(DateTime.Today, DateTime.Today.AddHours(23));
+                if (turnosDelDia!= null && turnosDelDia.Count() > 0)
+                {
+                    dgvAtencionesDelDia.DataSource = turnosDelDia;
+                    //pacientes = (List<PacienteDTO>)turnosDelDia;
+                    //dgvFormPaciente.Columns["Id"].Visible = false;
+                    ////dgvFormPaciente.Columns["Atenciones"].Visible = false;
+                    ////dgvFormPaciente.Columns["TipoPlan"].Visible = false;
+                    //dgvFormPaciente.Columns["TutorId"].Visible = false;
+                    ////dgvFormPaciente.Columns["Tutor"].Visible = false;
+
+                    //// Ordenar las columnas visibles
+                    //dgvFormPaciente.Columns["NroHC"].DisplayIndex = 0;
+                    //dgvFormPaciente.Columns["Apellido"].DisplayIndex = 1;
+                    //dgvFormPaciente.Columns["Nombre"].DisplayIndex = 2;
+                    //dgvFormPaciente.Columns["NroDni"].DisplayIndex = 3;
+                    //dgvFormPaciente.Columns["Telefono"].DisplayIndex = 4;
+                    //dgvFormPaciente.Columns["Email"].DisplayIndex = 5;
+                    //dgvFormPaciente.Columns["Direccion"].DisplayIndex = 6;
+                    //dgvFormPaciente.Columns["FechaNacimiento"].DisplayIndex = 7;
+                    //dgvFormPaciente.Columns["NroAfiliado"].DisplayIndex = 8;
+                    //dgvFormPaciente.Columns["TipoPlanId"].DisplayIndex = 9;
+                }
+                else
+                {
+                    dgvAtencionesDelDia.DataSource = null;
+                    //pacientes.Clear();
+                    MessageBox.Show("No se encontraron atenciones para el dia de hoy.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los pacientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
 
-        private void agregarAtencionToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void agregarAtencionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormAtencion formAtencion = new FormAtencion();
             formAtencion.ShowDialog();
+            await ObtenerDatos();
         }
 
         private void verAtencionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormHomeAtencion formHomeAtencion = new FormHomeAtencion();
             formHomeAtencion.ShowDialog();
+        }
+
+        private async void btnEditarAtencion_Click(object sender, EventArgs e)
+        {
+            if (dgvAtencionesDelDia.SelectedRows.Count > 0)
+            {
+                var atencionSeleccionada = dgvAtencionesDelDia.SelectedRows[0].DataBoundItem as AtencionDetalleDTO;
+                if (atencionSeleccionada != null)
+                {
+                    FormAtencion formAtencion = new FormAtencion(atencionSeleccionada.Id);
+                    formAtencion.ShowDialog();
+                    await ObtenerDatos();
+                }
+            }
         }
     }
 }

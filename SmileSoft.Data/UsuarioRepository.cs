@@ -47,7 +47,8 @@ namespace SmileSoft.Data
         {
             using var context = CreateContext();
             return context.Usuarios
-                .FirstOrDefault(u => u.Username == username);
+                .AsEnumerable()
+                .FirstOrDefault(u => string.Equals(u.Username,username,StringComparison.Ordinal));
         }
 
         public IEnumerable<Usuario> GetAll()

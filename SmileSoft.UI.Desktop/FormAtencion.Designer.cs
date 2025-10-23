@@ -38,7 +38,7 @@
             cmbTipoAtencion = new ComboBox();
             label4 = new Label();
             cmbOdontologo = new ComboBox();
-            dgvTurnosDisponibles = new DataGridView();
+            dgvTurnosOcupados = new DataGridView();
             lblTurnosOcupados = new Label();
             label6 = new Label();
             dtpDiaAtencion = new DateTimePicker();
@@ -50,7 +50,8 @@
             lblHorario = new Label();
             lblTurnos = new Label();
             lblAviso = new Label();
-            ((System.ComponentModel.ISupportInitialize)dgvTurnosDisponibles).BeginInit();
+            btnCancelarAtencion = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvTurnosOcupados).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -142,19 +143,19 @@
             cmbOdontologo.TabIndex = 10;
             cmbOdontologo.SelectedValueChanged += cmb_SelectedValueChanged;
             // 
-            // dgvTurnosDisponibles
+            // dgvTurnosOcupados
             // 
-            dgvTurnosDisponibles.AllowUserToAddRows = false;
-            dgvTurnosDisponibles.AllowUserToDeleteRows = false;
-            dgvTurnosDisponibles.BackgroundColor = Color.PapayaWhip;
-            dgvTurnosDisponibles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTurnosDisponibles.GridColor = Color.PapayaWhip;
-            dgvTurnosDisponibles.Location = new Point(24, 270);
-            dgvTurnosDisponibles.Name = "dgvTurnosDisponibles";
-            dgvTurnosDisponibles.ReadOnly = true;
-            dgvTurnosDisponibles.RowHeadersWidth = 62;
-            dgvTurnosDisponibles.Size = new Size(843, 146);
-            dgvTurnosDisponibles.TabIndex = 15;
+            dgvTurnosOcupados.AllowUserToAddRows = false;
+            dgvTurnosOcupados.AllowUserToDeleteRows = false;
+            dgvTurnosOcupados.BackgroundColor = Color.PapayaWhip;
+            dgvTurnosOcupados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTurnosOcupados.GridColor = Color.PapayaWhip;
+            dgvTurnosOcupados.Location = new Point(24, 270);
+            dgvTurnosOcupados.Name = "dgvTurnosOcupados";
+            dgvTurnosOcupados.ReadOnly = true;
+            dgvTurnosOcupados.RowHeadersWidth = 62;
+            dgvTurnosOcupados.Size = new Size(843, 146);
+            dgvTurnosOcupados.TabIndex = 15;
             // 
             // lblTurnosOcupados
             // 
@@ -213,7 +214,7 @@
             // 
             // btnAgregarAtencion
             // 
-            btnAgregarAtencion.Location = new Point(694, 508);
+            btnAgregarAtencion.Location = new Point(536, 510);
             btnAgregarAtencion.Name = "btnAgregarAtencion";
             btnAgregarAtencion.Size = new Size(92, 37);
             btnAgregarAtencion.TabIndex = 16;
@@ -263,11 +264,21 @@
             lblAviso.TabIndex = 20;
             lblAviso.Text = "Faltan completar campos";
             // 
+            // btnCancelarAtencion
+            // 
+            btnCancelarAtencion.Location = new Point(683, 510);
+            btnCancelarAtencion.Name = "btnCancelarAtencion";
+            btnCancelarAtencion.Size = new Size(96, 34);
+            btnCancelarAtencion.TabIndex = 21;
+            btnCancelarAtencion.Text = "Cancelar";
+            btnCancelarAtencion.UseVisualStyleBackColor = true;
+            // 
             // FormAtencion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(891, 557);
+            Controls.Add(btnCancelarAtencion);
             Controls.Add(lblAviso);
             Controls.Add(lblTurnos);
             Controls.Add(lblHorario);
@@ -279,7 +290,7 @@
             Controls.Add(dtpDiaAtencion);
             Controls.Add(label6);
             Controls.Add(lblTurnosOcupados);
-            Controls.Add(dgvTurnosDisponibles);
+            Controls.Add(dgvTurnosOcupados);
             Controls.Add(cmbOdontologo);
             Controls.Add(label4);
             Controls.Add(cmbTipoAtencion);
@@ -294,7 +305,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Nueva atención";
             Load += FormAtencion_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvTurnosDisponibles).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvTurnosOcupados).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -311,7 +322,7 @@
         private ComboBox cmbTipoAtencion;
         private Label label4;
         private ComboBox cmbOdontologo;
-        private DataGridView dgvTurnosDisponibles;
+        private DataGridView dgvTurnosOcupados;
         private Label lblTurnosOcupados;
         private Label label6;
         private DateTimePicker dtpDiaAtencion;
@@ -323,5 +334,6 @@
         private Label lblHorario;
         private Label lblTurnos;
         private Label lblAviso;
+        private Button btnCancelarAtencion;
     }
 }
