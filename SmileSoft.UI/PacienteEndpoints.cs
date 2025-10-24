@@ -14,13 +14,14 @@ namespace SmileSoft.WebAPI
                 var dtos = pacienteService.GetAll();
                 return Results.Ok(dtos);
             }).WithName("GetPacientes")
-            .Produces<List<PacienteDTO>>(StatusCodes.Status200OK);
+            .Produces<List<PacienteDTO>>(StatusCodes.Status200OK).RequireAuthorization();
+            
             app.MapGet($"pacientes/id", (int id) =>
             {
                 PacienteService pacienteService = new PacienteService();
                 PacienteDTO dto = pacienteService.GetPaciente(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
-            }).WithName("Get Paciente");
+            }).WithName("Get Paciente").RequireAuthorization();
             
             app.MapPost("/pacientes", (PacienteDTO pacienteDTO) =>
             {
@@ -58,7 +59,7 @@ namespace SmileSoft.WebAPI
                     });
                 }
 
-            }).WithName("CreatePaciente");
+            }).WithName("CreatePaciente").RequireAuthorization();
             
             app.MapPut("/pacientes/{id}", (int id,PacienteDTO paciente) =>
             {
@@ -80,14 +81,14 @@ namespace SmileSoft.WebAPI
                     return Results.BadRequest(new { error = ex.Message });
                 }
             })
-            .WithName("UpdatePaciente");
+            .WithName("UpdatePaciente").RequireAuthorization();
             
             app.MapDelete("/pacientes/id", (int id) =>
             {
                 PacienteService pacienteService = new PacienteService();
                 var eliminado = pacienteService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
-            }).WithName("DeletePaciente");
+            }).WithName("DeletePaciente").RequireAuthorization();
 
             app.MapGet("/pacientes/dni", (string dni) =>
             {
@@ -95,7 +96,7 @@ namespace SmileSoft.WebAPI
                 PacienteDTO paciente = pacienteService.GetByDni(dni);
                 return paciente;
 
-            }).WithName("PacienteByDni");
+            }).WithName("PacienteByDni").RequireAuthorization();
         }
     }
 }

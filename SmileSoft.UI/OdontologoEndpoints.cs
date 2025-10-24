@@ -14,13 +14,15 @@ namespace SmileSoft.WebAPI
                 var dtos = odontologoService.GetAll();
                 return Results.Ok(dtos);
             }).WithName("GetOdontologos")
-            .Produces<List<OdontologoDTO>>(StatusCodes.Status200OK);
+            .Produces<List<OdontologoDTO>>(StatusCodes.Status200OK).RequireAuthorization();
+            
             app.MapGet($"odontologos/id", (int id) =>
             {
                 OdontologoService odontologoService = new OdontologoService();
                 OdontologoDTO dto = odontologoService.GetOdontologo(id);
                 return dto is not null ? Results.Ok(new { Odontologo = dto }) : Results.NotFound();
-            }).WithName("GetOdontologo");
+            }).WithName("GetOdontologo").RequireAuthorization();
+            
             app.MapPost("/odontologos", (OdontologoCreacionDTO odontologoCreacionDTO) =>
             {
                 try
@@ -51,7 +53,8 @@ namespace SmileSoft.WebAPI
                     });
                 }
 
-            }).WithName("CreateOdontologo");
+            }).WithName("CreateOdontologo").RequireAuthorization();
+            
             app.MapPut("/odontologos/{id}", (int id, OdontologoCreacionDTO odontologo) =>
             {
                 try
@@ -71,13 +74,14 @@ namespace SmileSoft.WebAPI
                     return Results.BadRequest(new { error = ex.Message });
                 }
             })
-            .WithName("UpdateOdontologo");
+            .WithName("UpdateOdontologo").RequireAuthorization();
+            
             app.MapDelete("/odontologos/{id}", (int id) =>
             {
                 OdontologoService odontologoService = new OdontologoService();
                 var eliminado = odontologoService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
-            }).WithName("DeleteOdontologo");
+            }).WithName("DeleteOdontologo").RequireAuthorization();
         }
     }
 }

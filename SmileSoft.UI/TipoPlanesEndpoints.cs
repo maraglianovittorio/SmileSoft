@@ -14,19 +14,22 @@ namespace SmileSoft.WebAPI
                 var dtos = tipoPlanService.GetAll();
                 return Results.Ok(dtos);
             }).WithName("GetTipoPlanes")
-            .Produces<List<TipoPlanDTO>>(StatusCodes.Status200OK);
+            .Produces<List<TipoPlanDTO>>(StatusCodes.Status200OK).RequireAuthorization();
+            
             app.MapGet($"/tipoplanes/obraSocial", (int id) =>
             {
                 TipoPlanService tipoPlanService = new TipoPlanService();
                 var dtos = tipoPlanService.GetByObraSocialId(id);
                 return Results.Ok(dtos);
-            }).WithName("GetTipoPlanesByObraSocial");
+            }).WithName("GetTipoPlanesByObraSocial").RequireAuthorization();
+            
             app.MapGet($"tipoplanes/id", (int id) =>
             {
                 TipoPlanService tipoPlanService = new TipoPlanService();
                 TipoPlan dto = tipoPlanService.GetTipoPlan(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
-            }).WithName("GetTipoPlan");
+            }).WithName("GetTipoPlan").RequireAuthorization();
+            
             app.MapPost("/tipoplanes", (TipoPlanDTO tipoPlanDTO) =>
             {
                 try
@@ -59,7 +62,8 @@ namespace SmileSoft.WebAPI
                     });
                 }
 
-            }).WithName("CreateTipoPlan");
+            }).WithName("CreateTipoPlan").RequireAuthorization();
+            
             app.MapPut("/tipoplanes/{id}", (int id, TipoPlanDTO tipoPlan) =>
             {
                 try
@@ -79,13 +83,14 @@ namespace SmileSoft.WebAPI
                     return Results.BadRequest(new { error = ex.Message });
                 }
             })
-            .WithName("UpdateTipoPlan");
+            .WithName("UpdateTipoPlan").RequireAuthorization();
+            
             app.MapDelete("/tipoplanes/{id}", (int id) =>
             {
                 TipoPlanService tipoPlanService = new TipoPlanService();
                 var eliminado = tipoPlanService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
-            }).WithName("DeleteTipoPlan");
+            }).WithName("DeleteTipoPlan").RequireAuthorization();
         }
     }
 }

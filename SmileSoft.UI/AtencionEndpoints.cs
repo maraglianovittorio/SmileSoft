@@ -14,14 +14,14 @@ namespace SmileSoft.WebAPI
                 AtencionService atencionService = new AtencionService();
                 var dto = atencionService.GetHistoriaClinica(pacienteId);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
-            }).WithName("GetHistoriaClinica");
+            }).WithName("GetHistoriaClinica").RequireAuthorization();
 
             app.MapGet("/atenciones/secretario/{id}", (int id) =>
             {
                 AtencionService atencionService = new AtencionService();
                 var dto = atencionService.GetOneForSecretario(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
-            }).WithName("GetAtencionForSecretario");
+            }).WithName("GetAtencionForSecretario").RequireAuthorization();
 
             app.MapPut("/atenciones/{id}/observaciones", (int id, [FromBody] string observaciones) =>
             {
@@ -60,7 +60,7 @@ namespace SmileSoft.WebAPI
                         title: "Error al actualizar observaciones"
                     );
                 }
-            }).WithName("UpdateAtencionObservaciones")
+            }).WithName("UpdateAtencionObservaciones").RequireAuthorization()
               .Produces(StatusCodes.Status204NoContent)
               .Produces(StatusCodes.Status400BadRequest)
               .Produces(StatusCodes.Status404NotFound)
@@ -71,7 +71,7 @@ namespace SmileSoft.WebAPI
                 AtencionService atencionService = new AtencionService();
                 var dtos = atencionService.GetAll();
                 return Results.Ok(dtos);
-            }).WithName("GetAtenciones")
+            }).WithName("GetAtenciones").RequireAuthorization()
             .Produces<List<AtencionDetalleDTO>>(StatusCodes.Status200OK);
 
             app.MapGet("/atenciones/secretario", () =>
@@ -79,7 +79,7 @@ namespace SmileSoft.WebAPI
                 AtencionService atencionService = new AtencionService();
                 var dtos = atencionService.GetAllAtencionesSecretario();
                 return Results.Ok(dtos);
-            }).WithName("GetAtencionesSecretario")
+            }).WithName("GetAtencionesSecretario").RequireAuthorization()
             .Produces<List<AtencionSecretarioDTO>>(StatusCodes.Status200OK);
 
             app.MapGet($"/atenciones/estado", (string estado) =>
@@ -89,7 +89,8 @@ namespace SmileSoft.WebAPI
                 return Results.Ok(dtos);
             })
             .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
-            .WithName("GetAtencionesByEstado");
+            .WithName("GetAtencionesByEstado").RequireAuthorization();
+            
             app.MapGet($"/atenciones/paciente", (int pacienteId) =>
             {
                 AtencionService atencionService = new AtencionService();
@@ -97,7 +98,7 @@ namespace SmileSoft.WebAPI
                 return Results.Ok(dtos);
             })
                 .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
-                .WithName("GetAtencionesByPaciente");
+                .WithName("GetAtencionesByPaciente").RequireAuthorization();
             
             app.MapGet($"/atenciones/odontologo", (int id) =>
             {
@@ -105,7 +106,7 @@ namespace SmileSoft.WebAPI
                 var dtos = atencionService.GetAllByOdontologo(id);
                 return Results.Ok(dtos);
             })
-                .Produces<List<AtencionDetalleDTO>>(StatusCodes.Status200OK)
+                .Produces<List<AtencionDetalleDTO>>(StatusCodes.Status200OK).RequireAuthorization()
                 .WithName("GetAtencionesByOdontologo");
             
             app.MapGet($"/atenciones/tipoatencion", (int tipoAtencionId) =>
@@ -114,7 +115,7 @@ namespace SmileSoft.WebAPI
                 var dtos = atencionService.GetAllByTipoAtencion(tipoAtencionId);
                 return Results.Ok(dtos);
             })
-                .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
+                .Produces<List<AtencionDTO>>(StatusCodes.Status200OK).RequireAuthorization()
                 .WithName("GetAtencionesByTipoAtencion");
             
             app.MapGet($"/atenciones/rango", (DateTime startDate, DateTime endDate) =>
@@ -123,7 +124,7 @@ namespace SmileSoft.WebAPI
                 var dtos = atencionService.GetAllByRango(startDate, endDate);
                 return Results.Ok(dtos);
             })
-                .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
+                .Produces<List<AtencionDTO>>(StatusCodes.Status200OK).RequireAuthorization()
                 .WithName("GetAtencionesByRango");
 
             app.MapGet($"/atenciones/rangoYOdo", (DateTime startDate, DateTime endDate,int id) =>
@@ -132,7 +133,7 @@ namespace SmileSoft.WebAPI
                 var dtos = atencionService.GetAllByRangoAndOdo(startDate, endDate,id);
                 return Results.Ok(dtos);
             })
-            .Produces<List<AtencionDTO>>(StatusCodes.Status200OK)
+            .Produces<List<AtencionDTO>>(StatusCodes.Status200OK).RequireAuthorization()
             .WithName("GetAtencionesByRangoAndOdo");
             
             app.MapGet($"atenciones/id", (int id) =>
@@ -140,7 +141,7 @@ namespace SmileSoft.WebAPI
                 AtencionService atencionService = new AtencionService();
                 AtencionDetalleDTO dto = atencionService.GetAtencion(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
-            }).WithName("GetAtencion");
+            }).WithName("GetAtencion").RequireAuthorization();
             
             app.MapPost("/atenciones", (AtencionDTO atencionDTO) =>
             {
@@ -172,7 +173,7 @@ namespace SmileSoft.WebAPI
                     });
                 }
 
-            }).WithName("CreateAtencion");
+            }).WithName("CreateAtencion").RequireAuthorization();
             
             app.MapPut("/atenciones/{id}", (int id, AtencionDTO atencion) =>
             {
@@ -193,24 +194,27 @@ namespace SmileSoft.WebAPI
                     return Results.BadRequest(new { error = ex.Message });
                 }
             })
-            .WithName("UpdateAtencion");
+            .WithName("UpdateAtencion").RequireAuthorization();
             
             app.MapDelete("/atenciones/{id}", (int id) =>
             {
                 AtencionService atencionService = new AtencionService();
                 var eliminado = atencionService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
-            }).WithName("DeleteAtencion");
+            }).WithName("DeleteAtencion").RequireAuthorization();
+
             app.MapPut("atenciones/{id}/cancelar",(int id)=>{
                AtencionService atencionService = new AtencionService();
                 var actualizado = atencionService.CancelaAtencion(id);
                 return actualizado ? Results.NoContent() : Results.NotFound();
-            }).WithName("CancelarAtencion");
+            }).WithName("CancelarAtencion").RequireAuthorization();
+
             app.MapPut("atenciones/{id}/llegada",(int id)=>{
                AtencionService atencionService = new AtencionService();
                 var actualizado = atencionService.ActualizaLlegada(id);
                 return actualizado ? Results.NoContent() : Results.NotFound();
-            }).WithName("CambiarEstadoAtencion");
+            }).WithName("CambiarEstadoAtencion").RequireAuthorization();
+
         }
     }
 }

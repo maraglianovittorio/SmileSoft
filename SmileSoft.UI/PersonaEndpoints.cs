@@ -14,25 +14,29 @@ namespace SmileSoft.WebAPI
                 var dtos = personaService.GetAll();
                 return Results.Ok(dtos);
             }).WithName("GetPersonas")
-            .Produces<List<PersonaDTO>>(StatusCodes.Status200OK);
+            .Produces<List<PersonaDTO>>(StatusCodes.Status200OK).RequireAuthorization();
+            
             app.MapGet("/personas/tutores", () =>
             {
                 PersonaService personaService = new PersonaService();
                 var dtos = personaService.GetTutores();
                 return Results.Ok(dtos);
-            }).WithName("GetTutores");
+            }).WithName("GetTutores").RequireAuthorization();
+            
             app.MapGet($"personas/id", (int id) =>
             {
                 PersonaService personaService = new PersonaService();
                 PersonaDTO dto = personaService.GetPersona(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
-            }).WithName("GetPersona");
+            }).WithName("GetPersona").RequireAuthorization();
+            
             app.MapGet("/personas/tutor/dni", (string dni) =>
             {
                 PersonaService personaService = new PersonaService();
                 PersonaDTO persona = personaService.GetTutorByDni(dni);
                 return persona is not null ? Results.Ok(persona) : Results.NotFound();
-            }).WithName("TutorByDni");
+            }).WithName("TutorByDni").RequireAuthorization();
+            
             app.MapGet("/personas/tutor/id", (int id) =>
             {
                 try
@@ -45,7 +49,8 @@ namespace SmileSoft.WebAPI
                 {
                     return Results.NotFound(new { error = ex.Message });
                 }
-            }).WithName("GetTutorById");
+            }).WithName("GetTutorById").RequireAuthorization();
+            
             app.MapPost("/personas", (PersonaDTO personaDTO) =>
             {
                 try
@@ -80,7 +85,7 @@ namespace SmileSoft.WebAPI
                     });
                 }
 
-            }).WithName("CreatePersona");
+            }).WithName("CreatePersona").RequireAuthorization();
 
             app.MapPut("/personas/id", (int id, PersonaDTO persona) =>
             {
@@ -101,14 +106,14 @@ namespace SmileSoft.WebAPI
                     return Results.BadRequest(new { error = ex.Message });
                 }
             })
-            .WithName("UpdatePersona");
+            .WithName("UpdatePersona").RequireAuthorization();
 
             app.MapDelete("/personas/id", (int id) =>
             {
                 PersonaService personaService = new PersonaService();
                 var eliminado = personaService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
-            }).WithName("DeletePersona");
+            }).WithName("DeletePersona").RequireAuthorization();
 
             app.MapGet("/personas/dni", (string dni) =>
             {
@@ -116,7 +121,7 @@ namespace SmileSoft.WebAPI
                 PersonaDTO persona = personaService.GetByDni(dni);
                 return persona is not null ? Results.Ok(persona) : Results.NotFound();
 
-            }).WithName("PersonaByDni");
+            }).WithName("PersonaByDni").RequireAuthorization();
         }
     }
 }

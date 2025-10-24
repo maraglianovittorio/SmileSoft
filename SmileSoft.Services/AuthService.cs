@@ -58,6 +58,7 @@ namespace SmileSoft.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
                 new Claim(ClaimTypes.Name, usuario.Username),
+                new Claim(ClaimTypes.Role, usuario.Rol),
                 new Claim("jti", Guid.NewGuid().ToString())
             };
 

@@ -14,13 +14,14 @@ namespace SmileSoft.WebAPI
                 var dtos = usuarioService.GetAll();
                 return Results.Ok(dtos);
             }).WithName("GetUsuarios")
-            .Produces<List<UsuarioDTO>>(StatusCodes.Status200OK);
+            .Produces<List<UsuarioDTO>>(StatusCodes.Status200OK).RequireAuthorization();
+            
             app.MapGet($"usuarios/id", (int id) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
                 UsuarioDTO dto = usuarioService.GetUsuario(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
-            }).WithName("Get Usuario");
+            }).WithName("Get Usuario").RequireAuthorization();
             
             app.MapPost("/usuarios", (UsuarioCreateDTO usuarioDTO) =>
             {
@@ -56,7 +57,7 @@ namespace SmileSoft.WebAPI
                     });
                 }
 
-            }).WithName("CreateUsuario");
+            }).WithName("CreateUsuario").RequireAuthorization();
             
             app.MapPut("/usuarios/{id}", (int id, UsuarioUpdateDTO usuario) =>
             {
@@ -77,21 +78,21 @@ namespace SmileSoft.WebAPI
                     return Results.BadRequest(new { error = ex.Message });
                 }
             })
-            .WithName("UpdateUsuario");
+            .WithName("UpdateUsuario").RequireAuthorization();
             
             app.MapDelete("/usuarios/{id}", (int id) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
                 var eliminado = usuarioService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
-            }).WithName("DeleteUsuario");
+            }).WithName("DeleteUsuario").RequireAuthorization();
             
             app.MapGet("/usuarios/{username}", (string username) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
                 var usuario = usuarioService.GetByUsername(username);
                 return usuario;
-            }).WithName("GetUsuarioByUsername");
+            }).WithName("GetUsuarioByUsername").RequireAuthorization();
         }
     }
 }

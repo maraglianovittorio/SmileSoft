@@ -7,7 +7,7 @@ namespace API.Auth.Blazor.Server
     public class BlazorServerAuthService : IAuthService
     {
         // Almacenamiento global para el usuario actual (singleton per app)
-        private static SessionData? _currentSession;
+        private SessionData? _currentSession;
 
         public event Action<bool>? AuthenticationStateChanged;
 

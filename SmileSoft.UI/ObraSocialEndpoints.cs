@@ -14,19 +14,22 @@ namespace SmileSoft.WebAPI
                 var dtos = obraSocialService.GetAll();
                 return Results.Ok(dtos);
             }).WithName("GetObraSociales")
-            .Produces<List<ObraSocialDTO>>(StatusCodes.Status200OK);
+            .Produces<List<ObraSocialDTO>>(StatusCodes.Status200OK).RequireAuthorization();
+            
             app.MapGet($"obrasocial/id", (int id) =>
             {
                 ObraSocialService obraSocialService = new ObraSocialService();
                 ObraSocialDTO dto = obraSocialService.GetObraSocial(id);
                 return dto is not null ? Results.Ok(new { ObraSocial = dto,Id=dto.Id, Nombre = dto.Nombre }) : Results.NotFound();
-            }).WithName("GetObraSocial");
+            }).WithName("GetObraSocial").RequireAuthorization();
+            
             app.MapGet($"/obrasocial/nombre", (string nombre) =>
             {
                 ObraSocialService obraSocialService = new ObraSocialService();
                 ObraSocialDTO dto = obraSocialService.GetObraSocialByName(nombre);
                 return dto is not null ? Results.Ok(new { ObraSocial = dto,Id = dto.Id, Nombre = dto.Nombre }) : Results.NotFound();
-            }).WithName("GetObraSocialByName");
+            }).WithName("GetObraSocialByName").RequireAuthorization();
+            
             app.MapPost("/obrasocial", (ObraSocialDTO obraSocialDTO) =>
             {
                 try
@@ -57,7 +60,8 @@ namespace SmileSoft.WebAPI
                     });
                 }
 
-            }).WithName("CreateObraSocial");
+            }).WithName("CreateObraSocial").RequireAuthorization();
+            
             app.MapPut("/obrasocial/{id}", (int id, ObraSocialDTO obraSocial) =>
             {
                 try
@@ -77,13 +81,14 @@ namespace SmileSoft.WebAPI
                     return Results.BadRequest(new { error = ex.Message });
                 }
             })
-            .WithName("UpdateObraSocial");
+            .WithName("UpdateObraSocial").RequireAuthorization();
+            
             app.MapDelete("/obrasocial/{id}", (int id) =>
             {
                 ObraSocialService obraSocialService = new ObraSocialService();
                 var eliminado = obraSocialService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
-            }).WithName("DeleteObraSocial");
+            }).WithName("DeleteObraSocial").RequireAuthorization();
         }
     }
 }

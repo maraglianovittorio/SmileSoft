@@ -14,13 +14,15 @@ namespace SmileSoft.WebAPI
                 var dtos = tipoAtencionService.GetAll();
                 return Results.Ok(dtos);
             }).WithName("GetTipoAtencion")
-            .Produces<List<TipoAtencionDTO>>(StatusCodes.Status200OK);
+            .Produces<List<TipoAtencionDTO>>(StatusCodes.Status200OK).RequireAuthorization();
+            
             app.MapGet($"tipoatencion/id", (int id) =>
             {
                 TipoAtencionService tipoAtencionService = new TipoAtencionService();
                 TipoAtencion dto = tipoAtencionService.GetTipoAtencion(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
-            }).WithName("GetOneTipoAtencion");
+            }).WithName("GetOneTipoAtencion").RequireAuthorization();
+            
             app.MapPost("/tipoatencion", (TipoAtencionDTO tipoAtencionDTO) =>
             {
                 try
@@ -53,7 +55,8 @@ namespace SmileSoft.WebAPI
                     });
                 }
 
-            }).WithName("CreateTipoAtencion");
+            }).WithName("CreateTipoAtencion").RequireAuthorization();
+            
             app.MapPut("/tipoatencion/{id}", (int id, TipoAtencionDTO tipoAtencion) =>
             {
                 try
@@ -72,13 +75,14 @@ namespace SmileSoft.WebAPI
                     return Results.BadRequest(new { error = ex.Message });
                 }
             })
-            .WithName("UpdateTipoAtencion");
+            .WithName("UpdateTipoAtencion").RequireAuthorization();
+            
             app.MapDelete("/tipoatencion/{id}", (int id) =>
             {
                 TipoAtencionService tipoAtencionService = new TipoAtencionService();
                 var eliminado = tipoAtencionService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
-            }).WithName("DeleteTipoAtencion");
+            }).WithName("DeleteTipoAtencion").RequireAuthorization();
         }
     }
 }
