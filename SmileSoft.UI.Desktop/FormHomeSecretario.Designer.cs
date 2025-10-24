@@ -42,6 +42,8 @@
             lblAtencionesDelDia = new Label();
             btnRegistrarLlegada = new Button();
             btnEditarAtencion = new Button();
+            txtBuscaAtencion = new TextBox();
+            cmbFiltroEstado = new ComboBox();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAtencionesDelDia).BeginInit();
             ((System.ComponentModel.ISupportInitialize)atencionBindingSource).BeginInit();
@@ -50,7 +52,7 @@
             // BtnCerrarSesion
             // 
             BtnCerrarSesion.BackColor = SystemColors.ActiveCaption;
-            BtnCerrarSesion.Location = new Point(12, 329);
+            BtnCerrarSesion.Location = new Point(11, 372);
             BtnCerrarSesion.Name = "BtnCerrarSesion";
             BtnCerrarSesion.Size = new Size(133, 41);
             BtnCerrarSesion.TabIndex = 9;
@@ -63,7 +65,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { atencionesToolStripMenuItem, pacientesToolStripMenuItem, tutoresToolStripMenuItem, OSToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(707, 24);
+            menuStrip1.Size = new Size(786, 24);
             menuStrip1.TabIndex = 10;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -114,9 +116,9 @@
             // 
             dgvAtencionesDelDia.BackgroundColor = Color.PapayaWhip;
             dgvAtencionesDelDia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAtencionesDelDia.Location = new Point(12, 51);
+            dgvAtencionesDelDia.Location = new Point(11, 94);
             dgvAtencionesDelDia.Name = "dgvAtencionesDelDia";
-            dgvAtencionesDelDia.Size = new Size(683, 266);
+            dgvAtencionesDelDia.Size = new Size(727, 266);
             dgvAtencionesDelDia.TabIndex = 11;
             // 
             // atencionBindingSource
@@ -137,7 +139,7 @@
             // 
             btnRegistrarLlegada.BackColor = Color.Gold;
             btnRegistrarLlegada.ForeColor = SystemColors.ButtonHighlight;
-            btnRegistrarLlegada.Location = new Point(553, 322);
+            btnRegistrarLlegada.Location = new Point(595, 363);
             btnRegistrarLlegada.Margin = new Padding(2);
             btnRegistrarLlegada.Name = "btnRegistrarLlegada";
             btnRegistrarLlegada.Size = new Size(143, 54);
@@ -150,7 +152,7 @@
             // 
             btnEditarAtencion.BackColor = Color.YellowGreen;
             btnEditarAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnEditarAtencion.Location = new Point(401, 323);
+            btnEditarAtencion.Location = new Point(441, 366);
             btnEditarAtencion.Margin = new Padding(2);
             btnEditarAtencion.Name = "btnEditarAtencion";
             btnEditarAtencion.Size = new Size(134, 48);
@@ -159,11 +161,33 @@
             btnEditarAtencion.UseVisualStyleBackColor = false;
             btnEditarAtencion.Click += btnEditarAtencion_Click;
             // 
+            // txtBuscaAtencion
+            // 
+            txtBuscaAtencion.Location = new Point(16, 62);
+            txtBuscaAtencion.Name = "txtBuscaAtencion";
+            txtBuscaAtencion.PlaceholderText = "Ingrese DNI o apellido del paciente..";
+            txtBuscaAtencion.Size = new Size(518, 23);
+            txtBuscaAtencion.TabIndex = 15;
+            txtBuscaAtencion.TextChanged += txtBuscaAtencion_TextChanged;
+            // 
+            // cmbFiltroEstado
+            // 
+            cmbFiltroEstado.FormattingEnabled = true;
+            cmbFiltroEstado.IntegralHeight = false;
+            cmbFiltroEstado.Items.AddRange(new object[] { "Todas", "Otorgada", "En sala de espera", "Cancelada", "Atendido" });
+            cmbFiltroEstado.Location = new Point(617, 62);
+            cmbFiltroEstado.Name = "cmbFiltroEstado";
+            cmbFiltroEstado.Size = new Size(121, 23);
+            cmbFiltroEstado.TabIndex = 16;
+            cmbFiltroEstado.SelectedIndexChanged += cmbFiltroEstado_SelectedIndexChanged;
+            // 
             // FormHomeSecretario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(707, 382);
+            ClientSize = new Size(786, 530);
+            Controls.Add(cmbFiltroEstado);
+            Controls.Add(txtBuscaAtencion);
             Controls.Add(btnEditarAtencion);
             Controls.Add(btnRegistrarLlegada);
             Controls.Add(lblAtencionesDelDia);
@@ -197,5 +221,7 @@
         private Button btnRegistrarLlegada;
         private Button btnEditarAtencion;
         private ToolStripMenuItem verAtencionesToolStripMenuItem;
+        private TextBox txtBuscaAtencion;
+        private ComboBox cmbFiltroEstado;
     }
 }

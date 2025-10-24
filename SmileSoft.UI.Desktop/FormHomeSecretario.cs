@@ -16,6 +16,7 @@ namespace SmileSoft.UI.Desktop
 {
     public partial class FormHomeSecretario : Form
     {
+        private List<AtencionDetalleDTO> atenciones = new List<AtencionDetalleDTO>();
         public FormHomeSecretario()
         {
             InitializeComponent();
@@ -92,6 +93,7 @@ namespace SmileSoft.UI.Desktop
             try
             {
                 var turnosDelDia = await AtencionApiClient.GetByFechaRangeAsync(DateTime.Today, DateTime.Today.AddHours(23));
+                atenciones = turnosDelDia.ToList();
                 if (turnosDelDia != null && turnosDelDia.Count() > 0)
                 {
 
@@ -169,15 +171,43 @@ namespace SmileSoft.UI.Desktop
 
         private async void btnRegistrarLlegada_Click(object sender, EventArgs e)
         {
-            if(dgvAtencionesDelDia.SelectedRows.Count > 0)
+            if (dgvAtencionesDelDia.SelectedRows.Count > 0)
             {
                 var atencionSeleccionada = dgvAtencionesDelDia.SelectedRows[0].DataBoundItem as AtencionDetalleDTO;
-                if(atencionSeleccionada != null)
+                if (atencionSeleccionada != null)
                 {
                     await AtencionApiClient.ActualizaLlegada(atencionSeleccionada.Id);
                     await ObtenerDatos();
                 }
             }
+        }
+
+        private void cmbFiltroEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // creo un filtro de las atenciones dependiendo del estado
+            string filtro = cmbFiltroEstado.SelectedItem.ToString();
+            if (filtro == "Todas")
+            {
+                dgvAtencionesDelDia.DataSource = atenciones;
+            }
+            else
+            {
+                var atencionesFiltradas = atenciones.Where(a => a.Estado == filtro).ToList();
+                dgvAtencionesDelDia.DataSource = atencionesFiltradas;
+            }
+        }
+
+        private async void txtBuscaAtencion_TextChanged(object sender, EventArgs e)
+        {
+            // filtro por nombre de paciente o por dni
+            string busqueda = txtBuscaAtencion.Text.ToLower();
+            var atencionesFiltradas = atenciones.Where(a =>
+                a.PacienteNombre.ToLower().Contains(busqueda)
+                || a.PacienteApellido.ToLower().Contains(busqueda)||
+                a.PacienteDni.ToLower().Contains(busqueda)
+            ).ToList();
+
+            dgvAtencionesDelDia.DataSource = atencionesFiltradas;
         }
     }
 }
