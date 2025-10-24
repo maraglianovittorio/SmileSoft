@@ -21,6 +21,7 @@ namespace SmileSoft.WebAPI
                 UsuarioDTO dto = usuarioService.GetUsuario(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("Get Usuario");
+            
             app.MapPost("/usuarios", (UsuarioCreateDTO usuarioDTO) =>
             {
                 try
@@ -56,6 +57,7 @@ namespace SmileSoft.WebAPI
                 }
 
             }).WithName("CreateUsuario");
+            
             app.MapPut("/usuarios/{id}", (int id, UsuarioUpdateDTO usuario) =>
             {
                 try
@@ -76,13 +78,15 @@ namespace SmileSoft.WebAPI
                 }
             })
             .WithName("UpdateUsuario");
+            
             app.MapDelete("/usuarios/{id}", (int id) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
                 var eliminado = usuarioService.Delete(id);
                 return eliminado ? Results.NoContent() : Results.NotFound();
             }).WithName("DeleteUsuario");
-                app.MapGet("/usuarios/{username}", (string username) =>
+            
+            app.MapGet("/usuarios/{username}", (string username) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
                 var usuario = usuarioService.GetByUsername(username);

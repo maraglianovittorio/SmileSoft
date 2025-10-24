@@ -32,7 +32,7 @@ namespace SmileSoft.WebAPI
             .Produces<LoginResponse>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized)
             .Produces(StatusCodes.Status500InternalServerError)
-            .AllowAnonymous(); // Este endpoint NO requiere autenticación
+            .AllowAnonymous();
         }
     }
 }

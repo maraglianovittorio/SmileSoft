@@ -1,9 +1,7 @@
-﻿
-namespace SmileSoft.API.Clients
+﻿namespace SmileSoft.API.Clients
 {
     public static class AuthServiceProvider
-    
-        {
+    {
         private static IAuthService? _instance;
         private static readonly object _lock = new object();
 

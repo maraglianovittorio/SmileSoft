@@ -49,7 +49,6 @@
 </div>
 
 @code {
-    // Ya no se necesita [SupplyParameterFromForm] en modo interactivo
     private LoginModel loginModel { get; set; } = new();
     private string errorMessage = "";
     private bool isLoading = false;
@@ -61,7 +60,7 @@
             isLoading = true;
             errorMessage = "";
 
-                var success = await AuthService.LoginAsync(loginModel.Username, loginModel.Password);
+            var success = await AuthService.LoginAsync(loginModel.Username, loginModel.Password);
 
             if (success)
             {

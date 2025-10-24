@@ -26,6 +26,7 @@ namespace SmileSoft.Services
             if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
                 return null;
 
+            //var usuario = await usuarioRepository.GetByUsernameAsync(request.Username); TODO no funciona
             var usuario = usuarioRepository.GetByUsername(request.Username);
 
             if (usuario == null || !usuario.ValidatePassword(request.Password))

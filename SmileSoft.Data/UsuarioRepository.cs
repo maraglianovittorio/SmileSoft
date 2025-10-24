@@ -1,10 +1,11 @@
-﻿using SmileSoft.Dominio;
+﻿using DTO;
+using Microsoft.EntityFrameworkCore;
+using SmileSoft.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DTO;
 
 namespace SmileSoft.Data
 {
@@ -49,6 +50,11 @@ namespace SmileSoft.Data
             return context.Usuarios
                 .AsEnumerable()
                 .FirstOrDefault(u => string.Equals(u.Username,username,StringComparison.Ordinal));
+        }
+        public async Task<Usuario?> GetByUsernameAsync(string username)
+        {
+            using var context = CreateContext();
+            return await context.Usuarios.FirstOrDefaultAsync(u => string.Equals(u.Username,username,StringComparison.Ordinal));
         }
 
         public IEnumerable<Usuario> GetAll()
