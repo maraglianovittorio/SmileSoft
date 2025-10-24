@@ -167,9 +167,17 @@ namespace SmileSoft.UI.Desktop
             }
         }
 
-        private void btnRegistrarLlegada_Click(object sender, EventArgs e)
+        private async void btnRegistrarLlegada_Click(object sender, EventArgs e)
         {
-
+            if(dgvAtencionesDelDia.SelectedRows.Count > 0)
+            {
+                var atencionSeleccionada = dgvAtencionesDelDia.SelectedRows[0].DataBoundItem as AtencionDetalleDTO;
+                if(atencionSeleccionada != null)
+                {
+                    await AtencionApiClient.ActualizaLlegada(atencionSeleccionada.Id);
+                    await ObtenerDatos();
+                }
+            }
         }
     }
 }

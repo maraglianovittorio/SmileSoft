@@ -130,7 +130,7 @@
             btnAgregarOdontologo.Margin = new Padding(2);
             btnAgregarOdontologo.Name = "btnAgregarOdontologo";
             btnAgregarOdontologo.Size = new Size(83, 27);
-            btnAgregarOdontologo.TabIndex = 14;
+            btnAgregarOdontologo.TabIndex = 20;
             btnAgregarOdontologo.Text = "Guardar";
             btnAgregarOdontologo.UseVisualStyleBackColor = true;
             btnAgregarOdontologo.Click += btnEnviar_Click;
@@ -141,7 +141,7 @@
             btnEditarOdontologo.Margin = new Padding(2);
             btnEditarOdontologo.Name = "btnEditarOdontologo";
             btnEditarOdontologo.Size = new Size(83, 27);
-            btnEditarOdontologo.TabIndex = 15;
+            btnEditarOdontologo.TabIndex = 21;
             btnEditarOdontologo.Text = "Editar";
             btnEditarOdontologo.UseVisualStyleBackColor = true;
             btnEditarOdontologo.Click += btnEditarOdontologo_Click;
@@ -152,7 +152,7 @@
             lblDni.Location = new Point(119, 215);
             lblDni.Name = "lblDni";
             lblDni.Size = new Size(27, 15);
-            lblDni.TabIndex = 10;
+            lblDni.TabIndex = 12;
             lblDni.Text = "DNI";
             lblDni.Click += lblDni_Click;
             // 
@@ -161,7 +161,7 @@
             txtDni.Location = new Point(247, 212);
             txtDni.Name = "txtDni";
             txtDni.Size = new Size(200, 23);
-            txtDni.TabIndex = 11;
+            txtDni.TabIndex = 13;
             // 
             // label1
             // 
@@ -169,7 +169,7 @@
             label1.Location = new Point(119, 246);
             label1.Name = "label1";
             label1.Size = new Size(77, 15);
-            label1.TabIndex = 12;
+            label1.TabIndex = 14;
             label1.Text = "Fecha nacim.";
             // 
             // dtpFechaNacimiento
@@ -181,7 +181,7 @@
             dtpFechaNacimiento.MinDate = new DateTime(1930, 1, 1, 0, 0, 0, 0);
             dtpFechaNacimiento.Name = "dtpFechaNacimiento";
             dtpFechaNacimiento.Size = new Size(200, 23);
-            dtpFechaNacimiento.TabIndex = 13;
+            dtpFechaNacimiento.TabIndex = 15;
             // 
             // lblDireccion
             // 
@@ -206,7 +206,7 @@
             lblTelefono.Location = new Point(119, 186);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(52, 15);
-            lblTelefono.TabIndex = 16;
+            lblTelefono.TabIndex = 10;
             lblTelefono.Text = "Telefono";
             // 
             // txtTelefono
@@ -214,14 +214,14 @@
             txtTelefono.Location = new Point(245, 183);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(200, 23);
-            txtTelefono.TabIndex = 17;
+            txtTelefono.TabIndex = 11;
             // 
             // txtUsername
             // 
             txtUsername.Location = new Point(247, 270);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(200, 23);
-            txtUsername.TabIndex = 19;
+            txtUsername.TabIndex = 17;
             // 
             // lblUsername
             // 
@@ -229,7 +229,7 @@
             lblUsername.Location = new Point(119, 273);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(109, 15);
-            lblUsername.TabIndex = 18;
+            lblUsername.TabIndex = 16;
             lblUsername.Text = "Nombre de usuario";
             // 
             // txtPassword
@@ -237,7 +237,7 @@
             txtPassword.Location = new Point(247, 299);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(200, 23);
-            txtPassword.TabIndex = 21;
+            txtPassword.TabIndex = 19;
             // 
             // lblPassword
             // 
@@ -245,7 +245,7 @@
             lblPassword.Location = new Point(119, 302);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(67, 15);
-            lblPassword.TabIndex = 20;
+            lblPassword.TabIndex = 18;
             lblPassword.Text = "Contraseña";
             // 
             // FormOdontologo

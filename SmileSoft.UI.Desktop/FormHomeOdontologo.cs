@@ -159,7 +159,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormOdontologo.SelectedRows.Count > 0)
             {
-                var odontologoSeleccionado = dgvFormOdontologo.SelectedRows[0].DataBoundItem as Odontologo;
+                var odontologoSeleccionado = dgvFormOdontologo.SelectedRows[0].DataBoundItem as OdontologoDTO;
                 if (odontologoSeleccionado != null)
                 {
                     FormOdontologo formOdontologo = new FormOdontologo(odontologoSeleccionado.Id);
@@ -173,7 +173,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormOdontologo.SelectedRows.Count > 0)
             {
-                var odontologoSeleccionado = dgvFormOdontologo.SelectedRows[0].DataBoundItem as Odontologo;
+                var odontologoSeleccionado = dgvFormOdontologo.SelectedRows[0].DataBoundItem as OdontologoDTO;
                 if (odontologoSeleccionado != null)
                 {
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este odontólogo?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

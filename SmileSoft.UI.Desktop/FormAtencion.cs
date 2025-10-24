@@ -272,7 +272,7 @@ namespace SmileSoft.WindowsForms
                     {
                         atencionesDelDia = atencionesDelDia.Where(a => a.Id != _idAtencionEditar.Value).ToList();
                     }
-                    atencionesDelDia = atencionesDelDia.Where(a => a.Estado == "Otorgada").ToList();
+                    atencionesDelDia = atencionesDelDia.Where(a => a.Estado == "Otorgada" || a.Estado == "En sala de espera").ToList();
 
                     foreach (var atencion in atencionesDelDia)
                     {

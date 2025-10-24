@@ -10,10 +10,16 @@ namespace SmileSoft.Services
         public PacienteDTO Add(PacienteDTO dto)
         {
             var pacienteRepository = new PacienteRepository();
+            var personaRepository = new PersonaRepository();
             // Validar que la historia clínica no exista
             if (pacienteRepository.HCExists(dto.NroHC))
             {
                 throw new Exception("Ya existe un paciente con la misma historia clínica.");
+            }
+            // Validar que el DNI no exista
+            if (personaRepository.DNIExists(dto.NroDni))
+            {
+                throw new Exception("Ya existe una persona con el mismo DNI.");
             }
             Paciente paciente = new Paciente(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.Direccion,dto.Email,dto.FechaNacimiento,dto.Telefono,dto.NroAfiliado,dto.NroHC,dto.TutorId,dto.TipoPlanId);
 

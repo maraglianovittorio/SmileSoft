@@ -15,7 +15,8 @@ namespace SmileSoft.Services
         {
             var odontologoRepository = new OdontologoRepository();
             var usuarioRepository = new UsuarioRepository();
-            if(usuarioRepository.UsernameExists(dto.Username))
+            var personaRepository = new PersonaRepository();
+            if (usuarioRepository.UsernameExists(dto.Username))
             {
                 throw new ArgumentException($"Ya existe un usuario con el nombre de usuario '{dto.Username}'.");
             }
@@ -26,6 +27,10 @@ namespace SmileSoft.Services
             {
                 throw new ArgumentException($"Ya existe un odontólogo con el nombre '{dto.Nombre}'.");
             }
+            if (personaRepository.DNIExists(dto.NroDni))
+            {
+                throw new ArgumentException($"Ya existe una persona con el DNI '{dto.NroDni}'.");
+            }
 
             odontologoRepository.Add(odontologo);
 
@@ -34,6 +39,13 @@ namespace SmileSoft.Services
         public bool Delete(int id)
         {
             var odontologoRepository = new OdontologoRepository();
+            var usuarioRepository = new UsuarioRepository();
+            // borro tambien el usuario asociado
+            var odontologo = odontologoRepository.Get(id);
+            if (odontologo != null)
+            {
+                usuarioRepository.Delete(odontologo.UsuarioId);
+            }
             return odontologoRepository.Delete(id);
         }
         public OdontologoDTO GetOdontologo(int id)
