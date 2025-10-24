@@ -92,27 +92,39 @@ namespace SmileSoft.UI.Desktop
             try
             {
                 var turnosDelDia = await AtencionApiClient.GetByFechaRangeAsync(DateTime.Today, DateTime.Today.AddHours(23));
-                if (turnosDelDia!= null && turnosDelDia.Count() > 0)
+                if (turnosDelDia != null && turnosDelDia.Count() > 0)
                 {
-                    dgvAtencionesDelDia.DataSource = turnosDelDia;
-                    //pacientes = (List<PacienteDTO>)turnosDelDia;
-                    //dgvFormPaciente.Columns["Id"].Visible = false;
-                    ////dgvFormPaciente.Columns["Atenciones"].Visible = false;
-                    ////dgvFormPaciente.Columns["TipoPlan"].Visible = false;
-                    //dgvFormPaciente.Columns["TutorId"].Visible = false;
-                    ////dgvFormPaciente.Columns["Tutor"].Visible = false;
 
-                    //// Ordenar las columnas visibles
-                    //dgvFormPaciente.Columns["NroHC"].DisplayIndex = 0;
-                    //dgvFormPaciente.Columns["Apellido"].DisplayIndex = 1;
-                    //dgvFormPaciente.Columns["Nombre"].DisplayIndex = 2;
-                    //dgvFormPaciente.Columns["NroDni"].DisplayIndex = 3;
-                    //dgvFormPaciente.Columns["Telefono"].DisplayIndex = 4;
-                    //dgvFormPaciente.Columns["Email"].DisplayIndex = 5;
-                    //dgvFormPaciente.Columns["Direccion"].DisplayIndex = 6;
-                    //dgvFormPaciente.Columns["FechaNacimiento"].DisplayIndex = 7;
-                    //dgvFormPaciente.Columns["NroAfiliado"].DisplayIndex = 8;
-                    //dgvFormPaciente.Columns["TipoPlanId"].DisplayIndex = 9;
+                    var turnosList = turnosDelDia.ToList();
+                    foreach (var turno in turnosList)
+                    {
+                        turno.PacienteNombre = $"{turno.PacienteApellido}, {turno.PacienteNombre}";
+                        turno.OdontologoNombre = $"{turno.OdontologoApellido}, {turno.OdontologoNombre}";
+                    }
+
+                    dgvAtencionesDelDia.DataSource = turnosDelDia;
+                    dgvAtencionesDelDia.Columns["Id"].Visible = false;
+                    dgvAtencionesDelDia.Columns["FechaHoraAtencion"].HeaderText = "Fecha y hora";
+                    dgvAtencionesDelDia.Columns["TipoAtencionId"].Visible = false;
+                    dgvAtencionesDelDia.Columns["Observaciones"].Visible = false;
+                    dgvAtencionesDelDia.Columns["OdontologoId"].Visible = false;
+                    dgvAtencionesDelDia.Columns["PacienteId"].Visible = false;
+                    dgvAtencionesDelDia.Columns["PacienteNombre"].HeaderText = "Paciente";
+                    dgvAtencionesDelDia.Columns["PacienteApellido"].Visible = false;
+                    dgvAtencionesDelDia.Columns["PacienteDni"].HeaderText = "Dni";
+                    dgvAtencionesDelDia.Columns["OdontologoNombre"].HeaderText = "Odontólogo";
+                    dgvAtencionesDelDia.Columns["OdontologoApellido"].Visible = false;
+                    dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].HeaderText = "Atención";
+                    dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
+
+                    // Configurar anchos de columnas
+                    dgvAtencionesDelDia.Columns["FechaHoraAtencion"].Width = 150;
+                    dgvAtencionesDelDia.Columns["PacienteNombre"].Width = 200;
+                    dgvAtencionesDelDia.Columns["PacienteDni"].Width = 100;
+                    dgvAtencionesDelDia.Columns["OdontologoNombre"].Width = 200;
+                    dgvAtencionesDelDia.Columns["Estado"].Width = 100;
+                    dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].Width = 150;
+                    dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].Width = 100;
                 }
                 else
                 {
@@ -123,7 +135,7 @@ namespace SmileSoft.UI.Desktop
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los pacientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar las atenciones: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }
@@ -153,6 +165,11 @@ namespace SmileSoft.UI.Desktop
                     await ObtenerDatos();
                 }
             }
+        }
+
+        private void btnRegistrarLlegada_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

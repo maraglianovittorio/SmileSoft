@@ -36,7 +36,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de personas: {ex.Message}", ex);
             }
         }
-        public static async Task<IEnumerable<Persona>> GetAllTutorsAsync()
+        public static async Task<IEnumerable<PersonaDTO>> GetAllTutorsAsync()
         {
             try
             {
@@ -45,7 +45,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync("personas/tutores");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<IEnumerable<Persona>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<PersonaDTO>>();
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de tutores: {ex.Message}", ex);
             }
         }
-        public static async Task<Persona> GetTutorById(int id)
+        public static async Task<PersonaDTO> GetTutorById(int id)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync($"personas/tutor/id?id={id}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<Persona>();
+                    return await response.Content.ReadAsAsync<PersonaDTO>();
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener tutor con Id {id}: {ex.Message}", ex);
             }
         }
-        public static async Task<Persona> GetOneAsync(int id)
+        public static async Task<PersonaDTO> GetOneAsync(int id)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace SmileSoft.API.Clients
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<Persona>();
+                    return await response.Content.ReadAsAsync<PersonaDTO>();
                 }
                 else
                 {
@@ -226,7 +226,7 @@ namespace SmileSoft.API.Clients
             {
                 await EnsureAuthenticatedAsync();   
                 using var httpClient = await CreateHttpClientAsync();
-                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"personas/{id}", persona);
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"personas/id?id={id}", persona);
 
                 if (!response.IsSuccessStatusCode)
                 {

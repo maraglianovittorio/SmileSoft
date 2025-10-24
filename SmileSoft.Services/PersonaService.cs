@@ -128,7 +128,25 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe otra persona con el DNI '{dto.NroDni}'.");
             }
 
-            Persona persona = new Persona(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.FechaNacimiento, dto.Email, dto.Direccion, dto.Telefono);
+            Persona persona = new Persona(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.FechaNacimiento, dto.Direccion, dto.Email, dto.Telefono);
+            //controlar si la persona tiene pacientes tutelados para actualizarlos tambien
+            var pacientes = personaRepository.GetPacientesByTutorId(id);
+            if (pacientes == null || !pacientes.Any())
+            {
+                // no tiene pacientes tutelados, actualizo solo la persona
+                return personaRepository.Update(persona);
+            }
+            var pacienteRepository = new PacienteRepository();
+            foreach (var paciente in pacientes)
+            {
+                paciente.SetTutorId(id);
+                paciente.SetDireccion(dto.Direccion);
+                paciente.SetEmail(dto.Email);
+                paciente.SetTelefono(dto.Telefono);
+                pacienteRepository.Update(paciente);
+            }
+            // persisto los cambios en los pacientes tutelados
+
             return personaRepository.Update(persona);
 
         }
@@ -151,6 +169,22 @@ namespace SmileSoft.Services
                 FechaNacimiento = persona.FechaNacimiento,
                 Telefono = persona.Telefono
             };
+        }
+        public IEnumerable<PersonaDTO> GetPacientesByTutorId(int idTutor)
+        {
+            var personaRepository = new PersonaRepository();
+            var personas = personaRepository.GetPacientesByTutorId(idTutor);
+            return personas.Select(p => new PersonaDTO
+            {
+                Id = p.Id,
+                Nombre = p.Nombre,
+                Apellido = p.Apellido,
+                NroDni = p.NroDni,
+                Direccion = p.Direccion,
+                Email = p.Email,
+                FechaNacimiento = p.FechaNacimiento,
+                Telefono = p.Telefono,
+            }).ToList();
         }
     }
 }

@@ -23,9 +23,11 @@ namespace SmileSoft.WindowsForms
             btnCancelarAtencion.Visible = false;
         }
 
-        public FormAtencion(int idAtencion) 
+        public FormAtencion(int idAtencion)
         {
             InitializeComponent();
+            lblTitulo.Text = "Editar Atención";
+            this.Text = "Editar Atención";
             btnCancelarAtencion.Visible = true;
             _idAtencionEditar = idAtencion; // Guardamos el ID para usarlo después del Load
         }
@@ -79,7 +81,7 @@ namespace SmileSoft.WindowsForms
         {
             try
             {
-                
+
                 var atencionResponse = await AtencionApiClient.GetOneAsync(idAtencion);
                 if (atencionResponse == null)
                 {
@@ -264,12 +266,13 @@ namespace SmileSoft.WindowsForms
                 try
                 {
                     atencionesDelDia = (await AtencionApiClient.GetByFechaRangeAndOdoAsync(dtpDiaAtencion.Value.Date, dtpDiaAtencion.Value.Date, (int)cmbOdontologo.SelectedValue)).ToList();
-                    
+
                     // Excluir la atención actual si estamos en modo edición
                     if (_idAtencionEditar.HasValue)
                     {
                         atencionesDelDia = atencionesDelDia.Where(a => a.Id != _idAtencionEditar.Value).ToList();
                     }
+                    atencionesDelDia = atencionesDelDia.Where(a => a.Estado == "Otorgada").ToList();
 
                     foreach (var atencion in atencionesDelDia)
                     {
@@ -314,7 +317,7 @@ namespace SmileSoft.WindowsForms
                     {
                         if (hora.Add(duracionNuevoTurno) > horaFinDia)
                         {
-                            break; 
+                            break;
                         }
 
                         bool horarioOcupado = false;
@@ -329,7 +332,7 @@ namespace SmileSoft.WindowsForms
                             if (inicioNuevoTurno < finTurnoExistente && finNuevoTurno > inicioTurnoExistente)
                             {
                                 horarioOcupado = true;
-                                break; 
+                                break;
                             }
                         }
 
@@ -338,7 +341,7 @@ namespace SmileSoft.WindowsForms
                             horariosDisponibles.Add(hora.ToString(@"hh\:mm"));
                         }
                     }
-                    
+
                     if (atencionesDelDia.Count == 0 && horariosDisponibles.Count > 0)
                     {
                         lblTurnos.Visible = true;
@@ -374,6 +377,20 @@ namespace SmileSoft.WindowsForms
         private async void dtpDiaAtencion_ValueChanged(object sender, EventArgs e)
         {
             await BuscarTurnosPorOdontologo();
+        }
+
+        private async void btnCancelarAtencion_Click(object sender, EventArgs e)
+        {
+            if(_idAtencionEditar == null)
+            {
+                MessageBox.Show("Error: No se puede cancelar una atención que no ha sido creada aún.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            await AtencionApiClient.CancelaAtencionAsync(_idAtencionEditar.Value);
+            await BuscarTurnosPorOdontologo();
+            MessageBox.Show("Atención cancelada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+
         }
     }
 }

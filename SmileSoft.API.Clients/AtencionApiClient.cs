@@ -152,7 +152,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atencion con Id {id}: {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<Atencion>> GetByEstadoAsync(string estado)
+        public static async Task<IEnumerable<Atencion>> GetByEstadoAsync(string estado)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync($"atenciones/estado?estado={estado}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ICollection<Atencion>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<Atencion>>();
                 }
                 else
                 {
@@ -179,7 +179,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones con estado '{estado}': {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<AtencionDetalleDTO>> GetByOdontologoIdAsync(int odontologoId)
+        public static async Task<IEnumerable<AtencionDetalleDTO>> GetByOdontologoIdAsync(int odontologoId)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync($"atenciones/odontologo?id={odontologoId}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ICollection<AtencionDetalleDTO>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<AtencionDetalleDTO>>();
                 }
                 else
                 {
@@ -206,7 +206,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones para el odontólogo con Id {odontologoId}: {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<Atencion>> GetByPacienteIdAsync(int pacienteId)
+        public static async Task<IEnumerable<Atencion>> GetByPacienteIdAsync(int pacienteId)
         {
             try
             {
@@ -215,7 +215,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync($"atenciones/paciente?id={pacienteId}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ICollection<Atencion>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<Atencion>>();
                 }
                 else
                 {
@@ -233,7 +233,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones para el paciente con Id {pacienteId}: {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<Atencion>> GetByTipoAtencionIdAsync(int tipoAtencionId)
+        public static async Task<IEnumerable<Atencion>> GetByTipoAtencionIdAsync(int tipoAtencionId)
         {
             try
             {
@@ -242,7 +242,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync($"atenciones/tipoatencion?id={tipoAtencionId}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ICollection<Atencion>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<Atencion>>();
                 }
                 else
                 {
@@ -260,7 +260,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones para el tipo de atención con Id {tipoAtencionId}: {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<AtencionDetalleDTO>> GetByFechaRangeAsync(DateTime fechaInicio, DateTime fechaFin)
+        public static async Task<IEnumerable<AtencionDetalleDTO>> GetByFechaRangeAsync(DateTime fechaInicio, DateTime fechaFin)
         {
             try
             {
@@ -270,7 +270,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ICollection<AtencionDetalleDTO>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<AtencionDetalleDTO>>();
                 }
                 else
                 {
@@ -288,7 +288,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones entre {fechaInicio} y {fechaFin}: {ex.Message}", ex);
             }
         }
-        public static async Task<ICollection<AtencionDetalleDTO>> GetByFechaRangeAndOdoAsync(DateTime fechaInicio, DateTime fechaFin, int id)
+        public static async Task<IEnumerable<AtencionDetalleDTO>> GetByFechaRangeAndOdoAsync(DateTime fechaInicio, DateTime fechaFin, int id)
         {
             try
             {
@@ -301,7 +301,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ICollection<AtencionDetalleDTO>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<AtencionDetalleDTO>>();
                 }
                 else
                 {   

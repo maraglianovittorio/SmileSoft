@@ -262,6 +262,15 @@ namespace SmileSoft.UI.Desktop
                             }
                         }
                     }
+                    _idTutor = pacienteResponse.TutorId;
+                    if (_idTutor != null)
+                    {
+                        lblTutor.Visible = true;
+                        txtTutor.Visible = true;
+                        var tutorResponse = await PersonaApiClient.GetTutorById(_idTutor.Value);
+                        txtTutor.Text = $"{tutorResponse.Nombre} {tutorResponse.Apellido}";
+                    }
+
 
 
                 }
@@ -376,46 +385,6 @@ namespace SmileSoft.UI.Desktop
 
         }
 
-        private async void btnBuscarOS_Click(object sender, EventArgs e)
-        {
-            //await PopulaTipoPlan();
-            //if (txtOS == null || string.IsNullOrWhiteSpace(txtOS.Text))
-            //{
-            //    MessageBox.Show($"Error: Debe ingresar el nombre de la Obra Social", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //else
-            //{
-            //    try
-            //    {
-            //        ObraSocial obraSocial = await ObraSocialApiClient.GetByNameAsync(txtOS.Text.Trim());
-            //        if (obraSocial == null)
-            //        {
-            //            MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            return;
-            //        }
-            //        // ver si hay alguna manera de ahorrar hacer esta busqueda.
-            //        var tiposPlan = await TipoPlanApiClient.GetByObraSocialIdAsync(obraSocial.Id);
-            //        if (tiposPlan == null || tiposPlan.Count() == 0)
-            //        {
-            //            MessageBox.Show($"Error: No se encontraron tipos de plan para la Obra Social '{obraSocial.Nombre}'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            return;
-            //        }
-            //        else
-            //        {
-            //            cmbTiposPlan.DisplayMember = "Nombre";
-            //            cmbTiposPlan.ValueMember = "Id";
-            //            cmbTiposPlan.Enabled = true;
-            //            cmbTiposPlan.DataSource = tiposPlan;
-            //        }
-            //    }
-            //    catch
-            //    {
-            //        MessageBox.Show($"Error: Obra Social no encontrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-
-            //}
-        }
-        // no se usa este evento porque ValueChanged se dispara cada vez que se cambia el valor, incluso al inicializar el control
 
 
         private void dtpFechaNacimiento_Leave(object sender, EventArgs e)

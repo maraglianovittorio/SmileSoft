@@ -100,6 +100,13 @@ namespace SmileSoft.Data
             }
             return query.Any();
         }
+        public IEnumerable<Paciente> GetPacientesByTutorId(int tutorId)
+        {
+            using var context = CreateContext();
+            return context.Pacientes
+                .Where(p => p.TutorId == tutorId)
+                .ToList();
+        }
 
         //public IEnumerable<Paciente> GetByCriteria(PacienteCriteria criteria)
         //{

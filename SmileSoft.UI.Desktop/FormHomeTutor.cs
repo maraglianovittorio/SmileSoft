@@ -14,7 +14,7 @@ namespace SmileSoft.UI.Desktop
             BaseAddress = new Uri("http://localhost:54145")
 
         };
-        private List<Persona> tutores = new();
+        private List<PersonaDTO> tutores = new();
         public FormHomeTutor()
         {
             InitializeComponent();
@@ -83,7 +83,7 @@ namespace SmileSoft.UI.Desktop
                 if (personasResponse != null && personasResponse.Count() > 0)
                 {
                     dgvFormTutor.DataSource = personasResponse;
-                    tutores = (List<Persona>)personasResponse;
+                    tutores = (List<PersonaDTO>)personasResponse;
                     dgvFormTutor.Columns["Id"].Visible = false;
                 }
                 else
@@ -153,7 +153,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormTutor.SelectedRows.Count > 0)
             {
-                var tutorSeleccionado = dgvFormTutor.SelectedRows[0].DataBoundItem as Persona;
+                var tutorSeleccionado = dgvFormTutor.SelectedRows[0].DataBoundItem as PersonaDTO;
                 if (tutorSeleccionado != null)
                 {
                     FormTutor formTutor = new FormTutor(tutorSeleccionado.Id);
@@ -167,7 +167,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormTutor.SelectedRows.Count > 0)
             {
-                var tutorSeleccionado = dgvFormTutor.SelectedRows[0].DataBoundItem as Persona;
+                var tutorSeleccionado = dgvFormTutor.SelectedRows[0].DataBoundItem as PersonaDTO;
                 if (tutorSeleccionado != null)
                 {
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este tutor?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

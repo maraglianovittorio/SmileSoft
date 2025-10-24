@@ -38,19 +38,9 @@
             tutoresToolStripMenuItem = new ToolStripMenuItem();
             OSToolStripMenuItem = new ToolStripMenuItem();
             dgvAtencionesDelDia = new DataGridView();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            fechaHoraAtencionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            estadoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            observacionesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            odontologoIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            odontologoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            pacienteIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            pacienteDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            tipoAtencionIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            tipoAtencionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             atencionBindingSource = new BindingSource(components);
             lblAtencionesDelDia = new Label();
-            btnCancelarAtencion = new Button();
+            btnRegistrarLlegada = new Button();
             btnEditarAtencion = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAtencionesDelDia).BeginInit();
@@ -122,85 +112,12 @@
             // 
             // dgvAtencionesDelDia
             // 
-            dgvAtencionesDelDia.AutoGenerateColumns = false;
             dgvAtencionesDelDia.BackgroundColor = Color.PapayaWhip;
             dgvAtencionesDelDia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAtencionesDelDia.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, fechaHoraAtencionDataGridViewTextBoxColumn, estadoDataGridViewTextBoxColumn, observacionesDataGridViewTextBoxColumn, odontologoIdDataGridViewTextBoxColumn, odontologoDataGridViewTextBoxColumn, pacienteIdDataGridViewTextBoxColumn, pacienteDataGridViewTextBoxColumn, tipoAtencionIdDataGridViewTextBoxColumn, tipoAtencionDataGridViewTextBoxColumn });
-            dgvAtencionesDelDia.DataSource = atencionBindingSource;
             dgvAtencionesDelDia.Location = new Point(12, 51);
             dgvAtencionesDelDia.Name = "dgvAtencionesDelDia";
             dgvAtencionesDelDia.Size = new Size(683, 266);
             dgvAtencionesDelDia.TabIndex = 11;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fechaHoraAtencionDataGridViewTextBoxColumn
-            // 
-            fechaHoraAtencionDataGridViewTextBoxColumn.DataPropertyName = "FechaHoraAtencion";
-            fechaHoraAtencionDataGridViewTextBoxColumn.HeaderText = "FechaHoraAtencion";
-            fechaHoraAtencionDataGridViewTextBoxColumn.Name = "fechaHoraAtencionDataGridViewTextBoxColumn";
-            fechaHoraAtencionDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // estadoDataGridViewTextBoxColumn
-            // 
-            estadoDataGridViewTextBoxColumn.DataPropertyName = "Estado";
-            estadoDataGridViewTextBoxColumn.HeaderText = "Estado";
-            estadoDataGridViewTextBoxColumn.Name = "estadoDataGridViewTextBoxColumn";
-            estadoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // observacionesDataGridViewTextBoxColumn
-            // 
-            observacionesDataGridViewTextBoxColumn.DataPropertyName = "Observaciones";
-            observacionesDataGridViewTextBoxColumn.HeaderText = "Observaciones";
-            observacionesDataGridViewTextBoxColumn.Name = "observacionesDataGridViewTextBoxColumn";
-            observacionesDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // odontologoIdDataGridViewTextBoxColumn
-            // 
-            odontologoIdDataGridViewTextBoxColumn.DataPropertyName = "OdontologoId";
-            odontologoIdDataGridViewTextBoxColumn.HeaderText = "OdontologoId";
-            odontologoIdDataGridViewTextBoxColumn.Name = "odontologoIdDataGridViewTextBoxColumn";
-            odontologoIdDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // odontologoDataGridViewTextBoxColumn
-            // 
-            odontologoDataGridViewTextBoxColumn.DataPropertyName = "Odontologo";
-            odontologoDataGridViewTextBoxColumn.HeaderText = "Odontologo";
-            odontologoDataGridViewTextBoxColumn.Name = "odontologoDataGridViewTextBoxColumn";
-            odontologoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pacienteIdDataGridViewTextBoxColumn
-            // 
-            pacienteIdDataGridViewTextBoxColumn.DataPropertyName = "PacienteId";
-            pacienteIdDataGridViewTextBoxColumn.HeaderText = "PacienteId";
-            pacienteIdDataGridViewTextBoxColumn.Name = "pacienteIdDataGridViewTextBoxColumn";
-            pacienteIdDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pacienteDataGridViewTextBoxColumn
-            // 
-            pacienteDataGridViewTextBoxColumn.DataPropertyName = "Paciente";
-            pacienteDataGridViewTextBoxColumn.HeaderText = "Paciente";
-            pacienteDataGridViewTextBoxColumn.Name = "pacienteDataGridViewTextBoxColumn";
-            pacienteDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tipoAtencionIdDataGridViewTextBoxColumn
-            // 
-            tipoAtencionIdDataGridViewTextBoxColumn.DataPropertyName = "TipoAtencionId";
-            tipoAtencionIdDataGridViewTextBoxColumn.HeaderText = "TipoAtencionId";
-            tipoAtencionIdDataGridViewTextBoxColumn.Name = "tipoAtencionIdDataGridViewTextBoxColumn";
-            tipoAtencionIdDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tipoAtencionDataGridViewTextBoxColumn
-            // 
-            tipoAtencionDataGridViewTextBoxColumn.DataPropertyName = "TipoAtencion";
-            tipoAtencionDataGridViewTextBoxColumn.HeaderText = "TipoAtencion";
-            tipoAtencionDataGridViewTextBoxColumn.Name = "tipoAtencionDataGridViewTextBoxColumn";
-            tipoAtencionDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // atencionBindingSource
             // 
@@ -216,17 +133,18 @@
             lblAtencionesDelDia.TabIndex = 12;
             lblAtencionesDelDia.Text = "Atenciones del dia";
             // 
-            // btnCancelarAtencion
+            // btnRegistrarLlegada
             // 
-            btnCancelarAtencion.BackColor = Color.Red;
-            btnCancelarAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnCancelarAtencion.Location = new Point(553, 322);
-            btnCancelarAtencion.Margin = new Padding(2);
-            btnCancelarAtencion.Name = "btnCancelarAtencion";
-            btnCancelarAtencion.Size = new Size(143, 54);
-            btnCancelarAtencion.TabIndex = 13;
-            btnCancelarAtencion.Text = "Cancelar atencion";
-            btnCancelarAtencion.UseVisualStyleBackColor = false;
+            btnRegistrarLlegada.BackColor = Color.Gold;
+            btnRegistrarLlegada.ForeColor = SystemColors.ButtonHighlight;
+            btnRegistrarLlegada.Location = new Point(553, 322);
+            btnRegistrarLlegada.Margin = new Padding(2);
+            btnRegistrarLlegada.Name = "btnRegistrarLlegada";
+            btnRegistrarLlegada.Size = new Size(143, 54);
+            btnRegistrarLlegada.TabIndex = 13;
+            btnRegistrarLlegada.Text = "Registrar Llegada";
+            btnRegistrarLlegada.UseVisualStyleBackColor = false;
+            btnRegistrarLlegada.Click += btnRegistrarLlegada_Click;
             // 
             // btnEditarAtencion
             // 
@@ -247,7 +165,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(707, 382);
             Controls.Add(btnEditarAtencion);
-            Controls.Add(btnCancelarAtencion);
+            Controls.Add(btnRegistrarLlegada);
             Controls.Add(lblAtencionesDelDia);
             Controls.Add(dgvAtencionesDelDia);
             Controls.Add(BtnCerrarSesion);
@@ -273,20 +191,10 @@
         private ToolStripMenuItem tutoresToolStripMenuItem;
         private ToolStripMenuItem OSToolStripMenuItem;
         private DataGridView dgvAtencionesDelDia;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn fechaHoraAtencionDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn estadoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn observacionesDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn odontologoIdDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn odontologoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn pacienteIdDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn pacienteDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn tipoAtencionIdDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn tipoAtencionDataGridViewTextBoxColumn;
         private BindingSource atencionBindingSource;
         private Label lblAtencionesDelDia;
         private ToolStripMenuItem agregarAtencionToolStripMenuItem;
-        private Button btnCancelarAtencion;
+        private Button btnRegistrarLlegada;
         private Button btnEditarAtencion;
         private ToolStripMenuItem verAtencionesToolStripMenuItem;
     }

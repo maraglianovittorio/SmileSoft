@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            lblTitulo = new Label();
             lblDni = new Label();
             txtDni = new TextBox();
             label2 = new Label();
@@ -54,15 +54,15 @@
             ((System.ComponentModel.ISupportInitialize)dgvTurnosOcupados).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // lblTitulo
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(334, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(182, 32);
-            label1.TabIndex = 0;
-            label1.Text = "Nueva atención";
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTitulo.Location = new Point(334, 9);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(182, 32);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Nueva atención";
             // 
             // lblDni
             // 
@@ -272,6 +272,7 @@
             btnCancelarAtencion.TabIndex = 21;
             btnCancelarAtencion.Text = "Cancelar";
             btnCancelarAtencion.UseVisualStyleBackColor = true;
+            btnCancelarAtencion.Click += btnCancelarAtencion_Click;
             // 
             // FormAtencion
             // 
@@ -300,7 +301,7 @@
             Controls.Add(label2);
             Controls.Add(txtDni);
             Controls.Add(lblDni);
-            Controls.Add(label1);
+            Controls.Add(lblTitulo);
             Name = "FormAtencion";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Nueva atención";
@@ -312,7 +313,7 @@
 
         #endregion
 
-        private Label label1;
+        private Label lblTitulo;
         private Label lblDni;
         private TextBox txtDni;
         private Label label2;

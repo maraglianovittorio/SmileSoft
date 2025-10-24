@@ -220,8 +220,6 @@ namespace SmileSoft.UI.Desktop
                     txtEmail.Text = personaResponse.Email;
                     txtDNI.Text = personaResponse.NroDni;
                     txtTelefono.Text = personaResponse.Telefono;
-                    
-
 
                 }
                 else
