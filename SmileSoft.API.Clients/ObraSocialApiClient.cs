@@ -9,22 +9,15 @@ using System.Threading.Tasks;
 
 namespace SmileSoft.API.Clients
 {
-    public class ObraSocialApiClient
+    public class ObraSocialApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static ObraSocialApiClient()
-        {
-
-            client.BaseAddress = new Uri("https://localhost:54145/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
         public static async Task<IEnumerable<ObraSocial>> GetAllAsync()
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("obrasocial");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync("obrasocial");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -32,6 +25,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener lista de obras sociales. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -49,16 +43,17 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"obrasocial/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"obrasocial/id?id={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<ObraSocial>();
-
-
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener obra social con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -76,13 +71,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"obrasocial/nombre?nombre={nombre}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"obrasocial/nombre?nombre={nombre}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<ObraSocial>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener obra social con nombre '{nombre}'. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -100,10 +98,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("obrasocial", obraSocial);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("obrasocial", obraSocial);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al crear la obra social. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -124,10 +125,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync($"obrasocial/{id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.DeleteAsync($"obrasocial/{id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al eliminar obra social con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -145,11 +149,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-
-                HttpResponseMessage response = await client.PutAsJsonAsync($"obrasocial/{id}", obraSocial);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"obrasocial/{id}", obraSocial);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al actualizar obra social con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }

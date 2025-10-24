@@ -12,28 +12,22 @@ using Microsoft.AspNetCore.Http;
 
 namespace SmileSoft.API.Clients
 {
-    public class AtencionApiClient
+    public class AtencionApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static AtencionApiClient()
-        {
-
-            client.BaseAddress = new Uri("https://localhost:54145/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
         public static async Task<HistoriaClinicaDTO> GetHistoriaClinicaAsync(int pacienteId)
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"atenciones/historiaclinica?pacienteId={pacienteId}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"atenciones/historiaclinica?pacienteId={pacienteId}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<HistoriaClinicaDTO>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener la historia clínica para el paciente con Id {pacienteId}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -51,7 +45,9 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("atenciones");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync("atenciones");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -59,6 +55,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener lista de atenciones. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -76,13 +73,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("atenciones/secretario");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync("atenciones/secretario");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<IEnumerable<AtencionSecretarioDTO>>();
                 }
                 else
-                {
+                {   
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener lista de atenciones para secretario. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -100,13 +100,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"atenciones/secretario/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"atenciones/secretario/id?id={id}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<AtencionSecretarioDTO>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener atencion con Id {id} para secretario. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -124,7 +127,9 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"atenciones/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"atenciones/id?id={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -132,7 +137,8 @@ namespace SmileSoft.API.Clients
 
                 }
                 else
-                {
+                { 
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener atencion con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -150,13 +156,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"atenciones/estado?estado={estado}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"atenciones/estado?estado={estado}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<ICollection<Atencion>>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener atenciones con estado '{estado}'. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -174,13 +183,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"atenciones/odontologo?id={odontologoId}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"atenciones/odontologo?id={odontologoId}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<ICollection<AtencionDetalleDTO>>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener atenciones para el odontólogo con Id {odontologoId}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -198,13 +210,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"atenciones/paciente?id={pacienteId}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"atenciones/paciente?id={pacienteId}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<ICollection<Atencion>>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener atenciones para el paciente con Id {pacienteId}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -222,13 +237,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"atenciones/tipoatencion?id={tipoAtencionId}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"atenciones/tipoatencion?id={tipoAtencionId}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<ICollection<Atencion>>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener atenciones para el tipo de atención con Id {tipoAtencionId}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -246,14 +264,17 @@ namespace SmileSoft.API.Clients
         {
             try
             {
+                await EnsureAuthenticatedAsync();
                 string url = $"atenciones/rango?startDate={fechaInicio}&endDate={fechaFin}";
-                HttpResponseMessage response = await client.GetAsync(url);
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<ICollection<AtencionDetalleDTO>>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener atenciones entre {fechaInicio} y {fechaFin}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -271,17 +292,20 @@ namespace SmileSoft.API.Clients
         {
             try
             {
+                await EnsureAuthenticatedAsync();
                 var fechaIni = fechaInicio.Date;
                 // sumo un segundo para incluir todo el dia de fechaFin
                 var fechaF = fechaIni.AddDays(1);
                 string url = $"atenciones/rangoYOdo?startdate={fechaIni:yyyy-MM-dd}&enddate={fechaF:yyyy-MM-dd}&id={id}";
-                HttpResponseMessage response = await client.GetAsync(url);
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<ICollection<AtencionDetalleDTO>>();
                 }
                 else
-                {
+                {   
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener atenciones entre {fechaInicio} y {fechaFin} para el odontologo {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -299,13 +323,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("atenciones", atencion);
-
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("atenciones", atencion);
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al crear la atencion. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
+                
             }
             catch (HttpRequestException ex)
             {
@@ -321,10 +348,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync($"atenciones/{id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.DeleteAsync($"atenciones/{id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al eliminar atencion con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -342,11 +372,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-
-                HttpResponseMessage response = await client.PutAsJsonAsync($"atenciones/{id}", atencion);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"atenciones/{id}", atencion);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al actualizar atencion con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -364,9 +396,12 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsync($"atenciones/{id}/cancelar", null);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsync($"atenciones/{id}/cancelar", null);
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al cancelar atencion con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -384,9 +419,12 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsync($"atenciones/{id}/llegada", null);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsync($"atenciones/{id}/llegada", null);
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al actualizar llegada de atencion con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -405,6 +443,7 @@ namespace SmileSoft.API.Clients
         {
             try
             {
+                await EnsureAuthenticatedAsync();
                 // Validate input parameters
                 if (id <= 0)
                 {
@@ -417,10 +456,12 @@ namespace SmileSoft.API.Clients
                 }
 
                 var content = new StringContent($"\"{observaciones}\"", Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync($"atenciones/{id}/observaciones", content);
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsync($"atenciones/{id}/observaciones", content);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al actualizar observaciones de atencion con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }

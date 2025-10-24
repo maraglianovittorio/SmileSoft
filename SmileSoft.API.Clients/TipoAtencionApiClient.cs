@@ -9,22 +9,15 @@ using System.Threading.Tasks;
 
 namespace SmileSoft.API.Clients
 {
-    public class TipoAtencionApiClient
+    public class TipoAtencionApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static TipoAtencionApiClient()
-        {
-
-            client.BaseAddress = new Uri("https://localhost:54145/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
         public static async Task<IEnumerable<TipoAtencion>> GetAllAsync()
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("tipoatencion");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync("tipoatencion");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -32,6 +25,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener lista de tipos de atención. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -49,7 +43,9 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"tipoatencion/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"tipoatencion/id?id={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -57,6 +53,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener tipo de atención con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -74,10 +71,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("tipoatencion", tipoAtencion);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("tipoatencion", tipoAtencion);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al crear el tipo de atención. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -98,10 +98,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync($"tipoatencion/{id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.DeleteAsync($"tipoatencion/{id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al eliminar tipo de atención con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -119,11 +122,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-
-                HttpResponseMessage response = await client.PutAsJsonAsync($"tipoatencion/{id}", tipoAtencion);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"tipoatencion/{id}", tipoAtencion);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al actualizar tipo de atención con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }

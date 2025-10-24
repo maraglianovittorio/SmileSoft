@@ -86,22 +86,30 @@ else
     private IEnumerable<AtencionDetalleDTO>? atencionesFiltradas;
     private List<AtencionDetalleDTO> atencionesFiltradasOriginal = new();
     private DateTime fechaSeleccionada = DateTime.Today;
-    private bool isLoading = false;
+    private bool isLoading = true; // Cambiar a true por defecto
 
     protected override async Task OnInitializedAsync()
     {
+        // NO cargar datos aquí - esperar a verificar autenticación primero
+        isAuthenticated = await AuthService.IsAuthenticatedAsync();
+        
+        if (!isAuthenticated)
+        {
+            // No hacer nada, dejar que OnAfterRenderAsync redirija
+            return;
+        }
+
+        username = await AuthService.GetUsernameAsync() ?? "";
         await LoadAtenciones(fechaSeleccionada);
     }
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            isAuthenticated = await AuthService.IsAuthenticatedAsync();
-            username = isAuthenticated ? await AuthService.GetUsernameAsync() ?? "" : "";
-            
             if (!isAuthenticated)
             {
-                Navigation.NavigateTo("/login");
+                Navigation.NavigateTo("/login", forceLoad: true);
                 return;
             }
 
@@ -110,10 +118,11 @@ else
         }
         await base.OnAfterRenderAsync(firstRender);
     }
+
     private async Task LoadAtenciones(DateTime fecha)
     {
         isLoading = true;
-        StateHasChanged(); // Force UI update to show loading state
+        StateHasChanged();
 
         try
         {
@@ -128,42 +137,50 @@ else
                 : Array.Empty<AtencionDetalleDTO>();
             atencionesFiltradasOriginal = atencionesFiltradas.ToList();
         }
+        catch (UnauthorizedAccessException)
+        {
+            // Sesión expiró durante la navegación
+            await AuthService.LogoutAsync();
+            Navigation.NavigateTo("/login", forceLoad: true);
+        }
+        catch (Exception ex)
+        {
+            // Manejar otros errores
+            Console.WriteLine($"Error cargando atenciones: {ex.Message}");
+        }
         finally
         {
             isLoading = false;
-            StateHasChanged(); // Force UI update after data load
+            StateHasChanged();
         }
     }
 
     private async Task PreviousDay()
     {
-        if (isLoading) return; // Prevent multiple simultaneous requests
-
+        if (isLoading) return;
         fechaSeleccionada = fechaSeleccionada.AddDays(-1);
         await LoadAtenciones(fechaSeleccionada);
     }
 
     private async Task NextDay()
     {
-        if (isLoading) return; // Prevent multiple simultaneous requests
-
+        if (isLoading) return;
         fechaSeleccionada = fechaSeleccionada.AddDays(1);
         await LoadAtenciones(fechaSeleccionada);
     }
 
     private async Task OnDateChanged(ChangeEventArgs e)
     {
-        if (isLoading) return; // Prevent multiple simultaneous requests
-
+        if (isLoading) return;
         if (DateTime.TryParse(e.Value?.ToString(), out DateTime newDate))
         {
             fechaSeleccionada = newDate;
             await LoadAtenciones(fechaSeleccionada);
         }
     }
+
     private void AgregarDetalle(int id)
     {
-        string url = $"/detalleAtencion/{id}";
-        Navigation.NavigateTo(url);
+        Navigation.NavigateTo($"/detalleAtencion/{id}");
     }
 }

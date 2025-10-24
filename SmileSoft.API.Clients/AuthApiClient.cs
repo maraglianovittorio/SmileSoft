@@ -6,24 +6,15 @@ using System.Text.Json;
 
 namespace SmileSoft.API.Clients
 {
-    public class AuthApiClient
+    public class AuthApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static AuthApiClient()
-        {
-            client.BaseAddress = new Uri("https://localhost:54145/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
         public async static Task<LoginResponse?> LoginAsync(LoginRequest request)
         {
-
+            using var httpClient = await CreateHttpClientAsync();
             var json = JsonSerializer.Serialize(request);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("auth/login", content);
+            HttpResponseMessage response = await httpClient.PostAsync("auth/login", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -35,8 +26,6 @@ namespace SmileSoft.API.Clients
             }
 
             return null;
-
-
         }
     }
 }

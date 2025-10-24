@@ -9,22 +9,15 @@ using System.Threading.Tasks;
 
 namespace SmileSoft.API.Clients
 {
-    public class UsuarioApiClient
+    public class UsuarioApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static UsuarioApiClient()
-        {
-
-            client.BaseAddress = new Uri("https://localhost:54145/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
         public static async Task<IEnumerable<UsuarioDTO>> GetAllAsync()
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("usuarios");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync("usuarios");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -32,6 +25,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener lista de usuarios. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -49,7 +43,9 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"usuarios/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"usuarios/id?id={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -57,6 +53,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener usuario con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -74,13 +71,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"usuarios/update?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"usuarios/update?id={id}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<Usuario>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener usuario para actualizar con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -98,34 +98,38 @@ namespace SmileSoft.API.Clients
         {
             try
             {
+                await EnsureAuthenticatedAsync();
                 Usuario usuarioPost = new Usuario(usuario.Username, usuario.Password, usuario.Rol);
-                HttpResponseMessage response = await client.PostAsJsonAsync("usuarios", usuario);
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("usuarios", usuario);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al crear el usuario. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
             }
-            catch (HttpRequestException ex) { 
+            catch (HttpRequestException ex)
+            {
                 throw new Exception($"Error de conexión al crear usuario: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
                 throw new Exception($"Timeout al crear usuario: {ex.Message}", ex);
             }
-
-
-
         }
         public static async Task DeleteAsync(int id)
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync($"usuarios/{id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.DeleteAsync($"usuarios/{id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al eliminar usuario con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -143,11 +147,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-
-                HttpResponseMessage response = await client.PutAsJsonAsync($"usuarios/{id}", usuario);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"usuarios/{id}", usuario);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al actualizar usuario con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -165,13 +171,16 @@ namespace SmileSoft.API.Clients
          {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"usuarios/{username}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"usuarios/{username}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<UsuarioDTO>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener usuario con username {username}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -187,4 +196,3 @@ namespace SmileSoft.API.Clients
         }
     }
 }
-

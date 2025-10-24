@@ -6,22 +6,15 @@ using System.Text;
 
 namespace SmileSoft.API.Clients
 {
-    public class PacienteApiClient
+    public class PacienteApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static PacienteApiClient()
-        {
-
-            client.BaseAddress = new Uri("https://localhost:54145/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
         public static async Task<IEnumerable<PacienteDTO>> GetAllAsync()
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("pacientes");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync("pacientes");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -29,6 +22,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener lista de pacientes. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -46,7 +40,9 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"pacientes/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"pacientes/id?id={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -54,6 +50,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener paciente con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -71,13 +68,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"pacientes/dni?dni={dni}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"pacientes/dni?dni={dni}");
                 if(response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<PacienteDTO>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener paciente con DNI {dni}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -94,10 +94,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("pacientes", paciente);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("pacientes", paciente);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al crear el paciente. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -110,18 +113,18 @@ namespace SmileSoft.API.Clients
             {
                 throw new Exception($"Timeout al crear paciente: {ex.Message}", ex);
             }
-
-
-        
         }
         public static async Task DeleteAsync(int id)
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync($"pacientes/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.DeleteAsync($"pacientes/id?id={id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al eliminar paciente con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -139,11 +142,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-
-                HttpResponseMessage response = await client.PutAsJsonAsync($"pacientes/{id}", paciente);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"pacientes/{id}", paciente);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al actualizar paciente con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }

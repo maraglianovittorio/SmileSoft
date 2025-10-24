@@ -6,22 +6,15 @@ using System.Text;
 
 namespace SmileSoft.API.Clients
 {
-    public class PersonaApiClient
+    public class PersonaApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static PersonaApiClient()
-        {
-
-            client.BaseAddress = new Uri("https://localhost:54145/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
         public static async Task<IEnumerable<Persona>> GetAllAsync()
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("personas");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync("personas");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -29,6 +22,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener lista de personas. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -46,13 +40,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("personas/tutores");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync("personas/tutores");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<IEnumerable<Persona>>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener lista de tutores. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -70,13 +67,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"personas/tutor/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"personas/tutor/id?id={id}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<Persona>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener tutor con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -94,7 +94,9 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"personas/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"personas/id?id={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -102,6 +104,7 @@ namespace SmileSoft.API.Clients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener persona con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -118,13 +121,16 @@ namespace SmileSoft.API.Clients
         public static async Task<PersonaDTO>? GetTutorByDni(string dni) { 
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"personas/tutor/dni?dni={dni}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"personas/tutor/dni?dni={dni}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<PersonaDTO>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     return null;
 
@@ -144,13 +150,16 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"personas/dni?dni={dni}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.GetAsync($"personas/dni?dni={dni}");
                 if(response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<PersonaDTO>();
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener persona con DNI {dni}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -167,10 +176,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("personas", persona);
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("personas", persona);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al crear la persona. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -183,18 +195,18 @@ namespace SmileSoft.API.Clients
             {
                 throw new Exception($"Timeout al crear persona: {ex.Message}", ex);
             }
-
-
-        
         }
         public static async Task DeleteAsync(int id)
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync($"personas/id?id={id}");
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.DeleteAsync($"personas/id?id={id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al eliminar persona con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
@@ -212,11 +224,13 @@ namespace SmileSoft.API.Clients
         {
             try
             {
-
-                HttpResponseMessage response = await client.PutAsJsonAsync($"personas/{id}", persona);
+                await EnsureAuthenticatedAsync();   
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"personas/{id}", persona);
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al actualizar persona con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
