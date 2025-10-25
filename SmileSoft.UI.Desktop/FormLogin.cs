@@ -123,40 +123,6 @@ namespace SmileSoft.WindowsForms
                     this.Close();
 
                 }
-                //LoginRequest request = new LoginRequest
-                //{
-                //    Username = txtUsuario.Text,
-                //    Password = txtPassword.Text
-                //};
-                //var loginResponse = await AuthApiClient.LoginAsync(request);
-
-                //if (loginResponse != null && loginResponse.IsSuccess)
-                //{
-                //    MessageBox.Show($"Bienvenido {loginResponse.Username}", "Login Exitoso",
-                //        MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                //    this.DialogResult = DialogResult.OK;
-                //    MostrarFormularioSegunRol(loginResponse.Rol, loginResponse.Username);
-                //    this.Hide();
-                //}
-                //else if (txtUsuario.Text=="Admin" && txtPassword.Text=="admin")
-                //{
-                //    // Credenciales de demo
-                //    MessageBox.Show("Bienvenido Admin (Demo)", "Login Exitoso",
-                //        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    this.DialogResult = DialogResult.OK;
-                //    MostrarFormularioSegunRol("ADMIN", "Admin (Demo)");
-                //    this.Hide();
-                //}
-                else if (txtUsuario.Text=="Admin" && txtPassword.Text=="admin")
-                {
-                    // Credenciales de demo
-                    MessageBox.Show("Bienvenido Admin (Demo)", "Login Exitoso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                    MostrarFormularioSegunRol("ADMIN", "Admin (Demo)");
-                    this.Close();
-                }
                 else
                 {
                     // Credenciales inválidas

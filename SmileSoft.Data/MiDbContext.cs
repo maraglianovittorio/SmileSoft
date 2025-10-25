@@ -20,19 +20,7 @@ namespace SmileSoft.Data
         public DbSet<TipoAtencion> TipoAtenciones { get; set; }
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Atencion> Atenciones { get; set; }
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                var configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    .Build();
-
-                string connectionString = configuration.GetConnectionString("DefaultConnection");
-                optionsBuilder.UseSqlServer(connectionString);
-            }
-        }*/
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -52,7 +40,21 @@ namespace SmileSoft.Data
         public MiDbContext()
         {
             this.Database.EnsureCreated();
-            //SeedInitialData();
+            SeedInitialData();
+        }
+
+        private void SeedInitialData()
+        {
+            if (!Usuarios.Any())
+            {
+                var defaultUser = new Usuario("admin", "Admin123", "Admin");
+                Usuarios.Add(defaultUser);
+                SaveChanges();
+                
+                Console.WriteLine("Default user created:");
+                Console.WriteLine("Username: admin");
+                Console.WriteLine("Password: Admin123");
+            }
         }
 
         

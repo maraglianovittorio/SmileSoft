@@ -142,19 +142,19 @@
             lblUsuarioDemo.ForeColor = SystemColors.ControlDark;
             lblUsuarioDemo.Location = new Point(312, 147);
             lblUsuarioDemo.Name = "lblUsuarioDemo";
-            lblUsuarioDemo.Size = new Size(43, 15);
+            lblUsuarioDemo.Size = new Size(41, 15);
             lblUsuarioDemo.TabIndex = 8;
-            lblUsuarioDemo.Text = "Admin";
+            lblUsuarioDemo.Text = "admin";
             // 
             // lblPassDemo
             // 
             lblPassDemo.AutoSize = true;
             lblPassDemo.ForeColor = SystemColors.ControlDark;
-            lblPassDemo.Location = new Point(306, 216);
+            lblPassDemo.Location = new Point(289, 216);
             lblPassDemo.Name = "lblPassDemo";
-            lblPassDemo.Size = new Size(41, 15);
+            lblPassDemo.Size = new Size(61, 15);
             lblPassDemo.TabIndex = 9;
-            lblPassDemo.Text = "admin";
+            lblPassDemo.Text = "Admin123";
             // 
             // FormLogin
             // 
