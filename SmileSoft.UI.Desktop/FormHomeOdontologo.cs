@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SmileSoft.WindowsForms;
 using SmileSoft.API.Clients;
-using DTO;
+using SmileSoft.DTO;
 using SmileSoft.Dominio;
 
 namespace SmileSoft.UI.Desktop

@@ -1,5 +1,5 @@
 ﻿using Azure.Core;
-using DTO;
+using SmileSoft.DTO;
 using Microsoft.Extensions.Configuration;
 using SmileSoft.Services;
 

@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>SmileSoft.DTO</RootNamespace>
+    <AssemblyName>SmileSoft.DTO</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

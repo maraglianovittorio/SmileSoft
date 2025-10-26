@@ -1,7 +1,7 @@
 ﻿using SmileSoft.Dominio;
 using System.Net.Http.Json;
 using SmileSoft.API.Clients;
-using DTO;
+using SmileSoft.DTO;
 using System.Threading.Tasks;
 namespace SmileSoft.UI.Desktop
 {

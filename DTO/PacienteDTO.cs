@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DTO
+namespace SmileSoft.DTO
 {
     public class PacienteDTO
     {
