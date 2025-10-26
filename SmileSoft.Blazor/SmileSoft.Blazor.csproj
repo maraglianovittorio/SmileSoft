@@ -11,8 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API.Auth.Blazor.Server\SmileSoft.API.Auth.Blazor.Server.csproj" />
-    <ProjectReference Include="..\DTO\SmileSoft.DTO.csproj" />
     <ProjectReference Include="..\SmileSoft.API.Auth.Blazor.Server\SmileSoft.API.Auth.Blazor.Server.csproj" />
     <ProjectReference Include="..\SmileSoft.API.Clients\SmileSoft.API.Clients.csproj" />
     <ProjectReference Include="..\SmileSoft.Dominio\SmileSoft.Dominio.csproj" />

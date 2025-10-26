@@ -7,6 +7,8 @@ using SmileSoft.Data;
 using SmileSoft.Dominio;
 using System;
 using System.Text;
+using Microsoft.OpenApi.Models;
+using System.Text.Json;
 
 namespace SmileSoft.WebAPI
 {
@@ -17,9 +19,32 @@ namespace SmileSoft.WebAPI
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmileSoft API", Version = "v1" });
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "Enter 'Bearer {token}'",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                };
+                c.AddSecurityDefinition("Bearer", securityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement { { securityScheme, Array.Empty<string>() } });
+            });
+
             builder.Services.AddHttpLogging(o => { });
 
+            // Make JSON binding tolerant and consistent
+            builder.Services.ConfigureHttpJsonOptions(o =>
+            {
+                o.SerializerOptions.PropertyNameCaseInsensitive = true;
+                o.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            });
 
             // Add JWT Authentication
             var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -48,19 +73,9 @@ namespace SmileSoft.WebAPI
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
-
-                /*
-                options.AddPolicy("RequireOdontologoRole", policy => policy.RequireRole("Odontologo"));
-                options.AddPolicy("RequireSecretarioRole", policy => policy.RequireRole("Secretario"));
-                options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-                 */
             });
 
-
-            //builder.Services.AddDbContext<MiDbContext>(options =>
-            //     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             var app = builder.Build();
-
 
             if (app.Environment.IsDevelopment())
             {
@@ -69,38 +84,10 @@ namespace SmileSoft.WebAPI
                 app.UseHttpLogging();
             }
 
-
             app.UseHttpsRedirection();
-
-            // Use Authentication & Authorization
             app.UseAuthentication();
             app.UseAuthorization();
 
-            /*
-            app.Use(async (context, next) =>
-            {
-                var endpoint = context.GetEndpoint();
-                if (endpoint != null)
-                {
-                    var allowAnonymous = endpoint.Metadata.GetMetadata<IAllowAnonymous>();
-                    if (allowAnonymous == null)
-                    {
-                        var authResult = await context.RequestServices
-                            .GetRequiredService<IAuthorizationService>()
-                            .AuthorizeAsync(context.User, null, new AuthorizationPolicyBuilder()
-                                .RequireAuthenticatedUser()
-                                .Build());
-            
-                        if (!authResult.Succeeded)
-                        {
-                            context.Response.StatusCode = 401;
-                            return;
-                        }
-                    }
-                }
-                await next();
-            });
-            */
             app.MapGet("/", () => $"Ir a /swagger para probar");
             app.MapPacienteEndpoints();
             app.MapAuthEndpoints();
@@ -112,9 +99,7 @@ namespace SmileSoft.WebAPI
             app.MapPersonaEndpoints();
             app.MapAtencionEndpoints();
 
-
             app.Run();
-
         }
     }
 }

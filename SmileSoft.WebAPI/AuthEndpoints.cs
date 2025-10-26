@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using SmileSoft.DTO;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmileSoft.Services;
 
@@ -9,7 +10,7 @@ namespace SmileSoft.WebAPI
     {
         public static void MapAuthEndpoints(this WebApplication app)
         {
-            app.MapPost("/auth/login", async (LoginRequest request, IConfiguration configuration) =>
+            app.MapPost("/auth/login", async ([FromBody] LoginRequest request, IConfiguration configuration) =>
             {
                 try
                 {
@@ -29,6 +30,7 @@ namespace SmileSoft.WebAPI
                 }
             })
             .WithName("Login")
+            .Accepts<LoginRequest>("application/json")
             .Produces<LoginResponse>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized)
             .Produces(StatusCodes.Status500InternalServerError)
