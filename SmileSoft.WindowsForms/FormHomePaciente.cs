@@ -87,11 +87,18 @@ namespace SmileSoft.UI.Desktop
                 var pacientesResponse = await PacienteApiClient.GetAllAsync();
                 if (pacientesResponse != null && pacientesResponse.Count() > 0)
                 {
-                    dgvFormPaciente.DataSource = pacientesResponse;
-                    pacientes = (List<PacienteDTO>)pacientesResponse;
-                    ConfiguraDgv();
+                    var pacientesList = pacientesResponse.ToList();
+                    foreach (var paciente in pacientesList)
+                    {
+                        if (paciente.NroAfiliado == string.Empty)
+                            paciente.NroAfiliado = $"Sin OS";   
+                    }
 
+                    dgvFormPaciente.DataSource = pacientesList;
+                    pacientes = pacientesList;
+                    ConfiguraDgv();
                 }
+
                 else
                 {
                     dgvFormPaciente.DataSource = null;
@@ -123,9 +130,7 @@ namespace SmileSoft.UI.Desktop
             dgvFormPaciente.Columns["Direccion"].DisplayIndex = 6;
             dgvFormPaciente.Columns["FechaNacimiento"].DisplayIndex = 7;
             dgvFormPaciente.Columns["NroAfiliado"].DisplayIndex = 8;
-            if(dgvFormPaciente.Columns["NroAfiliado"] == null)
-            {
-            }
+
         }
         private async void FormHomePacientes_Load(object sender, EventArgs e)
         {

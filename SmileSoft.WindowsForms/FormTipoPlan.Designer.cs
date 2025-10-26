@@ -44,7 +44,7 @@
             // lblNombreTipoPlan
             // 
             lblNombreTipoPlan.AutoSize = true;
-            lblNombreTipoPlan.Location = new Point(182, 23);
+            lblNombreTipoPlan.Location = new Point(316, 160);
             lblNombreTipoPlan.Margin = new Padding(2, 0, 2, 0);
             lblNombreTipoPlan.Name = "lblNombreTipoPlan";
             lblNombreTipoPlan.Size = new Size(51, 15);
@@ -53,7 +53,7 @@
             // 
             // btnGuardarTipoPlan
             // 
-            btnGuardarTipoPlan.Location = new Point(182, 211);
+            btnGuardarTipoPlan.Location = new Point(316, 348);
             btnGuardarTipoPlan.Margin = new Padding(2);
             btnGuardarTipoPlan.Name = "btnGuardarTipoPlan";
             btnGuardarTipoPlan.Size = new Size(79, 33);
@@ -64,7 +64,7 @@
             // 
             // txtNombreTipoPlan
             // 
-            txtNombreTipoPlan.Location = new Point(302, 20);
+            txtNombreTipoPlan.Location = new Point(436, 157);
             txtNombreTipoPlan.Margin = new Padding(2);
             txtNombreTipoPlan.Name = "txtNombreTipoPlan";
             txtNombreTipoPlan.Size = new Size(106, 23);
@@ -72,7 +72,7 @@
             // 
             // btnEditarTipoPlan
             // 
-            btnEditarTipoPlan.Location = new Point(302, 211);
+            btnEditarTipoPlan.Location = new Point(436, 348);
             btnEditarTipoPlan.Margin = new Padding(2);
             btnEditarTipoPlan.Name = "btnEditarTipoPlan";
             btnEditarTipoPlan.Size = new Size(80, 33);
@@ -83,7 +83,7 @@
             // 
             // txtDescripcionTipoPlan
             // 
-            txtDescripcionTipoPlan.Location = new Point(302, 56);
+            txtDescripcionTipoPlan.Location = new Point(436, 193);
             txtDescripcionTipoPlan.Margin = new Padding(2);
             txtDescripcionTipoPlan.Name = "txtDescripcionTipoPlan";
             txtDescripcionTipoPlan.Size = new Size(106, 23);
@@ -92,7 +92,7 @@
             // lblDescripcionTipoPlan
             // 
             lblDescripcionTipoPlan.AutoSize = true;
-            lblDescripcionTipoPlan.Location = new Point(182, 56);
+            lblDescripcionTipoPlan.Location = new Point(316, 193);
             lblDescripcionTipoPlan.Margin = new Padding(2, 0, 2, 0);
             lblDescripcionTipoPlan.Name = "lblDescripcionTipoPlan";
             lblDescripcionTipoPlan.Size = new Size(65, 15);
@@ -104,7 +104,7 @@
             cmbObraSocial.DataBindings.Add(new Binding("DataContext", obraSocialBindingSource, "Id", true));
             cmbObraSocial.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbObraSocial.FormattingEnabled = true;
-            cmbObraSocial.Location = new Point(302, 94);
+            cmbObraSocial.Location = new Point(436, 231);
             cmbObraSocial.Margin = new Padding(2);
             cmbObraSocial.Name = "cmbObraSocial";
             cmbObraSocial.Size = new Size(200, 23);
@@ -117,7 +117,7 @@
             // lblObraSocial
             // 
             lblObraSocial.AutoSize = true;
-            lblObraSocial.Location = new Point(182, 94);
+            lblObraSocial.Location = new Point(316, 231);
             lblObraSocial.Margin = new Padding(2, 0, 2, 0);
             lblObraSocial.Name = "lblObraSocial";
             lblObraSocial.Size = new Size(67, 15);
@@ -128,7 +128,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(560, 270);
+            ClientSize = new Size(930, 436);
             Controls.Add(lblObraSocial);
             Controls.Add(cmbObraSocial);
             Controls.Add(lblDescripcionTipoPlan);

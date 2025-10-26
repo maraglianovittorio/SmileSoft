@@ -142,7 +142,7 @@
             btnRegistrarLlegada.Location = new Point(595, 363);
             btnRegistrarLlegada.Margin = new Padding(2);
             btnRegistrarLlegada.Name = "btnRegistrarLlegada";
-            btnRegistrarLlegada.Size = new Size(143, 54);
+            btnRegistrarLlegada.Size = new Size(143, 36);
             btnRegistrarLlegada.TabIndex = 13;
             btnRegistrarLlegada.Text = "Registrar Llegada";
             btnRegistrarLlegada.UseVisualStyleBackColor = false;
@@ -152,10 +152,10 @@
             // 
             btnEditarAtencion.BackColor = Color.YellowGreen;
             btnEditarAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnEditarAtencion.Location = new Point(441, 366);
+            btnEditarAtencion.Location = new Point(429, 366);
             btnEditarAtencion.Margin = new Padding(2);
             btnEditarAtencion.Name = "btnEditarAtencion";
-            btnEditarAtencion.Size = new Size(134, 48);
+            btnEditarAtencion.Size = new Size(146, 33);
             btnEditarAtencion.TabIndex = 14;
             btnEditarAtencion.Text = "Editar atencion";
             btnEditarAtencion.UseVisualStyleBackColor = false;
@@ -197,6 +197,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(2);
             Name = "FormHomeSecretario";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormHome";
             Load += FormHomeSecretario_Load;
             menuStrip1.ResumeLayout(false);

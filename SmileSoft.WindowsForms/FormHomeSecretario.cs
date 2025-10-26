@@ -17,13 +17,16 @@ namespace SmileSoft.UI.Desktop
     public partial class FormHomeSecretario : Form
     {
         private List<AtencionDetalleDTO> atenciones = new List<AtencionDetalleDTO>();
+        
         public FormHomeSecretario()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
+            ConfigurarLayoutResponsivo();
         }
+        
         private void ConfigurarEstilos()
         {
             // Estilo principal - Tema azul elegante
@@ -31,7 +34,7 @@ namespace SmileSoft.UI.Desktop
             this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
             this.Text = "SmileSoft - Pagina Principal";
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.MinimumSize = new Size(800, 450); // Tamaño mínimo
+            this.MinimumSize = new Size(850, 500); // Tamaño mínimo consistente con FormBaseHome
 
             // Estilo para botones
             foreach (Control control in this.Controls)
@@ -44,6 +47,91 @@ namespace SmileSoft.UI.Desktop
                     btn.FlatAppearance.BorderSize = 0;
                     btn.Cursor = Cursors.Hand;
                 }
+            }
+        }
+
+        private void ConfigurarLayoutResponsivo()
+        {
+            // Márgenes y espaciado consistentes con FormBaseHome
+            int margen = 15;
+            int espacioBotones = 8;
+            int alturaMenu = menuStrip1.Height;
+
+            // --- Configurar botones de acción ---
+            // Ajustar tamaños más compactos
+            BtnCerrarSesion.Height = 38;
+            BtnCerrarSesion.Width = 120;
+            BtnCerrarSesion.AutoSize = false;
+            BtnCerrarSesion.Padding = new Padding(10, 0, 10, 0);
+            BtnCerrarSesion.TextAlign = ContentAlignment.MiddleCenter;
+
+            btnEditarAtencion.Height = 38;
+            btnEditarAtencion.Width = 130;
+            btnEditarAtencion.AutoSize = false;
+            btnEditarAtencion.Padding = new Padding(10, 0, 10, 0);
+            btnEditarAtencion.TextAlign = ContentAlignment.MiddleCenter;
+
+            btnRegistrarLlegada.Height = 38;
+            btnRegistrarLlegada.Width = 150;
+            btnRegistrarLlegada.AutoSize = false;
+            btnRegistrarLlegada.Padding = new Padding(10, 0, 10, 0);
+            btnRegistrarLlegada.TextAlign = ContentAlignment.MiddleCenter;
+
+            // --- Label "Atenciones del día" ---
+            lblAtencionesDelDia.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            lblAtencionesDelDia.Location = new Point(margen, alturaMenu + 11);
+
+            // --- TextBox de búsqueda ---
+            txtBuscaAtencion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtBuscaAtencion.Location = new Point(margen, lblAtencionesDelDia.Bottom + 8);
+            
+            // --- ComboBox de filtro de estado ---
+            cmbFiltroEstado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbFiltroEstado.Width = 151;
+            
+            // Ajustar ancho del buscador para dejar espacio al combo
+            txtBuscaAtencion.Width = this.ClientSize.Width - cmbFiltroEstado.Width - (margen * 2) - espacioBotones;
+            cmbFiltroEstado.Location = new Point(txtBuscaAtencion.Right + espacioBotones, txtBuscaAtencion.Top);
+
+            // --- DataGridView (Centro) ---
+            dgvAtencionesDelDia.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvAtencionesDelDia.Location = new Point(margen, txtBuscaAtencion.Bottom + margen);
+            dgvAtencionesDelDia.Size = new Size(
+                this.ClientSize.Width - (margen * 2),
+                this.ClientSize.Height - txtBuscaAtencion.Bottom - BtnCerrarSesion.Height - (margen * 3)
+            );
+
+            // --- Panel Inferior (Botones de Acción) ---
+            BtnCerrarSesion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            BtnCerrarSesion.Location = new Point(margen, this.ClientSize.Height - BtnCerrarSesion.Height - margen);
+
+            btnRegistrarLlegada.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnRegistrarLlegada.Location = new Point(
+                this.ClientSize.Width - btnRegistrarLlegada.Width - margen, 
+                this.ClientSize.Height - btnRegistrarLlegada.Height - margen
+            );
+
+            btnEditarAtencion.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnEditarAtencion.Location = new Point(
+                btnRegistrarLlegada.Left - btnEditarAtencion.Width - espacioBotones, 
+                this.ClientSize.Height - btnEditarAtencion.Height - margen
+            );
+
+            // Manejar el evento Resize para mantener el layout responsivo
+            this.Resize += FormHomeSecretario_Resize;
+        }
+
+        private void FormHomeSecretario_Resize(object sender, EventArgs e)
+        {
+            // Recalcular posiciones cuando se redimensiona el formulario
+            if (this.WindowState != FormWindowState.Minimized)
+            {
+                int margen = 15;
+                int espacioBotones = 8;
+
+                // Ajustar ancho del buscador
+                txtBuscaAtencion.Width = this.ClientSize.Width - cmbFiltroEstado.Width - (margen * 2) - espacioBotones;
+                cmbFiltroEstado.Location = new Point(txtBuscaAtencion.Right + espacioBotones, txtBuscaAtencion.Top);
             }
         }
 
@@ -88,8 +176,8 @@ namespace SmileSoft.UI.Desktop
         private async void FormHomeSecretario_Load(object sender, EventArgs e)
         {
             await ObtenerDatos();
-
         }
+        
         private async Task ObtenerDatos()
         {
             try
@@ -98,7 +186,6 @@ namespace SmileSoft.UI.Desktop
                 atenciones = turnosDelDia.ToList();
                 if (turnosDelDia != null && turnosDelDia.Count() > 0)
                 {
-
                     var turnosList = turnosDelDia.ToList();
                     foreach (var turno in turnosList)
                     {
@@ -108,21 +195,19 @@ namespace SmileSoft.UI.Desktop
 
                     dgvAtencionesDelDia.DataSource = turnosDelDia;
                     ConfiguraDgv();
-
                 }
                 else
                 {
                     dgvAtencionesDelDia.DataSource = null;
                     //pacientes.Clear();
-                    MessageBox.Show("No se encontraron atenciones para el dia de hoy.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar las atenciones: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
         }
+        
         private void ConfiguraDgv()
         {
             dgvAtencionesDelDia.Columns["Id"].Visible = false;
@@ -148,6 +233,7 @@ namespace SmileSoft.UI.Desktop
             dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].Width = 150;
             dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].Width = 100;
         }
+        
         private async void agregarAtencionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormAtencion formAtencion = new FormAtencion();
@@ -204,18 +290,18 @@ namespace SmileSoft.UI.Desktop
             ConfiguraDgv();
         }
 
-        private async void txtBuscaAtencion_TextChanged(object sender, EventArgs e)
+        private void txtBuscaAtencion_TextChanged(object sender, EventArgs e)
         {
             // filtro por nombre de paciente o por dni
             string busqueda = txtBuscaAtencion.Text.ToLower();
             var atencionesFiltradas = atenciones.Where(a =>
                 a.PacienteNombre.ToLower().Contains(busqueda)
-                || a.PacienteApellido.ToLower().Contains(busqueda)||
+                || a.PacienteApellido.ToLower().Contains(busqueda) ||
                 a.PacienteDni.ToLower().Contains(busqueda)
             ).ToList();
-            ConfiguraDgv();
-
+            
             dgvAtencionesDelDia.DataSource = atencionesFiltradas;
+            ConfiguraDgv();
         }
     }
 }

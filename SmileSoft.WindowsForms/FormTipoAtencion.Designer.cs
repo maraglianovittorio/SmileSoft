@@ -41,7 +41,7 @@
             // 
             // btnGuardarTipoAtencion
             // 
-            btnGuardarTipoAtencion.Location = new Point(182, 211);
+            btnGuardarTipoAtencion.Location = new Point(297, 274);
             btnGuardarTipoAtencion.Margin = new Padding(2);
             btnGuardarTipoAtencion.Name = "btnGuardarTipoAtencion";
             btnGuardarTipoAtencion.Size = new Size(79, 33);
@@ -52,7 +52,7 @@
             // 
             // btnEditarTipoAtencion
             // 
-            btnEditarTipoAtencion.Location = new Point(302, 211);
+            btnEditarTipoAtencion.Location = new Point(417, 274);
             btnEditarTipoAtencion.Margin = new Padding(2);
             btnEditarTipoAtencion.Name = "btnEditarTipoAtencion";
             btnEditarTipoAtencion.Size = new Size(80, 33);
@@ -63,7 +63,7 @@
             // 
             // txtDescripcionTipoAtencion
             // 
-            txtDescripcionTipoAtencion.Location = new Point(302, 32);
+            txtDescripcionTipoAtencion.Location = new Point(417, 95);
             txtDescripcionTipoAtencion.Margin = new Padding(2);
             txtDescripcionTipoAtencion.Name = "txtDescripcionTipoAtencion";
             txtDescripcionTipoAtencion.Size = new Size(106, 23);
@@ -72,7 +72,7 @@
             // lblDescripcionTipoAtencion
             // 
             lblDescripcionTipoAtencion.AutoSize = true;
-            lblDescripcionTipoAtencion.Location = new Point(182, 32);
+            lblDescripcionTipoAtencion.Location = new Point(297, 95);
             lblDescripcionTipoAtencion.Margin = new Padding(2, 0, 2, 0);
             lblDescripcionTipoAtencion.Name = "lblDescripcionTipoAtencion";
             lblDescripcionTipoAtencion.Size = new Size(65, 15);
@@ -86,7 +86,7 @@
             // lblDuracionTipoAtencion
             // 
             lblDuracionTipoAtencion.AutoSize = true;
-            lblDuracionTipoAtencion.Location = new Point(182, 71);
+            lblDuracionTipoAtencion.Location = new Point(297, 134);
             lblDuracionTipoAtencion.Margin = new Padding(2, 0, 2, 0);
             lblDuracionTipoAtencion.Name = "lblDuracionTipoAtencion";
             lblDuracionTipoAtencion.Size = new Size(55, 15);
@@ -97,7 +97,7 @@
             // 
             cmbDuracion.FormattingEnabled = true;
             cmbDuracion.Items.AddRange(new object[] { "00:30", "01:00", "01:30" });
-            cmbDuracion.Location = new Point(302, 71);
+            cmbDuracion.Location = new Point(417, 134);
             cmbDuracion.Name = "cmbDuracion";
             cmbDuracion.Size = new Size(121, 23);
             cmbDuracion.TabIndex = 6;
@@ -106,7 +106,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(560, 270);
+            ClientSize = new Size(808, 330);
             Controls.Add(cmbDuracion);
             Controls.Add(lblDuracionTipoAtencion);
             Controls.Add(lblDescripcionTipoAtencion);
