@@ -1,4 +1,10 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@rendermode InteractiveServer
+@using API.Clients
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+@implements IDisposable
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">SmileSoft</a>
     </div>
@@ -13,6 +19,47 @@
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Inicio
             </NavLink>
         </div>
+
+        @if (isAuthenticated)
+        {
+            <div class="nav-item px-3">
+                <div class="nav-link" style="cursor: pointer;" @onclick="Logout">
+                    <span class="bi bi-box-arrow-left" aria-hidden="true"></span> Cerrar sesión
+                </div>
+            </div>
+        }
     </nav>
 </div>
+
+@code {
+    private bool isAuthenticated = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
+        await CheckAuthenticationState();
+    }
+
+    private async Task CheckAuthenticationState()
+    {
+        isAuthenticated = await AuthService.IsAuthenticatedAsync();
+        StateHasChanged();
+    }
+
+    private void OnAuthenticationStateChanged(bool authenticated)
+    {
+        InvokeAsync(CheckAuthenticationState);
+    }
+
+    private async Task Logout()
+    {
+        await AuthService.LogoutAsync();
+        Navigation.NavigateTo("/login");
+    }
+
+    public void Dispose()
+    {
+        AuthService.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+    }
+}
 
