@@ -13,9 +13,11 @@
 }
 else if (isAuthenticated)
 {
-    <p>Usuario: @username</p>
+    <div class="mb-3">
+        <h1>Bienvenido @nombreCompletoOdontologo</h1>
+        <p class="text-muted">Usuario: @username</p>
+    </div>
 }
-<h1>Bienvenido @username</h1>
 
 <div class="date-navigation">
     <span>Turnos para el día:</span>
@@ -83,10 +85,13 @@ else
 @code {
     private bool isAuthenticated = false;
     private string username = "";
+    private string nombreCompletoOdontologo = "";
+    private int? odontologoId;
+    private string? rol;
     private IEnumerable<AtencionDetalleDTO>? atencionesFiltradas;
     private List<AtencionDetalleDTO> atencionesFiltradasOriginal = new();
     private DateTime fechaSeleccionada = DateTime.Today;
-    private bool isLoading = true; // Cambiar a true por defecto
+    private bool isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -95,12 +100,27 @@ else
         
         if (!isAuthenticated)
         {
-            // No hacer nada, dejar que OnAfterRenderAsync redirija
             return;
         }
 
+        // Obtener datos del usuario
         username = await AuthService.GetUsernameAsync() ?? "";
-        await LoadAtenciones(fechaSeleccionada);
+        rol = await AuthService.GetRolAsync();
+        
+        // Obtener datos del odontólogo si el rol es "Odontologo"
+        if (rol?.Equals("Odontologo", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            odontologoId = await AuthService.GetOdontologoIdAsync();
+            nombreCompletoOdontologo = await AuthService.GetOdontologoNombreCompletoAsync() ?? username;
+            
+            // Cargar atenciones del odontólogo logueado
+            await LoadAtenciones(fechaSeleccionada);
+        }
+        else
+        {
+            // Si no es odontólogo, usar el username como nombre
+            nombreCompletoOdontologo = username;
+        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -126,10 +146,19 @@ else
 
         try
         {
+            // Validar que tenemos el ID del odontólogo antes de hacer la petición
+            if (!odontologoId.HasValue)
+            {
+                Console.WriteLine("No se pudo obtener el ID del odontólogo");
+                atencionesFiltradas = Array.Empty<AtencionDetalleDTO>();
+                atencionesFiltradasOriginal = new List<AtencionDetalleDTO>();
+                return;
+            }
+
             var atencionesResponse = await AtencionApiClient.GetByFechaRangeAndOdoAsync(
                 fecha.Date,
                 fecha.Date.AddDays(1),
-                1 //TODO reemplazar por el id del odontólogo logueado
+                odontologoId.Value // Usar el ID del odontólogo logueado
             );
 
             atencionesFiltradas = (atencionesResponse != null && atencionesResponse.Any())
@@ -145,8 +174,9 @@ else
         }
         catch (Exception ex)
         {
-            // Manejar otros errores
             Console.WriteLine($"Error cargando atenciones: {ex.Message}");
+            atencionesFiltradas = Array.Empty<AtencionDetalleDTO>();
+            atencionesFiltradasOriginal = new List<AtencionDetalleDTO>();
         }
         finally
         {

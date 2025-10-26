@@ -35,13 +35,29 @@ namespace SmileSoft.Services
             var token = GenerateJwtToken(usuario);
             var expiresAt = DateTime.UtcNow.AddMinutes(GetExpirationMinutes());
 
-            return new LoginResponse
+            var response = new LoginResponse
             {
                 Username = usuario.Username,
                 Rol = usuario.Rol,
                 Token = token,
                 ExpiresAt = expiresAt
             };
+
+            // Si es odontólogo, obtener sus datos
+            if (usuario.Rol.Equals("Odontologo", StringComparison.OrdinalIgnoreCase))
+            {
+                var odontologoRepository = new OdontologoRepository();
+                var odontologo = odontologoRepository.GetByUsuarioId(usuario.Id);
+                
+                if (odontologo != null)
+                {
+                    response.OdontologoId = odontologo.Id;
+                    response.OdontologoNombre = odontologo.Nombre;
+                    response.OdontologoApellido = odontologo.Apellido;
+                }
+            }
+
+            return response;
         }
 
         private string GenerateJwtToken(Usuario usuario)

@@ -3,6 +3,7 @@
 
 @page "/detalleAtencion/{IdAtencion:int}"
 @inject NavigationManager Navigation
+@inject IAuthService AuthService
 
 @rendermode InteractiveServer
 
@@ -119,7 +120,9 @@ else
         
         try
         {
-            await AtencionApiClient.UpdateObservacionesAsync(atencion.Id, nuevaObservacion ?? string.Empty);
+            string nombreOdontologo = await AuthService.GetOdontologoNombreCompletoAsync(); 
+            string observacionCompleta = nombreOdontologo + "\n" + nuevaObservacion?.Trim();
+            await AtencionApiClient.UpdateObservacionesAsync(atencion.Id, observacionCompleta);
             mensajeExito = "Observaciones guardadas correctamente.";
         }
         catch (Exception ex)

@@ -93,5 +93,38 @@ namespace SmileSoft.API.Auth.WindowsForms
                 return false;
             }
         }
+
+        public async Task<string?> GetRolAsync()
+        {
+            var token = await GetTokenAsync();
+            if (string.IsNullOrEmpty(token))
+                return null;
+
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadJwtToken(token);
+
+                // Find claim of type "role"
+                var roleClaim = jsonToken.Claims.FirstOrDefault(c => c.Type == "role");
+                return roleClaim?.Value;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<string?> GetOdontologoNombreCompletoAsync()
+        {
+            // Implementation needed. Returning null for now.
+            return null;
+        }
+
+        public async Task<int?> GetOdontologoIdAsync()
+        {
+            // Implementation needed. Returning null for now.
+            return null;
+        }
     }
 }

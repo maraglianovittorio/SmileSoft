@@ -19,7 +19,13 @@ namespace API.Auth.Blazor.Server
         {
             public string? Token { get; set; }
             public string? Username { get; set; }
+            public string? Rol { get; set; }
             public DateTime Expiration { get; set; }
+            
+            // Datos del odontólogo
+            public int? OdontologoId { get; set; }
+            public string? OdontologoNombre { get; set; }
+            public string? OdontologoApellido { get; set; }
         }
 
         public Task<bool> IsAuthenticatedAsync()
@@ -62,6 +68,46 @@ namespace API.Auth.Blazor.Server
             }
         }
 
+        public Task<string?> GetRolAsync()
+        {
+            try
+            {
+                return Task.FromResult(_currentSession?.Rol);
+            }
+            catch
+            {
+                return Task.FromResult<string?>(null);
+            }
+        }
+
+        public Task<int?> GetOdontologoIdAsync()
+        {
+            try
+            {
+                return Task.FromResult(_currentSession?.OdontologoId);
+            }
+            catch
+            {
+                return Task.FromResult<int?>(null);
+            }
+        }
+
+        public Task<string?> GetOdontologoNombreCompletoAsync()
+        {
+            try
+            {
+                if (_currentSession?.OdontologoNombre != null && _currentSession?.OdontologoApellido != null)
+                {
+                    return Task.FromResult<string?>($"{_currentSession.OdontologoNombre} {_currentSession.OdontologoApellido}");
+                }
+                return Task.FromResult<string?>(null);
+            }
+            catch
+            {
+                return Task.FromResult<string?>(null);
+            }
+        }
+
         public async Task<bool> LoginAsync(string username, string password)
         {
             var request = new LoginRequest
@@ -78,7 +124,11 @@ namespace API.Auth.Blazor.Server
                 {
                     Token = response.Token,
                     Username = response.Username,
-                    Expiration = response.ExpiresAt
+                    Rol = response.Rol,
+                    Expiration = response.ExpiresAt,
+                    OdontologoId = response.OdontologoId,
+                    OdontologoNombre = response.OdontologoNombre,
+                    OdontologoApellido = response.OdontologoApellido
                 };
 
                 AuthenticationStateChanged?.Invoke(true);

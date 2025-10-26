@@ -122,5 +122,11 @@ namespace SmileSoft.Data
         //    return clientes;
         //}
 
+        public Odontologo? GetByUsuarioId(int usuarioId)
+        {
+            using var context = CreateContext();
+            return context.Odontologos
+                .FirstOrDefault(o => o.UsuarioId == usuarioId);
+        }
     }
 }

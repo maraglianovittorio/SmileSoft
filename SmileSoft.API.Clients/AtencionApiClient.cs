@@ -444,7 +444,7 @@ namespace SmileSoft.API.Clients
             try
             {
                 await EnsureAuthenticatedAsync();
-                // Validate input parameters
+        
                 if (id <= 0)
                 {
                     throw new ArgumentException("El ID debe ser un número positivo.", nameof(id));
@@ -455,7 +455,10 @@ namespace SmileSoft.API.Clients
                     throw new ArgumentNullException(nameof(observaciones), "Las observaciones no pueden ser nulas.");
                 }
 
-                var content = new StringContent($"\"{observaciones}\"", Encoding.UTF8, "application/json");
+                // Usar JsonSerializer para escapar correctamente todos los caracteres especiales
+                var jsonObservaciones = JsonSerializer.Serialize(observaciones);
+                var content = new StringContent(jsonObservaciones, Encoding.UTF8, "application/json");
+        
                 using var httpClient = await CreateHttpClientAsync();
                 HttpResponseMessage response = await httpClient.PutAsync($"atenciones/{id}/observaciones", content);
 
