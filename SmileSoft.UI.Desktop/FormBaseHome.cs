@@ -87,7 +87,6 @@ namespace SmileSoft.WindowsForms
 
         private void FormBaseHome_Load_1(object sender, EventArgs e)
         {
-.
             this.StartPosition = FormStartPosition.CenterScreen;
             this.WindowState = FormWindowState.Maximized;
             this.MinimumSize = new Size(850, 500);

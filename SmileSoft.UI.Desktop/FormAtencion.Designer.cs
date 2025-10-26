@@ -114,7 +114,7 @@
             label3.Name = "label3";
             label3.Size = new Size(98, 15);
             label3.TabIndex = 7;
-            label3.Text = "Tipo de atencion:";
+            label3.Text = "Tipo de atención:";
             // 
             // cmbTipoAtencion
             // 
@@ -303,9 +303,8 @@
             Controls.Add(lblDni);
             Controls.Add(lblTitulo);
             Name = "FormAtencion";
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Nueva atención";
-            WindowState = FormWindowState.Maximized;
             Load += FormAtencion_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTurnosOcupados).EndInit();
             ResumeLayout(false);

@@ -77,7 +77,7 @@
             lblDescripcionTipoAtencion.Name = "lblDescripcionTipoAtencion";
             lblDescripcionTipoAtencion.Size = new Size(65, 15);
             lblDescripcionTipoAtencion.TabIndex = 0;
-            lblDescripcionTipoAtencion.Text = "Descipcion";
+            lblDescripcionTipoAtencion.Text = "Descipción";
             // 
             // obraSocialBindingSource
             // 
@@ -91,7 +91,7 @@
             lblDuracionTipoAtencion.Name = "lblDuracionTipoAtencion";
             lblDuracionTipoAtencion.Size = new Size(55, 15);
             lblDuracionTipoAtencion.TabIndex = 2;
-            lblDuracionTipoAtencion.Text = "Duracion";
+            lblDuracionTipoAtencion.Text = "Duración";
             // 
             // cmbDuracion
             // 
@@ -115,7 +115,8 @@
             Controls.Add(btnGuardarTipoAtencion);
             Margin = new Padding(2);
             Name = "FormTipoAtencion";
-            Text = "FormOS";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Form Tipo Atencion";
             ((System.ComponentModel.ISupportInitialize)obraSocialBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();

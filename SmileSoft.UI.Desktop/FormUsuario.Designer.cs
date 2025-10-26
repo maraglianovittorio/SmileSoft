@@ -142,6 +142,8 @@
             Controls.Add(lblUsername);
             Margin = new Padding(2);
             Name = "FormUsuario";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Form Usuario";
             ResumeLayout(false);
             PerformLayout();
         }

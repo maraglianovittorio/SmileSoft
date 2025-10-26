@@ -25,7 +25,9 @@ namespace SmileSoft.UI.Desktop
             this.Text = "SmileSoft - Agregar Tipo de Plan";
             LimpiarFormulario();
             ConfigurarEstilos();
-            btnEditarTipoPlan.Visible = false; 
+            btnEditarTipoPlan.Visible = false;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         public FormTipoPlan(int idTipoPlan)
@@ -36,6 +38,8 @@ namespace SmileSoft.UI.Desktop
             ConfigurarEstilos();
             btnGuardarTipoPlan.Visible = false; 
             btnEditarTipoPlan.Tag = idTipoPlan;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         private async void FormTipoPlan_Load(object sender, EventArgs e)

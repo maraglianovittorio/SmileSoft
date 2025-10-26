@@ -101,7 +101,6 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormOS.DataSource = null;
                     obrasSociales.Clear();
-                    MessageBox.Show("No se encontraron obras sociales.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

@@ -37,11 +37,6 @@ namespace DTO
         [StringLength(200, ErrorMessage = "La dirección no puede exceder 200 caracteres")]
         public string Direccion { get; set; } = string.Empty;
         public string NombreCompleto => $"{Nombre} {Apellido}";
-        //[StringLength(50, ErrorMessage = "El username no puede exceder 50 caracteres")]
-        //public string Username { get; set; } = string.Empty;
-        //[StringLength(20, ErrorMessage = "El password no puede exceder 20 caracteres")]
-        //public string Password { get; set; } = string.Empty;
-        //public List<ObraSocial> ObrasSociales { get; set; } = new List<ObraSocial>();
         public OdontologoDTO()
         {
 

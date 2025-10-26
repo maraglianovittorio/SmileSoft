@@ -93,7 +93,6 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormUsuario.DataSource = null;
                     usuarios.Clear();
-                    MessageBox.Show("No se encontraron usuarios.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

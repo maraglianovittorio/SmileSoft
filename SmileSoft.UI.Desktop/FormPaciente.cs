@@ -20,8 +20,6 @@ namespace SmileSoft.UI.Desktop
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Text = "SmileSoft - Agregar Paciente";
             btnEditarPaciente.Visible = false;
             btnAgregarTutor.Visible = false;
@@ -29,6 +27,8 @@ namespace SmileSoft.UI.Desktop
             txtTutor.Visible = false;
             ConfigurarEstilos();
             //ConfigurarResponsive();
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
         public FormPaciente(int idPaciente)
         {
@@ -44,6 +44,8 @@ namespace SmileSoft.UI.Desktop
             ConfigurarEstilos();
             ConfigurarResponsive();
             PopularFormPaciente(idPaciente);
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         private void ConfigurarEstilos()

@@ -88,7 +88,7 @@
             lblDireccionPaciente.Name = "lblDireccionPaciente";
             lblDireccionPaciente.Size = new Size(57, 15);
             lblDireccionPaciente.TabIndex = 8;
-            lblDireccionPaciente.Text = "Direccion";
+            lblDireccionPaciente.Text = "Dirección";
             // 
             // lblDNIPaciente
             // 
@@ -128,7 +128,7 @@
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(52, 15);
             lblTelefono.TabIndex = 12;
-            lblTelefono.Text = "Telefono";
+            lblTelefono.Text = "Teléfono";
             // 
             // lblNroAfiliado
             // 
@@ -350,6 +350,7 @@
             Controls.Add(lblNombrePaciente);
             Margin = new Padding(2);
             Name = "FormPaciente";
+            StartPosition = FormStartPosition.CenterParent;
             Load += FormPaciente_Load;
             ((System.ComponentModel.ISupportInitialize)tipoPlanBindingSource).EndInit();
             ResumeLayout(false);

@@ -16,11 +16,13 @@ namespace SmileSoft.WindowsForms
     public partial class FormAtencion : Form
     {
         private int? _idAtencionEditar = null; // Guardamos el ID si es modo edición
-
         public FormAtencion()
         {
             InitializeComponent();
             btnCancelarAtencion.Visible = false;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
         }
 
         public FormAtencion(int idAtencion)
@@ -30,6 +32,8 @@ namespace SmileSoft.WindowsForms
             this.Text = "Editar Atención";
             btnCancelarAtencion.Visible = true;
             _idAtencionEditar = idAtencion; // Guardamos el ID para usarlo después del Load
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         private List<TipoAtencion> tiposAtencion;
@@ -169,10 +173,7 @@ namespace SmileSoft.WindowsForms
                 cmbTipoAtencion.ValueMember = "Id";
                 cmbTipoAtencion.SelectedIndex = -1;
             }
-            else
-            {
-                MessageBox.Show("No se encontraron tipos de atención.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+
 
             // Cargar odontólogos
             var odontologos = await OdontologoApiClient.GetAllAsync();
@@ -182,10 +183,6 @@ namespace SmileSoft.WindowsForms
                 cmbOdontologo.DisplayMember = "NombreCompleto";
                 cmbOdontologo.ValueMember = "Id";
                 cmbOdontologo.SelectedIndex = -1;
-            }
-            else
-            {
-                MessageBox.Show("No se encontraron odontólogos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             // Si es modo edición, popular el formulario DESPUÉS de que los ComboBox estén cargados

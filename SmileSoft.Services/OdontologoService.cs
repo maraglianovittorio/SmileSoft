@@ -58,6 +58,7 @@ namespace SmileSoft.Services
             }
             return new OdontologoDTO
             {
+                Id = odontologo.Id,
                 Nombre = odontologo.Nombre,
                 NroMatricula = odontologo.NroMatricula,
                 Apellido = odontologo.Apellido,

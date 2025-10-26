@@ -36,6 +36,8 @@ namespace SmileSoft.Data
         {
             using var context = CreateContext();
             return context.Odontologos
+                .Include(o => o.ObrasSociales) 
+                .Include(o => o.Usuario)
                 .FirstOrDefault(o => o.Id == id);
         }
 
@@ -43,8 +45,8 @@ namespace SmileSoft.Data
         {
             using var context = CreateContext();
             return context.Odontologos
-                .Include(p => p.ObrasSociales) // Incluir ObrasSociales
-                //.Include(p => p.Atenciones)
+                .Include(o => o.ObrasSociales) // Incluir ObrasSociales
+                .Include(o => o.Usuario)
                 .ToList();
         }
 
@@ -58,8 +60,10 @@ namespace SmileSoft.Data
                 existingOdontologo.SetApellido(odontologo.Apellido);
                 existingOdontologo.SetNroMatricula(odontologo.NroMatricula);
                 existingOdontologo.SetEmail(odontologo.Email);
-                //existingOdontologo.SetUsername(odontologo.Username);
-                //existingOdontologo.SetPassword(odontologo.Password);
+                existingOdontologo.SetTelefono(odontologo.Telefono);
+                existingOdontologo.SetDireccion(odontologo.Direccion);
+                existingOdontologo.SetNroDni(odontologo.NroDni);
+                existingOdontologo.SetFechaNacimiento(odontologo.FechaNacimiento);
                 context.SaveChanges();
                 return true;
             }

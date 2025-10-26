@@ -47,7 +47,7 @@
             // btnGuardarOS
             // 
             btnGuardarOS.Location = new Point(182, 211);
-            btnGuardarOS.Margin = new Padding(2, 2, 2, 2);
+            btnGuardarOS.Margin = new Padding(2);
             btnGuardarOS.Name = "btnGuardarOS";
             btnGuardarOS.Size = new Size(79, 33);
             btnGuardarOS.TabIndex = 1;
@@ -58,7 +58,7 @@
             // txtNombreOS
             // 
             txtNombreOS.Location = new Point(302, 91);
-            txtNombreOS.Margin = new Padding(2, 2, 2, 2);
+            txtNombreOS.Margin = new Padding(2);
             txtNombreOS.Name = "txtNombreOS";
             txtNombreOS.Size = new Size(106, 23);
             txtNombreOS.TabIndex = 2;
@@ -66,7 +66,7 @@
             // btnEditarOS
             // 
             btnEditarOS.Location = new Point(302, 211);
-            btnEditarOS.Margin = new Padding(2, 2, 2, 2);
+            btnEditarOS.Margin = new Padding(2);
             btnEditarOS.Name = "btnEditarOS";
             btnEditarOS.Size = new Size(80, 33);
             btnEditarOS.TabIndex = 3;
@@ -83,8 +83,9 @@
             Controls.Add(txtNombreOS);
             Controls.Add(btnGuardarOS);
             Controls.Add(lblNombreOS);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "FormOS";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "FormOS";
             ResumeLayout(false);
             PerformLayout();

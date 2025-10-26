@@ -17,6 +17,8 @@ namespace SmileSoft.UI.Desktop
             btnEditarUsuario.Visible = false;
             ConfigurarEstilos();
             ConfigurarResponsive();
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
         public FormUsuario(int idUsuario)
         {
@@ -28,6 +30,8 @@ namespace SmileSoft.UI.Desktop
             ConfigurarEstilos();
             ConfigurarResponsive();
             PopularFormUsuario(idUsuario);
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         private void ConfigurarEstilos()

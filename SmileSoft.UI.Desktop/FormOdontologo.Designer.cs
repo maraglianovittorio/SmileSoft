@@ -190,7 +190,7 @@
             lblDireccion.Name = "lblDireccion";
             lblDireccion.Size = new Size(57, 15);
             lblDireccion.TabIndex = 8;
-            lblDireccion.Text = "Direccion";
+            lblDireccion.Text = "Dirección";
             // 
             // txtDireccion
             // 
@@ -207,7 +207,7 @@
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(52, 15);
             lblTelefono.TabIndex = 10;
-            lblTelefono.Text = "Telefono";
+            lblTelefono.Text = "Teléfono";
             // 
             // txtTelefono
             // 
@@ -226,7 +226,7 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(119, 273);
+            lblUsername.Location = new Point(93, 273);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(109, 15);
             lblUsername.TabIndex = 16;
@@ -277,6 +277,7 @@
             Controls.Add(lblNombreOdontologo);
             Margin = new Padding(2);
             Name = "FormOdontologo";
+            StartPosition = FormStartPosition.CenterScreen;
             ResumeLayout(false);
             PerformLayout();
         }

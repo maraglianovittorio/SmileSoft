@@ -23,6 +23,8 @@ namespace SmileSoft.UI.Desktop
             LimpiarFormulario();
             ConfigurarEstilos();
             btnEditarOS.Visible = false; // Ocultar botón de editar
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         public FormOS(int idOS)
@@ -34,6 +36,8 @@ namespace SmileSoft.UI.Desktop
             btnGuardarOS.Visible = false; // Ocultar botón de agregar
             btnEditarOS.Tag = idOS; // Guardar el ID de la obra social en el Tag del botón de editar
             PopularFormOS(idOS);
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         private void ConfigurarEstilos()

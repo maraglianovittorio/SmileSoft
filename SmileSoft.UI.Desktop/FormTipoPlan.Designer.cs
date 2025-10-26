@@ -97,7 +97,7 @@
             lblDescripcionTipoPlan.Name = "lblDescripcionTipoPlan";
             lblDescripcionTipoPlan.Size = new Size(65, 15);
             lblDescripcionTipoPlan.TabIndex = 2;
-            lblDescripcionTipoPlan.Text = "Descipcion";
+            lblDescripcionTipoPlan.Text = "Descipción";
             // 
             // cmbObraSocial
             // 
@@ -139,7 +139,8 @@
             Controls.Add(lblNombreTipoPlan);
             Margin = new Padding(2);
             Name = "FormTipoPlan";
-            Text = "FormOS";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Form Tipo Plan";
             Load += FormTipoPlan_Load;
             ((System.ComponentModel.ISupportInitialize)obraSocialBindingSource).EndInit();
             ResumeLayout(false);

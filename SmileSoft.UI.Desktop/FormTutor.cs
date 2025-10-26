@@ -21,6 +21,8 @@ namespace SmileSoft.UI.Desktop
             btnEditarTutor.Visible = false;
             ConfigurarEstilos();
             ConfigurarResponsive();
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
         public FormTutor(int idPersona)
         {
@@ -32,6 +34,8 @@ namespace SmileSoft.UI.Desktop
             ConfigurarEstilos();
             ConfigurarResponsive();
             PopularFormPersona(idPersona);
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         private void ConfigurarEstilos()

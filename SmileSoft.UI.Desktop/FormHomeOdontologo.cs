@@ -100,7 +100,6 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormOdontologo.DataSource = null;
                     odontologos.Clear();
-                    MessageBox.Show("No se encontraron odontólogos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

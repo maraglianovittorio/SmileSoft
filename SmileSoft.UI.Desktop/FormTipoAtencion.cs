@@ -25,7 +25,9 @@ namespace SmileSoft.UI.Desktop
             this.Text = "SmileSoft - Agregar Tipo de Atención";
             LimpiarFormulario();
             ConfigurarEstilos();
-            btnEditarTipoAtencion.Visible = false; 
+            btnEditarTipoAtencion.Visible = false;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         public FormTipoAtencion(int idTipoAtencion)
@@ -37,6 +39,8 @@ namespace SmileSoft.UI.Desktop
             PopularFormTipoAtencion(idTipoAtencion);
             btnGuardarTipoAtencion.Visible = false;
             btnEditarTipoAtencion.Tag = idTipoAtencion;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
 

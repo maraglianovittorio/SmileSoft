@@ -94,7 +94,6 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormTutor.DataSource = null;
                     tutores.Clear();
-                    MessageBox.Show("No se encontraron tutores.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

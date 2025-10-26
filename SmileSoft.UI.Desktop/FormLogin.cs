@@ -21,6 +21,8 @@ namespace SmileSoft.WindowsForms
         {
             InitializeComponent();
             ConfigurarEstilos();
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
         private bool passwordVisible = false;
 

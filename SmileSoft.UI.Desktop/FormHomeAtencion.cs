@@ -76,7 +76,6 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormAtencion.DataSource = null;
                     //atenciones.Clear();
-                    MessageBox.Show("No se encontraron atenciones.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

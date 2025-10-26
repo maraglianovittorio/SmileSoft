@@ -15,6 +15,8 @@ namespace SmileSoft.UI.Desktop
             btnEditarOdontologo.Visible = false;
             ConfigurarEstilos();
             ConfigurarResponsive();
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         public FormOdontologo(int idOdontologo)
@@ -26,6 +28,13 @@ namespace SmileSoft.UI.Desktop
             ConfigurarEstilos();
             ConfigurarResponsive();
             PopularFormOdontologo(idOdontologo);
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+            // oculto los textbox de usuario y password
+            txtUsername.Visible = false;
+            txtPassword.Visible = false;
+            lblUsername.Visible = false;
+            lblPassword.Visible = false;
         }
 
         private void ConfigurarEstilos()
@@ -195,7 +204,7 @@ namespace SmileSoft.UI.Desktop
             LimpiarFormulario();
             try
             {
-                var odontologoResponse = await OdontologoApiClient.GetOneAsync(idOdontologo);
+                OdontologoDTO odontologoResponse = await OdontologoApiClient.GetOneAsync(idOdontologo);
                 if (odontologoResponse != null)
                 {
                     txtNombre.Text = odontologoResponse.Nombre;

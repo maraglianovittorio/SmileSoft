@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.Dominio", "SmileS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.WebAPI", "SmileSoft.UI\SmileSoft.WebAPI.csproj", "{2E4A2A65-2681-4901-89A0-019B409E96C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{E243C150-1B50-4474-8824-D1EC3B25A575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.DTO", "DTO\SmileSoft.DTO.csproj", "{E243C150-1B50-4474-8824-D1EC3B25A575}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.API.Clients", "SmileSoft.API.Clients\SmileSoft.API.Clients.csproj", "{F89B1AB4-99F0-4832-88D9-A990B44F0F96}"
 EndProject
@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.Blazor", "SmileSo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.API.Auth.WindowsForms", "SmileSoft.API.Auth.WindowsForms\SmileSoft.API.Auth.WindowsForms.csproj", "{902142C7-4D90-4828-9C5A-E010D03D5059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Auth.Blazor.Server", "API.Auth.Blazor.Server\API.Auth.Blazor.Server.csproj", "{71B26200-F1A1-4FE6-9C55-E8571C1B9E10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmileSoft.API.Auth.Blazor.Server", "API.Auth.Blazor.Server\SmileSoft.API.Auth.Blazor.Server.csproj", "{71B26200-F1A1-4FE6-9C55-E8571C1B9E10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
