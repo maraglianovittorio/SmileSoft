@@ -28,6 +28,7 @@
     <ProjectReference Include="..\SmileSoft.API.Auth.WindowsForms\SmileSoft.API.Auth.WindowsForms.csproj" />
     <ProjectReference Include="..\SmileSoft.API.Clients\SmileSoft.API.Clients.csproj" />
     <ProjectReference Include="..\SmileSoft.Dominio\SmileSoft.Dominio.csproj" />
+    <ProjectReference Include="..\SmileSoft.DTO\SmileSoft.DTO.csproj" />
   </ItemGroup>
 
   <ItemGroup>

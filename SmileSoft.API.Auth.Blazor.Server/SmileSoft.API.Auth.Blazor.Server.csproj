@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DTO\SmileSoft.DTO.csproj" />
     <ProjectReference Include="..\SmileSoft.API.Clients\SmileSoft.API.Clients.csproj" />
+    <ProjectReference Include="..\SmileSoft.DTO\SmileSoft.DTO.csproj" />
   </ItemGroup>
 
 </Project>

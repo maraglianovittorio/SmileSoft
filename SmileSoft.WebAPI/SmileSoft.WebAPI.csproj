@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DTO\SmileSoft.DTO.csproj" />
     <ProjectReference Include="..\SmileSoft.Dominio\SmileSoft.Dominio.csproj" />
+    <ProjectReference Include="..\SmileSoft.DTO\SmileSoft.DTO.csproj" />
     <ProjectReference Include="..\SmileSoft.Services\SmileSoft.Services.csproj" />
   </ItemGroup>
 

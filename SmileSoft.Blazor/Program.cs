@@ -2,7 +2,7 @@ using SmileSoft.Blazor.Components;
 using Microsoft.AspNetCore.Components.Web;
 using SmileSoft.API.Clients;
 using SmileSoft.Services;
-using API.Auth.Blazor.Server;
+using SmileSoft.API.Auth.Blazor.Server;
 
 namespace SmileSoft.Blazor
 {

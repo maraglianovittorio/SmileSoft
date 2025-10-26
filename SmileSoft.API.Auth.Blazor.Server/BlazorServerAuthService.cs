@@ -2,7 +2,7 @@
 using SmileSoft.API.Clients;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace API.Auth.Blazor.Server
+namespace SmileSoft.API.Auth.Blazor.Server
 {
     public class BlazorServerAuthService : IAuthService
     {
