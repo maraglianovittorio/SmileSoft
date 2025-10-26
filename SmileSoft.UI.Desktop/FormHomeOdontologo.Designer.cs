@@ -159,6 +159,7 @@
             MinimumSize = new Size(565, 286);
             Name = "FormHomeOdontologo";
             Text = "FormHomeOdontologo";
+            WindowState = FormWindowState.Maximized;
             Load += FormHomeOdontologo_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFormOdontologo).EndInit();
             ((System.ComponentModel.ISupportInitialize)lupaPng).EndInit();

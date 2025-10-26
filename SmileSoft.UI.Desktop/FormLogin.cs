@@ -15,7 +15,8 @@ namespace SmileSoft.WindowsForms
 {
     public partial class FormLogin : Form
     {
-        public string Username { get; private set; } 
+        public string UserRole { get; private set; }
+        public string Username { get; private set; }
         public FormLogin()
         {
             InitializeComponent();
@@ -114,11 +115,11 @@ namespace SmileSoft.WindowsForms
                 bool success = await authService.LoginAsync(txtUsuario.Text, txtPassword.Text);
                 if(success)
                 {
-                    this.Username = txtUsuario.Text;
                     var usuario = await UsuarioApiClient.GetByUsernameAsync(txtUsuario.Text);
+                    this.UserRole = usuario.Rol;
+                    this.Username = usuario.Username;
                     MessageBox.Show($"Bienvenido {txtUsuario.Text}", "Login Exitoso",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    MostrarFormularioSegunRol(usuario.Rol, usuario.Username);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
 
@@ -185,30 +186,11 @@ namespace SmileSoft.WindowsForms
             Application.Exit();
         }
 
-        private void FormLogin_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnLogin_Click(sender, e);
-            }
-            else if (e.KeyCode == Keys.Escape)
-            {
-                btnCancelar_Click(sender, e);
-            }
-        }
-
-        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnLogin_Click(sender, e);
-            }
-        }
-
         private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
+                // Esto está bien, solo mueve el foco.
                 txtPassword.Focus();
             }
         }

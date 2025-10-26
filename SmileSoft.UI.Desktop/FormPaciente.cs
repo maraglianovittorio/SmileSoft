@@ -18,13 +18,17 @@ namespace SmileSoft.UI.Desktop
         {
 
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Text = "SmileSoft - Agregar Paciente";
             btnEditarPaciente.Visible = false;
             btnAgregarTutor.Visible = false;
             lblTutor.Visible = false;
             txtTutor.Visible = false;
             ConfigurarEstilos();
-            ConfigurarResponsive();
+            //ConfigurarResponsive();
         }
         public FormPaciente(int idPaciente)
         {

@@ -2,11 +2,11 @@
 using SmileSoft.API.Clients;
 using SmileSoft.Dominio;
 using System.Data;
-using System.Windows.Forms;
+using SmileSoft.WindowsForms;
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomeTipoAtencion : Form
+    public partial class FormHomeTipoAtencion : FormBaseHome
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
@@ -17,8 +17,12 @@ namespace SmileSoft.UI.Desktop
         public FormHomeTipoAtencion()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
-            ConfigurarResponsive();
+            //ConfigurarResponsive();
+            ConfigurarLayoutResponsivo(dgvFormTipoAtencion, txtBuscarTipoAtencion, lupaPng, btnAgregarTipoAtencion, btnEditarTipoAtencion, btnBorrarTipoAtencion, BtnVolver);
+
         }
 
         private void ConfigurarEstilos()
@@ -82,6 +86,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     tiposAtencion = tiposAtencionResponse.ToList();
                     dgvFormTipoAtencion.DataSource = tiposAtencion;
+                    ConfiguraDgv();
 
                 }
 
@@ -98,6 +103,12 @@ namespace SmileSoft.UI.Desktop
                 MessageBox.Show($"Error al cargar los tipos de atención: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void ConfiguraDgv()
+        {
+            dgvFormTipoAtencion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvFormTipoAtencion.Columns["Id"].Visible = false;
+            dgvFormTipoAtencion.Columns["Atenciones"].Visible = false;
         }
 
         private async void FormHomeTipoAtencion_Load(object sender, EventArgs e)
@@ -121,9 +132,7 @@ namespace SmileSoft.UI.Desktop
             {
                 dgvFormTipoAtencion.DataSource = tiposAtencion;
             }
-
-            if (dgvFormTipoAtencion.Columns["Id"] != null)
-                dgvFormTipoAtencion.Columns["Id"].Visible = false;
+            ConfiguraDgv();
         }
 
         private async void btnAgregarTipoAtencion_Click(object sender, EventArgs e)

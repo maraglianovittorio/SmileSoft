@@ -1,13 +1,5 @@
 ﻿using SmileSoft.WindowsForms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using SmileSoft.API.Auth.WindowsForms;
 
 namespace SmileSoft.UI.Desktop
 {
@@ -16,8 +8,11 @@ namespace SmileSoft.UI.Desktop
         public FormHomeSuperUsuario()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
-            //btnMenuAlt.Visible = false; // Lo ocultamos ya que no tiene funcionalidad, es una prueba para entrega 3
+            this.ActiveControl = null;
+
         }
         private void ConfigurarEstilos()
         {
@@ -27,70 +22,19 @@ namespace SmileSoft.UI.Desktop
             this.Text = "SmileSoft - Pagina Principal";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450); // Tamaño mínimo
+            BtnCerrarSesion.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
-            // Estilo para botones
-            foreach (Control control in this.Controls)
-            {
-                if (control is Button btn)
-                {
-                    btnPacientes.BackColor = Color.FromArgb(70, 130, 180); // SteelBlue
-                    btnObraSocial.BackColor = Color.FromArgb(70, 130, 180); // Crimson
-                    btnUsuarios.BackColor = Color.FromArgb(70, 130, 180); // MediumSeaGreen
-                    btnTipoPlan.BackColor = Color.FromArgb(70, 130, 180); // MediumSeaGreen
-                    btnTipoAtencion.BackColor = Color.FromArgb(70, 130, 180); // MediumSeaGreen
-                    btn.ForeColor = Color.White;
-                    btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-                    btn.FlatStyle = FlatStyle.Flat;
-                    btn.FlatAppearance.BorderSize = 0;
-                    btnPacientes.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
-                    btnObraSocial.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
-                    btnUsuarios.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
-                    btn.Cursor = Cursors.Hand;
-                }
-            }
+
         }
 
-        private void btnPacientes_Click(object sender, EventArgs e)
-        {
-            FormHomePaciente formHomePagePaciente = new FormHomePaciente();
-            formHomePagePaciente.ShowDialog();
-        }
 
-        private void btnObraSocial_Click(object sender, EventArgs e)
+        private async void BtnCerrarSesion_Click(object sender, EventArgs e)
         {
-            FormHomeOS formHomeOS = new FormHomeOS();
-            formHomeOS.ShowDialog();
-        }
-
-        private void btnUsuarios_Click(object sender, EventArgs e)
-        {
-            FormHomeUsuario formUsuario = new FormHomeUsuario();
-            formUsuario.ShowDialog();
-        }
-
-        private void btnTipoPlan_Click(object sender, EventArgs e)
-        {
-            FormHomeTipoPlan formTipoPlan = new FormHomeTipoPlan();
-            formTipoPlan.ShowDialog();
-        }
-
-        private void btnTipoAtencion_Click(object sender, EventArgs e)
-        {
-            FormHomeTipoAtencion formTipoAtencion = new FormHomeTipoAtencion();
-            formTipoAtencion.ShowDialog();
-        }
-
-        //private void btnMenuAlt_Click(object sender, EventArgs e)
-        //{
-        //    FormInicioAdmin formInicioAlternativo = new FormInicioAdmin();
-        //    formInicioAlternativo.ShowDialog();
-        //}
-
-        private void BtnVolver_Click(object sender, EventArgs e)
-        {
+            var authService = new WindowsFormsAuthService();
+            await authService.LogoutAsync();
             FormLogin formLogin = new FormLogin();
-            this.Close();
             formLogin.Show();
+            this.Close();
         }
 
         private void toolStripPaciente_Click(object sender, EventArgs e)
@@ -101,7 +45,7 @@ namespace SmileSoft.UI.Desktop
 
         private void toolStripOS_Click(object sender, EventArgs e)
         {
-            FormHomeOS formHomeOS = new FormHomeOS();
+            FormHomeOS formHomeOS = new FormHomeOS("ADMIN");
             formHomeOS.ShowDialog();
         }
 

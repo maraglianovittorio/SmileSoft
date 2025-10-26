@@ -1,24 +1,13 @@
 ﻿using DTO;
 using SmileSoft.API.Clients;
-using SmileSoft.Dominio;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using SmileSoft.WindowsForms;
 
 
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomeUsuario : Form
+    public partial class FormHomeUsuario : FormBaseHome
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
@@ -29,8 +18,11 @@ namespace SmileSoft.UI.Desktop
         public FormHomeUsuario()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
-            ConfigurarResponsive();
+            ConfigurarLayoutResponsivo(dgvFormUsuario, txtBuscarUsuario, lupaPng, btnAgregarUsuario, btnEditarUsuario, btnBorrarUsuario, BtnVolver);
+            //ConfigurarResponsive();
         }
 
         private void ConfigurarEstilos()
@@ -95,7 +87,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormUsuario.DataSource = usuarioResponse;
                     usuarios = (List<UsuarioDTO>)usuarioResponse;
-                    dgvFormUsuario.Columns["Id"].Visible = false;
+                    ConfiguraDgv();
                 }
                 else
                 {
@@ -109,6 +101,12 @@ namespace SmileSoft.UI.Desktop
                 MessageBox.Show($"Error al cargar los usuarios: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+        }
+        private void ConfiguraDgv()
+        {
+            dgvFormUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvFormUsuario.Columns["Id"].Visible = false;
         }
 
         private async void FormHomePage_Load(object sender, EventArgs e)
@@ -132,7 +130,7 @@ namespace SmileSoft.UI.Desktop
                 dgvFormUsuario.DataSource = usuarios;
 
             }
-            dgvFormUsuario.Columns["Id"].Visible = false;
+            ConfiguraDgv();
 
         }
 

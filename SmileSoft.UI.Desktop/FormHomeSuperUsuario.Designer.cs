@@ -28,11 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnPacientes = new Button();
-            btnObraSocial = new Button();
-            btnUsuarios = new Button();
-            btnTipoPlan = new Button();
-            btnTipoAtencion = new Button();
             BtnCerrarSesion = new Button();
             menuStrip1 = new MenuStrip();
             toolStripPaciente = new ToolStripMenuItem();
@@ -43,64 +38,9 @@
             odontologosToolStripMenuItem = new ToolStripMenuItem();
             tutoresToolStripMenuItem = new ToolStripMenuItem();
             atencionesToolStripMenuItem = new ToolStripMenuItem();
-            NuevaAtencion = new Button();
+            lblNombreSuperUsuario = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
-            // 
-            // btnPacientes
-            // 
-            btnPacientes.Location = new Point(46, 57);
-            btnPacientes.Margin = new Padding(2);
-            btnPacientes.Name = "btnPacientes";
-            btnPacientes.Size = new Size(109, 46);
-            btnPacientes.TabIndex = 0;
-            btnPacientes.Text = "Pacientes";
-            btnPacientes.UseVisualStyleBackColor = true;
-            btnPacientes.Click += btnPacientes_Click;
-            // 
-            // btnObraSocial
-            // 
-            btnObraSocial.Location = new Point(223, 57);
-            btnObraSocial.Margin = new Padding(2);
-            btnObraSocial.Name = "btnObraSocial";
-            btnObraSocial.Size = new Size(124, 46);
-            btnObraSocial.TabIndex = 1;
-            btnObraSocial.Text = "Obras Sociales";
-            btnObraSocial.UseVisualStyleBackColor = true;
-            btnObraSocial.Click += btnObraSocial_Click;
-            // 
-            // btnUsuarios
-            // 
-            btnUsuarios.Location = new Point(401, 57);
-            btnUsuarios.Margin = new Padding(2);
-            btnUsuarios.Name = "btnUsuarios";
-            btnUsuarios.Size = new Size(111, 46);
-            btnUsuarios.TabIndex = 2;
-            btnUsuarios.Text = "Usuarios";
-            btnUsuarios.UseVisualStyleBackColor = true;
-            btnUsuarios.Click += btnUsuarios_Click;
-            // 
-            // btnTipoPlan
-            // 
-            btnTipoPlan.Location = new Point(573, 57);
-            btnTipoPlan.Margin = new Padding(2);
-            btnTipoPlan.Name = "btnTipoPlan";
-            btnTipoPlan.Size = new Size(111, 46);
-            btnTipoPlan.TabIndex = 3;
-            btnTipoPlan.Text = "Tipos Plan";
-            btnTipoPlan.UseVisualStyleBackColor = true;
-            btnTipoPlan.Click += btnTipoPlan_Click;
-            // 
-            // btnTipoAtencion
-            // 
-            btnTipoAtencion.Location = new Point(46, 159);
-            btnTipoAtencion.Margin = new Padding(2);
-            btnTipoAtencion.Name = "btnTipoAtencion";
-            btnTipoAtencion.Size = new Size(118, 60);
-            btnTipoAtencion.TabIndex = 4;
-            btnTipoAtencion.Text = "Tipos Atencion";
-            btnTipoAtencion.UseVisualStyleBackColor = true;
-            btnTipoAtencion.Click += btnTipoAtencion_Click;
             // 
             // BtnCerrarSesion
             // 
@@ -111,7 +51,7 @@
             BtnCerrarSesion.TabIndex = 8;
             BtnCerrarSesion.Text = "Cerrar sesion";
             BtnCerrarSesion.UseVisualStyleBackColor = false;
-            BtnCerrarSesion.Click += BtnVolver_Click;
+            BtnCerrarSesion.Click += BtnCerrarSesion_Click;
             // 
             // menuStrip1
             // 
@@ -178,30 +118,23 @@
             atencionesToolStripMenuItem.Text = "Atenciones";
             atencionesToolStripMenuItem.Click += atencionesToolStripMenuItem_Click;
             // 
-            // NuevaAtencion
+            // lblNombreSuperUsuario
             // 
-            NuevaAtencion.BackColor = Color.Orange;
-            NuevaAtencion.ForeColor = SystemColors.Highlight;
-            NuevaAtencion.Location = new Point(223, 159);
-            NuevaAtencion.Name = "NuevaAtencion";
-            NuevaAtencion.Size = new Size(124, 60);
-            NuevaAtencion.TabIndex = 10;
-            NuevaAtencion.Text = "Nueva atención";
-            NuevaAtencion.UseVisualStyleBackColor = false;
-            NuevaAtencion.Click += NuevaAtencion_Click;
+            lblNombreSuperUsuario.AutoSize = true;
+            lblNombreSuperUsuario.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNombreSuperUsuario.Location = new Point(26, 39);
+            lblNombreSuperUsuario.Name = "lblNombreSuperUsuario";
+            lblNombreSuperUsuario.Size = new Size(173, 25);
+            lblNombreSuperUsuario.TabIndex = 10;
+            lblNombreSuperUsuario.Text = "Bienvenido admin";
             // 
             // FormHomeSuperUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(858, 349);
-            Controls.Add(NuevaAtencion);
+            Controls.Add(lblNombreSuperUsuario);
             Controls.Add(BtnCerrarSesion);
-            Controls.Add(btnTipoAtencion);
-            Controls.Add(btnTipoPlan);
-            Controls.Add(btnUsuarios);
-            Controls.Add(btnObraSocial);
-            Controls.Add(btnPacientes);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Margin = new Padding(2);
@@ -216,12 +149,6 @@
         }
 
         #endregion
-
-        private Button btnPacientes;
-        private Button btnObraSocial;
-        private Button btnUsuarios;
-        private Button btnTipoPlan;
-        private Button btnTipoAtencion;
         private Button BtnCerrarSesion;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem toolStripPaciente;
@@ -231,9 +158,9 @@
         private ToolStripMenuItem toolStripTipoAtencion;
         private ToolStripMenuItem pacientesToolStripMenuItem;
         private ToolStripMenuItem agregarToolStripMenuItem;
-        private Button NuevaAtencion;
         private ToolStripMenuItem odontologosToolStripMenuItem;
         private ToolStripMenuItem tutoresToolStripMenuItem;
         private ToolStripMenuItem atencionesToolStripMenuItem;
+        private Label lblNombreSuperUsuario;
     }
 }

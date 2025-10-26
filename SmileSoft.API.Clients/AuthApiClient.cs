@@ -24,6 +24,11 @@ namespace SmileSoft.API.Clients
                     PropertyNameCaseInsensitive = true
                 });
             }
+            else if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+            {
+                // ver si conviene hacer un try catch para manejar esta excepcion
+                throw new Exception("Error interno del servidor. Por favor, intente nuevamente más tarde.");
+            }
 
             return null;
         }

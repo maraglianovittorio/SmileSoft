@@ -90,7 +90,6 @@
             txtPassword.PasswordChar = '●';
             txtPassword.Size = new Size(300, 27);
             txtPassword.TabIndex = 4;
-            txtPassword.KeyDown += txtPassword_KeyDown;
             // 
             // btnLogin
             // 
@@ -179,7 +178,6 @@
             Name = "FormLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SmileSoft - Login";
-            KeyDown += FormLogin_KeyDown;
             ((System.ComponentModel.ISupportInitialize)imgOjoPassword).EndInit();
             ResumeLayout(false);
             PerformLayout();

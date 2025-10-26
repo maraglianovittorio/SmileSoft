@@ -1,7 +1,6 @@
 ﻿using SmileSoft.Dominio;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace SmileSoft.Data
 {
@@ -22,12 +21,21 @@ namespace SmileSoft.Data
         public bool Delete(int id)
         {
             using var context = CreateContext();
-            var cliente = context.Pacientes.Find(id);
-            if (cliente != null)
+            var paciente = context.Pacientes.Find(id);
+            if (paciente != null)
             {
-                context.Pacientes.Remove(cliente);
-                context.SaveChanges();
-                return true;
+                try
+                {
+                    context.Pacientes.Remove(paciente);
+                    context.SaveChanges();
+                    return true;
+                
+                }
+                catch (DbUpdateException)
+                {
+                    // Manejar la excepción si hay restricciones de clave externa
+                    throw new Exception("No se puede eliminar el paciente porque tiene registros relacionados.");
+                }
             }
             return false;
         }

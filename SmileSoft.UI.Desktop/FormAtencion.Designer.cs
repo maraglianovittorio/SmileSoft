@@ -305,6 +305,7 @@
             Name = "FormAtencion";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Nueva atención";
+            WindowState = FormWindowState.Maximized;
             Load += FormAtencion_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTurnosOcupados).EndInit();
             ResumeLayout(false);

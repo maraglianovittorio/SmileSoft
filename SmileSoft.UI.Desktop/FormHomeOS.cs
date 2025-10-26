@@ -2,12 +2,13 @@
 using SmileSoft.API.Clients;
 using SmileSoft.Dominio;
 using System.Data;
+using SmileSoft.WindowsForms;
 
 
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomeOS : Form
+    public partial class FormHomeOS : FormBaseHome
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
@@ -15,11 +16,21 @@ namespace SmileSoft.UI.Desktop
 
         };
         private List<ObraSocial> obrasSociales = new();
-        public FormHomeOS()
+        public FormHomeOS(string rol)
         {
+
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
-            ConfigurarResponsive();
+            //ConfigurarResponsive();
+            ConfigurarLayoutResponsivo(dgvFormOS, txtBuscarOS, lupaPng, btnAgregarOS, btnEditarOS, btnBorrarOS, BtnVolver);
+
+            if (rol.ToUpper() != "ADMIN")
+            {
+                btnBorrarOS.Visible = false;
+                btnEditarOS.Visible = false;
+            }
         }
 
         private void ConfigurarEstilos()
@@ -84,8 +95,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormOS.DataSource = OSResponse;
                     obrasSociales = (List<ObraSocial>)OSResponse;
-                    dgvFormOS.Columns["Id"].Visible = false;
-                    dgvFormOS.Columns["TipoPlanes"].Visible = false;
+                    ConfiguraDgv();
                 }
                 else
                 {
@@ -100,7 +110,14 @@ namespace SmileSoft.UI.Desktop
 
             }
         }
+        private void ConfiguraDgv()
+        {
+            dgvFormOS.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            dgvFormOS.Columns["Id"].Visible = false;
+            dgvFormOS.Columns["TipoPlanes"].Visible = false;
+
+        }
         private async void FormHomeOS_Load(object sender, EventArgs e)
         {
             btnBorrarOS.Enabled = false;
@@ -121,7 +138,7 @@ namespace SmileSoft.UI.Desktop
                 dgvFormOS.DataSource = obrasSociales;
 
             }
-            dgvFormOS.Columns["Id"].Visible = false;
+            ConfiguraDgv();
 
         }
 

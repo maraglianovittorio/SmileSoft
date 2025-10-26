@@ -161,6 +161,7 @@
             MinimumSize = new Size(565, 286);
             Name = "FormHomeOS";
             Text = "FormHomeOS";
+            WindowState = FormWindowState.Maximized;
             Load += FormHomeOS_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFormOS).EndInit();
             ((System.ComponentModel.ISupportInitialize)lupaPng).EndInit();

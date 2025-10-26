@@ -3,10 +3,11 @@ using SmileSoft.API.Clients;
 using SmileSoft.Dominio;
 using System.Data;
 using System.Windows.Forms;
+using SmileSoft.WindowsForms;
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomeTipoPlan : Form
+    public partial class FormHomeTipoPlan : FormBaseHome
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
@@ -17,8 +18,11 @@ namespace SmileSoft.UI.Desktop
         public FormHomeTipoPlan()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
-            ConfigurarResponsive();
+            //ConfigurarResponsive();
+            ConfigurarLayoutResponsivo(dgvFormTipoPlan, txtBuscarTipoPlan, lupaPng, btnAgregarTipoPlan, btnEditarTipoPlan, btnBorrarTipoPlan, BtnVolver);
         }
 
         private void ConfigurarEstilos()
@@ -114,27 +118,8 @@ namespace SmileSoft.UI.Desktop
                     }
 
                     dgvFormTipoPlan.DataSource = tiposPlanConObraSocial;
+                    ConfiguraDgv();
 
-                    // Configurar las columnas
-                    if (dgvFormTipoPlan.Columns["Id"] != null)
-                        dgvFormTipoPlan.Columns["Id"].Visible = false;
-
-                    if (dgvFormTipoPlan.Columns["ObraSocialId"] != null)
-                        dgvFormTipoPlan.Columns["ObraSocialId"].Visible = false;
-
-                    if (dgvFormTipoPlan.Columns["NombreObraSocial"] != null)
-                    {
-                        dgvFormTipoPlan.Columns["NombreObraSocial"].HeaderText = "Obra Social";
-                        dgvFormTipoPlan.Columns["NombreObraSocial"].Width = 150;
-                    }
-
-                    // Reordenar columnas si es necesario
-                    if (dgvFormTipoPlan.Columns["Nombre"] != null)
-                        dgvFormTipoPlan.Columns["Nombre"].DisplayIndex = 0;
-                    if (dgvFormTipoPlan.Columns["Descripcion"] != null)
-                        dgvFormTipoPlan.Columns["Descripcion"].DisplayIndex = 1;
-                    if (dgvFormTipoPlan.Columns["NombreObraSocial"] != null)
-                        dgvFormTipoPlan.Columns["NombreObraSocial"].DisplayIndex = 2;
                 }
                 else
                 {
@@ -149,7 +134,30 @@ namespace SmileSoft.UI.Desktop
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void ConfiguraDgv()
+        {
+            dgvFormTipoPlan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            // Configurar las columnas
+            if (dgvFormTipoPlan.Columns["Id"] != null)
+                dgvFormTipoPlan.Columns["Id"].Visible = false;
 
+            if (dgvFormTipoPlan.Columns["ObraSocialId"] != null)
+                dgvFormTipoPlan.Columns["ObraSocialId"].Visible = false;
+
+            if (dgvFormTipoPlan.Columns["NombreObraSocial"] != null)
+            {
+                dgvFormTipoPlan.Columns["NombreObraSocial"].HeaderText = "Obra Social";
+                dgvFormTipoPlan.Columns["NombreObraSocial"].Width = 150;
+            }
+
+            // Reordenar columnas si es necesario
+            if (dgvFormTipoPlan.Columns["Nombre"] != null)
+                dgvFormTipoPlan.Columns["Nombre"].DisplayIndex = 0;
+            if (dgvFormTipoPlan.Columns["Descripcion"] != null)
+                dgvFormTipoPlan.Columns["Descripcion"].DisplayIndex = 1;
+            if (dgvFormTipoPlan.Columns["NombreObraSocial"] != null)
+                dgvFormTipoPlan.Columns["NombreObraSocial"].DisplayIndex = 2;
+        }
         private async void FormHomeTipoPlan_Load(object sender, EventArgs e)
         {
             btnBorrarTipoPlan.Enabled = false;
@@ -172,9 +180,7 @@ namespace SmileSoft.UI.Desktop
             {
                 dgvFormTipoPlan.DataSource = tiposPlan;
             }
-
-            if (dgvFormTipoPlan.Columns["Id"] != null)
-                dgvFormTipoPlan.Columns["Id"].Visible = false;
+            ConfiguraDgv();
         }
 
         private async void btnAgregarTipoPlan_Click(object sender, EventArgs e)

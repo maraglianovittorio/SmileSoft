@@ -52,7 +52,7 @@
             dgvFormTipoAtencion.AllowUserToOrderColumns = true;
             dgvFormTipoAtencion.BackgroundColor = Color.PapayaWhip;
             dgvFormTipoAtencion.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvFormTipoAtencion.Location = new Point(26, 55);
+            dgvFormTipoAtencion.Location = new Point(26, 68);
             dgvFormTipoAtencion.Margin = new Padding(2);
             dgvFormTipoAtencion.Name = "dgvFormTipoAtencion";
             dgvFormTipoAtencion.ReadOnly = true;
@@ -98,10 +98,10 @@
             // 
             btnAgregarTipoAtencion.BackColor = SystemColors.MenuHighlight;
             btnAgregarTipoAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnAgregarTipoAtencion.Location = new Point(627, 1);
+            btnAgregarTipoAtencion.Location = new Point(607, 8);
             btnAgregarTipoAtencion.Margin = new Padding(2);
             btnAgregarTipoAtencion.Name = "btnAgregarTipoAtencion";
-            btnAgregarTipoAtencion.Size = new Size(158, 60);
+            btnAgregarTipoAtencion.Size = new Size(178, 47);
             btnAgregarTipoAtencion.TabIndex = 4;
             btnAgregarTipoAtencion.Text = "Agregar tipo atencion";
             btnAgregarTipoAtencion.UseVisualStyleBackColor = false;
@@ -111,7 +111,7 @@
             // 
             btnBorrarTipoAtencion.BackColor = Color.Red;
             btnBorrarTipoAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnBorrarTipoAtencion.Location = new Point(651, 282);
+            btnBorrarTipoAtencion.Location = new Point(651, 295);
             btnBorrarTipoAtencion.Margin = new Padding(2);
             btnBorrarTipoAtencion.Name = "btnBorrarTipoAtencion";
             btnBorrarTipoAtencion.RightToLeft = RightToLeft.No;
@@ -125,7 +125,7 @@
             // 
             btnEditarTipoAtencion.BackColor = Color.YellowGreen;
             btnEditarTipoAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnEditarTipoAtencion.Location = new Point(513, 282);
+            btnEditarTipoAtencion.Location = new Point(513, 295);
             btnEditarTipoAtencion.Margin = new Padding(2);
             btnEditarTipoAtencion.Name = "btnEditarTipoAtencion";
             btnEditarTipoAtencion.Size = new Size(134, 56);
@@ -137,7 +137,7 @@
             // BtnVolver
             // 
             BtnVolver.BackColor = SystemColors.ActiveCaption;
-            BtnVolver.Location = new Point(26, 282);
+            BtnVolver.Location = new Point(26, 310);
             BtnVolver.Name = "BtnVolver";
             BtnVolver.Size = new Size(133, 41);
             BtnVolver.TabIndex = 7;
@@ -149,7 +149,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(803, 339);
+            ClientSize = new Size(806, 459);
             Controls.Add(BtnVolver);
             Controls.Add(btnEditarTipoAtencion);
             Controls.Add(btnBorrarTipoAtencion);

@@ -20,6 +20,8 @@ namespace SmileSoft.UI.Desktop
         public FormHomeSecretario()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
         }
         private void ConfigurarEstilos()
@@ -79,7 +81,7 @@ namespace SmileSoft.UI.Desktop
         private void oToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // este nose si iria, seria un formulario para nada mas VER las obras sociales con las que trabaja la clinica
-            FormHomeOS formHomeOS = new FormHomeOS();
+            FormHomeOS formHomeOS = new FormHomeOS("SECRETARIO");
             formHomeOS.ShowDialog();
         }
 
@@ -105,28 +107,8 @@ namespace SmileSoft.UI.Desktop
                     }
 
                     dgvAtencionesDelDia.DataSource = turnosDelDia;
-                    dgvAtencionesDelDia.Columns["Id"].Visible = false;
-                    dgvAtencionesDelDia.Columns["FechaHoraAtencion"].HeaderText = "Fecha y hora";
-                    dgvAtencionesDelDia.Columns["TipoAtencionId"].Visible = false;
-                    dgvAtencionesDelDia.Columns["Observaciones"].Visible = false;
-                    dgvAtencionesDelDia.Columns["OdontologoId"].Visible = false;
-                    dgvAtencionesDelDia.Columns["PacienteId"].Visible = false;
-                    dgvAtencionesDelDia.Columns["PacienteNombre"].HeaderText = "Paciente";
-                    dgvAtencionesDelDia.Columns["PacienteApellido"].Visible = false;
-                    dgvAtencionesDelDia.Columns["PacienteDni"].HeaderText = "Dni";
-                    dgvAtencionesDelDia.Columns["OdontologoNombre"].HeaderText = "Odontólogo";
-                    dgvAtencionesDelDia.Columns["OdontologoApellido"].Visible = false;
-                    dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].HeaderText = "Atención";
-                    dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
+                    ConfiguraDgv();
 
-                    // Configurar anchos de columnas
-                    dgvAtencionesDelDia.Columns["FechaHoraAtencion"].Width = 150;
-                    dgvAtencionesDelDia.Columns["PacienteNombre"].Width = 200;
-                    dgvAtencionesDelDia.Columns["PacienteDni"].Width = 100;
-                    dgvAtencionesDelDia.Columns["OdontologoNombre"].Width = 200;
-                    dgvAtencionesDelDia.Columns["Estado"].Width = 100;
-                    dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].Width = 150;
-                    dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].Width = 100;
                 }
                 else
                 {
@@ -141,7 +123,31 @@ namespace SmileSoft.UI.Desktop
 
             }
         }
+        private void ConfiguraDgv()
+        {
+            dgvAtencionesDelDia.Columns["Id"].Visible = false;
+            dgvAtencionesDelDia.Columns["FechaHoraAtencion"].HeaderText = "Fecha y hora";
+            dgvAtencionesDelDia.Columns["TipoAtencionId"].Visible = false;
+            dgvAtencionesDelDia.Columns["Observaciones"].Visible = false;
+            dgvAtencionesDelDia.Columns["OdontologoId"].Visible = false;
+            dgvAtencionesDelDia.Columns["PacienteId"].Visible = false;
+            dgvAtencionesDelDia.Columns["PacienteNombre"].HeaderText = "Paciente";
+            dgvAtencionesDelDia.Columns["PacienteApellido"].Visible = false;
+            dgvAtencionesDelDia.Columns["PacienteDni"].HeaderText = "Dni";
+            dgvAtencionesDelDia.Columns["OdontologoNombre"].HeaderText = "Odontólogo";
+            dgvAtencionesDelDia.Columns["OdontologoApellido"].Visible = false;
+            dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].HeaderText = "Atención";
+            dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
 
+            // Configurar anchos de columnas
+            dgvAtencionesDelDia.Columns["FechaHoraAtencion"].Width = 150;
+            dgvAtencionesDelDia.Columns["PacienteNombre"].Width = 200;
+            dgvAtencionesDelDia.Columns["PacienteDni"].Width = 100;
+            dgvAtencionesDelDia.Columns["OdontologoNombre"].Width = 200;
+            dgvAtencionesDelDia.Columns["Estado"].Width = 100;
+            dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].Width = 150;
+            dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].Width = 100;
+        }
         private async void agregarAtencionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormAtencion formAtencion = new FormAtencion();
@@ -195,6 +201,7 @@ namespace SmileSoft.UI.Desktop
                 var atencionesFiltradas = atenciones.Where(a => a.Estado == filtro).ToList();
                 dgvAtencionesDelDia.DataSource = atencionesFiltradas;
             }
+            ConfiguraDgv();
         }
 
         private async void txtBuscaAtencion_TextChanged(object sender, EventArgs e)
@@ -206,6 +213,7 @@ namespace SmileSoft.UI.Desktop
                 || a.PacienteApellido.ToLower().Contains(busqueda)||
                 a.PacienteDni.ToLower().Contains(busqueda)
             ).ToList();
+            ConfiguraDgv();
 
             dgvAtencionesDelDia.DataSource = atencionesFiltradas;
         }

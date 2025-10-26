@@ -2,12 +2,13 @@
 using SmileSoft.API.Clients;
 using SmileSoft.Dominio;
 using System.Data;
-
+using Microsoft.EntityFrameworkCore;
+using SmileSoft.WindowsForms;
 
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomePaciente : Form
+    public partial class FormHomePaciente : FormBaseHome
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
@@ -18,8 +19,12 @@ namespace SmileSoft.UI.Desktop
         public FormHomePaciente()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
-            ConfigurarResponsive();
+            ConfigurarLayoutResponsivo(dgvFormPaciente, txtBuscarPaciente, lupaPng, btnAgregarPaciente, btnEditarPaciente, btnBorrarPaciente, BtnVolver);
+
+            //ConfigurarResponsive();
         }
 
         private void ConfigurarEstilos()
@@ -84,23 +89,8 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormPaciente.DataSource = pacientesResponse;
                     pacientes = (List<PacienteDTO>)pacientesResponse;
-                    dgvFormPaciente.Columns["Id"].Visible = false;
-                    //dgvFormPaciente.Columns["Atenciones"].Visible = false;
-                    //dgvFormPaciente.Columns["TipoPlan"].Visible = false;
-                    dgvFormPaciente.Columns["TutorId"].Visible = false;
-                    //dgvFormPaciente.Columns["Tutor"].Visible = false;
+                    ConfiguraDgv();
 
-                    // Ordenar las columnas visibles
-                    dgvFormPaciente.Columns["NroHC"].DisplayIndex = 0;
-                    dgvFormPaciente.Columns["Apellido"].DisplayIndex = 1;
-                    dgvFormPaciente.Columns["Nombre"].DisplayIndex = 2;
-                    dgvFormPaciente.Columns["NroDni"].DisplayIndex = 3;
-                    dgvFormPaciente.Columns["Telefono"].DisplayIndex = 4;
-                    dgvFormPaciente.Columns["Email"].DisplayIndex = 5;
-                    dgvFormPaciente.Columns["Direccion"].DisplayIndex = 6;
-                    dgvFormPaciente.Columns["FechaNacimiento"].DisplayIndex = 7;
-                    dgvFormPaciente.Columns["NroAfiliado"].DisplayIndex = 8;
-                    dgvFormPaciente.Columns["TipoPlanId"].DisplayIndex = 9;
                 }
                 else
                 {
@@ -115,7 +105,29 @@ namespace SmileSoft.UI.Desktop
 
             }
         }
+        private void ConfiguraDgv()
+        {
+            dgvFormPaciente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvFormPaciente.Columns["Id"].Visible = false;
+            dgvFormPaciente.Columns["TutorId"].Visible = false;
+            dgvFormPaciente.Columns["NroDni"].HeaderText = "DNI";
+            dgvFormPaciente.Columns["TipoPlanId"].Visible = false;
 
+
+            // Ordenar las columnas visibles
+            dgvFormPaciente.Columns["NroHC"].DisplayIndex = 0;
+            dgvFormPaciente.Columns["Apellido"].DisplayIndex = 1;
+            dgvFormPaciente.Columns["Nombre"].DisplayIndex = 2;
+            dgvFormPaciente.Columns["NroDni"].DisplayIndex = 3;
+            dgvFormPaciente.Columns["Telefono"].DisplayIndex = 4;
+            dgvFormPaciente.Columns["Email"].DisplayIndex = 5;
+            dgvFormPaciente.Columns["Direccion"].DisplayIndex = 6;
+            dgvFormPaciente.Columns["FechaNacimiento"].DisplayIndex = 7;
+            dgvFormPaciente.Columns["NroAfiliado"].DisplayIndex = 8;
+            if(dgvFormPaciente.Columns["NroAfiliado"] == null)
+            {
+            }
+        }
         private async void FormHomePacientes_Load(object sender, EventArgs e)
         {
             btnBorrarPaciente.Enabled = false;
@@ -137,10 +149,7 @@ namespace SmileSoft.UI.Desktop
                 dgvFormPaciente.DataSource = pacientes;
 
             }
-            dgvFormPaciente.Columns["Id"].Visible = false;
-            dgvFormPaciente.Columns["Atenciones"].Visible = false;
-            dgvFormPaciente.Columns["TipoPlanId"].Visible = false;
-            dgvFormPaciente.Columns["TipoPlan"].Visible = false;
+            ConfiguraDgv();
 
         }
 
@@ -192,8 +201,37 @@ namespace SmileSoft.UI.Desktop
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este paciente?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (confirmResult == DialogResult.Yes)
                     {
-                        await PacienteApiClient.DeleteAsync(pacienteSeleccionado.Id);
-                        MessageBox.Show("Paciente eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        var paciente = dgvFormPaciente.SelectedRows[0].DataBoundItem as PacienteDTO;
+                        if (paciente != null)
+                        {
+                            try
+                            {
+                                await PacienteApiClient.DeleteAsync(paciente.Id);
+                                MessageBox.Show(
+                                    "Paciente eliminado correctamente.",
+                                    "Éxito",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                                await ObtenerDatos();
+                            }
+                            catch (DbUpdateException ex)
+                            {
+                                MessageBox.Show(
+                                    $"Error al eliminar el paciente: {ex.Message}",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(
+                                    "No se puede eliminar el paciente porque tiene registros relacionados.",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                            }
+
+                        }
                         await ObtenerDatos();
                     }
                 }

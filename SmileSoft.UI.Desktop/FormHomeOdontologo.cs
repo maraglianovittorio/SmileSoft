@@ -14,7 +14,7 @@ using SmileSoft.Dominio;
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomeOdontologo : Form
+    public partial class FormHomeOdontologo : FormBaseHome
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
@@ -25,8 +25,12 @@ namespace SmileSoft.UI.Desktop
         public FormHomeOdontologo()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
-            ConfigurarResponsive();
+            ConfigurarLayoutResponsivo(dgvFormOdontologo, txtBuscarOdontologo, lupaPng, btnAgregarOdontologo, btnEditarOdontologo, btnBorrarOdontologo, btnVolver);
+
+            //ConfigurarResponsive();
         }
 
         private void ConfigurarEstilos()
@@ -89,11 +93,8 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormOdontologo.DataSource = odontologosResponse;
                     odontologos = (List<OdontologoDTO>)odontologosResponse;
-                    dgvFormOdontologo.Columns["Id"].Visible = false;
-                    //dgvFormOdontologo.Columns["Password"].Visible = false;
-                    //dgvFormOdontologo.Columns["Rol"].Visible = false;
-                    //dgvFormOdontologo.Columns["ObrasSociales"].Visible = false;
-                    //dgvFormOdontologo.Columns["PacientesTutelados"].Visible = false;
+                    ConfiguraDgv();
+
                 }
                 else
                 {
@@ -107,7 +108,17 @@ namespace SmileSoft.UI.Desktop
                 MessageBox.Show($"Error al cargar los odontólogos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void ConfiguraDgv()
+        {
+            dgvFormOdontologo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            dgvFormOdontologo.Columns["Id"].Visible = false;
+            dgvFormOdontologo.Columns["NombreCompleto"].Visible = false;
+            dgvFormOdontologo.Columns["NroMatricula"].HeaderText = "Matricula";
+            dgvFormOdontologo.Columns["NroDni"].HeaderText = "DNI";
+            dgvFormOdontologo.Columns["FechaNacimiento"].HeaderText = "Fecha nacimiento";
+            dgvFormOdontologo.Columns["FechaNacimiento"].Width = 200;
+        }
         private async void FormHomeOdontologo_Load(object sender, EventArgs e)
         {
             btnBorrarOdontologo.Enabled = false;
@@ -128,10 +139,7 @@ namespace SmileSoft.UI.Desktop
             {
                 dgvFormOdontologo.DataSource = odontologos;
             }
-            dgvFormOdontologo.Columns["Id"].Visible = false;
-            dgvFormOdontologo.Columns["Password"].Visible = false;
-            dgvFormOdontologo.Columns["Rol"].Visible = false;
-            dgvFormOdontologo.Columns["ObrasSociales"].Visible = false;
+            ConfiguraDgv();
         }
 
         private async void btnAgregarOdontologo_Click(object sender, EventArgs e)

@@ -2,12 +2,13 @@
 using SmileSoft.API.Clients;
 using SmileSoft.Dominio;
 using System.Data;
+using SmileSoft.WindowsForms;
 
 
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomeTutor : Form
+    public partial class FormHomeTutor : FormBaseHome
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
@@ -18,8 +19,11 @@ namespace SmileSoft.UI.Desktop
         public FormHomeTutor()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
-            ConfigurarResponsive();
+            //ConfigurarResponsive();
+            ConfigurarLayoutResponsivo(dgvFormTutor, txtBuscarTutor, lupaPng, btnAgregarTutor, btnEditarTutor, btnBorrarTutor, BtnVolver);
         }
 
         private void ConfigurarEstilos()
@@ -84,7 +88,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     dgvFormTutor.DataSource = personasResponse;
                     tutores = (List<PersonaDTO>)personasResponse;
-                    dgvFormTutor.Columns["Id"].Visible = false;
+                    ConfiguraDgv();
                 }
                 else
                 {
@@ -99,7 +103,14 @@ namespace SmileSoft.UI.Desktop
 
             }
         }
-
+        private void ConfiguraDgv()
+        {
+            dgvFormTutor.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvFormTutor.Columns["Id"].Visible = false;
+            dgvFormTutor.Columns["NroDni"].HeaderText = "DNI";
+            dgvFormTutor.Columns["Direccion"].Width = 140;
+            dgvFormTutor.Columns["Email"].Width = 180;
+        }
         private async void FormHomeTutor_Load(object sender, EventArgs e)
         {
             btnBorrarTutor.Enabled = false;
@@ -121,7 +132,7 @@ namespace SmileSoft.UI.Desktop
                 dgvFormTutor.DataSource = tutores;
 
             }
-            dgvFormTutor.Columns["Id"].Visible = false;
+            ConfiguraDgv();
 
         }
 

@@ -8,7 +8,7 @@ using System.Data;
 
 namespace SmileSoft.UI.Desktop
 {
-    public partial class FormHomeAtencion : Form
+    public partial class FormHomeAtencion : FormBaseHome
     {
         private static readonly HttpClient httpClient = new HttpClient()
         {
@@ -19,8 +19,10 @@ namespace SmileSoft.UI.Desktop
         public FormHomeAtencion()
         {
             InitializeComponent();
+            
             ConfigurarEstilos();
-            ConfigurarResponsive();
+
+            ConfigurarLayoutResponsivo(dgvFormAtencion, txtBuscarAtencion, lupaPng, btnAgregarAtencion, btnEditarAtencion, btnCancelarAtencion, BtnVolver);
         }
         #region
         private void ConfigurarEstilos()
@@ -51,30 +53,6 @@ namespace SmileSoft.UI.Desktop
                 }
             }
         }
-
-        private void ConfigurarResponsive()
-        {
-            // Hacer que el formulario sea redimensionable
-            this.FormBorderStyle = FormBorderStyle.Sizable;
-            this.MaximizeBox = true;
-
-            // Configurar anclajes para que los botones se mantengan centrados
-
-            // Manejar el evento de redimensionado para centrar los botones
-            this.Resize += FormHomeAtenciones_Resize;
-        }
-
-        private void FormHomeAtenciones_Resize(object sender, EventArgs e)
-        {
-            // Centrar los botones horizontalmente y verticalmente
-            int buttonWidth = 112;
-            int buttonHeight = 47;
-            int spacing = 60; // Espacio entre botones
-            int totalWidth = (buttonWidth * 4) + (spacing * 3);
-
-            int startX = (this.ClientSize.Width - totalWidth) / 2;
-            int centerY = this.ClientSize.Height / 2;
-        }
         #endregion
         private async Task ObtenerDatos()
         {
@@ -92,28 +70,7 @@ namespace SmileSoft.UI.Desktop
 
                     dgvFormAtencion.DataSource = atencionesList;
                     atenciones = atencionesList;
-                    dgvFormAtencion.Columns["Id"].Visible = false;
-                    dgvFormAtencion.Columns["FechaHoraAtencion"].HeaderText = "Fecha y hora";
-                    dgvFormAtencion.Columns["TipoAtencionId"].Visible = false;
-                    dgvFormAtencion.Columns["Observaciones"].Visible = false;
-                    dgvFormAtencion.Columns["OdontologoId"].Visible = false;
-                    dgvFormAtencion.Columns["PacienteId"].Visible = false;
-                    dgvFormAtencion.Columns["PacienteNombre"].HeaderText = "Paciente";
-                    dgvFormAtencion.Columns["PacienteApellido"].Visible = false;
-                    dgvFormAtencion.Columns["PacienteDni"].HeaderText = "Dni";
-                    dgvFormAtencion.Columns["OdontologoNombre"].HeaderText = "Odontólogo";
-                    dgvFormAtencion.Columns["OdontologoApellido"].Visible = false;
-                    dgvFormAtencion.Columns["TipoAtencionDescripcion"].HeaderText = "Atención";
-                    dgvFormAtencion.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
-
-                    // Configurar anchos de columnas
-                    dgvFormAtencion.Columns["FechaHoraAtencion"].Width = 150;
-                    dgvFormAtencion.Columns["PacienteNombre"].Width = 200;
-                    dgvFormAtencion.Columns["PacienteDni"].Width = 100;
-                    dgvFormAtencion.Columns["OdontologoNombre"].Width = 200;
-                    dgvFormAtencion.Columns["Estado"].Width = 100;
-                    dgvFormAtencion.Columns["TipoAtencionDescripcion"].Width = 150;
-                    dgvFormAtencion.Columns["TipoAtencionDuracion"].Width = 100;
+                    ConfiguraDgv();
                 }
                 else
                 {
@@ -128,7 +85,34 @@ namespace SmileSoft.UI.Desktop
 
             }
         }
+        private void ConfiguraDgv()
+        {
+                dgvFormAtencion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+                dgvFormAtencion.Columns["Id"].Visible = false;
+                dgvFormAtencion.Columns["FechaHoraAtencion"].HeaderText = "Fecha y hora";
+                dgvFormAtencion.Columns["TipoAtencionId"].Visible = false;
+                dgvFormAtencion.Columns["Observaciones"].Visible = false;
+                dgvFormAtencion.Columns["OdontologoId"].Visible = false;
+                dgvFormAtencion.Columns["PacienteId"].Visible = false;
+                dgvFormAtencion.Columns["PacienteNombre"].HeaderText = "Paciente";
+                dgvFormAtencion.Columns["PacienteApellido"].Visible = false;
+                dgvFormAtencion.Columns["PacienteDni"].HeaderText = "Dni";
+                dgvFormAtencion.Columns["OdontologoNombre"].HeaderText = "Odontólogo";
+                dgvFormAtencion.Columns["OdontologoApellido"].Visible = false;
+                dgvFormAtencion.Columns["TipoAtencionDescripcion"].HeaderText = "Atención";
+                dgvFormAtencion.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
+
+            
+
+                dgvFormAtencion.Columns["FechaHoraAtencion"].Width= 180;
+                dgvFormAtencion.Columns["Estado"].Width = 120;
+                dgvFormAtencion.Columns["PacienteNombre"].Width = 200;
+                dgvFormAtencion.Columns["PacienteDni"].Width = 100;
+                dgvFormAtencion.Columns["OdontologoNombre"].Width = 200;
+                dgvFormAtencion.Columns["TipoAtencionDescripcion"].Width = 150;
+                dgvFormAtencion.Columns["TipoAtencionDuracion"].Width = 100;
+        }
         private async void FormHomeAtenciones_Load(object sender, EventArgs e)
         {
             btnCancelarAtencion.Enabled = false;
@@ -143,7 +127,7 @@ namespace SmileSoft.UI.Desktop
             string filtro = txtBuscarAtencion.Text.ToLower();
             if (!string.IsNullOrWhiteSpace(filtro))
             {
-                var filtrados = atenciones.Where(a => a.PacienteApellido.ToLower().Contains(filtro) || a.PacienteDni.Contains(filtro)).ToList();
+                var filtrados = atenciones.Where(a => a.PacienteNombre.ToLower().Contains(filtro)|| a.PacienteApellido.ToLower().Contains(filtro) || a.PacienteDni.Contains(filtro)).ToList();
                 dgvFormAtencion.DataSource = filtrados;
             }
             else
@@ -151,10 +135,7 @@ namespace SmileSoft.UI.Desktop
                 dgvFormAtencion.DataSource = atenciones;
 
             }
-            dgvFormAtencion.Columns["Id"].Visible = false;
-            dgvFormAtencion.Columns["TipoAtencion"].Visible = false;
-            dgvFormAtencion.Columns["Odontologo"].Visible = false;
-            dgvFormAtencion.Columns["Paciente"].Visible = false;
+            ConfiguraDgv();
 
         }
 

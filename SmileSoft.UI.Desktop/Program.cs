@@ -8,76 +8,69 @@ namespace SmileSoft.WindowsForms
 {
     internal static class Program
     {
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-
         static void Main()
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
 
             ApplicationConfiguration.Initialize();
-
             Application.ThreadException += Application_ThreadException;
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
-            Task.Run(async () => await MainAsync()).GetAwaiter().GetResult();
-        }
-        static async Task MainAsync()
-        {
-            // Registrar AuthService en singleton
+            // Registrar AuthService como singleton
             var authService = new WindowsFormsAuthService();
             AuthServiceProvider.Register(authService);
 
-            // Loop principal de autenticación
+            // Bucle principal de la aplicación
             while (true)
             {
-
-                if (!await authService.IsAuthenticatedAsync())
+                Form mainForm = null;
+                using (var loginForm = new FormLogin())
                 {
-                    var loginForm = new FormLogin();
                     if (loginForm.ShowDialog() != DialogResult.OK)
                     {
-                        // Usuario canceló login, cerrar aplicación
-                        return;
+                        break; // Sale del bucle y termina la aplicación
                     }
+
+                    // Determinar el formulario a mostrar según el rol del usuario
+                    switch (loginForm.UserRole?.ToUpper())
+                    {
+                        case "ADMIN":
+                            mainForm = new FormHomeSuperUsuario();
+                            break;
+                        case "SECRETARIO":
+                            mainForm = new FormHomeSecretario();
+                            break;
+                        case "ODONTOLOGO":
+                            MessageBox.Show("El portal de Odontólogo está disponible en la aplicación web.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            continue; // Vuelve al login
+                        default:
+                            MessageBox.Show($"Rol '{loginForm.UserRole}' no reconocido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            continue; // Vuelve al login
+                    }
+                    mainForm.Text = $"SmileSoft - {loginForm.UserRole} ({loginForm.Username})";
                 }
 
-                try
+                // Si se determinó un formulario principal, ejecútalo.
+                if (mainForm != null)
                 {
-                    //Application.Run(new FormHomeAtencion());
-                    break; // La aplicación se cerró normalmente
+                    Application.Run(mainForm);
                 }
-                catch (UnauthorizedAccessException ex)
-                {
-                    // Sesión expirada, mostrar mensaje y volver al login
-                    MessageBox.Show(ex.Message, "Sesión Expirada",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    // El loop continuará y volverá a mostrar login
-                }
+
+                // Cuando Application.Run() termina (porque el mainForm se cerró),
+                // el bucle while(true) vuelve a empezar, mostrando el login de nuevo.
             }
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            if (e.Exception is UnauthorizedAccessException)
-            {
-                // Sesión expirada
-                MessageBox.Show("Su sesión ha expirado. Debe volver a autenticarse.", "Sesión Expirada",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                // Reiniciar la aplicación para volver al login
-                Application.Restart();
-            }
-            else
-            {
-                // Otras excepciones, mostrar error genérico
-                MessageBox.Show($"Error inesperado: {e.Exception.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // Manejo de excepciones no controladas
+            MessageBox.Show($"Error inesperado: {e.Exception.Message}", "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
