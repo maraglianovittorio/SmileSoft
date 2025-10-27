@@ -186,9 +186,33 @@ namespace SmileSoft.UI.Desktop
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este odontólogo?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (confirmResult == DialogResult.Yes)
                     {
-                        await OdontologoApiClient.DeleteAsync(odontologoSeleccionado.Id);
-                        MessageBox.Show("Odontólogo eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        await ObtenerDatos();
+                        {
+                            var paciente = dgvFormOdontologo.SelectedRows[0].DataBoundItem as OdontologoDTO;
+                            if (paciente != null)
+                            {
+                                try
+                                {
+                                    await OdontologoApiClient.DeleteAsync(paciente.Id);
+                                    MessageBox.Show(
+                                        "Odontólogo eliminado correctamente.",
+                                        "Éxito",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information);
+                                    await ObtenerDatos();
+                                }
+
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(
+                                        $"Error al eliminar el odontólogo: {ex.Message}",
+                                        "Error",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                                }
+
+                            }
+                            await ObtenerDatos();
+                        }
                     }
                 }
             }

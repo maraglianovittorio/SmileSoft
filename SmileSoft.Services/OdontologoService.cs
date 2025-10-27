@@ -44,8 +44,14 @@ namespace SmileSoft.Services
             var odontologo = odontologoRepository.Get(id);
             if (odontologo != null)
             {
-                usuarioRepository.Delete(odontologo.UsuarioId);
+                var atencionesDelOdontologo = odontologo.Atenciones;
+                if (atencionesDelOdontologo != null && atencionesDelOdontologo.Any())
+                {
+                    throw new EntidadConDependenciasException("No se puede eliminar el odontólogo porque tiene atenciones asociadas.");
+                }
             }
+            usuarioRepository.Delete(odontologo.UsuarioId.Value);
+
             return odontologoRepository.Delete(id);
         }
         public OdontologoDTO GetOdontologo(int id)

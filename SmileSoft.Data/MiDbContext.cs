@@ -143,7 +143,7 @@ namespace SmileSoft.Data
                 entity.HasOne(e => e.Usuario)
                       .WithMany()
                       .HasForeignKey(e => e.UsuarioId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.SetNull);
 
             });
             modelBuilder.Entity<Usuario>(entity =>

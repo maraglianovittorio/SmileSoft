@@ -39,13 +39,16 @@ namespace SmileSoft.Data
         {
             using var context = CreateContext();
             return context.TipoAtenciones
+                .Include(ta => ta.Atenciones)
                 .FirstOrDefault(ta => ta.Id == id);
         }
 
         public IEnumerable<TipoAtencion> GetAll()
         {
             using var context = CreateContext();
-            return context.TipoAtenciones.ToList();
+            return context.TipoAtenciones
+                .Include(ta => ta.Atenciones)
+                .ToList();
         }
 
         public bool Update(TipoAtencion tipoAtencion)

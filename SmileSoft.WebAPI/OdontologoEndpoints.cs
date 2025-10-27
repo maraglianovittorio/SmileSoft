@@ -52,7 +52,6 @@ namespace SmileSoft.WebAPI
                         message = ex.Message
                     });
                 }
-
             }).WithName("CreateOdontologo").RequireAuthorization();
             
             app.MapPut("/odontologos/{id}", (int id, OdontologoCreacionDTO odontologo) =>
@@ -78,9 +77,16 @@ namespace SmileSoft.WebAPI
             
             app.MapDelete("/odontologos/{id}", (int id) =>
             {
-                OdontologoService odontologoService = new OdontologoService();
-                var eliminado = odontologoService.Delete(id);
-                return eliminado ? Results.NoContent() : Results.NotFound();
+                try
+                {
+                    OdontologoService odontologoService = new OdontologoService();
+                    var eliminado = odontologoService.Delete(id);
+                    return Results.NoContent();
+                }
+                catch(EntidadConDependenciasException ex)
+                {
+                    return Results.Conflict(new { error = ex.Message });
+                }
             }).WithName("DeleteOdontologo").RequireAuthorization();
         }
     }

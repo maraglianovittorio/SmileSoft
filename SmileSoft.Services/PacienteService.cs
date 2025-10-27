@@ -30,7 +30,7 @@ namespace SmileSoft.Services
         public bool Delete(int id)
         {
             var pacienteRepository = new PacienteRepository();
-            var atencionRepository = new AtencionRepository();
+            //var atencionRepository = new AtencionRepository();
             var paciente = pacienteRepository.Get(id);
             if (paciente == null)
             {
@@ -40,7 +40,7 @@ namespace SmileSoft.Services
             // Verificar si el paciente tiene atenciones asociadas
             if (atencionesDelPaciente != null && atencionesDelPaciente.Any())
             {
-                throw new Exception("No se puede eliminar el paciente porque tiene atenciones asociadas.");
+                throw new EntidadConDependenciasException("No se puede eliminar el paciente porque tiene atenciones asociadas.");
             }
             
             return pacienteRepository.Delete(id);

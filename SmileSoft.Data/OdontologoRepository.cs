@@ -25,9 +25,15 @@ namespace SmileSoft.Data
             var odontologo = context.Odontologos.Find(id);
             if (odontologo != null)
             {
-                context.Odontologos.Remove(odontologo);
-                context.SaveChanges();
-                return true;
+                try { 
+                    context.Odontologos.Remove(odontologo);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (DbUpdateException)
+                {
+                    throw new Exception("No se puede eliminar el odontólogo porque tiene registros relacionados.");
+                }
             }
             return false;
         }
@@ -38,6 +44,7 @@ namespace SmileSoft.Data
             return context.Odontologos
                 .Include(o => o.ObrasSociales) 
                 .Include(o => o.Usuario)
+                .Include(o => o.Atenciones)
                 .FirstOrDefault(o => o.Id == id);
         }
 
@@ -47,6 +54,7 @@ namespace SmileSoft.Data
             return context.Odontologos
                 .Include(o => o.ObrasSociales) // Incluir ObrasSociales
                 .Include(o => o.Usuario)
+                .Include(o => o.Atenciones)
                 .ToList();
         }
 

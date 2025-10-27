@@ -1,9 +1,9 @@
 ﻿using SmileSoft.DTO;
 using SmileSoft.API.Clients;
-using SmileSoft.Dominio;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
 using SmileSoft.WindowsForms;
+using Microsoft.Data.SqlClient;
 
 
 namespace SmileSoft.UI.Desktop
@@ -213,38 +213,33 @@ namespace SmileSoft.UI.Desktop
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar este paciente?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (confirmResult == DialogResult.Yes)
                     {
-                        var paciente = dgvFormPaciente.SelectedRows[0].DataBoundItem as PacienteDTO;
-                        if (paciente != null)
                         {
-                            try
+                            var paciente = dgvFormPaciente.SelectedRows[0].DataBoundItem as PacienteDTO;
+                            if (paciente != null)
                             {
-                                await PacienteApiClient.DeleteAsync(paciente.Id);
-                                MessageBox.Show(
-                                    "Paciente eliminado correctamente.",
-                                    "Éxito",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information);
-                                await ObtenerDatos();
-                            }
-                            catch (DbUpdateException ex)
-                            {
-                                MessageBox.Show(
-                                    $"Error al eliminar el paciente: {ex.Message}",
-                                    "Error",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(
-                                    "No se puede eliminar el paciente porque tiene registros relacionados.",
-                                    "Error",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                            }
+                                try
+                                {
+                                    await PacienteApiClient.DeleteAsync(paciente.Id);
+                                    MessageBox.Show(
+                                        "Paciente eliminado correctamente.",
+                                        "Éxito",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information);
+                                    await ObtenerDatos();
+                                }
 
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(
+                                        $"Error al eliminar el paciente: {ex.Message}",
+                                        "Error",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                                }
+
+                            }
+                            await ObtenerDatos();
                         }
-                        await ObtenerDatos();
                     }
                 }
             }

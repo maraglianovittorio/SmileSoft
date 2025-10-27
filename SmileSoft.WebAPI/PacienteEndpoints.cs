@@ -15,14 +15,14 @@ namespace SmileSoft.WebAPI
                 return Results.Ok(dtos);
             }).WithName("GetPacientes")
             .Produces<List<PacienteDTO>>(StatusCodes.Status200OK).RequireAuthorization();
-            
+
             app.MapGet($"pacientes/id", (int id) =>
             {
                 PacienteService pacienteService = new PacienteService();
                 PacienteDTO dto = pacienteService.GetPaciente(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("Get Paciente").RequireAuthorization();
-            
+
             app.MapPost("/pacientes", (PacienteDTO pacienteDTO) =>
             {
                 try
@@ -60,8 +60,8 @@ namespace SmileSoft.WebAPI
                 }
 
             }).WithName("CreatePaciente").RequireAuthorization();
-            
-            app.MapPut("/pacientes/{id}", (int id,PacienteDTO paciente) =>
+
+            app.MapPut("/pacientes/{id}", (int id, PacienteDTO paciente) =>
             {
                 try
                 {
@@ -82,12 +82,21 @@ namespace SmileSoft.WebAPI
                 }
             })
             .WithName("UpdatePaciente").RequireAuthorization();
-            
+
             app.MapDelete("/pacientes/id", (int id) =>
             {
-                PacienteService pacienteService = new PacienteService();
-                var eliminado = pacienteService.Delete(id);
-                return eliminado ? Results.NoContent() : Results.NotFound();
+                try
+                {
+                    PacienteService pacienteService = new PacienteService();
+                    var eliminado = pacienteService.Delete(id);
+                    return Results.NoContent();
+                }
+                catch (EntidadConDependenciasException ex)
+                {
+                    return Results.Conflict(new { error = ex.Message }); 
+                }
+
+
             }).WithName("DeletePaciente").RequireAuthorization();
 
             app.MapGet("/pacientes/dni", (string dni) =>

@@ -7,7 +7,7 @@
         public string NombreCompleto => $"{Nombre} {Apellido}";
         public ICollection<Atencion> Atenciones { get; private set; } = new List<Atencion>();
         public Usuario Usuario { get; private set; }
-        public int UsuarioId { get; private set; } // FK
+        public int? UsuarioId { get; private set; } // FK
         public Odontologo():base()
         {
         }
