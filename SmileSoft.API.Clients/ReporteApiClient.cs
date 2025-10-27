@@ -156,5 +156,34 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al generar el reporte de atenciones por odontólogo: {ex.Message}", ex);
             }
         }
+        public static async Task<byte[]> GenerarReporteAtencionesPorOdontologoAsync(ReporteAtencionesPorOdontologoRequestDTO request)
+        {
+            try
+            {
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("reportes/atenciones-porodontologo", request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsByteArrayAsync();
+                }
+                else
+                {
+                    await HandleUnauthorizedResponseAsync(response);
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al generar el reporte de atenciones por odontólogo. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al generar el reporte de atenciones por odontólogo: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al generar el reporte de atenciones por odontólogo: {ex.Message}", ex);
+            }
+        }
     }
 }

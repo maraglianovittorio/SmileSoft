@@ -128,6 +128,33 @@ namespace SmileSoft.WebAPI
             .RequireAuthorization()
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status500InternalServerError);
+
+            app.MapPost("/reportes/atenciones-porodontologo", (ReporteAtencionesOdontologoRequestDTO request) =>
+            {
+                try
+                {
+                    var reporteService = new ReporteAtencionesOdontologoService();
+                    var pdfBytes = reporteService.GenerarReporte(request);
+                    
+                    return Results.File(
+                        pdfBytes,
+                        "application/pdf",
+                        $"agenda-odontologos-{request.Fecha:yyyyMMdd}.pdf"
+                    );
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem(
+                        detail: ex.Message,
+                        statusCode: StatusCodes.Status500InternalServerError,
+                        title: "Error al generar el reporte de atenciones por odontólogo"
+                    );
+                }
+            })
+            .WithName("GenerarReporteAtencionesPorOdontologo")
+            .RequireAuthorization()
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status500InternalServerError);
         }
     }
 }

@@ -4,30 +4,53 @@
 @using SmileSoft.DTO
 @using SmileSoft.Services
 @using SmileSoft.API.Clients
-
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+@inject IAuthService AuthService
+@using System.Security.Claims
 
 <h3>Reportes</h3>
 <h4> Reporte de atenciones del día</h4>
-<p> Generar reporte de las atenciones para el día de hoy @DateTime.Today.Date</p>
-<button @onclick="GenerarReporte"> Generar reporte </button>
+<p> Generar reporte de las atenciones para el día de hoy @DateTime.Today.ToShortDateString()</p>
+<button class="btn btn-primary" @onclick="GenerarReporte"> Generar reporte </button>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger mt-3">@errorMessage</div>
+}
 
 @code {
+    private string? errorMessage;
+
     private async Task GenerarReporte()
     {
-        var request = new ReporteAtencionesOdontologoRequestDTO
+        try
         {
-            Fecha = DateTime.Today
-        };
-        var pdfBytes = await ReporteApiClient.GenerarReporteAtencionesOdontologoAsync(request);
-        // You can add code here to handle the pdfBytes (e.g., download, display, etc.)
-     
+            errorMessage = null;
+            var odontologoId = await AuthService.GetOdontologoIdAsync();
 
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+
+			var request = new ReporteAtencionesPorOdontologoRequestDTO(DateTime.Today, odontologoId.Value);
+
+            var pdfBytes = await ReporteApiClient.GenerarReporteAtencionesPorOdontologoAsync(request);
+
+            if (pdfBytes == null || pdfBytes.Length == 0)
             {
-                FileName = "saveDialog.FileName",
-                UseShellExecute = true
-            });
-            
-        }}
-    
+                errorMessage = "No se pudo generar el reporte o el reporte está vacío.";
+                return;
+            }
+
+            var fileName = $"Agenda_Odontologo_{DateTime.Today:yyyyMMdd}.pdf";
+            var pdfBase64 = Convert.ToBase64String(pdfBytes);
+            await JSRuntime.InvokeVoidAsync("downloadFileFromStream", fileName, pdfBase64);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error al generar reporte: {ex.Message}";
+        }
+    }
+
+}
+
+
 
