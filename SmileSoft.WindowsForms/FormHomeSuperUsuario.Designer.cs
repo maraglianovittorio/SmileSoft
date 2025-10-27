@@ -38,7 +38,10 @@
             odontologosToolStripMenuItem = new ToolStripMenuItem();
             tutoresToolStripMenuItem = new ToolStripMenuItem();
             atencionesToolStripMenuItem = new ToolStripMenuItem();
+            reportesToolStripMenuItem = new ToolStripMenuItem();
+            reporteAtencionesTSMI = new ToolStripMenuItem();
             lblNombreSuperUsuario = new Label();
+            reportesPacienteTSMI = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,7 +58,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripPaciente, toolStripOS, toolStripUsuarios, toolStripTipoPlan, toolStripTipoAtencion, odontologosToolStripMenuItem, tutoresToolStripMenuItem, atencionesToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripPaciente, toolStripOS, toolStripUsuarios, toolStripTipoPlan, toolStripTipoAtencion, odontologosToolStripMenuItem, tutoresToolStripMenuItem, atencionesToolStripMenuItem, reportesToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(858, 24);
@@ -118,6 +121,20 @@
             atencionesToolStripMenuItem.Text = "Atenciones";
             atencionesToolStripMenuItem.Click += atencionesToolStripMenuItem_Click;
             // 
+            // reportesToolStripMenuItem
+            // 
+            reportesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { reportesPacienteTSMI, reporteAtencionesTSMI });
+            reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            reportesToolStripMenuItem.Size = new Size(65, 20);
+            reportesToolStripMenuItem.Text = "Reportes";
+            // 
+            // reporteAtencionesTSMI
+            // 
+            reporteAtencionesTSMI.Name = "reporteAtencionesTSMI";
+            reporteAtencionesTSMI.Size = new Size(180, 22);
+            reporteAtencionesTSMI.Text = "Atenciones";
+            reporteAtencionesTSMI.Click += reporteAtencionesTSMI_Click;
+            // 
             // lblNombreSuperUsuario
             // 
             lblNombreSuperUsuario.AutoSize = true;
@@ -127,6 +144,13 @@
             lblNombreSuperUsuario.Size = new Size(173, 25);
             lblNombreSuperUsuario.TabIndex = 10;
             lblNombreSuperUsuario.Text = "Bienvenido admin";
+            // 
+            // reportesPacienteTSMI
+            // 
+            reportesPacienteTSMI.Name = "reportesPacienteTSMI";
+            reportesPacienteTSMI.Size = new Size(180, 22);
+            reportesPacienteTSMI.Text = "Pacientes";
+            reportesPacienteTSMI.Click += toolStripMenuItem2_Click;
             // 
             // FormHomeSuperUsuario
             // 
@@ -162,5 +186,8 @@
         private ToolStripMenuItem tutoresToolStripMenuItem;
         private ToolStripMenuItem atencionesToolStripMenuItem;
         private Label lblNombreSuperUsuario;
+        private ToolStripMenuItem reportesToolStripMenuItem;
+        private ToolStripMenuItem reporteAtencionesTSMI;
+        private ToolStripMenuItem reportesPacienteTSMI;
     }
 }

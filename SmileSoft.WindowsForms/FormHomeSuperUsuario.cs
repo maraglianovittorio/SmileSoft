@@ -1,5 +1,7 @@
 ﻿using SmileSoft.WindowsForms;
 using SmileSoft.API.Auth.WindowsForms;
+using SmileSoft.API.Clients;
+using SmileSoft.DTO;
 
 namespace SmileSoft.UI.Desktop
 {
@@ -89,6 +91,89 @@ namespace SmileSoft.UI.Desktop
         {
             FormHomeAtencion formAtencion = new FormHomeAtencion();
             formAtencion.ShowDialog();
+        }
+
+        private async void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var request = new ReportePacientesRequestDTO
+                {
+                    IncluirSoloConOS = false
+                };
+
+                var pdfBytes = await ReporteApiClient.GenerarReportePacientesAsync(request);
+
+                using (var saveDialog = new SaveFileDialog())
+                {
+                    saveDialog.Filter = "PDF Files|*.pdf";
+                    saveDialog.FileName = $"Pacientes_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        File.WriteAllBytes(saveDialog.FileName, pdfBytes);
+                        MessageBox.Show("Reporte generado exitosamente", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Abrir PDF
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = saveDialog.FileName,
+                            UseShellExecute = true
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar reporte: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void atencionesPorOdontólogoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void reporteAtencionesTSMI_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var request = new ReporteAtencionesHorarioRequestDTO
+                {
+                    // Por defecto toma el último mes (ya configurado en el constructor del DTO)
+                    // Opcionalmente podrías mostrar un diálogo para que el usuario seleccione las fechas
+                };
+
+                var pdfBytes = await ReporteApiClient.GenerarReporteAtencionesHorarioAsync(request);
+
+                using (var saveDialog = new SaveFileDialog())
+                {
+                    saveDialog.Filter = "PDF Files|*.pdf";
+                    saveDialog.FileName = $"Atenciones_Horario_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                    saveDialog.Title = "Guardar Reporte de Atenciones por Horario";
+
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        File.WriteAllBytes(saveDialog.FileName, pdfBytes);
+                        MessageBox.Show("Reporte de atenciones por horario generado exitosamente", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Abrir PDF automáticamente
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = saveDialog.FileName,
+                            UseShellExecute = true
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar reporte de atenciones por horario: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

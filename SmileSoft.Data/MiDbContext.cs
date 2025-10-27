@@ -47,8 +47,22 @@ namespace SmileSoft.Data
         {
             if (!Usuarios.Any())
             {
+                //Usuarios
                 var defaultUser = new Usuario("admin", "Admin123", "Admin");
+                var defaultSecretario = new Usuario("secretario","secretario123","Secretario");
                 Usuarios.Add(defaultUser);
+                Usuarios.Add(defaultSecretario);
+                //Obras sociales
+                var obraSocial1 = new ObraSocial(0,"OSDE");
+                var obraSocial2 = new ObraSocial(0,"Swiss Medical");
+                ObrasSociales.Add(obraSocial1);
+                ObrasSociales.Add(obraSocial2);
+                //Odontologos
+                //var odontologo1 = new Odontologo(0,"12345","Juan","Perez","Calle Falsa 123",new DateTime(DateTime.Now.Year - 30,1,1), "odontologo1@ejemplo.com", "123456789","123123123");
+                //var odontologo2 = new Odontologo(0,"67890","Maria","Gomez","Avenida Siempre Viva 742",new DateTime(DateTime.Now.Year - 28,5,15), "odontologo2@ejemplo.com", "987654321", "123456789");
+                //Odontologos.Add(odontologo1)
+                //Odontologos.Add(odontologo2);
+
                 SaveChanges();
                 
                 Console.WriteLine("Default user created:");

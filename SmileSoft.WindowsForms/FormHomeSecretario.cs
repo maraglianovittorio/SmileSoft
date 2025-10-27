@@ -17,7 +17,7 @@ namespace SmileSoft.UI.Desktop
     public partial class FormHomeSecretario : Form
     {
         private List<AtencionDetalleDTO> atenciones = new List<AtencionDetalleDTO>();
-        
+
         public FormHomeSecretario()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace SmileSoft.UI.Desktop
             ConfigurarEstilos();
             ConfigurarLayoutResponsivo();
         }
-        
+
         private void ConfigurarEstilos()
         {
             // Estilo principal - Tema azul elegante
@@ -84,11 +84,11 @@ namespace SmileSoft.UI.Desktop
             // --- TextBox de búsqueda ---
             txtBuscaAtencion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtBuscaAtencion.Location = new Point(margen, lblAtencionesDelDia.Bottom + 8);
-            
+
             // --- ComboBox de filtro de estado ---
             cmbFiltroEstado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbFiltroEstado.Width = 151;
-            
+
             // Ajustar ancho del buscador para dejar espacio al combo
             txtBuscaAtencion.Width = this.ClientSize.Width - cmbFiltroEstado.Width - (margen * 2) - espacioBotones;
             cmbFiltroEstado.Location = new Point(txtBuscaAtencion.Right + espacioBotones, txtBuscaAtencion.Top);
@@ -107,13 +107,13 @@ namespace SmileSoft.UI.Desktop
 
             btnRegistrarLlegada.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnRegistrarLlegada.Location = new Point(
-                this.ClientSize.Width - btnRegistrarLlegada.Width - margen, 
+                this.ClientSize.Width - btnRegistrarLlegada.Width - margen,
                 this.ClientSize.Height - btnRegistrarLlegada.Height - margen
             );
 
             btnEditarAtencion.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnEditarAtencion.Location = new Point(
-                btnRegistrarLlegada.Left - btnEditarAtencion.Width - espacioBotones, 
+                btnRegistrarLlegada.Left - btnEditarAtencion.Width - espacioBotones,
                 this.ClientSize.Height - btnEditarAtencion.Height - margen
             );
 
@@ -177,7 +177,7 @@ namespace SmileSoft.UI.Desktop
         {
             await ObtenerDatos();
         }
-        
+
         private async Task ObtenerDatos()
         {
             try
@@ -207,7 +207,7 @@ namespace SmileSoft.UI.Desktop
                 MessageBox.Show($"Error al cargar las atenciones: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
         private void ConfiguraDgv()
         {
             dgvAtencionesDelDia.Columns["Id"].Visible = false;
@@ -233,7 +233,7 @@ namespace SmileSoft.UI.Desktop
             dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].Width = 150;
             dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].Width = 100;
         }
-        
+
         private async void agregarAtencionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormAtencion formAtencion = new FormAtencion();
@@ -299,9 +299,69 @@ namespace SmileSoft.UI.Desktop
                 || a.PacienteApellido.ToLower().Contains(busqueda) ||
                 a.PacienteDni.ToLower().Contains(busqueda)
             ).ToList();
-            
+
             dgvAtencionesDelDia.DataSource = atencionesFiltradas;
             ConfiguraDgv();
+        }
+
+        private async void atencionesDelDíaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Formulario para seleccionar fecha
+                using (var formFecha = new Form())
+                {
+                    formFecha.Text = "Seleccionar fecha del reporte";
+                    formFecha.Size = new Size(350, 150);
+                    formFecha.StartPosition = FormStartPosition.CenterParent;
+
+                    var lblFecha = new Label { Text = "Fecha:", Location = new Point(20, 20), AutoSize = true };
+                    var dtpFecha = new DateTimePicker { Location = new Point(100, 20), Width = 200, Value = DateTime.Now };
+
+                    var btnGenerar = new Button { Text = "Generar", Location = new Point(100, 60), Width = 100 };
+                    var btnCancelar = new Button { Text = "Cancelar", Location = new Point(210, 60), Width = 90 };
+
+                    btnGenerar.Click += (s, ev) => { formFecha.DialogResult = DialogResult.OK; formFecha.Close(); };
+                    btnCancelar.Click += (s, ev) => { formFecha.DialogResult = DialogResult.Cancel; formFecha.Close(); };
+
+                    formFecha.Controls.AddRange(new Control[] { lblFecha, dtpFecha, btnGenerar, btnCancelar });
+
+                    if (formFecha.ShowDialog() == DialogResult.OK)
+                    {
+                        var request = new ReporteAtencionesOdontologoRequestDTO
+                        {
+                            Fecha = dtpFecha.Value.Date
+                        };
+
+                        var pdfBytes = await ReporteApiClient.GenerarReporteAtencionesOdontologoAsync(request);
+
+                        using (var saveDialog = new SaveFileDialog())
+                        {
+                            saveDialog.Filter = "PDF Files|*.pdf";
+                            saveDialog.FileName = $"Agenda_Odontologos_{dtpFecha.Value:yyyyMMdd}.pdf";
+                            saveDialog.Title = "Guardar Reporte de Agenda Diaria";
+
+                            if (saveDialog.ShowDialog() == DialogResult.OK)
+                            {
+                                File.WriteAllBytes(saveDialog.FileName, pdfBytes);
+                                MessageBox.Show("Reporte de agenda generado exitosamente", "Éxito",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                                {
+                                    FileName = saveDialog.FileName,
+                                    UseShellExecute = true
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar reporte: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

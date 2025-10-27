@@ -44,6 +44,8 @@
             btnEditarAtencion = new Button();
             txtBuscaAtencion = new TextBox();
             cmbFiltroEstado = new ComboBox();
+            reportesToolStripMenuItem = new ToolStripMenuItem();
+            atencionesDelDíaToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAtencionesDelDia).BeginInit();
             ((System.ComponentModel.ISupportInitialize)atencionBindingSource).BeginInit();
@@ -62,7 +64,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { atencionesToolStripMenuItem, pacientesToolStripMenuItem, tutoresToolStripMenuItem, OSToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { atencionesToolStripMenuItem, pacientesToolStripMenuItem, tutoresToolStripMenuItem, OSToolStripMenuItem, reportesToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(786, 24);
@@ -80,14 +82,14 @@
             // agregarAtencionToolStripMenuItem
             // 
             agregarAtencionToolStripMenuItem.Name = "agregarAtencionToolStripMenuItem";
-            agregarAtencionToolStripMenuItem.Size = new Size(167, 22);
+            agregarAtencionToolStripMenuItem.Size = new Size(180, 22);
             agregarAtencionToolStripMenuItem.Text = "Agregar Atencion";
             agregarAtencionToolStripMenuItem.Click += agregarAtencionToolStripMenuItem_Click;
             // 
             // verAtencionesToolStripMenuItem
             // 
             verAtencionesToolStripMenuItem.Name = "verAtencionesToolStripMenuItem";
-            verAtencionesToolStripMenuItem.Size = new Size(167, 22);
+            verAtencionesToolStripMenuItem.Size = new Size(180, 22);
             verAtencionesToolStripMenuItem.Text = "Ver Atenciones";
             verAtencionesToolStripMenuItem.Click += verAtencionesToolStripMenuItem_Click;
             // 
@@ -181,6 +183,20 @@
             cmbFiltroEstado.TabIndex = 16;
             cmbFiltroEstado.SelectedIndexChanged += cmbFiltroEstado_SelectedIndexChanged;
             // 
+            // reportesToolStripMenuItem
+            // 
+            reportesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { atencionesDelDíaToolStripMenuItem });
+            reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            reportesToolStripMenuItem.Size = new Size(65, 20);
+            reportesToolStripMenuItem.Text = "Reportes";
+            // 
+            // atencionesDelDíaToolStripMenuItem
+            // 
+            atencionesDelDíaToolStripMenuItem.Name = "atencionesDelDíaToolStripMenuItem";
+            atencionesDelDíaToolStripMenuItem.Size = new Size(180, 22);
+            atencionesDelDíaToolStripMenuItem.Text = "Atenciones del día";
+            atencionesDelDíaToolStripMenuItem.Click += atencionesDelDíaToolStripMenuItem_Click;
+            // 
             // FormHomeSecretario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -224,5 +240,7 @@
         private ToolStripMenuItem verAtencionesToolStripMenuItem;
         private TextBox txtBuscaAtencion;
         private ComboBox cmbFiltroEstado;
+        private ToolStripMenuItem reportesToolStripMenuItem;
+        private ToolStripMenuItem atencionesDelDíaToolStripMenuItem;
     }
 }

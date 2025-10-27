@@ -1,13 +1,14 @@
-﻿using SmileSoft.DTO;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using QuestPDF.Infrastructure;
 using SmileSoft.Data;
 using SmileSoft.Dominio;
+using SmileSoft.DTO;
 using System;
 using System.Text;
-using Microsoft.OpenApi.Models;
 using System.Text.Json;
 
 namespace SmileSoft.WebAPI
@@ -16,6 +17,8 @@ namespace SmileSoft.WebAPI
     {
         public static void Main(string[] args)
         {
+            QuestPDF.Settings.License = LicenseType.Community;
+
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddEndpointsApiExplorer();
@@ -98,6 +101,7 @@ namespace SmileSoft.WebAPI
             app.MapOdontologoEndpoints();
             app.MapPersonaEndpoints();
             app.MapAtencionEndpoints();
+            app.MapReporteEndpoints();
 
             app.Run();
         }
