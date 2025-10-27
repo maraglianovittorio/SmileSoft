@@ -159,7 +159,8 @@ namespace SmileSoft.UI.Desktop
                 if (tipoAtencionResponse != null)
                 {
                     txtDescripcionTipoAtencion.Text = tipoAtencionResponse.Descripcion;
-                    cmbDuracion.SelectedValue = tipoAtencionResponse.Duracion.ToString(@"hh\:mm\:ss");
+                    cmbDuracion.Text = tipoAtencionResponse.Duracion.ToString(@"hh\:mm");
+
                 }
                 else
                 {
@@ -192,7 +193,7 @@ namespace SmileSoft.UI.Desktop
                 {
                     Id = id,
                     Descripcion = txtDescripcionTipoAtencion.Text.Trim(),
-                    Duracion = TimeSpan.Parse(cmbDuracion.Text.Trim())
+                    Duracion = TimeSpan.Parse(cmbDuracion.Text)
                 };
 
                 btnEditarTipoAtencion.Text = "Enviando...";

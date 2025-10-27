@@ -36,7 +36,7 @@ namespace SmileSoft.WindowsForms
             this.MaximizeBox = false;
         }
 
-        private List<TipoAtencion> tiposAtencion;
+        private List<TipoAtencionDTO> tiposAtencion;
         private List<AtencionDetalleDTO> atencionesDelDia;
 
         private async void btnBuscarPaciente_Click(object sender, EventArgs e)

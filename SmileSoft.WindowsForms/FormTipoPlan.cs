@@ -17,7 +17,8 @@ namespace SmileSoft.UI.Desktop
 {
     public partial class FormTipoPlan : Form
     {
-        private List<ObraSocial> obrasSociales = new List<ObraSocial>();
+        private List<ObraSocialDTO> obrasSociales = new List<ObraSocialDTO>();
+
 
         public FormTipoPlan()
         {

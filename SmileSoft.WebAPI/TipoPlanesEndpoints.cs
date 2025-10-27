@@ -26,7 +26,7 @@ namespace SmileSoft.WebAPI
             app.MapGet($"tipoplanes/id", (int id) =>
             {
                 TipoPlanService tipoPlanService = new TipoPlanService();
-                TipoPlan dto = tipoPlanService.GetTipoPlan(id);
+                TipoPlanDTO dto = tipoPlanService.GetTipoPlan(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("GetTipoPlan").RequireAuthorization();
             

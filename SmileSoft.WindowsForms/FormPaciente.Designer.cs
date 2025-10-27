@@ -63,7 +63,7 @@
             // lblNombrePaciente
             // 
             lblNombrePaciente.AutoSize = true;
-            lblNombrePaciente.Location = new Point(119, 40);
+            lblNombrePaciente.Location = new Point(251, 73);
             lblNombrePaciente.Margin = new Padding(2, 0, 2, 0);
             lblNombrePaciente.Name = "lblNombrePaciente";
             lblNombrePaciente.Size = new Size(51, 15);
@@ -73,7 +73,7 @@
             // lblFechaNacimiento
             // 
             lblFechaNacimiento.AutoSize = true;
-            lblFechaNacimiento.Location = new Point(119, 175);
+            lblFechaNacimiento.Location = new Point(251, 208);
             lblFechaNacimiento.Margin = new Padding(2, 0, 2, 0);
             lblFechaNacimiento.Name = "lblFechaNacimiento";
             lblFechaNacimiento.Size = new Size(103, 15);
@@ -83,7 +83,7 @@
             // lblDireccionPaciente
             // 
             lblDireccionPaciente.AutoSize = true;
-            lblDireccionPaciente.Location = new Point(119, 150);
+            lblDireccionPaciente.Location = new Point(251, 183);
             lblDireccionPaciente.Margin = new Padding(2, 0, 2, 0);
             lblDireccionPaciente.Name = "lblDireccionPaciente";
             lblDireccionPaciente.Size = new Size(57, 15);
@@ -93,7 +93,7 @@
             // lblDNIPaciente
             // 
             lblDNIPaciente.AutoSize = true;
-            lblDNIPaciente.Location = new Point(119, 98);
+            lblDNIPaciente.Location = new Point(251, 131);
             lblDNIPaciente.Margin = new Padding(2, 0, 2, 0);
             lblDNIPaciente.Name = "lblDNIPaciente";
             lblDNIPaciente.Size = new Size(27, 15);
@@ -103,7 +103,7 @@
             // lblApellidoPaciente
             // 
             lblApellidoPaciente.AutoSize = true;
-            lblApellidoPaciente.Location = new Point(119, 70);
+            lblApellidoPaciente.Location = new Point(251, 103);
             lblApellidoPaciente.Margin = new Padding(2, 0, 2, 0);
             lblApellidoPaciente.Name = "lblApellidoPaciente";
             lblApellidoPaciente.Size = new Size(51, 15);
@@ -113,7 +113,7 @@
             // lblNroHC
             // 
             lblNroHC.AutoSize = true;
-            lblNroHC.Location = new Point(119, 230);
+            lblNroHC.Location = new Point(251, 263);
             lblNroHC.Margin = new Padding(2, 0, 2, 0);
             lblNroHC.Name = "lblNroHC";
             lblNroHC.Size = new Size(47, 15);
@@ -123,7 +123,7 @@
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
-            lblTelefono.Location = new Point(119, 203);
+            lblTelefono.Location = new Point(251, 236);
             lblTelefono.Margin = new Padding(2, 0, 2, 0);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(52, 15);
@@ -133,7 +133,7 @@
             // lblNroAfiliado
             // 
             lblNroAfiliado.AutoSize = true;
-            lblNroAfiliado.Location = new Point(116, 315);
+            lblNroAfiliado.Location = new Point(248, 348);
             lblNroAfiliado.Margin = new Padding(2, 0, 2, 0);
             lblNroAfiliado.Name = "lblNroAfiliado";
             lblNroAfiliado.Size = new Size(92, 15);
@@ -142,7 +142,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(245, 40);
+            txtNombre.Location = new Point(377, 73);
             txtNombre.Margin = new Padding(2);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(124, 23);
@@ -150,7 +150,7 @@
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(245, 66);
+            txtApellido.Location = new Point(377, 99);
             txtApellido.Margin = new Padding(2);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(124, 23);
@@ -158,7 +158,7 @@
             // 
             // txtDNI
             // 
-            txtDNI.Location = new Point(245, 94);
+            txtDNI.Location = new Point(377, 127);
             txtDNI.Margin = new Padding(2);
             txtDNI.Name = "txtDNI";
             txtDNI.Size = new Size(124, 23);
@@ -166,7 +166,7 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(245, 123);
+            txtEmail.Location = new Point(377, 156);
             txtEmail.Margin = new Padding(2);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(124, 23);
@@ -174,7 +174,7 @@
             // 
             // txtDireccion
             // 
-            txtDireccion.Location = new Point(245, 147);
+            txtDireccion.Location = new Point(377, 180);
             txtDireccion.Margin = new Padding(2);
             txtDireccion.Name = "txtDireccion";
             txtDireccion.Size = new Size(124, 23);
@@ -182,7 +182,7 @@
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(245, 203);
+            txtTelefono.Location = new Point(377, 236);
             txtTelefono.Margin = new Padding(2);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(124, 23);
@@ -190,7 +190,7 @@
             // 
             // txtNroAfiliado
             // 
-            txtNroAfiliado.Location = new Point(242, 315);
+            txtNroAfiliado.Location = new Point(374, 348);
             txtNroAfiliado.Margin = new Padding(2);
             txtNroAfiliado.Name = "txtNroAfiliado";
             txtNroAfiliado.Size = new Size(124, 23);
@@ -198,7 +198,7 @@
             // 
             // btnAgregarPaciente
             // 
-            btnAgregarPaciente.Location = new Point(253, 396);
+            btnAgregarPaciente.Location = new Point(385, 429);
             btnAgregarPaciente.Margin = new Padding(2);
             btnAgregarPaciente.Name = "btnAgregarPaciente";
             btnAgregarPaciente.Size = new Size(83, 27);
@@ -210,7 +210,7 @@
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(119, 126);
+            lblEmail.Location = new Point(251, 159);
             lblEmail.Margin = new Padding(2, 0, 2, 0);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(36, 15);
@@ -219,7 +219,7 @@
             // 
             // txtNroHC
             // 
-            txtNroHC.Location = new Point(245, 230);
+            txtNroHC.Location = new Point(377, 263);
             txtNroHC.Margin = new Padding(2);
             txtNroHC.Name = "txtNroHC";
             txtNroHC.Size = new Size(124, 23);
@@ -228,7 +228,7 @@
             // dtpFechaNacimiento
             // 
             dtpFechaNacimiento.Format = DateTimePickerFormat.Custom;
-            dtpFechaNacimiento.Location = new Point(247, 174);
+            dtpFechaNacimiento.Location = new Point(379, 207);
             dtpFechaNacimiento.Margin = new Padding(2);
             dtpFechaNacimiento.MaxDate = new DateTime(2030, 12, 31, 0, 0, 0, 0);
             dtpFechaNacimiento.MinDate = new DateTime(1930, 1, 1, 0, 0, 0, 0);
@@ -240,7 +240,7 @@
             // 
             // btnEditarPaciente
             // 
-            btnEditarPaciente.Location = new Point(353, 396);
+            btnEditarPaciente.Location = new Point(485, 429);
             btnEditarPaciente.Margin = new Padding(2);
             btnEditarPaciente.Name = "btnEditarPaciente";
             btnEditarPaciente.Size = new Size(83, 27);
@@ -252,7 +252,7 @@
             // lblOS
             // 
             lblOS.AutoSize = true;
-            lblOS.Location = new Point(119, 257);
+            lblOS.Location = new Point(251, 290);
             lblOS.Name = "lblOS";
             lblOS.Size = new Size(67, 15);
             lblOS.TabIndex = 18;
@@ -261,7 +261,7 @@
             // cmbTiposPlan
             // 
             cmbTiposPlan.FormattingEnabled = true;
-            cmbTiposPlan.Location = new Point(245, 287);
+            cmbTiposPlan.Location = new Point(377, 320);
             cmbTiposPlan.Name = "cmbTiposPlan";
             cmbTiposPlan.Size = new Size(121, 23);
             cmbTiposPlan.TabIndex = 9;
@@ -273,7 +273,7 @@
             // lblTipoPlan
             // 
             lblTipoPlan.AutoSize = true;
-            lblTipoPlan.Location = new Point(119, 287);
+            lblTipoPlan.Location = new Point(251, 320);
             lblTipoPlan.Name = "lblTipoPlan";
             lblTipoPlan.Size = new Size(56, 15);
             lblTipoPlan.TabIndex = 20;
@@ -281,7 +281,7 @@
             // 
             // btnAgregarTutor
             // 
-            btnAgregarTutor.Location = new Point(271, 441);
+            btnAgregarTutor.Location = new Point(403, 474);
             btnAgregarTutor.Name = "btnAgregarTutor";
             btnAgregarTutor.Size = new Size(132, 26);
             btnAgregarTutor.TabIndex = 14;
@@ -292,7 +292,7 @@
             // lblTutor
             // 
             lblTutor.AutoSize = true;
-            lblTutor.Location = new Point(117, 343);
+            lblTutor.Location = new Point(249, 376);
             lblTutor.Name = "lblTutor";
             lblTutor.Size = new Size(35, 15);
             lblTutor.TabIndex = 22;
@@ -300,7 +300,7 @@
             // 
             // txtTutor
             // 
-            txtTutor.Location = new Point(242, 343);
+            txtTutor.Location = new Point(374, 376);
             txtTutor.Name = "txtTutor";
             txtTutor.ReadOnly = true;
             txtTutor.Size = new Size(121, 23);
@@ -310,7 +310,7 @@
             // 
             cmbOS.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbOS.FormattingEnabled = true;
-            cmbOS.Location = new Point(245, 257);
+            cmbOS.Location = new Point(377, 290);
             cmbOS.Name = "cmbOS";
             cmbOS.Size = new Size(121, 23);
             cmbOS.TabIndex = 8;
@@ -320,7 +320,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(688, 487);
+            ClientSize = new Size(805, 555);
             Controls.Add(cmbOS);
             Controls.Add(txtTutor);
             Controls.Add(lblTutor);

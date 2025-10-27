@@ -23,6 +23,13 @@ namespace SmileSoft.WebAPI
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("Get Usuario").RequireAuthorization();
             
+            app.MapGet($"usuarios/update", (int id) =>
+            {
+                UsuarioService usuarioService = new UsuarioService();
+                UsuarioDTO dto = usuarioService.GetUsuario(id);
+                return dto is not null ? Results.Ok(dto) : Results.NotFound();
+            }).WithName("Get Usuario For update").RequireAuthorization();
+
             app.MapPost("/usuarios", (UsuarioCreateDTO usuarioDTO) =>
             {
                 try

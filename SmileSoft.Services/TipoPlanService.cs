@@ -21,7 +21,7 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe un tipo de plan con el nombre '{dto.Nombre}' para esta obra social.");
             }
 
-            TipoPlan tipoPlan = new TipoPlan(0,dto.Nombre,dto.Descripcion,dto.ObraSocialId);
+            TipoPlan tipoPlan = new TipoPlan(0, dto.Nombre,dto.Descripcion,dto.ObraSocialId);
             tipoPlanRepository.Add(tipoPlan);
 
             return dto;
@@ -33,7 +33,7 @@ namespace SmileSoft.Services
             return tipoPlanRepository.Delete(id);
         }
 
-        public TipoPlan GetTipoPlan(int id)
+        public TipoPlanDTO GetTipoPlan(int id)
         {
             var tipoPlanRepository = new TipoPlanRepository();
             TipoPlan? tipoPlan = tipoPlanRepository.Get(id);
@@ -41,7 +41,13 @@ namespace SmileSoft.Services
             {
                 throw new Exception("No se encontró el tipo de plan.");
             }
-            return new TipoPlan(id: tipoPlan.Id, nombre: tipoPlan.Nombre, descripcion: tipoPlan.Descripcion, obraSocialId: tipoPlan.ObraSocialId);
+            return new TipoPlanDTO
+            {
+                Id = tipoPlan.Id,
+                Nombre = tipoPlan.Nombre,
+                Descripcion = tipoPlan.Descripcion,
+                ObraSocialId = tipoPlan.ObraSocialId
+            };
         }
 
         public IEnumerable<TipoPlanDTO> GetAll()
@@ -78,7 +84,7 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe otro tipo de plan con el nombre '{dto.Nombre}' en esta obra social.");
             }
 
-            TipoPlan tipoPlan = new TipoPlan(id, dto.Nombre, dto.Descripcion, dto.ObraSocialId);
+            TipoPlan tipoPlan = new TipoPlan(id,dto.Nombre, dto.Descripcion, dto.ObraSocialId);
             return tipoPlanRepository.Update(tipoPlan);
         }
     }

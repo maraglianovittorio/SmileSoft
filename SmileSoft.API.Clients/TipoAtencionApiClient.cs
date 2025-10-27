@@ -11,7 +11,7 @@ namespace SmileSoft.API.Clients
 {
     public class TipoAtencionApiClient : BaseApiClient
     {
-        public static async Task<IEnumerable<TipoAtencion>> GetAllAsync()
+        public static async Task<IEnumerable<TipoAtencionDTO>> GetAllAsync()
         {
             try
             {
@@ -21,7 +21,7 @@ namespace SmileSoft.API.Clients
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<IEnumerable<TipoAtencion>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<TipoAtencionDTO>>();
                 }
                 else
                 {

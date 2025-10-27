@@ -15,7 +15,7 @@ namespace SmileSoft.UI.Desktop
             BaseAddress = new Uri("http://localhost:54145")
 
         };
-        private List<ObraSocial> obrasSociales = new();
+        private List<ObraSocialDTO> obrasSociales = new();
         public FormHomeOS(string rol)
         {
 
@@ -94,7 +94,7 @@ namespace SmileSoft.UI.Desktop
                 if (OSResponse != null && OSResponse.Count() > 0 )
                 {
                     dgvFormOS.DataSource = OSResponse;
-                    obrasSociales = (List<ObraSocial>)OSResponse;
+                    obrasSociales = (List<ObraSocialDTO>)OSResponse;
                     ConfiguraDgv();
                 }
                 else
@@ -114,7 +114,7 @@ namespace SmileSoft.UI.Desktop
             dgvFormOS.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             dgvFormOS.Columns["Id"].Visible = false;
-            dgvFormOS.Columns["TipoPlanes"].Visible = false;
+            //dgvFormOS.Columns["TipoPlanes"].Visible = false;
 
         }
         private async void FormHomeOS_Load(object sender, EventArgs e)
@@ -169,7 +169,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormOS.SelectedRows.Count > 0)
             {
-                var obraSocialSeleccionada = dgvFormOS.SelectedRows[0].DataBoundItem as ObraSocial;
+                var obraSocialSeleccionada = dgvFormOS.SelectedRows[0].DataBoundItem as ObraSocialDTO;
                 if (obraSocialSeleccionada != null)
                 {
                     FormOS formOS = new FormOS(obraSocialSeleccionada.Id);
@@ -183,7 +183,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormOS.SelectedRows.Count > 0)
             {
-                var obraSocialSeleccionada = dgvFormOS.SelectedRows[0].DataBoundItem as ObraSocial;
+                var obraSocialSeleccionada = dgvFormOS.SelectedRows[0].DataBoundItem as ObraSocialDTO;
                 if (obraSocialSeleccionada != null)
                 {
                     var confirmResult = MessageBox.Show("¿Estás seguro de que deseas eliminar esta obra social?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

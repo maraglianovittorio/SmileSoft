@@ -11,7 +11,7 @@ namespace SmileSoft.API.Clients
 {
     public class ObraSocialApiClient : BaseApiClient
     {
-        public static async Task<IEnumerable<ObraSocial>> GetAllAsync()
+        public static async Task<IEnumerable<ObraSocialDTO>> GetAllAsync()
         {
             try
             {
@@ -21,7 +21,7 @@ namespace SmileSoft.API.Clients
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<IEnumerable<ObraSocial>>();
+                    return await response.Content.ReadAsAsync<IEnumerable<ObraSocialDTO>>();
                 }
                 else
                 {
@@ -39,7 +39,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de obras sociales: {ex.Message}", ex);
             }
         }
-        public static async Task<ObraSocial> GetOneAsync(int id)
+        public static async Task<ObraSocialDTO> GetOneAsync(int id)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace SmileSoft.API.Clients
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ObraSocial>();
+                    return await response.Content.ReadAsAsync<ObraSocialDTO>();
                 }
                 else
                 {
@@ -67,7 +67,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener obra social con Id {id}: {ex.Message}", ex);
             }
         }
-        public static async Task<ObraSocial> GetByNameAsync(string nombre)
+        public static async Task<ObraSocialDTO> GetByNameAsync(string nombre)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync($"obrasocial/nombre?nombre={nombre}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ObraSocial>();
+                    return await response.Content.ReadAsAsync<ObraSocialDTO>();
                 }
                 else
                 {

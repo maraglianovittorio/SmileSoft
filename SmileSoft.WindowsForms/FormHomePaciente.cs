@@ -138,23 +138,10 @@ namespace SmileSoft.UI.Desktop
             btnBorrarPaciente.Enabled = false;
             btnEditarPaciente.Enabled = false;
 
-            ConfigurarBotones();
             await ObtenerDatos();
         }
 
-        private void ConfigurarBotones()
-        {
-            btnGenerarReporte = new Button
-            {
-                Text = "Generar Reporte PDF",
-                Location = new Point(600, 10),
-                Size = new Size(180, 35),
-                BackColor = Color.FromArgb(70, 130, 180),
-                ForeColor = Color.White
-            };
-            btnGenerarReporte.Click += btnGenerarReporte_Click;
-            this.Controls.Add(btnGenerarReporte);
-        }
+
 
         private async void btnGenerarReporte_Click(object sender, EventArgs e)
         {

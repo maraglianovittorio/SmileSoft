@@ -33,7 +33,7 @@ namespace SmileSoft.Services
             return tipoAtencionRepository.Delete(id);
         }
 
-        public TipoAtencion GetTipoAtencion(int id)
+        public TipoAtencionDTO GetTipoAtencion(int id)
         {
             var tipoAtencionRepository = new TipoAtencionRepository();
             TipoAtencion? tipoAtencion = tipoAtencionRepository.Get(id);
@@ -41,7 +41,12 @@ namespace SmileSoft.Services
             {
                 throw new Exception("No se encontró el tipo de atención.");
             }
-            return new TipoAtencion(id: tipoAtencion.Id, descripcion: tipoAtencion.Descripcion, duracion: tipoAtencion.Duracion);
+            return new TipoAtencionDTO
+            {
+                Id = tipoAtencion.Id,
+                Descripcion = tipoAtencion.Descripcion,
+                Duracion = tipoAtencion.Duracion
+            };
         }
 
         public IEnumerable<TipoAtencionDTO> GetAll()
@@ -60,12 +65,13 @@ namespace SmileSoft.Services
         {
             var tipoAtencionRepository = new TipoAtencionRepository();
 
-            if (tipoAtencionRepository.TipoAtencionExists(dto.Descripcion))
+            if (tipoAtencionRepository.TipoAtencionExists(dto.Descripcion,id))
             {
                 throw new ArgumentException($"Ya existe otro tipo de atención con la descripcion {dto.Descripcion}");
             }
 
-            TipoAtencion tipoAtencion = new TipoAtencion(id, dto.Descripcion, dto.Duracion);
+            TipoAtencion tipoAtencion = new TipoAtencion(id,dto.Descripcion, dto.Duracion);
+            tipoAtencion.SetId(id);
             return tipoAtencionRepository.Update(tipoAtencion);
         }
     }

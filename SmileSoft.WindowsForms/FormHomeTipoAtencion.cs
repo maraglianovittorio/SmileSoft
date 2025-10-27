@@ -12,7 +12,7 @@ namespace SmileSoft.UI.Desktop
         {
             BaseAddress = new Uri("http://localhost:54145")
         };
-        private List<TipoAtencion> tiposAtencion = new();
+        private List<TipoAtencionDTO> tiposAtencion = new();
 
         public FormHomeTipoAtencion()
         {
@@ -108,7 +108,7 @@ namespace SmileSoft.UI.Desktop
         {
             dgvFormTipoAtencion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvFormTipoAtencion.Columns["Id"].Visible = false;
-            dgvFormTipoAtencion.Columns["Atenciones"].Visible = false;
+            //dgvFormTipoAtencion.Columns["Atenciones"].Visible = false;
         }
 
         private async void FormHomeTipoAtencion_Load(object sender, EventArgs e)
@@ -160,8 +160,7 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormTipoAtencion.SelectedRows.Count > 0)
             {
-                var idTipoAtencion = (int)dgvFormTipoAtencion.SelectedRows[0].Cells["Id"].Value;
-                var tipoAtencionSeleccionado = tiposAtencion.FirstOrDefault(tp => tp.Id == idTipoAtencion);
+                var tipoAtencionSeleccionado = dgvFormTipoAtencion.SelectedRows[0].DataBoundItem as TipoAtencionDTO ;
 
                 if (tipoAtencionSeleccionado != null)
                 {

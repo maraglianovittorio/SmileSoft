@@ -52,7 +52,7 @@
             // lblNombrePaciente
             // 
             lblNombrePaciente.AutoSize = true;
-            lblNombrePaciente.Location = new Point(119, 40);
+            lblNombrePaciente.Location = new Point(288, 92);
             lblNombrePaciente.Margin = new Padding(2, 0, 2, 0);
             lblNombrePaciente.Name = "lblNombrePaciente";
             lblNombrePaciente.Size = new Size(51, 15);
@@ -62,7 +62,7 @@
             // lblFechaNacimiento
             // 
             lblFechaNacimiento.AutoSize = true;
-            lblFechaNacimiento.Location = new Point(119, 175);
+            lblFechaNacimiento.Location = new Point(288, 227);
             lblFechaNacimiento.Margin = new Padding(2, 0, 2, 0);
             lblFechaNacimiento.Name = "lblFechaNacimiento";
             lblFechaNacimiento.Size = new Size(103, 15);
@@ -72,7 +72,7 @@
             // lblDireccionPaciente
             // 
             lblDireccionPaciente.AutoSize = true;
-            lblDireccionPaciente.Location = new Point(119, 150);
+            lblDireccionPaciente.Location = new Point(288, 202);
             lblDireccionPaciente.Margin = new Padding(2, 0, 2, 0);
             lblDireccionPaciente.Name = "lblDireccionPaciente";
             lblDireccionPaciente.Size = new Size(57, 15);
@@ -82,7 +82,7 @@
             // lblDNIPaciente
             // 
             lblDNIPaciente.AutoSize = true;
-            lblDNIPaciente.Location = new Point(119, 98);
+            lblDNIPaciente.Location = new Point(288, 150);
             lblDNIPaciente.Margin = new Padding(2, 0, 2, 0);
             lblDNIPaciente.Name = "lblDNIPaciente";
             lblDNIPaciente.Size = new Size(27, 15);
@@ -92,7 +92,7 @@
             // lblApellidoPaciente
             // 
             lblApellidoPaciente.AutoSize = true;
-            lblApellidoPaciente.Location = new Point(119, 70);
+            lblApellidoPaciente.Location = new Point(288, 122);
             lblApellidoPaciente.Margin = new Padding(2, 0, 2, 0);
             lblApellidoPaciente.Name = "lblApellidoPaciente";
             lblApellidoPaciente.Size = new Size(51, 15);
@@ -102,7 +102,7 @@
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
-            lblTelefono.Location = new Point(119, 203);
+            lblTelefono.Location = new Point(288, 255);
             lblTelefono.Margin = new Padding(2, 0, 2, 0);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(52, 15);
@@ -111,7 +111,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(245, 40);
+            txtNombre.Location = new Point(414, 92);
             txtNombre.Margin = new Padding(2);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(124, 23);
@@ -119,7 +119,7 @@
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(245, 66);
+            txtApellido.Location = new Point(414, 118);
             txtApellido.Margin = new Padding(2);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(124, 23);
@@ -127,7 +127,7 @@
             // 
             // txtDNI
             // 
-            txtDNI.Location = new Point(245, 94);
+            txtDNI.Location = new Point(414, 146);
             txtDNI.Margin = new Padding(2);
             txtDNI.Name = "txtDNI";
             txtDNI.Size = new Size(124, 23);
@@ -135,7 +135,7 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(245, 123);
+            txtEmail.Location = new Point(414, 175);
             txtEmail.Margin = new Padding(2);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(124, 23);
@@ -143,7 +143,7 @@
             // 
             // txtDireccion
             // 
-            txtDireccion.Location = new Point(245, 147);
+            txtDireccion.Location = new Point(414, 199);
             txtDireccion.Margin = new Padding(2);
             txtDireccion.Name = "txtDireccion";
             txtDireccion.Size = new Size(124, 23);
@@ -151,7 +151,7 @@
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(245, 203);
+            txtTelefono.Location = new Point(414, 255);
             txtTelefono.Margin = new Padding(2);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(124, 23);
@@ -159,7 +159,7 @@
             // 
             // btnGuardarTutor
             // 
-            btnGuardarTutor.Location = new Point(225, 288);
+            btnGuardarTutor.Location = new Point(394, 340);
             btnGuardarTutor.Margin = new Padding(2);
             btnGuardarTutor.Name = "btnGuardarTutor";
             btnGuardarTutor.Size = new Size(83, 27);
@@ -171,7 +171,7 @@
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(119, 126);
+            lblEmail.Location = new Point(288, 178);
             lblEmail.Margin = new Padding(2, 0, 2, 0);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(36, 15);
@@ -181,7 +181,7 @@
             // dtpFechaNacimiento
             // 
             dtpFechaNacimiento.Format = DateTimePickerFormat.Custom;
-            dtpFechaNacimiento.Location = new Point(247, 174);
+            dtpFechaNacimiento.Location = new Point(416, 226);
             dtpFechaNacimiento.Margin = new Padding(2);
             dtpFechaNacimiento.Name = "dtpFechaNacimiento";
             dtpFechaNacimiento.Size = new Size(123, 23);
@@ -190,7 +190,7 @@
             // 
             // btnEditarTutor
             // 
-            btnEditarTutor.Location = new Point(325, 288);
+            btnEditarTutor.Location = new Point(494, 340);
             btnEditarTutor.Margin = new Padding(2);
             btnEditarTutor.Name = "btnEditarTutor";
             btnEditarTutor.Size = new Size(83, 27);
@@ -207,7 +207,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(688, 487);
+            ClientSize = new Size(853, 556);
             Controls.Add(btnEditarTutor);
             Controls.Add(dtpFechaNacimiento);
             Controls.Add(lblEmail);

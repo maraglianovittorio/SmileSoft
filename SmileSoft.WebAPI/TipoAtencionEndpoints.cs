@@ -19,7 +19,7 @@ namespace SmileSoft.WebAPI
             app.MapGet($"tipoatencion/id", (int id) =>
             {
                 TipoAtencionService tipoAtencionService = new TipoAtencionService();
-                TipoAtencion dto = tipoAtencionService.GetTipoAtencion(id);
+                TipoAtencionDTO dto = tipoAtencionService.GetTipoAtencion(id);
                 return dto is not null ? Results.Ok(dto) : Results.NotFound();
             }).WithName("GetOneTipoAtencion").RequireAuthorization();
             

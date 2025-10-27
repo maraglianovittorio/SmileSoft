@@ -161,11 +161,16 @@ namespace SmileSoft.UI.Desktop
         {
             if (dgvFormUsuario.SelectedRows.Count > 0)
             {
-                var usuarioSeleccionado = dgvFormUsuario.SelectedRows[0].DataBoundItem as UsuarioUpdateDTO;
+                var usuarioSeleccionado = new UsuarioUpdateDTO
+                {
+                    Id = (dgvFormUsuario.SelectedRows[0].DataBoundItem as UsuarioDTO).Id,
+                    Username = (dgvFormUsuario.SelectedRows[0].DataBoundItem as UsuarioDTO).Username,
+                    Rol = (dgvFormUsuario.SelectedRows[0].DataBoundItem as UsuarioDTO).Rol
+                };
                 if (usuarioSeleccionado != null)
                 {
                     FormUsuario formUsuario = new FormUsuario(usuarioSeleccionado.Id);
-                    formUsuario.ShowDialog();
+                    formUsuario.ShowDialog();   
                     await ObtenerDatos();
                 }
             }

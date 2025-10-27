@@ -180,6 +180,7 @@ namespace SmileSoft.UI.Desktop
 
                 ObraSocialDTO obraSocial = new ObraSocialDTO
                 {
+                    Id = id,
                     Nombre = txtNombreOS.Text.Trim()
                 };
 

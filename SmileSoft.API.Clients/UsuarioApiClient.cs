@@ -67,7 +67,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener usuario con Id {id}: {ex.Message}", ex);
             }
         }
-        public async static Task<Usuario> GetOneForUpdate(int id)
+        public async static Task<UsuarioUpdateDTO> GetOneForUpdate(int id)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace SmileSoft.API.Clients
                 HttpResponseMessage response = await httpClient.GetAsync($"usuarios/update?id={id}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<Usuario>();
+                    return await response.Content.ReadAsAsync<UsuarioUpdateDTO>();
                 }
                 else
                 {

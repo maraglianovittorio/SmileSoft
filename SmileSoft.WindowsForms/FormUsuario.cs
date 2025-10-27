@@ -172,14 +172,11 @@ namespace SmileSoft.UI.Desktop
             LimpiarFormulario();
             try
             {
-                var usuarioResponse = await UsuarioApiClient.GetOneAsync(idUsuario);
+                var usuarioResponse = await UsuarioApiClient.GetOneForUpdate(idUsuario);
                 if (usuarioResponse != null)
                 {
                     txtUsername.Text = usuarioResponse.Username;
-                    txtPassword.Text = usuarioResponse.PasswordHash;
                     cbRol.Text = usuarioResponse.Rol;
-
-
                 }
                 else
                 {

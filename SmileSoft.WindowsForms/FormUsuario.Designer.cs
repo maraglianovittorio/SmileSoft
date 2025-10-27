@@ -42,7 +42,7 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(113, 48);
+            lblUsername.Location = new Point(241, 111);
             lblUsername.Margin = new Padding(2, 0, 2, 0);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(109, 15);
@@ -52,7 +52,7 @@
             // lblRol
             // 
             lblRol.AutoSize = true;
-            lblRol.Location = new Point(231, 105);
+            lblRol.Location = new Point(359, 168);
             lblRol.Margin = new Padding(2, 0, 2, 0);
             lblRol.Name = "lblRol";
             lblRol.Size = new Size(24, 15);
@@ -62,7 +62,7 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(173, 77);
+            lblPassword.Location = new Point(301, 140);
             lblPassword.Margin = new Padding(2, 0, 2, 0);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(67, 15);
@@ -71,7 +71,7 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(270, 48);
+            txtUsername.Location = new Point(398, 111);
             txtUsername.Margin = new Padding(2);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(124, 23);
@@ -79,7 +79,7 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(270, 74);
+            txtPassword.Location = new Point(398, 137);
             txtPassword.Margin = new Padding(2);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(124, 23);
@@ -87,7 +87,7 @@
             // 
             // btnGuardarUsuario
             // 
-            btnGuardarUsuario.Location = new Point(246, 289);
+            btnGuardarUsuario.Location = new Point(338, 292);
             btnGuardarUsuario.Margin = new Padding(2);
             btnGuardarUsuario.Name = "btnGuardarUsuario";
             btnGuardarUsuario.Size = new Size(83, 27);
@@ -98,7 +98,7 @@
             // 
             // btnEditarUsuario
             // 
-            btnEditarUsuario.Location = new Point(334, 289);
+            btnEditarUsuario.Location = new Point(426, 292);
             btnEditarUsuario.Margin = new Padding(2);
             btnEditarUsuario.Name = "btnEditarUsuario";
             btnEditarUsuario.Size = new Size(83, 27);
@@ -121,7 +121,7 @@
             cbRol.DropDownStyle = ComboBoxStyle.DropDownList;
             cbRol.FormattingEnabled = true;
             cbRol.Items.AddRange(new object[] { "Admin", "Secretario" });
-            cbRol.Location = new Point(270, 102);
+            cbRol.Location = new Point(398, 165);
             cbRol.Name = "cbRol";
             cbRol.Size = new Size(124, 23);
             cbRol.TabIndex = 5;
@@ -130,7 +130,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(648, 335);
+            ClientSize = new Size(798, 426);
             Controls.Add(cbRol);
             Controls.Add(lbNuevoUsuario);
             Controls.Add(btnEditarUsuario);
