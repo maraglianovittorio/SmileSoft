@@ -52,13 +52,10 @@ namespace SmileSoft.UI.Desktop
 
         private void ConfigurarLayoutResponsivo()
         {
-            // Márgenes y espaciado consistentes con FormBaseHome
             int margen = 15;
             int espacioBotones = 8;
             int alturaMenu = menuStrip1.Height;
 
-            // --- Configurar botones de acción ---
-            // Ajustar tamaños más compactos
             BtnCerrarSesion.Height = 38;
             BtnCerrarSesion.Width = 120;
             BtnCerrarSesion.AutoSize = false;
@@ -182,7 +179,7 @@ namespace SmileSoft.UI.Desktop
         {
             try
             {
-                var turnosDelDia = await AtencionApiClient.GetByFechaRangeAsync(DateTime.Today, DateTime.Today.AddHours(23));
+                var turnosDelDia = await AtencionApiClient.GetByFechaRangeAsync(DateTime.Today.Date, DateTime.Today.Date.AddDays(1));
                 atenciones = turnosDelDia.ToList();
                 if (turnosDelDia != null && turnosDelDia.Count() > 0)
                 {

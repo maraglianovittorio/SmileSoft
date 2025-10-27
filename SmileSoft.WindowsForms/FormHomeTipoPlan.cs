@@ -147,16 +147,18 @@ namespace SmileSoft.UI.Desktop
             if (dgvFormTipoPlan.Columns["NombreObraSocial"] != null)
             {
                 dgvFormTipoPlan.Columns["NombreObraSocial"].HeaderText = "Obra Social";
-                dgvFormTipoPlan.Columns["NombreObraSocial"].Width = 150;
             }
 
             // Reordenar columnas si es necesario
             if (dgvFormTipoPlan.Columns["Nombre"] != null)
                 dgvFormTipoPlan.Columns["Nombre"].DisplayIndex = 0;
+                dgvFormTipoPlan.Columns["Nombre"].MinimumWidth = 70;
             if (dgvFormTipoPlan.Columns["Descripcion"] != null)
                 dgvFormTipoPlan.Columns["Descripcion"].DisplayIndex = 1;
+                dgvFormTipoPlan.Columns["Descripcion"].MinimumWidth = 120;
             if (dgvFormTipoPlan.Columns["NombreObraSocial"] != null)
                 dgvFormTipoPlan.Columns["NombreObraSocial"].DisplayIndex = 2;
+                dgvFormTipoPlan.Columns["NombreObraSocial"].MinimumWidth = 80;
         }
         private async void FormHomeTipoPlan_Load(object sender, EventArgs e)
         {

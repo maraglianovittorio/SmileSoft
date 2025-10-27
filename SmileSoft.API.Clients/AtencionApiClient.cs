@@ -265,7 +265,7 @@ namespace SmileSoft.API.Clients
             try
             {
                 await EnsureAuthenticatedAsync();
-                string url = $"atenciones/rango?startDate={fechaInicio}&endDate={fechaFin}";
+                string url = $"atenciones/rango?startDate={fechaInicio:yyyy-MM-dd}&endDate={fechaFin:yyyy-MM-dd}";
                 using var httpClient = await CreateHttpClientAsync();
                 HttpResponseMessage response = await httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)

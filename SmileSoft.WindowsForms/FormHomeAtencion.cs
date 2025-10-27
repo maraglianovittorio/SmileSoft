@@ -103,14 +103,20 @@ namespace SmileSoft.UI.Desktop
             dgvFormAtencion.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
 
 
+            // Ajustar el ancho de las columnas según su contenido
+            //foreach (DataGridViewColumn column in dgvFormAtencion.Columns)
+            //{
+            //    column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //}
 
-            dgvFormAtencion.Columns["FechaHoraAtencion"].Width = 180;
-            dgvFormAtencion.Columns["Estado"].Width = 120;
-            dgvFormAtencion.Columns["PacienteNombre"].Width = 200;
-            dgvFormAtencion.Columns["PacienteDni"].Width = 100;
-            dgvFormAtencion.Columns["OdontologoNombre"].Width = 200;
-            dgvFormAtencion.Columns["TipoAtencionDescripcion"].Width = 150;
-            dgvFormAtencion.Columns["TipoAtencionDuracion"].Width = 100;
+            dgvFormAtencion.Columns["FechaHoraAtencion"].MinimumWidth = 150;
+            dgvFormAtencion.Columns["Estado"].MinimumWidth = 120;
+            dgvFormAtencion.Columns["PacienteNombre"].MinimumWidth = 140;
+            dgvFormAtencion.Columns["PacienteDni"].MinimumWidth = 100;
+            dgvFormAtencion.Columns["OdontologoNombre"].MinimumWidth = 140;
+            dgvFormAtencion.Columns["TipoAtencionDescripcion"].MinimumWidth = 150;
+            //dgvFormAtencion.Columns["TipoAtencionDuracion"].Width = 100;
+            dgvFormAtencion.Columns["TipoAtencionDuracion"].MinimumWidth = 80;
         }
         private async void FormHomeAtenciones_Load(object sender, EventArgs e)
         {

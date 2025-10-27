@@ -114,9 +114,12 @@ namespace SmileSoft.UI.Desktop
             dgvFormOdontologo.Columns["Id"].Visible = false;
             dgvFormOdontologo.Columns["NombreCompleto"].Visible = false;
             dgvFormOdontologo.Columns["NroMatricula"].HeaderText = "Matricula";
+            dgvFormOdontologo.Columns["NroMatricula"].MinimumWidth = 70;
             dgvFormOdontologo.Columns["NroDni"].HeaderText = "DNI";
+            dgvFormOdontologo.Columns["NroDni"].MinimumWidth = 100;
             dgvFormOdontologo.Columns["FechaNacimiento"].HeaderText = "Fecha nacimiento";
-            dgvFormOdontologo.Columns["FechaNacimiento"].Width = 200;
+            dgvFormOdontologo.Columns["FechaNacimiento"].MinimumWidth = 100;
+            dgvFormOdontologo.Columns["Direccion"].MinimumWidth = 180;
         }
         private async void FormHomeOdontologo_Load(object sender, EventArgs e)
         {
