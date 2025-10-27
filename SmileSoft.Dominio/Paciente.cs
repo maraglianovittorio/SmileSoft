@@ -9,7 +9,7 @@ namespace SmileSoft.Dominio
     public class Paciente: Persona
     {
         //public DateTime FechaNacimiento { get; set; }
-        public string NroAfiliado { get; private set; } = string.Empty;
+        public string? NroAfiliado { get; private set; } = string.Empty;
         public string NroHC { get; private set; }
         //public string NroDni { get; set; }
 
@@ -19,7 +19,7 @@ namespace SmileSoft.Dominio
         public TipoPlan? TipoPlan { get; private set; }
         public ICollection<Atencion> Atenciones { get; private set; } = new List<Atencion>();
 
-        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string nroAfiliado, string nroHC,int? tutorId,int? tipoPlanId):base(id,nombre,apellido,nroDni,fechaNacimiento,direccion,email,telefono)
+        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string? nroAfiliado, string nroHC,int? tutorId,int? tipoPlanId):base(id,nombre,apellido,nroDni,fechaNacimiento,direccion,email,telefono)
         {
             SetNroAfiliado(nroAfiliado);
             SetNroHC(nroHC);

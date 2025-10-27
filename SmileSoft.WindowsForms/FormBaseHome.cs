@@ -37,10 +37,9 @@ namespace SmileSoft.WindowsForms
 
                 lupa.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
-                txtBusqueda.Width = this.ClientSize.Width - btnAgregar.Width - lupa.Width - (margen * 3) - (espacioBotones * 2);
+                txtBusqueda.Width = this.ClientSize.Width - btnAgregar.Width - lupa.Width - (margen * 3) - (espacioBotones * 2) - 200;
 
-                // Reposicionar el botón de agregar y la lupa en base al nuevo ancho del buscador
-                btnAgregar.Location = new Point(txtBusqueda.Right + lupa.Width + (espacioBotones * 2), margen);
+                btnAgregar.Location = new Point(( txtBusqueda.Right + 200)+ lupa.Width + (espacioBotones * 2), margen);
                 lupa.Location = new Point(txtBusqueda.Right + espacioBotones, txtBusqueda.Top + (txtBusqueda.Height - lupa.Height) / 2);
             }
         }
