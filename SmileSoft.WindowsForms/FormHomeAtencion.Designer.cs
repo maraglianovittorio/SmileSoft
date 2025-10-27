@@ -39,13 +39,9 @@
             btnCancelarAtencion = new Button();
             btnEditarAtencion = new Button();
             BtnVolver = new Button();
-            btnFiltros = new Button();
-            pnlFiltros = new Panel();
-            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvFormAtencion).BeginInit();
             ((System.ComponentModel.ISupportInitialize)lupaPng).BeginInit();
             ((System.ComponentModel.ISupportInitialize)atencionBindingSource).BeginInit();
-            pnlFiltros.SuspendLayout();
             SuspendLayout();
             // 
             // dgvFormAtencion
@@ -55,29 +51,26 @@
             dgvFormAtencion.AllowUserToOrderColumns = true;
             dgvFormAtencion.BackgroundColor = Color.PapayaWhip;
             dgvFormAtencion.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvFormAtencion.Location = new Point(26, 48);
-            dgvFormAtencion.Margin = new Padding(2);
+            dgvFormAtencion.Location = new Point(37, 80);
             dgvFormAtencion.Name = "dgvFormAtencion";
             dgvFormAtencion.ReadOnly = true;
             dgvFormAtencion.RowHeadersWidth = 62;
-            dgvFormAtencion.Size = new Size(806, 269);
+            dgvFormAtencion.Size = new Size(1151, 448);
             dgvFormAtencion.TabIndex = 0;
             dgvFormAtencion.SelectionChanged += dgvFormHomeAtenciones_SelectionChanged;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(525, -118);
-            textBox1.Margin = new Padding(2);
+            textBox1.Location = new Point(750, -197);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(517, 23);
+            textBox1.Size = new Size(737, 31);
             textBox1.TabIndex = 1;
             // 
             // txtBuscarAtencion
             // 
-            txtBuscarAtencion.Location = new Point(26, 21);
-            txtBuscarAtencion.Margin = new Padding(2);
+            txtBuscarAtencion.Location = new Point(37, 35);
             txtBuscarAtencion.Name = "txtBuscarAtencion";
-            txtBuscarAtencion.Size = new Size(394, 23);
+            txtBuscarAtencion.Size = new Size(561, 31);
             txtBuscarAtencion.TabIndex = 2;
             txtBuscarAtencion.TextChanged += txtBuscarAtencion_TextChanged;
             // 
@@ -85,10 +78,9 @@
             // 
             lupaPng.Image = (Image)resources.GetObject("lupaPng.Image");
             lupaPng.InitialImage = (Image)resources.GetObject("lupaPng.InitialImage");
-            lupaPng.Location = new Point(434, 21);
-            lupaPng.Margin = new Padding(2);
+            lupaPng.Location = new Point(620, 35);
             lupaPng.Name = "lupaPng";
-            lupaPng.Size = new Size(23, 23);
+            lupaPng.Size = new Size(33, 38);
             lupaPng.SizeMode = PictureBoxSizeMode.StretchImage;
             lupaPng.TabIndex = 3;
             lupaPng.TabStop = false;
@@ -101,10 +93,9 @@
             // 
             btnAgregarAtencion.BackColor = SystemColors.MenuHighlight;
             btnAgregarAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnAgregarAtencion.Location = new Point(674, 1);
-            btnAgregarAtencion.Margin = new Padding(2);
+            btnAgregarAtencion.Location = new Point(963, 2);
             btnAgregarAtencion.Name = "btnAgregarAtencion";
-            btnAgregarAtencion.Size = new Size(158, 43);
+            btnAgregarAtencion.Size = new Size(226, 72);
             btnAgregarAtencion.TabIndex = 4;
             btnAgregarAtencion.Text = "Agregar atencion";
             btnAgregarAtencion.UseVisualStyleBackColor = false;
@@ -114,10 +105,9 @@
             // 
             btnCancelarAtencion.BackColor = Color.Red;
             btnCancelarAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnCancelarAtencion.Location = new Point(698, 321);
-            btnCancelarAtencion.Margin = new Padding(2);
+            btnCancelarAtencion.Location = new Point(997, 535);
             btnCancelarAtencion.Name = "btnCancelarAtencion";
-            btnCancelarAtencion.Size = new Size(134, 42);
+            btnCancelarAtencion.Size = new Size(191, 70);
             btnCancelarAtencion.TabIndex = 5;
             btnCancelarAtencion.Text = "Cancelar atencion";
             btnCancelarAtencion.UseVisualStyleBackColor = false;
@@ -127,10 +117,9 @@
             // 
             btnEditarAtencion.BackColor = Color.YellowGreen;
             btnEditarAtencion.ForeColor = SystemColors.ButtonHighlight;
-            btnEditarAtencion.Location = new Point(535, 321);
-            btnEditarAtencion.Margin = new Padding(2);
+            btnEditarAtencion.Location = new Point(764, 535);
             btnEditarAtencion.Name = "btnEditarAtencion";
-            btnEditarAtencion.Size = new Size(134, 42);
+            btnEditarAtencion.Size = new Size(191, 70);
             btnEditarAtencion.TabIndex = 6;
             btnEditarAtencion.Text = "Editar atencion";
             btnEditarAtencion.UseVisualStyleBackColor = false;
@@ -139,50 +128,20 @@
             // BtnVolver
             // 
             BtnVolver.BackColor = SystemColors.ActiveCaption;
-            BtnVolver.Location = new Point(26, 322);
+            BtnVolver.Location = new Point(37, 537);
+            BtnVolver.Margin = new Padding(4, 5, 4, 5);
             BtnVolver.Name = "BtnVolver";
-            BtnVolver.Size = new Size(133, 41);
+            BtnVolver.Size = new Size(190, 68);
             BtnVolver.TabIndex = 7;
             BtnVolver.Text = "Volver";
             BtnVolver.UseVisualStyleBackColor = false;
             BtnVolver.Click += BtnVolver_Click;
             // 
-            // btnFiltros
-            // 
-            btnFiltros.Location = new Point(579, 1);
-            btnFiltros.Name = "btnFiltros";
-            btnFiltros.Size = new Size(90, 43);
-            btnFiltros.TabIndex = 8;
-            btnFiltros.Text = "Filtros";
-            btnFiltros.UseVisualStyleBackColor = true;
-            btnFiltros.Click += btnFiltros_Click;
-            // 
-            // pnlFiltros
-            // 
-            pnlFiltros.BorderStyle = BorderStyle.FixedSingle;
-            pnlFiltros.Controls.Add(button1);
-            pnlFiltros.Location = new Point(579, 59);
-            pnlFiltros.Name = "pnlFiltros";
-            pnlFiltros.Size = new Size(272, 95);
-            pnlFiltros.TabIndex = 9;
-            pnlFiltros.Visible = false;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(29, 15);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // FormHomeAtencion
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(977, 558);
-            Controls.Add(pnlFiltros);
-            Controls.Add(btnFiltros);
+            ClientSize = new Size(1396, 930);
             Controls.Add(BtnVolver);
             Controls.Add(btnEditarAtencion);
             Controls.Add(btnCancelarAtencion);
@@ -191,15 +150,13 @@
             Controls.Add(txtBuscarAtencion);
             Controls.Add(textBox1);
             Controls.Add(dgvFormAtencion);
-            Margin = new Padding(2);
-            MinimumSize = new Size(565, 286);
+            MinimumSize = new Size(798, 439);
             Name = "FormHomeAtencion";
             Text = "FormHomePage";
             Load += FormHomeAtenciones_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFormAtencion).EndInit();
             ((System.ComponentModel.ISupportInitialize)lupaPng).EndInit();
             ((System.ComponentModel.ISupportInitialize)atencionBindingSource).EndInit();
-            pnlFiltros.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -215,8 +172,5 @@
         private Button btnCancelarAtencion;
         private Button btnEditarAtencion;
         private Button BtnVolver;
-        private Button btnFiltros;
-        private Panel pnlFiltros;
-        private Button button1;
     }
 }

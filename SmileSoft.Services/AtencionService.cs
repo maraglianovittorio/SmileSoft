@@ -298,7 +298,7 @@ namespace SmileSoft.Services
             }
 
             Atencion atencion = new Atencion(dto.FechaHoraAtencion, dto.Estado, dto.Observaciones, dto.OdontologoId, dto.PacienteId, dto.TipoAtencionId);
-            return atencionRepository.Update(atencion);
+            return atencionRepository.Update(atencion,id);
         }
         public bool CancelaAtencion(int id)
         {

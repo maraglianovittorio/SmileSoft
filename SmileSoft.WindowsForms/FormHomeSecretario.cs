@@ -207,6 +207,8 @@ namespace SmileSoft.UI.Desktop
 
         private void ConfiguraDgv()
         {
+            dgvAtencionesDelDia.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             dgvAtencionesDelDia.Columns["Id"].Visible = false;
             dgvAtencionesDelDia.Columns["FechaHoraAtencion"].HeaderText = "Fecha y hora";
             dgvAtencionesDelDia.Columns["TipoAtencionId"].Visible = false;
@@ -222,13 +224,13 @@ namespace SmileSoft.UI.Desktop
             dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
 
             // Configurar anchos de columnas
-            dgvAtencionesDelDia.Columns["FechaHoraAtencion"].Width = 150;
-            dgvAtencionesDelDia.Columns["PacienteNombre"].Width = 200;
-            dgvAtencionesDelDia.Columns["PacienteDni"].Width = 100;
-            dgvAtencionesDelDia.Columns["OdontologoNombre"].Width = 200;
-            dgvAtencionesDelDia.Columns["Estado"].Width = 100;
-            dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].Width = 150;
-            dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].Width = 100;
+            dgvAtencionesDelDia.Columns["FechaHoraAtencion"].MinimumWidth = 130;
+            dgvAtencionesDelDia.Columns["PacienteNombre"].MinimumWidth = 130;
+            dgvAtencionesDelDia.Columns["PacienteDni"].MinimumWidth = 130;
+            dgvAtencionesDelDia.Columns["OdontologoNombre"].MinimumWidth = 130;
+            dgvAtencionesDelDia.Columns["Estado"].MinimumWidth = 130;
+            dgvAtencionesDelDia.Columns["TipoAtencionDescripcion"].MinimumWidth = 130;
+            dgvAtencionesDelDia.Columns["TipoAtencionDuracion"].MinimumWidth = 130;
         }
 
         private async void agregarAtencionToolStripMenuItem_Click(object sender, EventArgs e)

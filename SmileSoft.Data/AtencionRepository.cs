@@ -114,10 +114,10 @@ namespace SmileSoft.Data
                 .ToList();
         }
 
-        public bool Update(Atencion atencion)
+        public bool Update(Atencion atencion, int id)
         {
             using var context = CreateContext();
-            var existingAtencion = context.Atenciones.Find(atencion.Id);
+            var existingAtencion = context.Atenciones.Find(id);
             if (existingAtencion != null)
             {
                 existingAtencion.SetOdontologoId(atencion.OdontologoId);

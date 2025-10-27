@@ -103,7 +103,7 @@ namespace SmileSoft.UI.Desktop
             dgvFormAtencion.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
 
 
-            // Ajustar el ancho de las columnas según su contenido
+            //Ajustar el ancho de las columnas según su contenido
             //foreach (DataGridViewColumn column in dgvFormAtencion.Columns)
             //{
             //    column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -207,7 +207,6 @@ namespace SmileSoft.UI.Desktop
 
         private void btnFiltros_Click(object sender, EventArgs e)
         {
-            pnlFiltros.Visible = !pnlFiltros.Visible;
         }
     }
 }

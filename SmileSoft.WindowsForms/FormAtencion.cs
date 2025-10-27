@@ -22,6 +22,9 @@ namespace SmileSoft.WindowsForms
             btnCancelarAtencion.Visible = false;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
+            btnEditarAtencion.Visible = false;
+            txtDiaHorarioActual.Visible = false;
+            lblDiaHorarioActual.Visible = false;
 
         }
 
@@ -30,10 +33,13 @@ namespace SmileSoft.WindowsForms
             InitializeComponent();
             lblTitulo.Text = "Editar Atención";
             this.Text = "Editar Atención";
+            btnAgregarAtencion.Visible = false;
             btnCancelarAtencion.Visible = true;
             _idAtencionEditar = idAtencion; // Guardamos el ID para usarlo después del Load
             this.MinimizeBox = false;
             this.MaximizeBox = false;
+            txtDiaHorarioActual.Visible = true;
+            lblDiaHorarioActual.Visible = true;
         }
 
         private List<TipoAtencionDTO> tiposAtencion;
@@ -147,6 +153,7 @@ namespace SmileSoft.WindowsForms
                         cmbHorario.SelectedItem = horarioAtencion;
                     }
                 }
+                txtDiaHorarioActual.Text = atencionResponse.FechaHoraAtencion.ToString("dd/MM/yyyy HH:mm");
                 await BuscarTurnosPorOdontologo();
 
                 // Rehabilitar eventos
@@ -269,13 +276,14 @@ namespace SmileSoft.WindowsForms
                     {
                         atencionesDelDia = atencionesDelDia.Where(a => a.Id != _idAtencionEditar.Value).ToList();
                     }
-                    atencionesDelDia = atencionesDelDia.Where(a => a.Estado == "Otorgada" || a.Estado == "En sala de espera").ToList();
+                    atencionesDelDia = atencionesDelDia.Where(a => a.Estado == "Otorgada" || a.Estado == "En sala de espera" || a.Estado == "Atendido").ToList();
 
                     foreach (var atencion in atencionesDelDia)
                     {
                         atencion.PacienteNombre = $"{atencion.PacienteApellido}, {atencion.PacienteNombre}";
                         atencion.OdontologoNombre = $"{atencion.OdontologoApellido}, {atencion.OdontologoNombre}";
                     }
+                    dgvTurnosOcupados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     dgvTurnosOcupados.DataSource = atencionesDelDia;
                     dgvTurnosOcupados.Columns["Id"].Visible = false;
                     dgvTurnosOcupados.Columns["FechaHoraAtencion"].HeaderText = "Fecha y hora";
@@ -292,13 +300,13 @@ namespace SmileSoft.WindowsForms
                     dgvTurnosOcupados.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
 
                     // Configurar anchos de columnas
-                    dgvTurnosOcupados.Columns["FechaHoraAtencion"].Width = 100;
-                    dgvTurnosOcupados.Columns["PacienteNombre"].Width = 150;
-                    dgvTurnosOcupados.Columns["PacienteDni"].Width = 100;
-                    dgvTurnosOcupados.Columns["OdontologoNombre"].Width = 150;
-                    dgvTurnosOcupados.Columns["Estado"].Width = 100;
-                    dgvTurnosOcupados.Columns["TipoAtencionDescripcion"].Width = 100;
-                    dgvTurnosOcupados.Columns["TipoAtencionDuracion"].Width = 75;
+                    dgvTurnosOcupados.Columns["FechaHoraAtencion"].MinimumWidth = 100;
+                    dgvTurnosOcupados.Columns["PacienteNombre"].MinimumWidth = 100;
+                    dgvTurnosOcupados.Columns["PacienteDni"].MinimumWidth = 100;
+                    dgvTurnosOcupados.Columns["OdontologoNombre"].MinimumWidth = 100;
+                    dgvTurnosOcupados.Columns["Estado"].MinimumWidth = 100;
+                    dgvTurnosOcupados.Columns["TipoAtencionDescripcion"].MinimumWidth = 100;
+                    dgvTurnosOcupados.Columns["TipoAtencionDuracion"].MinimumWidth = 100;
 
                     var tipoAtencionSeleccionado = tiposAtencion?.FirstOrDefault(t => t.Id == (int)cmbTipoAtencion.SelectedValue);
                     if (tipoAtencionSeleccionado == null) return;
@@ -378,16 +386,46 @@ namespace SmileSoft.WindowsForms
 
         private async void btnCancelarAtencion_Click(object sender, EventArgs e)
         {
-            if(_idAtencionEditar == null)
+            if (_idAtencionEditar == null)
             {
                 MessageBox.Show("Error: No se puede cancelar una atención que no ha sido creada aún.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            await AtencionApiClient.CancelaAtencionAsync(_idAtencionEditar.Value);
-            await BuscarTurnosPorOdontologo();
-            MessageBox.Show("Atención cancelada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
+            var confirmResult = MessageBox.Show("¿Está seguro de que desea cancelar esta atención?", "Confirmar cancelación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(confirmResult == DialogResult.Yes)
+            {
+                await AtencionApiClient.CancelaAtencionAsync(_idAtencionEditar.Value);
+                await BuscarTurnosPorOdontologo();
+                //Boton para preguntar si se quiere realmente cancelar
 
+                MessageBox.Show("Atención cancelada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+
+            }
+        }
+
+
+
+
+        
+
+        private async void btnEditarAtencion_Click(object sender, EventArgs e)
+        {
+            var atencionBuscada = await AtencionApiClient.GetOneAsync(_idAtencionEditar.Value);
+            DateTime fechaSeleccionada = dtpDiaAtencion.Value.Date;
+            TimeSpan horaSeleccionada = TimeSpan.Parse(cmbHorario.SelectedItem.ToString());
+            DateTime fechaHoraCompleta = fechaSeleccionada + horaSeleccionada;
+            AtencionDTO atencionActualizada = new AtencionDTO
+            {
+                PacienteId = atencionBuscada.PacienteId,
+                TipoAtencionId = (int)cmbTipoAtencion.SelectedValue,
+                OdontologoId = (int)cmbOdontologo.SelectedValue,
+                FechaHoraAtencion = fechaHoraCompleta
+            };
+            await AtencionApiClient.UpdateAsync(atencionActualizada, _idAtencionEditar.Value);
+            MessageBox.Show("Atención actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
     }
 }
+       

@@ -1,0 +1,33 @@
+﻿@page "/reportes"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@using SmileSoft.DTO
+@using SmileSoft.Services
+@using SmileSoft.API.Clients
+
+
+<h3>Reportes</h3>
+<h4> Reporte de atenciones del día</h4>
+<p> Generar reporte de las atenciones para el día de hoy @DateTime.Today.Date</p>
+<button @onclick="GenerarReporte"> Generar reporte </button>
+
+@code {
+    private async Task GenerarReporte()
+    {
+        var request = new ReporteAtencionesOdontologoRequestDTO
+        {
+            Fecha = DateTime.Today
+        };
+        var pdfBytes = await ReporteApiClient.GenerarReporteAtencionesOdontologoAsync(request);
+        // You can add code here to handle the pdfBytes (e.g., download, display, etc.)
+     
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "saveDialog.FileName",
+                UseShellExecute = true
+            });
+            
+        }}
+    
+
