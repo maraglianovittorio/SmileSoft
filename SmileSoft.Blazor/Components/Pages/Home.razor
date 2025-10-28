@@ -95,7 +95,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        // NO cargar datos aquí - esperar a verificar autenticación primero
+        // espera a verificar autenticación antes de cargar informacion
         isAuthenticated = await AuthService.IsAuthenticatedAsync();
         
         if (!isAuthenticated)
@@ -118,7 +118,6 @@ else
         }
         else
         {
-            // Si no es odontólogo, usar el username como nombre
             nombreCompletoOdontologo = username;
         }
     }

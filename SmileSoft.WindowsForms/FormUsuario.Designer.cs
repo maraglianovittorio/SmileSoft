@@ -52,7 +52,7 @@
             // lblRol
             // 
             lblRol.AutoSize = true;
-            lblRol.Location = new Point(359, 168);
+            lblRol.Location = new Point(241, 173);
             lblRol.Margin = new Padding(2, 0, 2, 0);
             lblRol.Name = "lblRol";
             lblRol.Size = new Size(24, 15);
@@ -62,7 +62,7 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(301, 140);
+            lblPassword.Location = new Point(241, 140);
             lblPassword.Margin = new Padding(2, 0, 2, 0);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(67, 15);
@@ -105,7 +105,7 @@
             btnEditarUsuario.TabIndex = 7;
             btnEditarUsuario.Text = "Editar";
             btnEditarUsuario.UseVisualStyleBackColor = true;
-            btnEditarUsuario.Click += btnEditarPaciente_Click;
+            btnEditarUsuario.Click += btnEditarUsuario_Click;
             // 
             // lbNuevoUsuario
             // 

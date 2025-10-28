@@ -304,7 +304,6 @@ namespace SmileSoft.Services
         {
       
             var atencionRepository = new AtencionRepository();
-            // Validar que la atención exista
             var atencion = atencionRepository.Get(id);
             if (atencion == null)
             {
@@ -315,7 +314,6 @@ namespace SmileSoft.Services
         public bool ActualizaLlegada(int id)
         {
             var atencionRepository = new AtencionRepository();
-            // Validar que la atención exista
             var atencion = atencionRepository.Get(id);
             if (atencion == null)
             {
@@ -325,7 +323,6 @@ namespace SmileSoft.Services
         }
         public bool UpdateObservaciones(int id, string observaciones)
         {
-            // Validate observaciones
             if (observaciones == null)
             {
                 throw new ArgumentNullException(nameof(observaciones), "Las observaciones no pueden ser nulas.");

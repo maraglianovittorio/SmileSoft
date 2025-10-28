@@ -10,28 +10,46 @@
 @using System.Security.Claims
 
 <h3>Reportes</h3>
-<h4> Reporte de atenciones del día</h4>
-<p> Generar reporte de las atenciones para el día de hoy @DateTime.Today.ToShortDateString()</p>
-<button class="btn btn-primary" @onclick="GenerarReporte"> Generar reporte </button>
+<h4>Reporte de atenciones del día</h4>
+<p>Generar reporte de las atenciones para el día de hoy @DateTime.Today.ToShortDateString()</p>
+<button class="btn btn-primary" @onclick="GenerarReporte" disabled="@isGenerating">
+    @(isGenerating ? "Generando..." : "Generar reporte")
+</button>
+
 
 @if (!string.IsNullOrEmpty(errorMessage))
 {
     <div class="alert alert-danger mt-3">@errorMessage</div>
 }
 
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success mt-3">@successMessage</div>
+}
+
 @code {
     private string? errorMessage;
+    private string? successMessage;
+    private bool isGenerating = false;
 
     private async Task GenerarReporte()
     {
         try
         {
+            isGenerating = true;
             errorMessage = null;
+            successMessage = null;
+            StateHasChanged();
+
             var odontologoId = await AuthService.GetOdontologoIdAsync();
 
+            if (!odontologoId.HasValue)
+            {
+                errorMessage = "No se pudo obtener el ID del odontólogo.";
+                return;
+            }
 
-			var request = new ReporteAtencionesPorOdontologoRequestDTO(DateTime.Today, odontologoId.Value);
-
+            var request = new ReporteAtencionesPorOdontologoRequestDTO(DateTime.Today, odontologoId.Value);
             var pdfBytes = await ReporteApiClient.GenerarReporteAtencionesPorOdontologoAsync(request);
 
             if (pdfBytes == null || pdfBytes.Length == 0)
@@ -42,15 +60,25 @@
 
             var fileName = $"Agenda_Odontologo_{DateTime.Today:yyyyMMdd}.pdf";
             var pdfBase64 = Convert.ToBase64String(pdfBytes);
-            await JSRuntime.InvokeVoidAsync("downloadFileFromStream", fileName, pdfBase64);
+            
+            // Usar la nueva función que no causa desconexión
+            await JSRuntime.InvokeVoidAsync("openPdfInNewTab", fileName, pdfBase64);
+            
+            successMessage = "Reporte generado y abierto en una nueva pestaña.";
         }
         catch (Exception ex)
         {
             errorMessage = $"Error al generar reporte: {ex.Message}";
         }
+        finally
+        {
+            isGenerating = false;
+            StateHasChanged();
+        }
     }
 
 }
+
 
 
 

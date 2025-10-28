@@ -26,7 +26,6 @@ namespace SmileSoft.API.Clients
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
             {
-                // ver si conviene hacer un try catch para manejar esta excepcion
                 throw new Exception("Error interno del servidor. Por favor, intente nuevamente más tarde.");
             }
 

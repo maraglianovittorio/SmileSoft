@@ -15,7 +15,6 @@ namespace SmileSoft.Services
         {
             var obraSocialRepository = new ObraSocialRepository();
             ObraSocial obraSocial = new ObraSocial(0,dto.Nombre);
-            // Validar que la obra social no exista
             if (obraSocialRepository.OSExists(dto.Nombre))
             {
                 throw new ArgumentException($"Ya existe una obra social con el nombre '{dto.Nombre}'.");
@@ -74,7 +73,6 @@ namespace SmileSoft.Services
         public bool Update(int id, ObraSocialDTO dto)
         {
             var obraSocialRepository = new ObraSocialRepository();
-            // Validar que el nombre de la obra social no exista
             if (obraSocialRepository.OSExists(dto.Nombre, id))
             {
                 throw new ArgumentException($"Ya existe otra obra social con el nombre '{dto.Nombre},' ',{dto.Id}'.");

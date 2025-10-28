@@ -39,13 +39,11 @@ namespace SmileSoft.UI.Desktop
 
         private void ConfigurarEstilos()
         {
-            // Estilo verde moderno
             this.BackColor = Color.FromArgb(245, 255, 250); // MintCream
             this.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(650, 500); // Tamaño mínimo
 
-            // Estilo para labels
             foreach (Control control in this.Controls)
             {
                 if (control is Label lbl)
@@ -53,7 +51,6 @@ namespace SmileSoft.UI.Desktop
                     lbl.ForeColor = Color.FromArgb(34, 139, 34); // ForestGreen
                     lbl.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
 
-                    // Marcar campos obligatorios con asterisco
                     if (lbl.Name == "lblNombreOdontologo" ||
                         lbl.Name == "lblApellidoOdontologo" ||
                         lbl.Name == "lblNroMatricula" ||
@@ -87,17 +84,14 @@ namespace SmileSoft.UI.Desktop
 
         private void ConfigurarResponsive()
         {
-            // Hacer que el formulario sea redimensionable
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.MaximizeBox = true;
 
-            // Configurar anclajes para mantener la estructura centrada
             foreach (Control control in this.Controls)
             {
                 control.Anchor = AnchorStyles.None;
             }
 
-            // Manejar el evento de redimensionado para mantener todo centrado
             this.Resize += formOdontologo_Resize;
         }
 
@@ -145,8 +139,7 @@ namespace SmileSoft.UI.Desktop
             txtApellido.Clear();
             txtNroMatricula.Clear();
             txtEmail.Clear();
-            //txtUsername.Clear();
-            //txtPassword.Clear();
+
 
             // Enfocar el primer campo
             txtNombre.Focus();
@@ -156,7 +149,6 @@ namespace SmileSoft.UI.Desktop
         {
             var errores = new List<string>();
 
-            // Validar campos obligatorios
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
                 errores.Add("• El nombre es obligatorio");
 
@@ -166,10 +158,7 @@ namespace SmileSoft.UI.Desktop
             if (string.IsNullOrWhiteSpace(txtNroMatricula.Text))
                 errores.Add("• El número de matrícula es obligatorio");
 
-            //if (string.IsNullOrWhiteSpace(txtUsername.Text))
-            //    errores.Add("• El nombre de usuario es obligatorio");
 
-            // Validar formato de email si se proporciona
             if (!string.IsNullOrWhiteSpace(txtEmail.Text))
             {
                 try
@@ -182,13 +171,6 @@ namespace SmileSoft.UI.Desktop
                 }
             }
 
-            //// Validar password solo en modo agregar
-            //if (btnAgregarOdontologo.Visible && string.IsNullOrWhiteSpace(txtPassword.Text))
-            //{
-            //    errores.Add("• La contraseña es obligatoria");
-            //}
-
-            // Mostrar errores si los hay
             if (errores.Count > 0)
             {
                 string mensaje = "Por favor corrija los siguientes errores:\n\n" + string.Join("\n", errores);
@@ -307,8 +289,8 @@ namespace SmileSoft.UI.Desktop
 
                 await OdontologoApiClient.UpdateAsync(odontologo, (int)btnEditarOdontologo.Tag);
                 MessageBox.Show("Odontólogo editado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se editó un odontólogo
-                this.Close(); // Cerrar el formulario después del éxito
+                this.DialogResult = DialogResult.OK; 
+                this.Close(); 
             }
             catch (HttpRequestException httpEx)
             {

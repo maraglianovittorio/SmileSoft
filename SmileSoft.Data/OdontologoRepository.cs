@@ -58,10 +58,10 @@ namespace SmileSoft.Data
                 .ToList();
         }
 
-        public bool Update(Odontologo odontologo)
+        public bool Update(Odontologo odontologo,int id)
         {
             using var context = CreateContext();
-            var existingOdontologo = context.Odontologos.Find(odontologo.Id);
+            var existingOdontologo = context.Odontologos.Find(id);
             if (existingOdontologo != null)
             {
                 existingOdontologo.SetNombre(odontologo.Nombre);
@@ -89,51 +89,7 @@ namespace SmileSoft.Data
             return query.Any();
         }
 
-        //public IEnumerable<Paciente> GetByCriteria(PacienteCriteria criteria)
-        //{
-        //    const string sql = @"
-        //        SELECT c.Id, c.Nombre, c.Apellido, c.Email, c.PaisId, c.FechaAlta,
-        //               p.Nombre as PaisNombre
-        //        FROM Pacientes c
-        //        INNER JOIN Paises p ON c.PaisId = p.Id
-        //        WHERE c.Nombre LIKE @SearchTerm 
-        //           OR c.Apellido LIKE @SearchTerm 
-        //           OR c.Email LIKE @SearchTerm
-        //        ORDER BY c.Nombre, c.Apellido";
-
-        //    var pacientes = new List<Paciente>();
-        //    string connectionString = new TPIContext().Database.GetConnectionString();
-        //    string searchPattern = $"%{criteria.Texto}%";
-
-        //    using var connection = new SqlConnection(connectionString);
-        //    using var command = new SqlCommand(sql, connection);
-
-        //    command.Parameters.AddWithValue("@SearchTerm", searchPattern);
-
-        //    connection.Open();
-        //    using var reader = command.ExecuteReader();
-
-        //    while (reader.Read())
-        //    {
-        //        var cliente = new Cliente(
-        //            reader.GetInt32(0),    // Id
-        //            reader.GetString(1),   // Nombre
-        //            reader.GetString(2),   // Apellido
-        //            reader.GetString(3),   // Email
-        //            reader.GetInt32(4),    // PaisId
-        //            reader.GetDateTime(5)  // FechaAlta
-        //        );
-
-        //        // Crear y asignar el País
-        //        var pais = new Pais(reader.GetInt32(4), reader.GetString(6)); // PaisId, PaisNombre
-        //        cliente.SetPais(pais);
-
-        //        clientes.Add(cliente);
-        //    }
-
-        //    return clientes;
-        //}
-
+       
         public Odontologo? GetByUsuarioId(int usuarioId)
         {
             using var context = CreateContext();

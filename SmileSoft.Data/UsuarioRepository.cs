@@ -84,12 +84,6 @@ namespace SmileSoft.Data
             return query.Any();
         }
 
-        //public Usuario? ValidateCredentials(string username, string password)
-        //{
-        //    using var context = CreateContext();
-        //    return context.Usuarios.FirstOrDefault(u => 
-        //        u.Username.ToLower() == username.ToLower() && 
-        //        u.Password == password);
-        //}
+
     }
 }

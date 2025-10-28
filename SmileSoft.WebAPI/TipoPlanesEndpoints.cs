@@ -35,7 +35,6 @@ namespace SmileSoft.WebAPI
                 try
                 {
                     TipoPlanService tipoPlanService = new TipoPlanService();
-                    // Validación de campos obligatorios
                     var errores = new List<string>();
                     if (string.IsNullOrWhiteSpace(tipoPlanDTO.Nombre))
                         errores.Add("El nombre es obligatorio");

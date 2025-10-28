@@ -105,7 +105,7 @@ namespace SmileSoft.API.Auth.WindowsForms
                 var handler = new JwtSecurityTokenHandler();
                 var jsonToken = handler.ReadJwtToken(token);
 
-                // Find claim of type "role"
+                // Buscar claims de "role"
                 var roleClaim = jsonToken.Claims.FirstOrDefault(c => c.Type == "role");
                 return roleClaim?.Value;
             }
@@ -117,13 +117,13 @@ namespace SmileSoft.API.Auth.WindowsForms
 
         public async Task<string?> GetOdontologoNombreCompletoAsync()
         {
-            // Implementation needed. Returning null for now.
+            // Sin implementación por ahora
             return null;
         }
 
         public async Task<int?> GetOdontologoIdAsync()
         {
-            // Implementation needed. Returning null for now.
+            // Sin implementación por ahora
             return null;
         }
     }

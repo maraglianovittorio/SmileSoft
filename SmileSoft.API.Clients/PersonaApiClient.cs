@@ -133,8 +133,6 @@ namespace SmileSoft.API.Clients
                     await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     return null;
-
-                    //throw new Exception($"Error al obtener tutor con DNI {dni}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
             }
             catch (HttpRequestException ex)

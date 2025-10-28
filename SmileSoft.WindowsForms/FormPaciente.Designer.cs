@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             lblNombrePaciente = new Label();
             lblFechaNacimiento = new Label();
-            lblDireccionPaciente = new Label();
+            lblDireccion = new Label();
             lblDNIPaciente = new Label();
             lblApellidoPaciente = new Label();
             lblNroHC = new Label();
@@ -63,7 +63,7 @@
             // lblNombrePaciente
             // 
             lblNombrePaciente.AutoSize = true;
-            lblNombrePaciente.Location = new Point(251, 73);
+            lblNombrePaciente.Location = new Point(242, 76);
             lblNombrePaciente.Margin = new Padding(2, 0, 2, 0);
             lblNombrePaciente.Name = "lblNombrePaciente";
             lblNombrePaciente.Size = new Size(51, 15);
@@ -73,27 +73,27 @@
             // lblFechaNacimiento
             // 
             lblFechaNacimiento.AutoSize = true;
-            lblFechaNacimiento.Location = new Point(251, 208);
+            lblFechaNacimiento.Location = new Point(242, 213);
             lblFechaNacimiento.Margin = new Padding(2, 0, 2, 0);
             lblFechaNacimiento.Name = "lblFechaNacimiento";
             lblFechaNacimiento.Size = new Size(103, 15);
             lblFechaNacimiento.TabIndex = 10;
             lblFechaNacimiento.Text = "Fecha Nacimiento";
             // 
-            // lblDireccionPaciente
+            // lblDireccion
             // 
-            lblDireccionPaciente.AutoSize = true;
-            lblDireccionPaciente.Location = new Point(251, 183);
-            lblDireccionPaciente.Margin = new Padding(2, 0, 2, 0);
-            lblDireccionPaciente.Name = "lblDireccionPaciente";
-            lblDireccionPaciente.Size = new Size(57, 15);
-            lblDireccionPaciente.TabIndex = 8;
-            lblDireccionPaciente.Text = "Dirección";
+            lblDireccion.AutoSize = true;
+            lblDireccion.Location = new Point(242, 186);
+            lblDireccion.Margin = new Padding(2, 0, 2, 0);
+            lblDireccion.Name = "lblDireccion";
+            lblDireccion.Size = new Size(57, 15);
+            lblDireccion.TabIndex = 8;
+            lblDireccion.Text = "Dirección";
             // 
             // lblDNIPaciente
             // 
             lblDNIPaciente.AutoSize = true;
-            lblDNIPaciente.Location = new Point(251, 131);
+            lblDNIPaciente.Location = new Point(242, 134);
             lblDNIPaciente.Margin = new Padding(2, 0, 2, 0);
             lblDNIPaciente.Name = "lblDNIPaciente";
             lblDNIPaciente.Size = new Size(27, 15);
@@ -103,7 +103,7 @@
             // lblApellidoPaciente
             // 
             lblApellidoPaciente.AutoSize = true;
-            lblApellidoPaciente.Location = new Point(251, 103);
+            lblApellidoPaciente.Location = new Point(242, 106);
             lblApellidoPaciente.Margin = new Padding(2, 0, 2, 0);
             lblApellidoPaciente.Name = "lblApellidoPaciente";
             lblApellidoPaciente.Size = new Size(51, 15);
@@ -113,7 +113,7 @@
             // lblNroHC
             // 
             lblNroHC.AutoSize = true;
-            lblNroHC.Location = new Point(251, 263);
+            lblNroHC.Location = new Point(242, 266);
             lblNroHC.Margin = new Padding(2, 0, 2, 0);
             lblNroHC.Name = "lblNroHC";
             lblNroHC.Size = new Size(47, 15);
@@ -123,7 +123,7 @@
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
-            lblTelefono.Location = new Point(251, 236);
+            lblTelefono.Location = new Point(242, 239);
             lblTelefono.Margin = new Padding(2, 0, 2, 0);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(52, 15);
@@ -133,7 +133,7 @@
             // lblNroAfiliado
             // 
             lblNroAfiliado.AutoSize = true;
-            lblNroAfiliado.Location = new Point(248, 348);
+            lblNroAfiliado.Location = new Point(239, 351);
             lblNroAfiliado.Margin = new Padding(2, 0, 2, 0);
             lblNroAfiliado.Name = "lblNroAfiliado";
             lblNroAfiliado.Size = new Size(92, 15);
@@ -210,7 +210,7 @@
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(251, 159);
+            lblEmail.Location = new Point(242, 162);
             lblEmail.Margin = new Padding(2, 0, 2, 0);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(36, 15);
@@ -252,7 +252,7 @@
             // lblOS
             // 
             lblOS.AutoSize = true;
-            lblOS.Location = new Point(251, 290);
+            lblOS.Location = new Point(242, 293);
             lblOS.Name = "lblOS";
             lblOS.Size = new Size(67, 15);
             lblOS.TabIndex = 18;
@@ -273,7 +273,7 @@
             // lblTipoPlan
             // 
             lblTipoPlan.AutoSize = true;
-            lblTipoPlan.Location = new Point(251, 320);
+            lblTipoPlan.Location = new Point(242, 323);
             lblTipoPlan.Name = "lblTipoPlan";
             lblTipoPlan.Size = new Size(56, 15);
             lblTipoPlan.TabIndex = 20;
@@ -292,7 +292,7 @@
             // lblTutor
             // 
             lblTutor.AutoSize = true;
-            lblTutor.Location = new Point(249, 376);
+            lblTutor.Location = new Point(240, 379);
             lblTutor.Name = "lblTutor";
             lblTutor.Size = new Size(35, 15);
             lblTutor.TabIndex = 22;
@@ -345,7 +345,7 @@
             Controls.Add(lblNroHC);
             Controls.Add(lblApellidoPaciente);
             Controls.Add(lblDNIPaciente);
-            Controls.Add(lblDireccionPaciente);
+            Controls.Add(lblDireccion);
             Controls.Add(lblFechaNacimiento);
             Controls.Add(lblNombrePaciente);
             Margin = new Padding(2);
@@ -387,5 +387,6 @@
         private Label lblTutor;
         private TextBox txtTutor;
         private ComboBox cmbOS;
+        private Label lblDireccion;
     }
 }

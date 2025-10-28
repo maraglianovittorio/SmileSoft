@@ -24,6 +24,7 @@ namespace SmileSoft.UI.Desktop
             ConfigurarEstilos();
             //ConfigurarResponsive();
             ConfigurarLayoutResponsivo(dgvFormTutor, txtBuscarTutor, lupaPng, btnAgregarTutor, btnEditarTutor, btnBorrarTutor, BtnVolver);
+            btnAgregarTutor.Visible = false;
         }
 
         private void ConfigurarEstilos()

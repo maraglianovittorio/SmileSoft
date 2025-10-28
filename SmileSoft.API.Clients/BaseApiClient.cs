@@ -35,25 +35,12 @@ namespace SmileSoft.API.Clients
             try
             {
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] Intentando leer configuración...");
-
-                // 1. Primero revisar variable de entorno
                 string? envUrl = Environment.GetEnvironmentVariable("TPI_API_BASE_URL");
                 if (!string.IsNullOrEmpty(envUrl))
                 {
                     System.Diagnostics.Debug.WriteLine($"[DEBUG] URL desde variable de entorno: {envUrl}");
                     return envUrl;
                 }
-                /*
-                // 2. Detectar si estamos en Android por el runtime
-                string runtimeInfo = System.Runtime.InteropServices.RuntimeInformation.RuntimeIdentifier;
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] Runtime: {runtimeInfo}");
-
-                if (runtimeInfo.StartsWith("android"))
-                {
-                    System.Diagnostics.Debug.WriteLine($"[DEBUG] Detectado Android - usando IP de emulador");
-                    return "http://10.0.2.2:5183/";
-                }
-                */
             }
             catch (Exception ex)
             {
@@ -102,7 +89,6 @@ namespace SmileSoft.API.Clients
                 var authService = AuthServiceProvider.Instance;
                 await authService.LogoutAsync();
 
-                // Lanzar excepción con mensaje simple
                 throw new UnauthorizedAccessException("Su sesión ha expirado.");
             }
         }

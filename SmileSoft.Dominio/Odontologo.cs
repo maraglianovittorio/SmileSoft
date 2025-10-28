@@ -6,14 +6,14 @@
         public ICollection<ObraSocial> ObrasSociales { get; private set; } = new List<ObraSocial>();
         public string NombreCompleto => $"{Nombre} {Apellido}";
         public ICollection<Atencion> Atenciones { get; private set; } = new List<Atencion>();
-        public Usuario Usuario { get; private set; }
+        public Usuario? Usuario { get; private set; }
         public int? UsuarioId { get; private set; } // FK
         public Odontologo():base()
         {
         }
 
         //public string Rol { get; set; } = "Odontologo";
-        public Odontologo(int id, string nombre, string apellido, string nroDni, DateTime fechaNacimiento, string direccion, string email, string telefono,string nroMatricula,Usuario usuario): base(id,nombre, apellido, nroDni,fechaNacimiento,direccion, email, telefono)
+        public Odontologo(int id, string nombre, string apellido, string nroDni, DateTime fechaNacimiento, string direccion, string email, string telefono,string nroMatricula,Usuario? usuario): base(id,nombre, apellido, nroDni,fechaNacimiento,direccion, email, telefono)
         {
             SetNroMatricula(nroMatricula);
             SetUsuario(usuario);
@@ -27,11 +27,11 @@
             }
             NroMatricula = nroMatricula;
         }
-        public void SetUsuario(Usuario usuario)
+        public void SetUsuario(Usuario? usuario)
         {
             if (usuario == null)
             {
-                throw new ArgumentNullException(nameof(usuario), "El usuario no puede ser nulo.");
+                return;
             }
             Usuario = usuario;
         }

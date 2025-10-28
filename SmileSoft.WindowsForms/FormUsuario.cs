@@ -227,7 +227,7 @@ namespace SmileSoft.UI.Desktop
             }
         }
 
-        private async void btnEditarPaciente_Click(object sender, EventArgs e)
+        private async void btnEditarUsuario_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos())
             {

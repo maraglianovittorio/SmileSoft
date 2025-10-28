@@ -18,7 +18,6 @@ namespace SmileSoft.UI.Desktop
         }
         private void ConfigurarEstilos()
         {
-            // Estilo principal - Tema azul elegante
             this.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
             this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
             this.Text = "SmileSoft - Pagina Principal";
@@ -142,8 +141,6 @@ namespace SmileSoft.UI.Desktop
             {
                 var request = new ReporteAtencionesHorarioRequestDTO
                 {
-                    // Por defecto toma el último mes (ya configurado en el constructor del DTO)
-                    // Opcionalmente podrías mostrar un diálogo para que el usuario seleccione las fechas
                 };
 
                 var pdfBytes = await ReporteApiClient.GenerarReporteAtencionesHorarioAsync(request);
@@ -160,7 +157,6 @@ namespace SmileSoft.UI.Desktop
                         MessageBox.Show("Reporte de atenciones por horario generado exitosamente", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        // Abrir PDF automáticamente
                         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                         {
                             FileName = saveDialog.FileName,

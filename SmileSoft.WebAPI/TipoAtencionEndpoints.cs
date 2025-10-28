@@ -28,7 +28,6 @@ namespace SmileSoft.WebAPI
                 try
                 {
                     TipoAtencionService tipoAtencionService = new TipoAtencionService();
-                    // Validación de campos obligatorios
                     var errores = new List<string>();
                     if (string.IsNullOrWhiteSpace(tipoAtencionDTO.Descripcion))
                         errores.Add("La descripción es obligatoria");

@@ -35,14 +35,12 @@ namespace SmileSoft.UI.Desktop
 
         private void ConfigurarEstilos()
         {
-            // Estilo principal
             this.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
             this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
             this.Text = "SmileSoft - Home de Odontólogos";
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.MinimumSize = new Size(800, 450); // Tamaño mínimo
+            this.MinimumSize = new Size(800, 450); 
 
-            // Estilo para botones
             foreach (Control control in this.Controls)
             {
                 if (control is Button btn)
@@ -62,19 +60,9 @@ namespace SmileSoft.UI.Desktop
             }
         }
 
-        private void ConfigurarResponsive()
-        {
-            // Hacer que el formulario sea redimensionable
-            this.FormBorderStyle = FormBorderStyle.Sizable;
-            this.MaximizeBox = true;
-
-            // Manejar el evento de redimensionado para centrar los botones
-            this.Resize += FormHomeOdontologo_Resize;
-        }
 
         private void FormHomeOdontologo_Resize(object sender, EventArgs e)
         {
-            // Centrar los botones horizontalmente y verticalmente
             int buttonWidth = 112;
             int buttonHeight = 47;
             int spacing = 60; // Espacio entre botones

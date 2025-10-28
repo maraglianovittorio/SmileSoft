@@ -21,7 +21,6 @@ namespace SmileSoft.UI.Desktop
             this.StartPosition = FormStartPosition.CenterScreen;
             this.WindowState = FormWindowState.Maximized;
             ConfigurarEstilos();
-            //ConfigurarResponsive();
             ConfigurarLayoutResponsivo(dgvFormTipoPlan, txtBuscarTipoPlan, lupaPng, btnAgregarTipoPlan, btnEditarTipoPlan, btnBorrarTipoPlan, BtnVolver);
         }
 
@@ -54,20 +53,10 @@ namespace SmileSoft.UI.Desktop
             }
         }
 
-        private void ConfigurarResponsive()
-        {
-            // Hacer que el formulario sea redimensionable
-            this.FormBorderStyle = FormBorderStyle.Sizable;
-            this.MaximizeBox = true;
 
-            // Configurar anclajes para que los botones se mantengan centrados
-            // Manejar el evento de redimensionado para centrar los botones
-            this.Resize += FormHomePage_Resize;
-        }
 
         private void FormHomePage_Resize(object sender, EventArgs e)
         {
-            // Centrar los botones horizontalmente y verticalmente
             int buttonWidth = 112;
             int buttonHeight = 47;
             int spacing = 60; // Espacio entre botones
@@ -137,7 +126,6 @@ namespace SmileSoft.UI.Desktop
         private void ConfiguraDgv()
         {
             dgvFormTipoPlan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            // Configurar las columnas
             if (dgvFormTipoPlan.Columns["Id"] != null)
                 dgvFormTipoPlan.Columns["Id"].Visible = false;
 
@@ -149,7 +137,6 @@ namespace SmileSoft.UI.Desktop
                 dgvFormTipoPlan.Columns["NombreObraSocial"].HeaderText = "Obra Social";
             }
 
-            // Reordenar columnas si es necesario
             if (dgvFormTipoPlan.Columns["Nombre"] != null)
                 dgvFormTipoPlan.Columns["Nombre"].DisplayIndex = 0;
                 dgvFormTipoPlan.Columns["Nombre"].MinimumWidth = 70;

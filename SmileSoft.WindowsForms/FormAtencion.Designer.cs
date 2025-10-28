@@ -61,56 +61,50 @@
             // 
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(477, 15);
-            lblTitulo.Margin = new Padding(4, 0, 4, 0);
+            lblTitulo.Location = new Point(334, 9);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(267, 48);
+            lblTitulo.Size = new Size(182, 32);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Nueva atención";
             // 
             // lblDni
             // 
             lblDni.AutoSize = true;
-            lblDni.Location = new Point(460, 88);
-            lblDni.Margin = new Padding(4, 0, 4, 0);
+            lblDni.Location = new Point(322, 53);
             lblDni.Name = "lblDni";
-            lblDni.Size = new Size(43, 25);
+            lblDni.Size = new Size(28, 15);
             lblDni.TabIndex = 0;
             lblDni.Text = "Dni:";
             // 
             // txtDni
             // 
-            txtDni.Location = new Point(526, 83);
-            txtDni.Margin = new Padding(4, 5, 4, 5);
+            txtDni.Location = new Point(368, 50);
             txtDni.Name = "txtDni";
-            txtDni.Size = new Size(177, 31);
+            txtDni.Size = new Size(125, 23);
             txtDni.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(401, 195);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(281, 117);
             label2.Name = "label2";
-            label2.Size = new Size(105, 25);
+            label2.Size = new Size(69, 15);
             label2.TabIndex = 5;
             label2.Text = "Obra social:";
             // 
             // txtOS
             // 
-            txtOS.Location = new Point(526, 190);
-            txtOS.Margin = new Padding(4, 5, 4, 5);
+            txtOS.Location = new Point(368, 114);
             txtOS.Name = "txtOS";
             txtOS.ReadOnly = true;
-            txtOS.Size = new Size(177, 31);
+            txtOS.Size = new Size(125, 23);
             txtOS.TabIndex = 6;
             // 
             // btnBuscarPaciente
             // 
-            btnBuscarPaciente.Location = new Point(741, 83);
-            btnBuscarPaciente.Margin = new Padding(4, 5, 4, 5);
+            btnBuscarPaciente.Location = new Point(519, 50);
             btnBuscarPaciente.Name = "btnBuscarPaciente";
-            btnBuscarPaciente.Size = new Size(107, 38);
+            btnBuscarPaciente.Size = new Size(75, 23);
             btnBuscarPaciente.TabIndex = 2;
             btnBuscarPaciente.Text = "Buscar paciente";
             btnBuscarPaciente.UseVisualStyleBackColor = true;
@@ -119,40 +113,36 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(360, 255);
-            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Location = new Point(252, 153);
             label3.Name = "label3";
-            label3.Size = new Size(148, 25);
+            label3.Size = new Size(98, 15);
             label3.TabIndex = 7;
             label3.Text = "Tipo de atención:";
             // 
             // cmbTipoAtencion
             // 
             cmbTipoAtencion.FormattingEnabled = true;
-            cmbTipoAtencion.Location = new Point(526, 250);
-            cmbTipoAtencion.Margin = new Padding(4, 5, 4, 5);
+            cmbTipoAtencion.Location = new Point(368, 150);
             cmbTipoAtencion.Name = "cmbTipoAtencion";
-            cmbTipoAtencion.Size = new Size(177, 33);
+            cmbTipoAtencion.Size = new Size(125, 23);
             cmbTipoAtencion.TabIndex = 8;
             cmbTipoAtencion.SelectedValueChanged += cmb_SelectedValueChanged;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(393, 312);
-            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Location = new Point(275, 187);
             label4.Name = "label4";
-            label4.Size = new Size(116, 25);
+            label4.Size = new Size(75, 15);
             label4.TabIndex = 9;
             label4.Text = "Odontólogo:";
             // 
             // cmbOdontologo
             // 
             cmbOdontologo.FormattingEnabled = true;
-            cmbOdontologo.Location = new Point(526, 307);
-            cmbOdontologo.Margin = new Padding(4, 5, 4, 5);
+            cmbOdontologo.Location = new Point(368, 184);
             cmbOdontologo.Name = "cmbOdontologo";
-            cmbOdontologo.Size = new Size(177, 33);
+            cmbOdontologo.Size = new Size(125, 23);
             cmbOdontologo.TabIndex = 10;
             cmbOdontologo.SelectedValueChanged += cmb_SelectedValueChanged;
             // 
@@ -163,41 +153,37 @@
             dgvTurnosOcupados.BackgroundColor = Color.PapayaWhip;
             dgvTurnosOcupados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTurnosOcupados.GridColor = Color.PapayaWhip;
-            dgvTurnosOcupados.Location = new Point(38, 527);
-            dgvTurnosOcupados.Margin = new Padding(4, 5, 4, 5);
+            dgvTurnosOcupados.Location = new Point(27, 316);
             dgvTurnosOcupados.Name = "dgvTurnosOcupados";
             dgvTurnosOcupados.ReadOnly = true;
             dgvTurnosOcupados.RowHeadersWidth = 62;
-            dgvTurnosOcupados.Size = new Size(1204, 243);
+            dgvTurnosOcupados.Size = new Size(843, 146);
             dgvTurnosOcupados.TabIndex = 15;
             // 
             // lblTurnosOcupados
             // 
             lblTurnosOcupados.AutoSize = true;
-            lblTurnosOcupados.Location = new Point(360, 497);
-            lblTurnosOcupados.Margin = new Padding(4, 0, 4, 0);
+            lblTurnosOcupados.Location = new Point(252, 298);
             lblTurnosOcupados.Name = "lblTurnosOcupados";
-            lblTurnosOcupados.Size = new Size(154, 25);
+            lblTurnosOcupados.Size = new Size(101, 15);
             lblTurnosOcupados.TabIndex = 14;
             lblTurnosOcupados.Text = "Turnos ocupados:";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(461, 373);
-            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Location = new Point(323, 224);
             label6.Name = "label6";
-            label6.Size = new Size(42, 25);
+            label6.Size = new Size(27, 15);
             label6.TabIndex = 11;
             label6.Text = "Día:";
             // 
             // dtpDiaAtencion
             // 
             dtpDiaAtencion.Format = DateTimePickerFormat.Short;
-            dtpDiaAtencion.Location = new Point(526, 363);
-            dtpDiaAtencion.Margin = new Padding(4, 5, 4, 5);
+            dtpDiaAtencion.Location = new Point(368, 218);
             dtpDiaAtencion.Name = "dtpDiaAtencion";
-            dtpDiaAtencion.Size = new Size(177, 31);
+            dtpDiaAtencion.Size = new Size(125, 23);
             dtpDiaAtencion.TabIndex = 12;
             dtpDiaAtencion.Value = new DateTime(2025, 10, 21, 0, 0, 0, 0);
             dtpDiaAtencion.ValueChanged += dtpDiaAtencion_ValueChanged;
@@ -205,28 +191,25 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(421, 137);
-            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Location = new Point(295, 82);
             label7.Name = "label7";
-            label7.Size = new Size(80, 25);
+            label7.Size = new Size(55, 15);
             label7.TabIndex = 3;
             label7.Text = "Paciente:";
             // 
             // txtNomYApe
             // 
-            txtNomYApe.Location = new Point(526, 132);
-            txtNomYApe.Margin = new Padding(4, 5, 4, 5);
+            txtNomYApe.Location = new Point(368, 79);
             txtNomYApe.Name = "txtNomYApe";
             txtNomYApe.ReadOnly = true;
-            txtNomYApe.Size = new Size(177, 31);
+            txtNomYApe.Size = new Size(125, 23);
             txtNomYApe.TabIndex = 4;
             // 
             // btnBuscarTurnos
             // 
-            btnBuscarTurnos.Location = new Point(741, 363);
-            btnBuscarTurnos.Margin = new Padding(4, 5, 4, 5);
+            btnBuscarTurnos.Location = new Point(519, 218);
             btnBuscarTurnos.Name = "btnBuscarTurnos";
-            btnBuscarTurnos.Size = new Size(184, 38);
+            btnBuscarTurnos.Size = new Size(129, 23);
             btnBuscarTurnos.TabIndex = 13;
             btnBuscarTurnos.Text = "Buscar turnos";
             btnBuscarTurnos.UseVisualStyleBackColor = true;
@@ -234,10 +217,9 @@
             // 
             // btnAgregarAtencion
             // 
-            btnAgregarAtencion.Location = new Point(654, 845);
-            btnAgregarAtencion.Margin = new Padding(4, 5, 4, 5);
+            btnAgregarAtencion.Location = new Point(458, 507);
             btnAgregarAtencion.Name = "btnAgregarAtencion";
-            btnAgregarAtencion.Size = new Size(131, 62);
+            btnAgregarAtencion.Size = new Size(92, 37);
             btnAgregarAtencion.TabIndex = 16;
             btnAgregarAtencion.Text = "Agregar";
             btnAgregarAtencion.UseVisualStyleBackColor = true;
@@ -246,17 +228,19 @@
             // cmbHorario
             // 
             cmbHorario.FormattingEnabled = true;
-            cmbHorario.Location = new Point(530, 792);
+            cmbHorario.Location = new Point(371, 475);
+            cmbHorario.Margin = new Padding(2, 2, 2, 2);
             cmbHorario.Name = "cmbHorario";
-            cmbHorario.Size = new Size(183, 33);
+            cmbHorario.Size = new Size(129, 23);
             cmbHorario.TabIndex = 17;
             // 
             // lblHorario
             // 
             lblHorario.AutoSize = true;
-            lblHorario.Location = new Point(335, 797);
+            lblHorario.Location = new Point(234, 478);
+            lblHorario.Margin = new Padding(2, 0, 2, 0);
             lblHorario.Name = "lblHorario";
-            lblHorario.Size = new Size(180, 25);
+            lblHorario.Size = new Size(118, 15);
             lblHorario.TabIndex = 18;
             lblHorario.Text = "Horarios disponibles:";
             // 
@@ -265,10 +249,9 @@
             lblTurnos.AutoSize = true;
             lblTurnos.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTurnos.ForeColor = Color.DarkGreen;
-            lblTurnos.Location = new Point(530, 497);
-            lblTurnos.Margin = new Padding(4, 0, 4, 0);
+            lblTurnos.Location = new Point(371, 298);
             lblTurnos.Name = "lblTurnos";
-            lblTurnos.Size = new Size(454, 25);
+            lblTurnos.Size = new Size(289, 15);
             lblTurnos.TabIndex = 19;
             lblTurnos.Text = "Todos los horarios del odontólogo estan disponibles";
             lblTurnos.Visible = false;
@@ -278,19 +261,17 @@
             lblAviso.AutoSize = true;
             lblAviso.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAviso.ForeColor = Color.Red;
-            lblAviso.Location = new Point(943, 368);
-            lblAviso.Margin = new Padding(4, 0, 4, 0);
+            lblAviso.Location = new Point(660, 221);
             lblAviso.Name = "lblAviso";
-            lblAviso.Size = new Size(224, 25);
+            lblAviso.Size = new Size(145, 15);
             lblAviso.TabIndex = 20;
             lblAviso.Text = "Faltan completar campos";
             // 
             // btnCancelarAtencion
             // 
-            btnCancelarAtencion.Location = new Point(976, 850);
-            btnCancelarAtencion.Margin = new Padding(4, 5, 4, 5);
+            btnCancelarAtencion.Location = new Point(683, 510);
             btnCancelarAtencion.Name = "btnCancelarAtencion";
-            btnCancelarAtencion.Size = new Size(217, 57);
+            btnCancelarAtencion.Size = new Size(152, 34);
             btnCancelarAtencion.TabIndex = 21;
             btnCancelarAtencion.Text = "Cancelar atencion";
             btnCancelarAtencion.UseVisualStyleBackColor = true;
@@ -298,9 +279,10 @@
             // 
             // btnEditarAtencion
             // 
-            btnEditarAtencion.Location = new Point(819, 850);
+            btnEditarAtencion.Location = new Point(573, 510);
+            btnEditarAtencion.Margin = new Padding(2, 2, 2, 2);
             btnEditarAtencion.Name = "btnEditarAtencion";
-            btnEditarAtencion.Size = new Size(134, 57);
+            btnEditarAtencion.Size = new Size(94, 34);
             btnEditarAtencion.TabIndex = 22;
             btnEditarAtencion.Text = "Editar";
             btnEditarAtencion.UseVisualStyleBackColor = true;
@@ -309,25 +291,27 @@
             // lblDiaHorarioActual
             // 
             lblDiaHorarioActual.AutoSize = true;
-            lblDiaHorarioActual.Location = new Point(375, 427);
+            lblDiaHorarioActual.Location = new Point(262, 256);
+            lblDiaHorarioActual.Margin = new Padding(2, 0, 2, 0);
             lblDiaHorarioActual.Name = "lblDiaHorarioActual";
-            lblDiaHorarioActual.Size = new Size(126, 25);
+            lblDiaHorarioActual.Size = new Size(84, 15);
             lblDiaHorarioActual.TabIndex = 23;
             lblDiaHorarioActual.Text = "Horario Actual";
             // 
             // txtDiaHorarioActual
             // 
-            txtDiaHorarioActual.Location = new Point(526, 421);
+            txtDiaHorarioActual.Location = new Point(368, 253);
+            txtDiaHorarioActual.Margin = new Padding(2, 2, 2, 2);
             txtDiaHorarioActual.Name = "txtDiaHorarioActual";
             txtDiaHorarioActual.ReadOnly = true;
-            txtDiaHorarioActual.Size = new Size(177, 31);
+            txtDiaHorarioActual.Size = new Size(125, 23);
             txtDiaHorarioActual.TabIndex = 24;
             // 
             // FormAtencion
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1273, 928);
+            ClientSize = new Size(914, 619);
             Controls.Add(txtDiaHorarioActual);
             Controls.Add(lblDiaHorarioActual);
             Controls.Add(btnEditarAtencion);
@@ -354,7 +338,6 @@
             Controls.Add(txtDni);
             Controls.Add(lblDni);
             Controls.Add(lblTitulo);
-            Margin = new Padding(4, 5, 4, 5);
             Name = "FormAtencion";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Nueva atención";

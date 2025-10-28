@@ -52,6 +52,8 @@ namespace SmileSoft.Data
                 var defaultSecretario = new Usuario("secretario", "secretario123", "Secretario");
                 var defaultOdontologoUser = new Usuario("odontologo1", "Odonto123", "Odontologo");
                 var defaultOdontologoUser2 = new Usuario("odontologo2", "Odonto123", "Odontologo");
+                var defaultOdontologoUser3 = new Usuario("odontologo3", "Odonto123", "Odontologo");
+                var defaultOdontologoUser4 = new Usuario("odontologo4", "Odonto123", "Odontologo");
                 Usuarios.Add(defaultUser);
                 Usuarios.Add(defaultSecretario);
                 //Obras sociales
@@ -60,25 +62,25 @@ namespace SmileSoft.Data
                 ObrasSociales.Add(obraSocial1);
                 ObrasSociales.Add(obraSocial2);
                 //Odontologos
-                var odontologo1 = new Odontologo(0, "12345", "Juan", "Perez", new DateTime(DateTime.Now.Year - 30, 1, 1), "Avenida siempre viva 742", "odontologo1@ejemplo.com", "123456789", "123123123", defaultOdontologoUser);
-                var odontologo2 = new Odontologo(0, "67890", "Maria", "Gomez", new DateTime(DateTime.Now.Year - 28, 5, 15), "Avenida Siempre Viva 742", "odontologo2@ejemplo.com", "987654321", "123456789", defaultOdontologoUser2);
+                var odontologo1 = new Odontologo(0, "Angel", "Di Maria", "12345", new DateTime(DateTime.Now.Year - 30, 1, 1), "Avenida siempre viva 742", "odontologo1@ejemplo.com", "123456789", "123123123", defaultOdontologoUser);
+                var odontologo2 = new Odontologo(0,"Alejo", "Veliz", "67890", new DateTime(DateTime.Now.Year - 28, 5, 15), "Avenida Siempre Viva 742", "odontologo2@ejemplo.com", "987654321", "123456789", defaultOdontologoUser2);
+                var odontologo3 = new Odontologo(0, "Marco", "Ruben", "54321", new DateTime(DateTime.Now.Year - 35, 8, 20), "Calle Falsa 123", "odonto@gmail.com", "555555555", "987654321", defaultOdontologoUser3);
+                var odontologo4 = new Odontologo(0, "Jaminton", "Campaz", "98765", new DateTime(DateTime.Now.Year - 32, 11, 30), "Calle Verdadera 456", "odonto4@gmail.com", "444444444", "111222333", defaultOdontologoUser4);
+
+
                 Odontologos.Add(odontologo1);
                 Odontologos.Add(odontologo2);
-
-                // Pacientes
-                var paciente1 = new Paciente(0, "Luis", "Martinez", "11223344", "Calle Falsa 123", "email@email.com", new DateTime(DateTime.Now.Year - 25, 3, 10), "123123", "", "1", null, null);
-                var paciente2 = new Paciente(0, "Ana", "Gomez", "98765432", "Avenida Siempre Viva 742", "email@email2.com", new DateTime(DateTime.Now.Year - 22, 7, 15), "1111111", "", "2", null, null);
-                Pacientes.Add(paciente1);
-                Pacientes.Add(paciente2);
-
-                //Tipos de atencion
-                var tipoAtencion1 = new TipoAtencion(0, "Consulta General", new TimeSpan(0, 30, 0));
-                var tipoAtencion2 = new TipoAtencion(0, "Consulta Odontológica", new TimeSpan(0, 90, 0));
-                var tipoAtencion3 = new TipoAtencion(0, "Blanqueamiento", new TimeSpan(0, 60, 0));
-                TipoAtenciones.Add(tipoAtencion1);
-                TipoAtenciones.Add(tipoAtencion2);
-                TipoAtenciones.Add(tipoAtencion3);
+                Odontologos.Add(odontologo3);
+                Odontologos.Add(odontologo4);
                 SaveChanges();
+
+                //Tutores
+                var tutor1 = new Persona(0, "Edgardo", "Bauza", "22334455",new DateTime(2000,10,10), "Calle Falsa 123", "tutor1@ejemplo.com", "123456789");
+                var tutor2 = new Persona(0, "Eduardo", "Coudet", "33445566", new DateTime(2003,11,08),"Avenida Siempre Viva 742", "tutor2@ejemplo.com", "987654321");
+                var tutor3 = new Persona(0, "Ariel", "Holan", "44556677",new DateTime(2001,06,10), "Calle Luna 456", "tutor3@ejemplo.com", "555555555");
+                Personas.Add(tutor1);
+                Personas.Add(tutor2);
+                Personas.Add(tutor3);
 
                 //Tipos de plan
                 var tipoPlan1 = new TipoPlan(0, "Plan Básico", "Cobertura básica para pacientes", obraSocial1.Id);
@@ -89,11 +91,87 @@ namespace SmileSoft.Data
                 TipoPlanes.Add(tipoPlan2);
                 TipoPlanes.Add(tipoPlan3);
                 TipoPlanes.Add(tipoPlan4);
+                SaveChanges();
+
+
+
+
+                // Pacientes
+                var paciente1 = new Paciente(0, "Miguel Angel", "Russo", "11223344", "Calle Falsa 123", "email@email.com", new DateTime(DateTime.Now.Year - 25, 3, 10), "123123", "1234567", "1", null,tipoPlan4.Id);
+                var paciente2 = new Paciente(0, "Carlos", "Quintana", "98765432", "Avenida Siempre Viva 742", "email@email2.com", new DateTime(DateTime.Now.Year - 22, 7, 15), "1111111", "1234567", "2", null, tipoPlan2.Id);
+                var paciente3 = new Paciente(0, "Facundo", "Mallo", "55667788", "Calle Luna 456", "email@email3.com", new DateTime(DateTime.Now.Year - 30, 1, 1), "2222222", "", "3", null, null);
+                var paciente4 = new Paciente(0, "Jorge", "Broun", "44332211", "Calle Sol 789", "email@email4.com", new DateTime(DateTime.Now.Year - 27, 12, 5), "3333333", "", "4", null, null);
+                var paciente5 = new Paciente(0, "Ignacio", "Malcorra", tutor1.Telefono, tutor1.Direccion, tutor1.Email, new DateTime(DateTime.Now.Year - 10, 3, 10), "4444444", "", "5", tutor1.Id, null);
+
+                Pacientes.Add(paciente1);
+                Pacientes.Add(paciente2);
+                Pacientes.Add(paciente3);
+                Pacientes.Add(paciente4);
+                Pacientes.Add(paciente5);
+
+                //Tipos de atencion
+                var tipoAtencion1 = new TipoAtencion(0, "Consulta General", new TimeSpan(0, 30, 0));
+                var tipoAtencion2 = new TipoAtencion(0, "Consulta Odontológica", new TimeSpan(0, 90, 0));
+                var tipoAtencion3 = new TipoAtencion(0, "Blanqueamiento", new TimeSpan(0, 60, 0));
+                var tipoAtencion4 = new TipoAtencion(0, "Ortodoncia", new TimeSpan(0, 90, 0));
+                var tipoAtencion5 = new TipoAtencion(0, "Limpieza Dental", new TimeSpan(0, 60, 0));
+                TipoAtenciones.Add(tipoAtencion1);
+                TipoAtenciones.Add(tipoAtencion2);
+                TipoAtenciones.Add(tipoAtencion3);
+                TipoAtenciones.Add(tipoAtencion4);
+                TipoAtenciones.Add(tipoAtencion5);
+                SaveChanges();
+
+                //Tipos de plan
+
                 // Atenciones
-                var atencion1 = new Atencion(DateTime.Now, "Otorgada", " ", odontologo1.Id, paciente1.Id, tipoAtencion1.Id);
-                var atencion2 = new Atencion(DateTime.Now.AddDays(1), "Otorgada", " ", odontologo2.Id, paciente2.Id, tipoAtencion2.Id);
-                Atenciones.Add(atencion1);
+                var hoy = DateTime.Today;
+                var ayer = hoy.AddDays(-1);
+                var mañana = hoy.AddDays(1);
+
+                var atencion2 = new Atencion(ayer.AddHours(9), "Atendido", "Se realizó limpieza profunda. Paciente refiere sensibilidad.", odontologo1.Id, paciente2.Id, tipoAtencion5.Id);
+                var atencion3 = new Atencion(ayer.AddHours(10), "Atendido", "Revisión general sin novedades.", odontologo2.Id, paciente3.Id, tipoAtencion1.Id);
+                var atencion4 = new Atencion(ayer.AddHours(11), "Cancelada", string.Empty, odontologo3.Id, paciente4.Id, tipoAtencion2.Id);
+                var atencion5 = new Atencion(ayer.AddHours(12), "Atendido", "Ajuste de ortodoncia. Se cita para el próximo mes.", odontologo4.Id, paciente1.Id, tipoAtencion4.Id);
+                var atencion6 = new Atencion(ayer.AddHours(14), "Atendido", "Blanqueamiento exitoso.", odontologo1.Id, paciente5.Id, tipoAtencion3.Id);
+
+                var atencion7 = new Atencion(hoy.AddHours(10), "En sala de espera", string.Empty, odontologo2.Id, paciente4.Id, tipoAtencion2.Id);
+                var atencion8 = new Atencion(hoy.AddHours(11), "Otorgada", string.Empty, odontologo3.Id, paciente1.Id, tipoAtencion5.Id);
+                var atencion9 = new Atencion(hoy.AddHours(12), "Otorgada", string.Empty, odontologo4.Id, paciente2.Id, tipoAtencion1.Id);
+                var atencion10 = new Atencion(hoy.AddHours(14), "Otorgada", string.Empty, odontologo1.Id, paciente5.Id, tipoAtencion1.Id);
+                var atencion11 = new Atencion(hoy.AddHours(15), "Otorgada", string.Empty, odontologo2.Id, paciente3.Id, tipoAtencion3.Id);
+
+                var atencion12 = new Atencion(mañana.AddHours(9), "Otorgada", string.Empty, odontologo1.Id, paciente3.Id, tipoAtencion1.Id);
+                var atencion13 = new Atencion(mañana.AddHours(9).AddMinutes(30), "Otorgada", string.Empty, odontologo2.Id, paciente4.Id, tipoAtencion5.Id);
+                var atencion14 = new Atencion(mañana.AddHours(10), "Otorgada", string.Empty, odontologo3.Id, paciente5.Id, tipoAtencion3.Id);
+                var atencion15 = new Atencion(mañana.AddHours(11), "Otorgada", string.Empty, odontologo4.Id, paciente1.Id, tipoAtencion2.Id);
+                var atencion16 = new Atencion(mañana.AddHours(12), "Otorgada", string.Empty, odontologo1.Id, paciente2.Id, tipoAtencion4.Id);
+                var atencion17 = new Atencion(mañana.AddHours(14), "Otorgada", string.Empty, odontologo2.Id, paciente1.Id, tipoAtencion1.Id);
+                var atencion18 = new Atencion(mañana.AddHours(15), "Otorgada", string.Empty, odontologo3.Id, paciente2.Id, tipoAtencion5.Id);
+                var atencion19 = new Atencion(mañana.AddHours(16), "Otorgada", string.Empty, odontologo4.Id, paciente3.Id, tipoAtencion2.Id);
+                var atencion20 = new Atencion(mañana.AddHours(17), "Otorgada", string.Empty, odontologo1.Id, paciente4.Id, tipoAtencion3.Id);
+
+
+
                 Atenciones.Add(atencion2);
+                Atenciones.Add(atencion3);
+                Atenciones.Add(atencion4);
+                Atenciones.Add(atencion5);
+                Atenciones.Add(atencion6);
+                Atenciones.Add(atencion7);
+                Atenciones.Add(atencion8);
+                Atenciones.Add(atencion9);
+                Atenciones.Add(atencion10);
+                Atenciones.Add(atencion11);
+                Atenciones.Add(atencion12);
+                Atenciones.Add(atencion13);
+                Atenciones.Add(atencion14);
+                Atenciones.Add(atencion15);
+                Atenciones.Add(atencion16);
+                Atenciones.Add(atencion17);
+                Atenciones.Add(atencion18);
+                Atenciones.Add(atencion19);
+                Atenciones.Add(atencion20);
                 SaveChanges();
 
                 

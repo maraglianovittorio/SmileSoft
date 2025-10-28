@@ -103,11 +103,6 @@ namespace SmileSoft.UI.Desktop
             dgvFormAtencion.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
 
 
-            //Ajustar el ancho de las columnas según su contenido
-            //foreach (DataGridViewColumn column in dgvFormAtencion.Columns)
-            //{
-            //    column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //}
 
             dgvFormAtencion.Columns["FechaHoraAtencion"].MinimumWidth = 150;
             dgvFormAtencion.Columns["Estado"].MinimumWidth = 120;

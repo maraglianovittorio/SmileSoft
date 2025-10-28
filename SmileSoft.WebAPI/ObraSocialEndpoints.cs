@@ -35,7 +35,6 @@ namespace SmileSoft.WebAPI
                 try
                 {
                     ObraSocialService obraSocialService = new ObraSocialService();
-                    // Validación de campos obligatorios
                     var errores = new List<string>();
                     if (string.IsNullOrWhiteSpace(obraSocialDTO.Nombre))
                         errores.Add("El nombre es obligatorio");

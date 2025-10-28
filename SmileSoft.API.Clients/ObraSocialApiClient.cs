@@ -39,6 +39,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de obras sociales: {ex.Message}", ex);
             }
         }
+
         public static async Task<ObraSocialDTO> GetOneAsync(int id)
         {
             try
@@ -67,6 +68,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener obra social con Id {id}: {ex.Message}", ex);
             }
         }
+
         public static async Task<ObraSocialDTO> GetByNameAsync(string nombre)
         {
             try
@@ -94,6 +96,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener obra social con nombre '{nombre}': {ex.Message}", ex);
             }
         }
+
         public async static Task CreateAsync(ObraSocialDTO obraSocial)
         {
             try
@@ -117,10 +120,8 @@ namespace SmileSoft.API.Clients
             {
                 throw new Exception($"Timeout al crear obra social: {ex.Message}", ex);
             }
-
-
-
         }
+
         public static async Task DeleteAsync(int id)
         {
             try
@@ -145,6 +146,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al eliminar obra social con Id {id}: {ex.Message}", ex);
             }
         }
+
         public static async Task UpdateAsync(ObraSocialDTO obraSocial, int id)
         {
             try

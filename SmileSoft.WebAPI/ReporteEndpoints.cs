@@ -40,7 +40,6 @@ namespace SmileSoft.WebAPI
             {
                 try
                 {
-                    // Validación
                     if (request.FechaDesde > request.FechaHasta)
                     {
                         return Results.BadRequest(new
@@ -129,11 +128,11 @@ namespace SmileSoft.WebAPI
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status500InternalServerError);
 
-            app.MapPost("/reportes/atenciones-porodontologo", (ReporteAtencionesOdontologoRequestDTO request) =>
+            app.MapPost("/reportes/atenciones-porodontologo", (ReporteAtencionesPorOdontologoRequestDTO request) =>
             {
                 try
                 {
-                    var reporteService = new ReporteAtencionesOdontologoService();
+                    var reporteService = new ReporteAtencionesPorOdontologoService();
                     var pdfBytes = reporteService.GenerarReporte(request);
                     
                     return Results.File(

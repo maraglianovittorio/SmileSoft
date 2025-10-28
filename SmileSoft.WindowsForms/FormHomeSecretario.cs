@@ -1,16 +1,8 @@
 ﻿using SmileSoft.DTO;
 using SmileSoft.API.Clients;
-using SmileSoft.Dominio;
 using SmileSoft.WindowsForms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace SmileSoft.UI.Desktop
 {
@@ -29,14 +21,12 @@ namespace SmileSoft.UI.Desktop
 
         private void ConfigurarEstilos()
         {
-            // Estilo principal - Tema azul elegante
             this.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
             this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
             this.Text = "SmileSoft - Pagina Principal";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(850, 500); // Tamaño mínimo consistente con FormBaseHome
 
-            // Estilo para botones
             foreach (Control control in this.Controls)
             {
                 if (control is Button btn)
@@ -48,6 +38,12 @@ namespace SmileSoft.UI.Desktop
                     btn.Cursor = Cursors.Hand;
                 }
             }
+
+            if (btnAgregarAtencion != null)
+            {
+                btnAgregarAtencion.BackColor = Color.FromArgb(70, 130, 180); // SteelBlue
+                btnAgregarAtencion.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, 149, 237); // CornflowerBlue
+            }
         }
 
         private void ConfigurarLayoutResponsivo()
@@ -56,49 +52,60 @@ namespace SmileSoft.UI.Desktop
             int espacioBotones = 8;
             int alturaMenu = menuStrip1.Height;
 
+            btnAgregarAtencion.Height = txtBuscaAtencion.Height; // Misma altura que el textbox
+            btnAgregarAtencion.AutoSize = true;
+            btnAgregarAtencion.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnAgregarAtencion.Padding = new Padding(12, 0, 12, 0);
+            btnAgregarAtencion.TextAlign = ContentAlignment.MiddleCenter;
+            btnAgregarAtencion.MinimumSize = new Size(150, txtBuscaAtencion.Height);
+            btnAgregarAtencion.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
             BtnCerrarSesion.Height = 38;
-            BtnCerrarSesion.Width = 120;
-            BtnCerrarSesion.AutoSize = false;
-            BtnCerrarSesion.Padding = new Padding(10, 0, 10, 0);
+            BtnCerrarSesion.AutoSize = true;
+            BtnCerrarSesion.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BtnCerrarSesion.Padding = new Padding(12, 0, 12, 0);
             BtnCerrarSesion.TextAlign = ContentAlignment.MiddleCenter;
+            BtnCerrarSesion.MinimumSize = new Size(120, 38);
 
             btnEditarAtencion.Height = 38;
-            btnEditarAtencion.Width = 130;
-            btnEditarAtencion.AutoSize = false;
-            btnEditarAtencion.Padding = new Padding(10, 0, 10, 0);
+            btnEditarAtencion.AutoSize = true;
+            btnEditarAtencion.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnEditarAtencion.Padding = new Padding(12, 0, 12, 0);
             btnEditarAtencion.TextAlign = ContentAlignment.MiddleCenter;
+            btnEditarAtencion.MinimumSize = new Size(130, 38);
 
             btnRegistrarLlegada.Height = 38;
-            btnRegistrarLlegada.Width = 150;
-            btnRegistrarLlegada.AutoSize = false;
-            btnRegistrarLlegada.Padding = new Padding(10, 0, 10, 0);
+            btnRegistrarLlegada.AutoSize = true;
+            btnRegistrarLlegada.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnRegistrarLlegada.Padding = new Padding(12, 0, 12, 0);
             btnRegistrarLlegada.TextAlign = ContentAlignment.MiddleCenter;
+            btnRegistrarLlegada.MinimumSize = new Size(150, 38);
 
-            // --- Label "Atenciones del día" ---
             lblAtencionesDelDia.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             lblAtencionesDelDia.Location = new Point(margen, alturaMenu + 11);
 
-            // --- TextBox de búsqueda ---
             txtBuscaAtencion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtBuscaAtencion.Location = new Point(margen, lblAtencionesDelDia.Bottom + 8);
 
-            // --- ComboBox de filtro de estado ---
             cmbFiltroEstado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbFiltroEstado.Width = 151;
 
-            // Ajustar ancho del buscador para dejar espacio al combo
-            txtBuscaAtencion.Width = this.ClientSize.Width - cmbFiltroEstado.Width - (margen * 2) - espacioBotones;
+            txtBuscaAtencion.Width = this.ClientSize.Width - cmbFiltroEstado.Width - btnAgregarAtencion.Width - (margen * 2) - (espacioBotones * 2);
+            
             cmbFiltroEstado.Location = new Point(txtBuscaAtencion.Right + espacioBotones, txtBuscaAtencion.Top);
+            
+            btnAgregarAtencion.Location = new Point(
+                cmbFiltroEstado.Right + espacioBotones,
+                txtBuscaAtencion.Top
+            );
 
-            // --- DataGridView (Centro) ---
             dgvAtencionesDelDia.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvAtencionesDelDia.Location = new Point(margen, txtBuscaAtencion.Bottom + margen);
             dgvAtencionesDelDia.Size = new Size(
                 this.ClientSize.Width - (margen * 2),
-                this.ClientSize.Height - txtBuscaAtencion.Bottom - BtnCerrarSesion.Height - (margen * 3)
+                this.ClientSize.Height - txtBuscaAtencion.Bottom - 38 - (margen * 3)
             );
 
-            // --- Panel Inferior (Botones de Acción) ---
             BtnCerrarSesion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             BtnCerrarSesion.Location = new Point(margen, this.ClientSize.Height - BtnCerrarSesion.Height - margen);
 
@@ -114,21 +121,36 @@ namespace SmileSoft.UI.Desktop
                 this.ClientSize.Height - btnEditarAtencion.Height - margen
             );
 
-            // Manejar el evento Resize para mantener el layout responsivo
             this.Resize += FormHomeSecretario_Resize;
         }
+        private void dgvAtencionesDelDia_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvAtencionesDelDia.SelectedRows.Count > 0)
+            {
+                btnEditarAtencion.Enabled = true;
+                btnRegistrarLlegada.Enabled = true;
+            }
+            else
+            {
+                btnEditarAtencion.Enabled = false;
+                btnRegistrarLlegada.Enabled = false;
 
+            }
+        }
         private void FormHomeSecretario_Resize(object sender, EventArgs e)
         {
-            // Recalcular posiciones cuando se redimensiona el formulario
             if (this.WindowState != FormWindowState.Minimized)
             {
                 int margen = 15;
                 int espacioBotones = 8;
 
-                // Ajustar ancho del buscador
-                txtBuscaAtencion.Width = this.ClientSize.Width - cmbFiltroEstado.Width - (margen * 2) - espacioBotones;
+                txtBuscaAtencion.Width = this.ClientSize.Width - cmbFiltroEstado.Width - btnAgregarAtencion.Width - (margen * 2) - (espacioBotones * 2);
+                
                 cmbFiltroEstado.Location = new Point(txtBuscaAtencion.Right + espacioBotones, txtBuscaAtencion.Top);
+                btnAgregarAtencion.Location = new Point(
+                    cmbFiltroEstado.Right + espacioBotones,
+                    txtBuscaAtencion.Top
+                );
             }
         }
 
@@ -196,7 +218,6 @@ namespace SmileSoft.UI.Desktop
                 else
                 {
                     dgvAtencionesDelDia.DataSource = null;
-                    //pacientes.Clear();
                 }
             }
             catch (Exception ex)
@@ -265,17 +286,20 @@ namespace SmileSoft.UI.Desktop
             if (dgvAtencionesDelDia.SelectedRows.Count > 0)
             {
                 var atencionSeleccionada = dgvAtencionesDelDia.SelectedRows[0].DataBoundItem as AtencionDetalleDTO;
-                if (atencionSeleccionada != null)
+                if (atencionSeleccionada != null && atencionSeleccionada.Estado != "Atendido")
                 {
                     await AtencionApiClient.ActualizaLlegada(atencionSeleccionada.Id);
                     await ObtenerDatos();
+                }
+                else
+                {
+                    MessageBox.Show("La atencion ya fue completada", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
 
         private void cmbFiltroEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // creo un filtro de las atenciones dependiendo del estado
             string filtro = cmbFiltroEstado.SelectedItem.ToString();
             if (filtro == "Todas")
             {
@@ -291,7 +315,6 @@ namespace SmileSoft.UI.Desktop
 
         private void txtBuscaAtencion_TextChanged(object sender, EventArgs e)
         {
-            // filtro por nombre de paciente o por dni
             string busqueda = txtBuscaAtencion.Text.ToLower();
             var atencionesFiltradas = atenciones.Where(a =>
                 a.PacienteNombre.ToLower().Contains(busqueda)
@@ -307,7 +330,6 @@ namespace SmileSoft.UI.Desktop
         {
             try
             {
-                // Formulario para seleccionar fecha
                 using (var formFecha = new Form())
                 {
                     formFecha.Text = "Seleccionar fecha del reporte";
@@ -361,6 +383,13 @@ namespace SmileSoft.UI.Desktop
                 MessageBox.Show($"Error al generar reporte: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private async void btnAgregarAtencion_Click(object sender, EventArgs e)
+        {
+            FormAtencion formAtencion = new FormAtencion();
+            formAtencion.ShowDialog();
+            await ObtenerDatos();
         }
     }
 }

@@ -16,27 +16,91 @@
     <Routes />
     <script src="_framework/blazor.web.js"></script>
     <script>
+        // Función original (mantener por compatibilidad)
         function downloadFileFromStream(fileName, content) {
-            // Convertir el contenido base64 a un array de bytes
-            const byteCharacters = atob(content);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            try {
+                const byteCharacters = atob(content);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', fileName);
+                document.body.appendChild(link);
+                link.click();
+
+                // Limpiar después de un delay para asegurar que la descarga comience
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                }, 100);
+            } catch (error) {
+                console.error('Error al descargar el archivo:', error);
             }
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], { type: 'application/pdf' });
+        }
 
-            // Crear un enlace para la descarga
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', fileName);
-            document.body.appendChild(link);
-            link.click();
+        // Nueva función que abre en nueva pestaña (no causa desconexión)
+        function openPdfInNewTab(fileName, content) {
+            try {
+                const byteCharacters = atob(content);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'application/pdf' });
 
-            // Limpiar
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(url);
+                const url = window.URL.createObjectURL(blob);
+
+                // Abrir en nueva pestaña en lugar de descargar
+                const newWindow = window.open(url, '_blank');
+
+                // Limpiar URL después de un delay
+                setTimeout(() => {
+                    window.URL.revokeObjectURL(url);
+                }, 1000);
+
+                if (!newWindow) {
+                    alert('Por favor, permite las ventanas emergentes para ver el PDF.');
+                }
+            } catch (error) {
+                console.error('Error al abrir el PDF:', error);
+                alert('Error al abrir el PDF: ' + error.message);
+            }
+        }
+
+        // Función alternativa: forzar descarga sin perder conexión
+        function downloadFileFromStreamSafe(fileName, content) {
+            try {
+                const byteCharacters = atob(content);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = fileName;
+                link.target = '_blank';
+
+                // Usar setTimeout para permitir que Blazor procese el estado antes de la descarga
+                setTimeout(() => {
+                    link.click();
+                    setTimeout(() => {
+                        window.URL.revokeObjectURL(url);
+                    }, 100);
+                }, 0);
+            } catch (error) {
+                console.error('Error al descargar el archivo:', error);
+            }
         }
     </script>
 </body>

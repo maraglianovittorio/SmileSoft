@@ -25,19 +25,16 @@ namespace SmileSoft.UI.Desktop
             ConfigurarEstilos();
             ConfigurarLayoutResponsivo(dgvFormPaciente, txtBuscarPaciente, lupaPng, btnAgregarPaciente, btnEditarPaciente, btnBorrarPaciente, BtnVolver);
 
-            //ConfigurarResponsive();
         }
 
         private void ConfigurarEstilos()
         {
-            // Estilo principal
             this.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
             this.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
             this.Text = "SmileSoft - Home de pacientes";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450); // Tamaño mínimo
 
-            // Estilo para botones
             foreach (Control control in this.Controls)
             {
                 if (control is Button btn)
@@ -57,21 +54,9 @@ namespace SmileSoft.UI.Desktop
             }
         }
 
-        private void ConfigurarResponsive()
-        {
-            // Hacer que el formulario sea redimensionable
-            this.FormBorderStyle = FormBorderStyle.Sizable;
-            this.MaximizeBox = true;
-
-            // Configurar anclajes para que los botones se mantengan centrados
-
-            // Manejar el evento de redimensionado para centrar los botones
-            this.Resize += FormHomePacientes_Resize;
-        }
 
         private void FormHomePacientes_Resize(object sender, EventArgs e)
         {
-            // Centrar los botones horizontalmente y verticalmente
             int buttonWidth = 112;
             int buttonHeight = 47;
             int spacing = 60; // Espacio entre botones
@@ -121,7 +106,6 @@ namespace SmileSoft.UI.Desktop
             dgvFormPaciente.Columns["TipoPlanId"].Visible = false;
 
 
-            // Ordenar las columnas visibles
             dgvFormPaciente.Columns["NroHC"].DisplayIndex = 0;
             dgvFormPaciente.Columns["Apellido"].DisplayIndex = 1;
             dgvFormPaciente.Columns["Nombre"].DisplayIndex = 2;

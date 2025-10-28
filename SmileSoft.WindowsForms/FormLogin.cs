@@ -120,8 +120,6 @@ namespace SmileSoft.WindowsForms
                     var usuario = await UsuarioApiClient.GetByUsernameAsync(txtUsuario.Text);
                     this.UserRole = usuario.Rol;
                     this.Username = usuario.Username;
-                    MessageBox.Show($"Bienvenido {txtUsuario.Text}", "Login Exitoso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
 

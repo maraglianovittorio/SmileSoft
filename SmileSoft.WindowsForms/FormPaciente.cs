@@ -26,7 +26,6 @@ namespace SmileSoft.UI.Desktop
             lblTutor.Visible = false;
             txtTutor.Visible = false;
             ConfigurarEstilos();
-            //ConfigurarResponsive();
             this.MinimizeBox = false;
             this.MaximizeBox = false;
         }
@@ -56,7 +55,6 @@ namespace SmileSoft.UI.Desktop
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(925, 558); // Tamaño mínimo
 
-            // Estilo para labels
             foreach (Control control in this.Controls)
             {
                 if (control is Label lbl)
@@ -64,11 +62,14 @@ namespace SmileSoft.UI.Desktop
                     lbl.ForeColor = Color.FromArgb(34, 139, 34); // ForestGreen
                     lbl.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
 
-                    // Marcar campos obligatorios con asterisco
                     if (lbl.Name == "lblNombrePaciente" ||
                         lbl.Name == "lblApellidoPaciente" ||
                         lbl.Name == "lblDNIPaciente" ||
-                        lbl.Name == "lblNroHC")
+                        lbl.Name == "lblNroHC"||
+                        lbl.Name == "lblEmail"||
+                        lbl.Name == "lblDireccion"||
+                        lbl.Name == "lblFechaNacimiento"||
+                        lbl.Name == "lblTelefono")
                     {
                         lbl.Text = lbl.Text.TrimEnd(':') + " *";
                         lbl.ForeColor = Color.FromArgb(220, 20, 60); // Crimson para campos obligatorios
@@ -99,33 +100,27 @@ namespace SmileSoft.UI.Desktop
 
         private void ConfigurarResponsive()
         {
-            // Hacer que el formulario sea redimensionable
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.MaximizeBox = true;
 
-            // Configurar anclajes para mantener la estructura centrada
             foreach (Control control in this.Controls)
             {
                 control.Anchor = AnchorStyles.None;
             }
 
-            // Manejar el evento de redimensionado para mantener todo centrado
             this.Resize += formPaciente_Resize;
         }
 
         private void formPaciente_Resize(object sender, EventArgs e)
         {
-            // Centrar todos los controles manteniendo sus posiciones relativas
             int centerX = this.ClientSize.Width / 2;
             int centerY = this.ClientSize.Height / 2;
 
-            // Calcular offset desde el centro original (925x558)
             int originalCenterX = 925 / 2;
             int originalCenterY = 558 / 2;
 
             foreach (Control control in this.Controls)
             {
-                // Obtener posición original relativa al centro
                 int originalX = 0, originalY = 0;
 
                 if (control == lblNombrePaciente) { originalX = 255; originalY = 65; }
@@ -168,7 +163,6 @@ namespace SmileSoft.UI.Desktop
             txtNroHC.Clear();
             dtpFechaNacimiento.Value = DateTime.Now;
 
-            // Enfocar el primer campo
             txtNombre.Focus();
         }
 
@@ -176,7 +170,6 @@ namespace SmileSoft.UI.Desktop
         {
             var errores = new List<string>();
 
-            // Validar campos obligatorios
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
                 errores.Add("• El nombre es obligatorio");
 
@@ -189,7 +182,6 @@ namespace SmileSoft.UI.Desktop
             if (string.IsNullOrWhiteSpace(txtNroHC.Text))
                 errores.Add("• El número de historia clínica es obligatorio");
 
-            // Validar formato de email si se proporciona
             if (!string.IsNullOrWhiteSpace(txtEmail.Text))
             {
                 try
@@ -202,13 +194,11 @@ namespace SmileSoft.UI.Desktop
                 }
             }
 
-            // Validar fecha de nacimiento
             if (dtpFechaNacimiento.Value > DateTime.Now)
                 errores.Add("• La fecha de nacimiento no puede ser futura");
 
             if (dtpFechaNacimiento.Value < DateTime.Now.AddYears(-120))
                 errores.Add("• La fecha de nacimiento no es válida");
-            //si la fecha de nacimiento es < 16 años, mando una alerta y hago dar de alta un tutor
             if (dtpFechaNacimiento.Value > DateTime.Now.AddYears(-16) && _idTutor == null)
             {
                 MessageBox.Show("El paciente es menor de 16 años, debe asignarle un tutor a este paciente.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -217,7 +207,6 @@ namespace SmileSoft.UI.Desktop
             }
 
 
-            // Mostrar errores si los hay
             if (errores.Count > 0)
             {
                 string mensaje = "Por favor corrija los siguientes errores:\n\n" + string.Join("\n", errores);
@@ -293,7 +282,6 @@ namespace SmileSoft.UI.Desktop
         }
         private async void btnEnviar_Click(object sender, EventArgs e)
         {
-            // Validar campos antes de enviar
             if (!ValidarCampos())
             {
                 return;
@@ -321,8 +309,8 @@ namespace SmileSoft.UI.Desktop
 
                 await PacienteApiClient.CreateAsync(paciente);
                 MessageBox.Show("Paciente creado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se creo un paciente
-                this.Close(); // Cerrar el formulario después del éxito
+                this.DialogResult = DialogResult.OK; 
+                this.Close();
 
 
             }

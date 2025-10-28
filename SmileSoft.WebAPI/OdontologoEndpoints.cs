@@ -28,7 +28,6 @@ namespace SmileSoft.WebAPI
                 try
                 {
                     OdontologoService odontologoService = new OdontologoService();
-                    // Validación de campos obligatorios
                     var errores = new List<string>();
                     if (string.IsNullOrWhiteSpace(odontologoCreacionDTO.Nombre))
                         errores.Add("El nombre es obligatorio");

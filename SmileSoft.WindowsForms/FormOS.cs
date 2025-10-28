@@ -42,13 +42,11 @@ namespace SmileSoft.UI.Desktop
 
         private void ConfigurarEstilos()
         {
-            // Estilo verde moderno para POST
             this.BackColor = Color.FromArgb(245, 255, 250); // MintCream
             this.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(925, 558); // Tamaño mínimo
 
-            // Estilo para labels
             foreach (Control control in this.Controls)
             {
                 if (control is Label lbl)
@@ -56,7 +54,6 @@ namespace SmileSoft.UI.Desktop
                     lbl.ForeColor = Color.FromArgb(34, 139, 34); // ForestGreen
                     lbl.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
 
-                    // Marcar campos obligatorios con asterisco
                     if (lbl.Name == "lblNombreOS")
                     {
                         lbl.Text = lbl.Text.TrimEnd(':') + " *";
@@ -89,7 +86,6 @@ namespace SmileSoft.UI.Desktop
         {
             var errores = new List<string>();
 
-            // Validar campos obligatorios
             if (string.IsNullOrWhiteSpace(txtNombreOS.Text))
                 errores.Add("• El nombre es obligatorio");
             if (errores.Count > 0)
@@ -105,7 +101,6 @@ namespace SmileSoft.UI.Desktop
         {
             txtNombreOS.Clear();
 
-            // Enfocar el primer campo
             txtNombreOS.Focus();
         }
         private async void btnEnviarOS_Click(object sender, EventArgs e)
@@ -189,8 +184,8 @@ namespace SmileSoft.UI.Desktop
 
                 await ObraSocialApiClient.UpdateAsync(obraSocial,obraSocial.Id);
                 MessageBox.Show("Obra social editada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK; // Indicar que se editó una obra social
-                this.Close(); // Cerrar el formulario después del éxito
+                this.DialogResult = DialogResult.OK;
+                this.Close(); 
             }
             catch (Exception ex)
             {

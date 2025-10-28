@@ -104,7 +104,7 @@ namespace SmileSoft.Services
             var usuarioRepository = new UsuarioRepository();
             // Validar que el nombre de usuario no exista en otro usuario
             var usuario = usuarioRepository.GetByUsername(dto.Username);
-            if (usuario != null)
+            if (usuario != null && usuario.Id != id)
             {
                 throw new ArgumentException($"Ya existe otro usuario con el nombre de usuario '{dto.Username}'.");
             }

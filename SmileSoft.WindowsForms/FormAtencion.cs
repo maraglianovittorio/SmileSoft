@@ -64,7 +64,6 @@ namespace SmileSoft.WindowsForms
                             return;
                         }
                         txtNomYApe.Text = paciente.Nombre + " " + paciente.Apellido;
-                        // ver como ahorrarse esta llamada
                         if (paciente.TipoPlanId == null)
                         {
                             txtOS.Text = "Sin obra social";
@@ -99,15 +98,12 @@ namespace SmileSoft.WindowsForms
                     return;
                 }
                 await BuscarTurnosPorOdontologo();
-                // Deshabilitar eventos temporalmente para evitar llamadas innecesarias
                 cmbTipoAtencion.SelectedValueChanged -= cmb_SelectedValueChanged;
                 cmbOdontologo.SelectedValueChanged -= cmb_SelectedValueChanged;
 
-                // Poblar datos del paciente
                 txtDni.Text = atencionResponse.PacienteDni;
                 txtNomYApe.Text = $"{atencionResponse.PacienteNombre} {atencionResponse.PacienteApellido}";
 
-                // Poblar Obra Social
                 var paciente = await PacienteApiClient.GetByDni(atencionResponse.PacienteDni);
                 if (paciente != null && paciente.TipoPlanId.HasValue)
                 {
@@ -120,24 +116,19 @@ namespace SmileSoft.WindowsForms
                     txtOS.Text = "Sin obra social";
                 }
 
-                // Asignar fecha
                 dtpDiaAtencion.Value = atencionResponse.FechaHoraAtencion.Date;
 
-                // Asignar odontólogo
                 if (cmbOdontologo.Items.Count > 0)
                 {
                     cmbOdontologo.SelectedValue = atencionResponse.OdontologoId;
                 }
 
-                // Asignar tipo de atención
                 if (cmbTipoAtencion.Items.Count > 0)
                 {
                     cmbTipoAtencion.SelectedValue = atencionResponse.TipoAtencionId;
                 }
 
-                // Buscar turnos y poblar horarios disponibles
 
-                // Asignar horario
                 string horarioAtencion = atencionResponse.FechaHoraAtencion.ToString("HH:mm");
                 if (cmbHorario.Items.Count > 0)
                 {
@@ -148,7 +139,6 @@ namespace SmileSoft.WindowsForms
                     }
                     else
                     {
-                        // Si el horario no está disponible, lo agregamos (porque es el horario actual de la atención)
                         cmbHorario.Items.Add(horarioAtencion);
                         cmbHorario.SelectedItem = horarioAtencion;
                     }
@@ -156,7 +146,6 @@ namespace SmileSoft.WindowsForms
                 txtDiaHorarioActual.Text = atencionResponse.FechaHoraAtencion.ToString("dd/MM/yyyy HH:mm");
                 await BuscarTurnosPorOdontologo();
 
-                // Rehabilitar eventos
                 cmbTipoAtencion.SelectedValueChanged += cmb_SelectedValueChanged;
                 cmbOdontologo.SelectedValueChanged += cmb_SelectedValueChanged;
             }
@@ -171,7 +160,6 @@ namespace SmileSoft.WindowsForms
             dtpDiaAtencion.Value = DateTime.Today;
             lblAviso.Visible = false;
 
-            // Cargar tipos de atención
             tiposAtencion = (await TipoAtencionApiClient.GetAllAsync()).ToList();
             if (tiposAtencion != null && tiposAtencion.Any())
             {
@@ -182,7 +170,6 @@ namespace SmileSoft.WindowsForms
             }
 
 
-            // Cargar odontólogos
             var odontologos = await OdontologoApiClient.GetAllAsync();
             if (odontologos != null && odontologos.Any())
             {
@@ -192,13 +179,11 @@ namespace SmileSoft.WindowsForms
                 cmbOdontologo.SelectedIndex = -1;
             }
 
-            // Si es modo edición, popular el formulario DESPUÉS de que los ComboBox estén cargados
             if (_idAtencionEditar.HasValue)
             {
                 await PopularFormAtencion(_idAtencionEditar.Value);
             }
 
-            // Suscribir a eventos después de cargar todo
             cmbTipoAtencion.SelectedValueChanged += cmb_SelectedValueChanged;
             cmbOdontologo.SelectedValueChanged += cmb_SelectedValueChanged;
         }
@@ -241,7 +226,6 @@ namespace SmileSoft.WindowsForms
                     FechaHoraAtencion = fechaHoraCompleta
                 };
 
-                // Si es modo edición, actualizar; si no, crear
                 if (_idAtencionEditar.HasValue)
                 {
                     await AtencionApiClient.UpdateAsync(atencionCreada, _idAtencionEditar.Value);
@@ -271,7 +255,6 @@ namespace SmileSoft.WindowsForms
                 {
                     atencionesDelDia = (await AtencionApiClient.GetByFechaRangeAndOdoAsync(dtpDiaAtencion.Value.Date, dtpDiaAtencion.Value.Date, (int)cmbOdontologo.SelectedValue)).ToList();
 
-                    // Excluir la atención actual si estamos en modo edición
                     if (_idAtencionEditar.HasValue)
                     {
                         atencionesDelDia = atencionesDelDia.Where(a => a.Id != _idAtencionEditar.Value).ToList();
@@ -299,7 +282,6 @@ namespace SmileSoft.WindowsForms
                     dgvTurnosOcupados.Columns["TipoAtencionDescripcion"].HeaderText = "Atención";
                     dgvTurnosOcupados.Columns["TipoAtencionDuracion"].HeaderText = "Duración";
 
-                    // Configurar anchos de columnas
                     dgvTurnosOcupados.Columns["FechaHoraAtencion"].MinimumWidth = 100;
                     dgvTurnosOcupados.Columns["PacienteNombre"].MinimumWidth = 100;
                     dgvTurnosOcupados.Columns["PacienteDni"].MinimumWidth = 100;
@@ -396,7 +378,6 @@ namespace SmileSoft.WindowsForms
             {
                 await AtencionApiClient.CancelaAtencionAsync(_idAtencionEditar.Value);
                 await BuscarTurnosPorOdontologo();
-                //Boton para preguntar si se quiere realmente cancelar
 
                 MessageBox.Show("Atención cancelada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();

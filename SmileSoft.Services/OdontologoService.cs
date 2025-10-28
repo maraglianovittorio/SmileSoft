@@ -22,7 +22,6 @@ namespace SmileSoft.Services
             }
             var nuevoUsuario = new Usuario(dto.Username, dto.Password, "Odontologo");
             Odontologo odontologo = new Odontologo(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.FechaNacimiento,dto.Direccion,dto.Email,dto.Telefono,dto.NroMatricula,nuevoUsuario);
-            // Validar que el odontólogo no exista
             if (odontologoRepository.NroMatriculaExists(dto.NroMatricula))
             {
                 throw new ArgumentException($"Ya existe un odontólogo con el nombre '{dto.Nombre}'.");
@@ -40,7 +39,6 @@ namespace SmileSoft.Services
         {
             var odontologoRepository = new OdontologoRepository();
             var usuarioRepository = new UsuarioRepository();
-            // borro tambien el usuario asociado
             var odontologo = odontologoRepository.Get(id);
             if (odontologo != null)
             {
@@ -108,7 +106,7 @@ namespace SmileSoft.Services
             }
 
             Odontologo odontologo = new Odontologo(0, dto.Nombre, dto.Apellido, dto.NroDni, dto.FechaNacimiento, dto.Direccion, dto.Email, dto.Telefono, dto.NroMatricula, usuario);
-            return odontologoRepository.Update(odontologo);
+            return odontologoRepository.Update(odontologo,id);
 
         }
     }

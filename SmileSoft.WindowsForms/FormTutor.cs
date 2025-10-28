@@ -55,10 +55,13 @@ namespace SmileSoft.UI.Desktop
                     lbl.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
 
                     // Marcar campos obligatorios con asterisco
-                    if (lbl.Name == "lblNombrePaciente" ||
-                        lbl.Name == "lblApellidoPaciente" ||
-                        lbl.Name == "lblDNIPaciente" ||
-                        lbl.Name == "lblNroHC")
+                    if (lbl.Name == "lblNombre" ||
+                        lbl.Name == "lblApellido" ||
+                        lbl.Name == "lblDNI" ||
+                        lbl.Name == "lblDireccion"||
+                        lbl.Name == "lblEmail"||
+                        lbl.Name == "lblTelefono"||
+                        lbl.Name == "lblFechaNacimiento")
                     {
                         lbl.Text = lbl.Text.TrimEnd(':') + " *";
                         lbl.ForeColor = Color.FromArgb(220, 20, 60); // Crimson para campos obligatorios

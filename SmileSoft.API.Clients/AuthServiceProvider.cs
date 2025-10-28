@@ -11,8 +11,7 @@
             {
                 if (_instance == null)
                 {
-                    throw new InvalidOperationException(
-                        "AuthService has not been registered. Call AuthServiceProvider.Register() first.");
+                    throw new InvalidOperationException("AuthService no ha sido registrado. Llamar a AuthServiceProvider.Register() primero.");
                 }
                 return _instance;
             }

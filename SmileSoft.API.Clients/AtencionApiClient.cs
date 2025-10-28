@@ -41,6 +41,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener la historia clínica para el paciente con Id {pacienteId}: {ex.Message}", ex);
             }
         }
+    
         public static async Task<IEnumerable<AtencionDetalleDTO>> GetAllAsync()
         {
             try
@@ -69,6 +70,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de atenciones: {ex.Message}", ex);
             }
         }
+     
         public static async Task<IEnumerable<AtencionSecretarioDTO>> GetAllForSecretarioAsync()
         {
             try
@@ -96,6 +98,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de atenciones para secretario: {ex.Message}", ex);
             }
         }
+     
         public static async Task<AtencionSecretarioDTO?> GetOneForSecAsync(int id)
         {
             try
@@ -123,6 +126,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atencion con Id {id} para secretario: {ex.Message}", ex);
             }
         }
+       
         public static async Task<AtencionDetalleDTO> GetOneAsync(int id)
         {
             try
@@ -152,6 +156,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atencion con Id {id}: {ex.Message}", ex);
             }
         }
+      
         public static async Task<IEnumerable<Atencion>> GetByEstadoAsync(string estado)
         {
             try
@@ -179,6 +184,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones con estado '{estado}': {ex.Message}", ex);
             }
         }
+        
         public static async Task<IEnumerable<AtencionDetalleDTO>> GetByOdontologoIdAsync(int odontologoId)
         {
             try
@@ -206,6 +212,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones para el odontólogo con Id {odontologoId}: {ex.Message}", ex);
             }
         }
+       
         public static async Task<IEnumerable<Atencion>> GetByPacienteIdAsync(int pacienteId)
         {
             try
@@ -233,6 +240,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones para el paciente con Id {pacienteId}: {ex.Message}", ex);
             }
         }
+       
         public static async Task<IEnumerable<Atencion>> GetByTipoAtencionIdAsync(int tipoAtencionId)
         {
             try
@@ -260,6 +268,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones para el tipo de atención con Id {tipoAtencionId}: {ex.Message}", ex);
             }
         }
+       
         public static async Task<IEnumerable<AtencionDetalleDTO>> GetByFechaRangeAsync(DateTime fechaInicio, DateTime fechaFin)
         {
             try
@@ -288,13 +297,13 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones entre {fechaInicio} y {fechaFin}: {ex.Message}", ex);
             }
         }
+       
         public static async Task<IEnumerable<AtencionDetalleDTO>> GetByFechaRangeAndOdoAsync(DateTime fechaInicio, DateTime fechaFin, int id)
         {
             try
             {
                 await EnsureAuthenticatedAsync();
                 var fechaIni = fechaInicio.Date;
-                // sumo un segundo para incluir todo el dia de fechaFin
                 var fechaF = fechaIni.AddDays(1);
                 string url = $"atenciones/rangoYOdo?startdate={fechaIni:yyyy-MM-dd}&enddate={fechaF:yyyy-MM-dd}&id={id}";
                 using var httpClient = await CreateHttpClientAsync();
@@ -319,6 +328,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener atenciones entre {fechaInicio} y {fechaFin}: {ex.Message}", ex);
             }
         }
+        
         public async static Task CreateAsync(AtencionDTO atencion)
         {
             try
@@ -344,6 +354,7 @@ namespace SmileSoft.API.Clients
             }
 
         }
+        
         public static async Task DeleteAsync(int id)
         {
             try
@@ -368,6 +379,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al eliminar atencion con Id {id}: {ex.Message}", ex);
             }
         }
+        
         public static async Task UpdateAsync(AtencionDTO atencion, int id)
         {
             try
@@ -392,6 +404,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al actualizar atencion con Id {id}: {ex.Message}", ex);
             }
         }
+       
         public static async Task CancelaAtencionAsync(int id)
         {
             try
@@ -415,6 +428,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al cancelar atencion con Id {id}: {ex.Message}", ex);
             }
         }
+        
         public static async Task ActualizaLlegada(int id)
         {
             try
@@ -455,7 +469,7 @@ namespace SmileSoft.API.Clients
                     throw new ArgumentNullException(nameof(observaciones), "Las observaciones no pueden ser nulas.");
                 }
 
-                // Usar JsonSerializer para escapar correctamente todos los caracteres especiales
+                // JsonSerializer escapa correctamente todos los caracteres especiales
                 var jsonObservaciones = JsonSerializer.Serialize(observaciones);
                 var content = new StringContent(jsonObservaciones, Encoding.UTF8, "application/json");
         

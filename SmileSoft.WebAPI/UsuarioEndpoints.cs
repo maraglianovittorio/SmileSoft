@@ -35,7 +35,6 @@ namespace SmileSoft.WebAPI
                 try
                 {
                     UsuarioService usuarioService = new UsuarioService();
-                    // Validación de campos obligatorios
                     var errores = new List<string>();
                     if (string.IsNullOrWhiteSpace(usuarioDTO.Username))
                         errores.Add("El username es obligatorio");

@@ -27,7 +27,6 @@ namespace SmileSoft.API.Clients
                 {
                     await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
-                    //throw new Exception($"Error al obtener lista de odontologos. Status: {response.StatusCode}, Detalle: {errorContent}");
                     return null;
                 }
             }
@@ -40,6 +39,7 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener lista de odontologos: {ex.Message}", ex);
             }
         }
+
         public static async Task<OdontologoDTO> GetOneAsync(int id)
         {
             try

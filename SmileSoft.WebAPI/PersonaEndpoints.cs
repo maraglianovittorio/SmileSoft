@@ -56,7 +56,6 @@ namespace SmileSoft.WebAPI
                 try
                 {
                     PersonaService personaService = new PersonaService();
-                    // Validación de campos obligatorios
                     var errores = new List<string>();
                     if (string.IsNullOrWhiteSpace(personaDTO.Nombre))
                         errores.Add("El nombre es obligatorio");

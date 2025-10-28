@@ -27,7 +27,6 @@ namespace SmileSoft.WebAPI
             {
                 try
                 {
-                    // Validate input
                     if (id <= 0)
                     {
                         return Results.BadRequest(new { error = "El ID debe ser un número positivo." });
