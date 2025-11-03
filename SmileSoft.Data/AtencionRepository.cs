@@ -1,7 +1,6 @@
 ﻿using SmileSoft.Dominio;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace SmileSoft.Data
 {
@@ -103,7 +102,7 @@ namespace SmileSoft.Data
                 .ToList();
         }
 
-        public IEnumerable<Atencion> GetAllByRangoAndOdo(DateTime startDate, DateTime endDate,int id)
+        public IEnumerable<Atencion> GetAllByRangoAndOdo(DateTime startDate, DateTime endDate, int id)
         {
             using var context = CreateContext();
             return context.Atenciones
@@ -156,7 +155,7 @@ namespace SmileSoft.Data
             return false;
         }
         public bool ActualizaLlegada(int id)
-        {   
+        {
             using var context = CreateContext();
             var existingAtencion = context.Atenciones.Find(id);
             if (existingAtencion != null) {
@@ -165,6 +164,48 @@ namespace SmileSoft.Data
                 return true;
             }
             return false;
+        }
+        //consulta con ADO.NET
+        public IEnumerable<Atencion> GetByCriteria(AtencionCriteria atencionCriteria)
+        {
+            using var context = CreateContext();
+            const string sql = @"
+                SELECT a.Id, a.OdontologoId, a.PacienteId, a.TipoAtencionId, a.FechaHoraAtencion, a.Estado
+                FROM Atenciones a
+                WHERE a.OdontologoId = @SearchTerm
+                   OR a.PacienteId = @SearchTerm
+                   OR a.TipoAtencionId = @SearchTerm
+                   OR a.FechaHoraAtencion = @SearchTerm
+                   OR a.Estado = @SearchTerm
+                ORDER BY a.FechaHoraAtencion";
+
+            var atenciones = new List<Atencion>();
+            string connectionString = context.Database.GetConnectionString();
+            string searchPattern = $"%{atencionCriteria.Texto}%";
+
+            using var connection = new SqlConnection(connectionString);
+            using var command = new SqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue("@SearchTerm", searchPattern);
+
+            connection.Open();
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var atencion = new Atencion(
+                    reader.GetDateTime(0),//fecha y hora de atencion
+                    reader.GetString(1),//estado
+                    reader.GetString(2),//observaciones
+                    reader.GetInt32(3),//id del odontologo,
+                    reader.GetInt32(4),//id del paciente,
+                    reader.GetInt32(5)//id del tipo de atencion
+                );
+
+                atenciones.Add(atencion);
+            }
+
+            return atenciones;
         }
 
 

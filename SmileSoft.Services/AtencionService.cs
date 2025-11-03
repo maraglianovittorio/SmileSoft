@@ -343,6 +343,29 @@ namespace SmileSoft.Services
             }
             return atencionRepository.UpdateObservaciones(id, observaciones);
         }
+        public IEnumerable<AtencionDetalleDTO> GetByCriteria(AtencionCriteriaDTO atencionCriteriaDTO)
+        {
+            var criteria = new AtencionCriteria(atencionCriteriaDTO.Texto);
+            var atencionRepository = new AtencionRepository();
+            var atenciones = atencionRepository.GetByCriteria(criteria);
+            return atenciones.Select(a => new AtencionDetalleDTO
+            {
+                Id = a.Id,
+                OdontologoId = a.OdontologoId,
+                PacienteId = a.PacienteId,
+                TipoAtencionId = a.TipoAtencionId,
+                FechaHoraAtencion = a.FechaHoraAtencion,
+                Estado = a.Estado,
+                Observaciones = a.Observaciones,
+                PacienteNombre = a.Paciente?.Nombre ?? string.Empty,
+                PacienteApellido = a.Paciente?.Apellido ?? string.Empty,
+                PacienteDni = a.Paciente?.NroDni ?? string.Empty,
+                OdontologoNombre = a.Odontologo?.Nombre ?? string.Empty,
+                OdontologoApellido = a.Odontologo?.Apellido ?? string.Empty,
+                TipoAtencionDescripcion = a.TipoAtencion?.Descripcion ?? string.Empty,
+                TipoAtencionDuracion = a.TipoAtencion?.Duracion ?? TimeSpan.Zero
+            });
+        }
     }
 }
 

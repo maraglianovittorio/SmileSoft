@@ -214,6 +214,33 @@ namespace SmileSoft.WebAPI
                 return actualizado ? Results.NoContent() : Results.NotFound();
             }).WithName("CambiarEstadoAtencion").RequireAuthorization();
 
+            app.MapGet("atenciones/criteria",(string texto) =>
+            {
+                try
+                {
+                    AtencionService atencionService = new AtencionService();
+                    var criteria = new AtencionCriteriaDTO
+                    {
+                        Texto = texto
+                    };
+                    var atenciones = atencionService.GetByCriteria(criteria);
+                    return Results.Ok(atenciones);
+
+
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem(
+                        detail: ex.Message,
+                        statusCode: StatusCodes.Status500InternalServerError,
+                        title: "Error al buscar atenciones por criterios"
+                    );
+                }
+
+
+            })
+            .WithName("GetClientesByCriteria")
+            .RequireAuthorization();
         }
     }
 }
