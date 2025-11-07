@@ -55,6 +55,13 @@ namespace SmileSoft.Data
                 .Include(p => p.Atenciones)
                 .FirstOrDefault(p => p.NroDni == dni);
         }
+        public Paciente? GetByUsuarioId(int usuarioId)
+        {
+            using var context = CreateContext();
+            return context.Pacientes
+                .Include(p => p.Atenciones)
+                .FirstOrDefault(p => p.UsuarioId == usuarioId);
+        }
 
         public IEnumerable<Paciente> GetAll()
         {
@@ -82,6 +89,7 @@ namespace SmileSoft.Data
                 existingPaciente.SetNroHC(paciente.NroHC);
                 existingPaciente.SetTipoPlanId(paciente.TipoPlanId);
                 existingPaciente.SetTutorId(paciente.TutorId);
+                existingPaciente.SetUsuarioId(paciente.UsuarioId);
 
                 context.SaveChanges();
                 return true;

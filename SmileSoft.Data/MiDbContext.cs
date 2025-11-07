@@ -32,8 +32,8 @@ namespace SmileSoft.Data
 
                 string connectionString = configuration.GetConnectionString("DefaultConnection");
                 optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
-                optionsBuilder.UseSqlServer(connectionString);
-                //optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                //optionsBuilder.UseSqlServer(connectionString);
+                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             }
         }
 
@@ -47,26 +47,44 @@ namespace SmileSoft.Data
         {
             if (!Usuarios.Any())
             {
-                //Usuarios
+                //Usuarios - Admin y Secretario
                 var defaultUser = new Usuario("admin", "Admin123", "Admin");
                 var defaultSecretario = new Usuario("secretario", "secretario123", "Secretario");
+                
+                //Usuarios - Odontólogos
                 var defaultOdontologoUser = new Usuario("odontologo1", "Odonto123", "Odontologo");
                 var defaultOdontologoUser2 = new Usuario("odontologo2", "Odonto123", "Odontologo");
                 var defaultOdontologoUser3 = new Usuario("odontologo3", "Odonto123", "Odontologo");
                 var defaultOdontologoUser4 = new Usuario("odontologo4", "Odonto123", "Odontologo");
+                
+                //Usuarios - Pacientes
+                var pacienteUser1 = new Usuario("mrusso", "Paciente123", "Paciente");
+                var pacienteUser2 = new Usuario("cquintana", "Paciente123", "Paciente");
+                var pacienteUser3 = new Usuario("fmallo", "Paciente123", "Paciente");
+                
                 Usuarios.Add(defaultUser);
                 Usuarios.Add(defaultSecretario);
+                Usuarios.Add(defaultOdontologoUser);
+                Usuarios.Add(defaultOdontologoUser2);
+                Usuarios.Add(defaultOdontologoUser3);
+                Usuarios.Add(defaultOdontologoUser4);
+                Usuarios.Add(pacienteUser1);
+                Usuarios.Add(pacienteUser2);
+                Usuarios.Add(pacienteUser3);
+                SaveChanges();
+                
                 //Obras sociales
                 var obraSocial1 = new ObraSocial(0, "OSDE");
                 var obraSocial2 = new ObraSocial(0, "Swiss Medical");
                 ObrasSociales.Add(obraSocial1);
                 ObrasSociales.Add(obraSocial2);
+                SaveChanges();
+                
                 //Odontologos
                 var odontologo1 = new Odontologo(0, "Angel", "Di Maria", "12345", new DateTime(DateTime.Now.Year - 30, 1, 1), "Avenida siempre viva 742", "odontologo1@ejemplo.com", "123456789", "123123123", defaultOdontologoUser);
                 var odontologo2 = new Odontologo(0,"Alejo", "Veliz", "67890", new DateTime(DateTime.Now.Year - 28, 5, 15), "Avenida Siempre Viva 742", "odontologo2@ejemplo.com", "987654321", "123456789", defaultOdontologoUser2);
                 var odontologo3 = new Odontologo(0, "Marco", "Ruben", "54321", new DateTime(DateTime.Now.Year - 35, 8, 20), "Calle Falsa 123", "odonto@gmail.com", "555555555", "987654321", defaultOdontologoUser3);
                 var odontologo4 = new Odontologo(0, "Jaminton", "Campaz", "98765", new DateTime(DateTime.Now.Year - 32, 11, 30), "Calle Verdadera 456", "odonto4@gmail.com", "444444444", "111222333", defaultOdontologoUser4);
-
 
                 Odontologos.Add(odontologo1);
                 Odontologos.Add(odontologo2);
@@ -81,6 +99,7 @@ namespace SmileSoft.Data
                 Personas.Add(tutor1);
                 Personas.Add(tutor2);
                 Personas.Add(tutor3);
+                SaveChanges();
 
                 //Tipos de plan
                 var tipoPlan1 = new TipoPlan(0, "Plan Básico", "Cobertura básica para pacientes", obraSocial1.Id);
@@ -93,21 +112,95 @@ namespace SmileSoft.Data
                 TipoPlanes.Add(tipoPlan4);
                 SaveChanges();
 
-
-
-
-                // Pacientes
-                var paciente1 = new Paciente(0, "Miguel Angel", "Russo", "11223344", "Calle Falsa 123", "email@email.com", new DateTime(DateTime.Now.Year - 25, 3, 10), "123123", "1234567", "1", null,tipoPlan4.Id);
-                var paciente2 = new Paciente(0, "Carlos", "Quintana", "98765432", "Avenida Siempre Viva 742", "email@email2.com", new DateTime(DateTime.Now.Year - 22, 7, 15), "1111111", "1234567", "2", null, tipoPlan2.Id);
-                var paciente3 = new Paciente(0, "Facundo", "Mallo", "55667788", "Calle Luna 456", "email@email3.com", new DateTime(DateTime.Now.Year - 30, 1, 1), "2222222", "", "3", null, null);
-                var paciente4 = new Paciente(0, "Jorge", "Broun", "44332211", "Calle Sol 789", "email@email4.com", new DateTime(DateTime.Now.Year - 27, 12, 5), "3333333", "", "4", null, null);
-                var paciente5 = new Paciente(0, "Ignacio", "Malcorra", tutor1.Telefono, tutor1.Direccion, tutor1.Email, new DateTime(DateTime.Now.Year - 10, 3, 10), "4444444", "", "5", tutor1.Id, null);
+                // Pacientes - Con usuarios asignados para acceso al portal
+                var paciente1 = new Paciente(
+                    0, 
+                    "Miguel Angel", 
+                    "Russo", 
+                    "11223344", 
+                    "Calle Falsa 123", 
+                    "mrusso@email.com", 
+                    new DateTime(DateTime.Now.Year - 25, 3, 10), 
+                    "341-5551234", 
+                    "1234567", 
+                    "HC-001", 
+                    null, 
+                    tipoPlan4.Id, 
+                    pacienteUser1.Id
+                );
+                
+                var paciente2 = new Paciente(
+                    0, 
+                    "Carlos", 
+                    "Quintana", 
+                    "98765432", 
+                    "Avenida Siempre Viva 742", 
+                    "cquintana@email.com", 
+                    new DateTime(DateTime.Now.Year - 22, 7, 15), 
+                    "341-5555678", 
+                    "7654321", 
+                    "HC-002", 
+                    null, 
+                    tipoPlan2.Id, 
+                    pacienteUser2.Id
+                );
+                
+                var paciente3 = new Paciente(
+                    0, 
+                    "Facundo", 
+                    "Mallo", 
+                    "55667788", 
+                    "Calle Luna 456", 
+                    "fmallo@email.com", 
+                    new DateTime(DateTime.Now.Year - 30, 1, 1), 
+                    "341-5559012", 
+                    null, 
+                    "HC-003", 
+                    null, 
+                    null, 
+                    pacienteUser3.Id
+                );
+                
+                // Pacientes - Sin usuario (solo registrados en el sistema)
+                var paciente4 = new Paciente(
+                    0, 
+                    "Jorge", 
+                    "Broun", 
+                    "44332211", 
+                    "Calle Sol 789", 
+                    "jbroun@email.com", 
+                    new DateTime(DateTime.Now.Year - 27, 12, 5), 
+                    "341-5553456", 
+                    null, 
+                    "HC-004", 
+                    null, 
+                    null, 
+                    null
+                );
+                
+                // Paciente menor con tutor asignado
+                var paciente5 = new Paciente(
+                    0, 
+                    "Ignacio", 
+                    "Malcorra", 
+                    "99887766",
+                    tutor1.Direccion, 
+                    tutor1.Email, 
+                    new DateTime(DateTime.Now.Year - 10, 3, 10), 
+                    tutor1.Telefono, 
+                    null, 
+                    "HC-005", 
+                    tutor1.Id, 
+                    null, 
+                    null
+                );
 
                 Pacientes.Add(paciente1);
                 Pacientes.Add(paciente2);
                 Pacientes.Add(paciente3);
                 Pacientes.Add(paciente4);
                 Pacientes.Add(paciente5);
+                SaveChanges();
 
                 //Tipos de atencion
                 var tipoAtencion1 = new TipoAtencion(0, "Consulta General", new TimeSpan(0, 30, 0));
@@ -121,8 +214,6 @@ namespace SmileSoft.Data
                 TipoAtenciones.Add(tipoAtencion4);
                 TipoAtenciones.Add(tipoAtencion5);
                 SaveChanges();
-
-                //Tipos de plan
 
                 // Atenciones
                 var hoy = DateTime.Today;
@@ -151,8 +242,6 @@ namespace SmileSoft.Data
                 var atencion19 = new Atencion(mañana.AddHours(16), "Otorgada", string.Empty, odontologo4.Id, paciente3.Id, tipoAtencion2.Id);
                 var atencion20 = new Atencion(mañana.AddHours(17), "Otorgada", string.Empty, odontologo1.Id, paciente4.Id, tipoAtencion3.Id);
 
-
-
                 Atenciones.Add(atencion2);
                 Atenciones.Add(atencion3);
                 Atenciones.Add(atencion4);
@@ -175,9 +264,23 @@ namespace SmileSoft.Data
                 SaveChanges();
 
                 
-                Console.WriteLine("Default user created:");
+                Console.WriteLine("===== USUARIOS DE PRUEBA CREADOS =====");
+                Console.WriteLine("\n--- ADMINISTRADOR ---");
                 Console.WriteLine("Username: admin");
                 Console.WriteLine("Password: Admin123");
+                Console.WriteLine("\n--- SECRETARIO ---");
+                Console.WriteLine("Username: secretario");
+                Console.WriteLine("Password: secretario123");
+                Console.WriteLine("\n--- ODONTÓLOGOS ---");
+                Console.WriteLine("Username: odontologo1 | Password: Odonto123");
+                Console.WriteLine("Username: odontologo2 | Password: Odonto123");
+                Console.WriteLine("Username: odontologo3 | Password: Odonto123");
+                Console.WriteLine("Username: odontologo4 | Password: Odonto123");
+                Console.WriteLine("\n--- PACIENTES CON ACCESO AL PORTAL ---");
+                Console.WriteLine("Username: mrusso     | Password: Paciente123 | Miguel Angel Russo");
+                Console.WriteLine("Username: cquintana  | Password: Paciente123 | Carlos Quintana");
+                Console.WriteLine("Username: fmallo     | Password: Paciente123 | Facundo Mallo");
+                Console.WriteLine("\n=======================================");
             }
         }
 
@@ -216,6 +319,11 @@ namespace SmileSoft.Data
                 entity.HasOne(e => e.TipoPlan)
                         .WithMany(tp => tp.Pacientes)
                         .HasForeignKey(e => e.TipoPlanId)
+                        .IsRequired(false)
+                        .OnDelete(DeleteBehavior.SetNull);
+                entity.HasOne(e => e.Usuario)
+                        .WithMany()
+                        .HasForeignKey(e => e.UsuarioId)
                         .IsRequired(false)
                         .OnDelete(DeleteBehavior.SetNull);
             });

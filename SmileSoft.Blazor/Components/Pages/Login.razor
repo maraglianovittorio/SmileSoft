@@ -64,24 +64,26 @@
 
             if (success)
             {
-                // Obtener datos del odontólogo de la sesión
                 var rol = await AuthService.GetRolAsync();
 
                 if (rol?.Equals("Odontologo", StringComparison.OrdinalIgnoreCase) == true)
                 {
                     var odontologoId = await AuthService.GetOdontologoIdAsync();
                     var nombreCompleto = await AuthService.GetOdontologoNombreCompletoAsync();
-
-                    // Los datos ya están almacenados en la sesión y disponibles en toda la aplicación
                     Console.WriteLine($"Odontólogo logueado: ID={odontologoId}, Nombre={nombreCompleto}");
-                    
                     Navigation.NavigateTo("/");
+                }
+                else if (rol?.Equals("Paciente", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    var pacienteId = await AuthService.GetPacienteIdAsync();
+                    var nombreCompleto = await AuthService.GetPacienteNombreCompletoAsync();
+                    Console.WriteLine($"Paciente logueado: ID={pacienteId}, Nombre={nombreCompleto}");
+                    Navigation.NavigateTo("/mis-atenciones"); // NUEVA PÁGINA
                 }
                 else
                 {
-                    // Cerrar sesión para evitar que el usuario quede autenticado
                     await AuthService.LogoutAsync();
-                    errorMessage = "El usuario no es un odontólogo. Utilizar SmileSoft Desktop.";
+                    errorMessage = "Rol no autorizado para Blazor.";
                 }
             }
             else

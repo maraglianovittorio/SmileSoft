@@ -1,0 +1,67 @@
+﻿@using SmileSoft.API.Clients;
+@using SmileSoft.DTO;
+@page "/mis-atenciones"
+@rendermode InteractiveServer
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>Mis Atenciones</PageTitle>
+
+<h3>Mis Atenciones</h3>
+
+@if (atenciones == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else if (!atenciones.Any())
+{
+    <p>No tienes atenciones programadas.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha/Hora</th>
+                <th>Odontólogo</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var atencion in atenciones)
+            {
+                <tr>
+                    <td>@atencion.FechaHoraAtencion.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@atencion.OdontologoNombre @atencion.OdontologoApellido</td>
+                    <td>@atencion.TipoAtencionDescripcion</td>
+                    <td>@atencion.Estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-primary" @onclick="SolicitarAtencion">Solicitar Nueva Atención</button>
+
+@code {
+    private List<AtencionDetalleDTO>? atenciones;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pacienteId = await AuthService.GetPacienteIdAsync();
+        if (pacienteId.HasValue)
+        {
+            atenciones = (await AtencionApiClient.GetByPacienteAsync(pacienteId.Value)).ToList();
+        }
+        else
+        {
+            Navigation.NavigateTo("/login");
+        }
+    }
+
+    private void SolicitarAtencion()
+    {
+        Navigation.NavigateTo("/solicitar-atencion");
+    }
+}

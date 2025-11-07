@@ -35,10 +35,11 @@ namespace SmileSoft.DTO
         public int? TipoPlanId { get; set; } 
 
         public int? TutorId { get; set; }
+        
+        public int? UsuarioId { get; set; }
+        
         [Required(ErrorMessage = "El número de historia clínica es obligatorio")]
         [StringLength(20, ErrorMessage = "El número de historia clínica no puede exceder 20 caracteres")]
-        
-
         public string NroHC { get; set; } = string.Empty;
 
         public PacienteDTO()

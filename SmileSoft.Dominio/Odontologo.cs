@@ -1,6 +1,6 @@
 ﻿namespace SmileSoft.Dominio
 {
-    public class Odontologo:Persona
+    public class Odontologo : Persona
     {
         public string NroMatricula { get; private set; }
         public ICollection<ObraSocial> ObrasSociales { get; private set; } = new List<ObraSocial>();

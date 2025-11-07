@@ -43,6 +43,21 @@ namespace SmileSoft.Services
                 ExpiresAt = expiresAt
             };
 
+            // Si es paciente, obtener sus datos
+            if (usuario.Rol.Equals("Paciente", StringComparison.OrdinalIgnoreCase))
+            {
+                var pacienteRepository = new PacienteRepository();
+                var paciente = pacienteRepository.GetByUsuarioId(usuario.Id); // NUEVO MÉTODO
+                
+                if (paciente != null)
+                {
+                    response.PacienteId = paciente.Id;
+                    response.PacienteNombre = paciente.Nombre;
+                    response.PacienteApellido = paciente.Apellido;
+                    response.NroHistoriaClinica = paciente.NroHC;
+                }
+            }
+
             // Si es odontólogo, obtener sus datos
             if (usuario.Rol.Equals("Odontologo", StringComparison.OrdinalIgnoreCase))
             {

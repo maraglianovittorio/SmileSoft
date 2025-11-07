@@ -492,5 +492,22 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al actualizar observaciones de atencion con Id {id}: {ex.Message}", ex);
             }
         }
+        
+        public static async Task<IEnumerable<AtencionDetalleDTO>> GetByPacienteAsync(int pacienteId)
+        {
+            using var httpClient = await CreateHttpClientAsync();
+            var response = await httpClient.GetAsync($"atenciones/paciente/{pacienteId}");
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<IEnumerable<AtencionDetalleDTO>>(json, 
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) 
+                    ?? Enumerable.Empty<AtencionDetalleDTO>();
+            }
+            
+            await HandleUnauthorizedResponseAsync(response);
+            return Enumerable.Empty<AtencionDetalleDTO>();
+        }
     }
 }

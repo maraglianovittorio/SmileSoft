@@ -26,6 +26,12 @@ namespace SmileSoft.API.Auth.Blazor.Server
             public int? OdontologoId { get; set; }
             public string? OdontologoNombre { get; set; }
             public string? OdontologoApellido { get; set; }
+            
+            // AGREGAR: Datos del paciente
+            public int? PacienteId { get; set; }
+            public string? PacienteNombre { get; set; }
+            public string? PacienteApellido { get; set; }
+            public string? NroHistoriaClinica { get; set; }
         }
 
         public Task<bool> IsAuthenticatedAsync()
@@ -128,7 +134,12 @@ namespace SmileSoft.API.Auth.Blazor.Server
                     Expiration = response.ExpiresAt,
                     OdontologoId = response.OdontologoId,
                     OdontologoNombre = response.OdontologoNombre,
-                    OdontologoApellido = response.OdontologoApellido
+                    OdontologoApellido = response.OdontologoApellido,
+                    // AGREGAR:
+                    PacienteId = response.PacienteId,
+                    PacienteNombre = response.PacienteNombre,
+                    PacienteApellido = response.PacienteApellido,
+                    NroHistoriaClinica = response.NroHistoriaClinica
                 };
 
                 AuthenticationStateChanged?.Invoke(true);
@@ -174,6 +185,25 @@ namespace SmileSoft.API.Auth.Blazor.Server
             {
                 return Task.FromResult(false);
             }
+        }
+
+        // AGREGAR métodos:
+        public Task<int?> GetPacienteIdAsync()
+        {
+            return Task.FromResult(_currentSession?.PacienteId);
+        }
+
+        public Task<string?> GetPacienteNombreCompletoAsync()
+        {
+            if (_currentSession?.PacienteNombre != null && _currentSession?.PacienteApellido != null)
+            {
+                return Task.FromResult<string?>($"{_currentSession.PacienteNombre} {_currentSession.PacienteApellido}");
+            }
+            return Task.FromResult<string?>(null);
+        }
+        public Task<string?> GetNroHistoriaClinicaAsync()
+        {
+            return Task.FromResult(_currentSession?.NroHistoriaClinica);
         }
     }
 }

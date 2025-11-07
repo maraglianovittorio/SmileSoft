@@ -18,5 +18,12 @@ namespace SmileSoft.DTO
         public int? OdontologoId { get; set; }
         public string? OdontologoNombre { get; set; }
         public string? OdontologoApellido { get; set; }
+
+        // Datos adicionales del paciente (si aplica)
+        public int? PacienteId { get; set; }
+        public string? PacienteNombre { get; set; }
+        public string? PacienteApellido { get; set; }
+        public string? NroHistoriaClinica { get; set; }
+
     }
 }

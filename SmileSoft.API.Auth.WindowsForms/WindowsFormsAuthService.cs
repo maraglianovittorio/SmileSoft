@@ -126,5 +126,20 @@ namespace SmileSoft.API.Auth.WindowsForms
             // Sin implementación por ahora
             return null;
         }
+        public async Task<int?> GetPacienteIdAsync()
+        {
+            // Sin implementación por ahora
+            return null;
+        }
+        public async Task<string?> GetPacienteNombreCompletoAsync()
+        {
+            // Sin implementación por ahora
+            return null;
+        }
+        public async Task<string?> GetNroHistoriaClinicaAsync()
+        {
+            // Sin implementación por ahora
+            return null;
+        }
     }
 }

@@ -18,13 +18,20 @@ namespace SmileSoft.Dominio
         public int? TipoPlanId { get; private set; }
         public TipoPlan? TipoPlan { get; private set; }
         public ICollection<Atencion> Atenciones { get; private set; } = new List<Atencion>();
+        public int? UsuarioId { get; private set; }
+        public Usuario? Usuario { get; private set; }
 
-        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string? nroAfiliado, string nroHC,int? tutorId,int? tipoPlanId):base(id,nombre,apellido,nroDni,fechaNacimiento,direccion,email,telefono)
+        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string? nroAfiliado, string nroHC,int? tutorId,int? tipoPlanId, int? usuarioId):base(id,nombre,apellido,nroDni,fechaNacimiento,direccion,email,telefono)
         {
             SetNroAfiliado(nroAfiliado);
             SetNroHC(nroHC);
             SetTutorId(tutorId);
             SetTipoPlanId(tipoPlanId);
+            SetUsuarioId(usuarioId);
+        }
+        public void SetUsuarioId(int? usuarioId)
+        {
+            UsuarioId = usuarioId;
         }
         public void SetNroAfiliado(string? nroAfiliado)
         {

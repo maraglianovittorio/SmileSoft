@@ -21,7 +21,7 @@ namespace SmileSoft.Services
             {
                 throw new Exception("Ya existe una persona con el mismo DNI.");
             }
-            Paciente paciente = new Paciente(0,dto.Nombre,dto.Apellido,dto.NroDni,dto.Direccion,dto.Email,dto.FechaNacimiento,dto.Telefono,dto.NroAfiliado,dto.NroHC,dto.TutorId,dto.TipoPlanId);
+            Paciente paciente = new Paciente(0, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC, dto.TutorId, dto.TipoPlanId, dto.UsuarioId);
 
             pacienteRepository.Add(paciente);
 
@@ -66,7 +66,8 @@ namespace SmileSoft.Services
                 NroAfiliado = paciente.NroAfiliado,
                 NroHC = paciente.NroHC,
                 TipoPlanId = paciente.TipoPlanId,
-                TutorId = paciente.TutorId
+                TutorId = paciente.TutorId,
+                UsuarioId = paciente.UsuarioId
             };
 
         }
@@ -90,7 +91,8 @@ namespace SmileSoft.Services
                 Telefono = paciente.Telefono,
                 NroAfiliado = paciente.NroAfiliado,
                 NroHC = paciente.NroHC,
-                TipoPlanId = paciente.TipoPlanId
+                TipoPlanId = paciente.TipoPlanId,
+                UsuarioId = paciente.UsuarioId
             };
         }
         public IEnumerable<PacienteDTO> GetAll()
@@ -110,7 +112,8 @@ namespace SmileSoft.Services
                 Telefono = p.Telefono,
                 NroAfiliado = p.NroAfiliado,
                 NroHC = p.NroHC,
-                TipoPlanId = p.TipoPlanId
+                TipoPlanId = p.TipoPlanId,
+                UsuarioId = p.UsuarioId
             }).ToList();
         }
         public bool Update(int id, PacienteDTO dto)
@@ -122,7 +125,7 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe otro paciente con la Historia Clínica '{dto.NroHC}'.");
             }
 
-            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC,dto.TutorId, dto.TipoPlanId);
+            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC, dto.TutorId, dto.TipoPlanId, dto.UsuarioId);
             return pacienteRepository.Update(paciente);
 
         }
