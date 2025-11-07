@@ -1,93 +1,105 @@
-﻿@using SmileSoft.API.Clients;
-@using SmileSoft.DTO;
-@page "/"
+﻿@page "/"
+@using SmileSoft.API.Clients
+@using SmileSoft.DTO
 @inject NavigationManager Navigation
 @inject IAuthService AuthService
 
 @rendermode InteractiveServer
 
 <PageTitle>Inicio</PageTitle>
-@if (isLoading)
-{
-    <p>Verificando autenticación...</p>
-}
-else if (isAuthenticated)
-{
-    <div class="mb-3">
-        <h1>Bienvenido @nombreCompletoOdontologo</h1>
-        <p class="text-muted">Usuario: @username</p>
-    </div>
-}
-
-<div class="date-navigation">
-    <span>Turnos para el día:</span>
-    <button class="btn btn-sm btn-outline-primary" @onclick="PreviousDay" disabled="@isLoading">◀</button>
-    <input type="date" class="form-control d-inline-block mx-2" style="width: auto;" 
-           value="@fechaSeleccionada.ToString("yyyy-MM-dd")" 
-           @onchange="OnDateChanged"
-           disabled="@isLoading" />
-    <button class="btn btn-sm btn-outline-primary" @onclick="NextDay" disabled="@isLoading">▶</button>
-</div>
 
 @if (isLoading)
 {
     <p><em>Cargando...</em></p>
 }
-else if (atencionesFiltradasOriginal == null || !atencionesFiltradasOriginal.Any())
+else if (!isAuthenticated)
 {
-    <div class="alert alert-info mt-3">
-        No hay atenciones programadas para el día @fechaSeleccionada.ToString("dd/MM/yyyy")
+    // This part should ideally not be reached if OnInitializedAsync redirects.
+    // It's a fallback.
+    <p>Verificando autenticación...</p>
+}
+else if (isOdontologo)
+{
+    <div class="mb-3">
+        <h1>Bienvenido @nombreCompletoOdontologo</h1>
+        <p class="text-muted">Usuario: @username</p>
     </div>
+
+    <div class="date-navigation">
+        <span>Turnos para el día:</span>
+        <button class="btn btn-sm btn-outline-primary" @onclick="PreviousDay" disabled="@isLoading">◀</button>
+        <input type="date" class="form-control d-inline-block mx-2" style="width: auto;"
+               value="@fechaSeleccionada.ToString("yyyy-MM-dd")"
+               @onchange="OnDateChanged"
+               disabled="@isLoading" />
+        <button class="btn btn-sm btn-outline-primary" @onclick="NextDay" disabled="@isLoading">▶</button>
+    </div>
+
+    @if (atencionesFiltradasOriginal == null || !atencionesFiltradasOriginal.Any())
+    {
+        <div class="alert alert-info mt-3">
+            No hay atenciones programadas para el día @fechaSeleccionada.ToString("dd/MM/yyyy")
+        </div>
+    }
+    else
+    {
+        <input type="text" class="form-control mt-3" placeholder="Buscar por paciente o DNI..." @oninput="(e) => {
+            var searchTerm = e.Value?.ToString()?.ToLower() ?? string.Empty;
+            atencionesFiltradas = atencionesFiltradasOriginal
+                .Where(a => a.PacienteNombre.ToLower().Contains(searchTerm) ||
+                            a.PacienteApellido.ToLower().Contains(searchTerm) ||
+                            a.PacienteDni.Contains(searchTerm))
+                .ToList();
+        }" />
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Fecha y hora</th>
+                    <th>Paciente</th>
+                    <th>Dni</th>
+                    <th>Estado</th>
+                    <th>Tipo de atención</th>
+                    <th></th> <!--columna para boton para registrar observaciones-->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var atencion in atencionesFiltradas)
+                {
+                    <tr>
+                        <td>@atencion.FechaHoraAtencion.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@atencion.PacienteNombre @atencion.PacienteApellido</td>
+                        <td>@atencion.PacienteDni</td>
+                        <td style="@(atencion.Estado.ToLower() == "en espera" ? "color: green; font-weight: 600;" :
+                                      atencion.Estado.ToLower() == "cancelada" ? "color: red; font-weight: 500;" :
+                                      "color: black;")">
+                            @atencion.Estado
+                        </td>
+                        <td>@atencion.TipoAtencionDescripcion</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" @onclick="() => AgregarDetalle(atencion.Id)">Registrar Observaciones</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }
 else
 {
-    <input type="text" class="form-control mt-3" placeholder="Buscar por paciente o DNI..." @oninput="(e) => {
-        var searchTerm = e.Value?.ToString()?.ToLower() ?? string.Empty;
-        atencionesFiltradas = atencionesFiltradasOriginal
-            .Where(a => a.PacienteNombre.ToLower().Contains(searchTerm) ||
-                        a.PacienteApellido.ToLower().Contains(searchTerm) ||
-                        a.PacienteDni.Contains(searchTerm))
-            .ToList();
-    }" />
-    <table class="table table-striped mt-3">
-        <thead>
-            <tr>
-                <th>Fecha y hora</th>
-                <th>Paciente</th>
-                <th>Dni</th>
-                <th>Estado</th>
-                <th>Tipo de atención</th>
-                <th></th> <!--columna para boton para registrar observaciones-->
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var atencion in atencionesFiltradas)
-            {
-                <tr>
-                    <td>@atencion.FechaHoraAtencion.ToString("dd/MM/yyyy HH:mm")</td>
-                    <td>@atencion.PacienteNombre @atencion.PacienteApellido</td>
-                    <td>@atencion.PacienteDni</td>
-                    <td style="@(atencion.Estado.ToLower() == "en espera" ? "color: green; font-weight: 600;" : 
-                                  atencion.Estado.ToLower() == "cancelada" ? "color: red; font-weight: 500;" : 
-                                  "color: black;")">
-                        @atencion.Estado
-                    </td>
-                    <td>@atencion.TipoAtencionDescripcion</td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" @onclick="() => AgregarDetalle(atencion.Id)">Registrar Observaciones</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    // Welcome page for non-odontologo users, like Paciente.
+    <div class="text-center">
+        <h1>Bienvenido a SmileSoft</h1>
+        <p>Seleccione una opción del menú para comenzar.</p>
+    </div>
 }
+
 
 @code {
     private bool isAuthenticated = false;
+    private bool isOdontologo = false;
     private string username = "";
     private string nombreCompletoOdontologo = "";
     private int? odontologoId;
-    private string? rol;
     private IEnumerable<AtencionDetalleDTO>? atencionesFiltradas;
     private List<AtencionDetalleDTO> atencionesFiltradasOriginal = new();
     private DateTime fechaSeleccionada = DateTime.Today;
@@ -95,69 +107,46 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        // espera a verificar autenticación antes de cargar informacion
+        isLoading = true;
         isAuthenticated = await AuthService.IsAuthenticatedAsync();
-        
+
         if (!isAuthenticated)
         {
+            Navigation.NavigateTo("/login");
             return;
         }
 
-        // Obtener datos del usuario
-        username = await AuthService.GetUsernameAsync() ?? "";
-        rol = await AuthService.GetRolAsync();
-        
-        // Obtener datos del odontólogo si el rol es "Odontologo"
-        if (rol?.Equals("Odontologo", StringComparison.OrdinalIgnoreCase) == true)
+        var rol = await AuthService.GetRolAsync();
+        isOdontologo = rol?.Equals("Odontologo", StringComparison.OrdinalIgnoreCase) == true;
+
+        if (isOdontologo)
         {
+            username = await AuthService.GetUsernameAsync() ?? "";
             odontologoId = await AuthService.GetOdontologoIdAsync();
             nombreCompletoOdontologo = await AuthService.GetOdontologoNombreCompletoAsync() ?? username;
-            
-            // Cargar atenciones del odontólogo logueado
             await LoadAtenciones(fechaSeleccionada);
         }
-        else
-        {
-            nombreCompletoOdontologo = username;
-        }
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            if (!isAuthenticated)
-            {
-                Navigation.NavigateTo("/login", forceLoad: true);
-                return;
-            }
-
-            isLoading = false;
-            StateHasChanged();
-        }
-        await base.OnAfterRenderAsync(firstRender);
+        
+        isLoading = false;
     }
 
     private async Task LoadAtenciones(DateTime fecha)
     {
-        isLoading = true;
-        StateHasChanged();
+        // This method is only for Odontologos, so we don't need to re-check the role.
+        if (!odontologoId.HasValue)
+        {
+            Console.WriteLine("No se pudo obtener el ID del odontólogo");
+            atencionesFiltradas = Array.Empty<AtencionDetalleDTO>();
+            atencionesFiltradasOriginal = new List<AtencionDetalleDTO>();
+            return;
+        }
 
         try
         {
-            // Validar que tenemos el ID del odontólogo antes de hacer la petición
-            if (!odontologoId.HasValue)
-            {
-                Console.WriteLine("No se pudo obtener el ID del odontólogo");
-                atencionesFiltradas = Array.Empty<AtencionDetalleDTO>();
-                atencionesFiltradasOriginal = new List<AtencionDetalleDTO>();
-                return;
-            }
-
             var atencionesResponse = await AtencionApiClient.GetByFechaRangeAndOdoAsync(
                 fecha.Date,
                 fecha.Date.AddDays(1),
-                odontologoId.Value // Usar el ID del odontólogo logueado
+                odontologoId.Value
             );
 
             atencionesFiltradas = (atencionesResponse != null && atencionesResponse.Any())
@@ -167,7 +156,6 @@ else
         }
         catch (UnauthorizedAccessException)
         {
-            // Sesión expiró durante la navegación
             await AuthService.LogoutAsync();
             Navigation.NavigateTo("/login", forceLoad: true);
         }
@@ -176,11 +164,6 @@ else
             Console.WriteLine($"Error cargando atenciones: {ex.Message}");
             atencionesFiltradas = Array.Empty<AtencionDetalleDTO>();
             atencionesFiltradasOriginal = new List<AtencionDetalleDTO>();
-        }
-        finally
-        {
-            isLoading = false;
-            StateHasChanged();
         }
     }
 

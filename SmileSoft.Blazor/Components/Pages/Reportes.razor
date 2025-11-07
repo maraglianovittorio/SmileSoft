@@ -9,28 +9,55 @@
 @inject IAuthService AuthService
 @using System.Security.Claims
 
-<h3>Reportes</h3>
-<h4>Reporte de atenciones del día</h4>
-<p>Generar reporte de las atenciones para el día de hoy @DateTime.Today.ToShortDateString()</p>
-<button class="btn btn-primary" @onclick="GenerarReporte" disabled="@isGenerating">
-    @(isGenerating ? "Generando..." : "Generar reporte")
-</button>
-
-
-@if (!string.IsNullOrEmpty(errorMessage))
+@if (isAuthorized)
 {
-    <div class="alert alert-danger mt-3">@errorMessage</div>
+    <h3>Reportes</h3>
+    <h4>Reporte de atenciones del día</h4>
+    <p>Generar reporte de las atenciones para el día de hoy @DateTime.Today.ToShortDateString()</p>
+    <button class="btn btn-primary" @onclick="GenerarReporte" disabled="@isGenerating">
+        @(isGenerating ? "Generando..." : "Generar reporte")
+    </button>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger mt-3">@errorMessage</div>
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success mt-3">@successMessage</div>
+    }
+}
+else
+{
+    <p>Verificando autorización...</p>
 }
 
-@if (!string.IsNullOrEmpty(successMessage))
-{
-    <div class="alert alert-success mt-3">@successMessage</div>
-}
 
 @code {
     private string? errorMessage;
     private string? successMessage;
     private bool isGenerating = false;
+    private bool isAuthorized = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var isAuthenticated = await AuthService.IsAuthenticatedAsync();
+        if (!isAuthenticated)
+        {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        var rol = await AuthService.GetRolAsync();
+        if (rol?.Equals("Odontologo", StringComparison.OrdinalIgnoreCase) != true)
+        {
+            Navigation.NavigateTo("/"); 
+            return;
+        }
+
+        isAuthorized = true;
+    }
 
     private async Task GenerarReporte()
     {
@@ -76,7 +103,6 @@
             StateHasChanged();
         }
     }
-
 }
 
 

@@ -22,32 +22,36 @@
 
         @if (isAuthenticated)
         {
+            @if (userRole?.Equals("Odontologo", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="reportes">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Reporte
+                    </NavLink>
+                </div>
+            }
+            else if (userRole?.Equals("Paciente", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="mis-atenciones">
+                        <span class="bi bi-calendar-check-nav-menu" aria-hidden="true"></span> Mis Atenciones
+                    </NavLink>
+                </div>
+            }
 
-            <div class="nav-item px-3">
-            <NavLink class="nav-link" href="reportes">
-                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true" @onclick="() => Navegar()"></span> Reporte
-            </NavLink>
-
-            </div>
             <div class="nav-item px-3">
                 <div class="nav-link" style="cursor: pointer;" @onclick="Logout">
                     <span class="bi bi-arrow-in-right" aria-hidden="true"></span> Cerrar sesión
                 </div>
             </div>
-
-
         }
     </nav>
 </div>
 
 @code {
     private bool isAuthenticated = false;
+    private string? userRole;
 
-    private void Navegar()
-    {
-        Navigation.NavigateTo("reportes");
-	}
-    
     protected override async Task OnInitializedAsync()
     {
         AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
@@ -57,6 +61,14 @@
     private async Task CheckAuthenticationState()
     {
         isAuthenticated = await AuthService.IsAuthenticatedAsync();
+        if (isAuthenticated)
+        {
+            userRole = await AuthService.GetRolAsync();
+        }
+        else
+        {
+            userRole = null;
+        }
         StateHasChanged();
     }
 
