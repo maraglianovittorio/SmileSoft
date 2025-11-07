@@ -8,163 +8,161 @@
 
 <PageTitle>Solicitar Atención</PageTitle>
 
-<AuthorizeRouteView AllowedRoles="@(new List<string> { "Paciente" })">
-    <div class="container mt-4">
-        <h3>Solicitar Atención</h3>
+<div class="container mt-4">
+    <h3>Solicitar Atención</h3>
 
-        @if (!string.IsNullOrEmpty(mensajeError))
-        {
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                @mensajeError
-                <button type="button" class="btn-close" @onclick="() => mensajeError = string.Empty"></button>
-            </div>
-        }
+    @if (!string.IsNullOrEmpty(mensajeError))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @mensajeError
+            <button type="button" class="btn-close" @onclick="() => mensajeError = string.Empty"></button>
+        </div>
+    }
 
-        @if (!string.IsNullOrEmpty(mensajeExito))
-        {
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                @mensajeExito
-                <button type="button" class="btn-close" @onclick="() => mensajeExito = string.Empty"></button>
-            </div>
-        }
+    @if (!string.IsNullOrEmpty(mensajeExito))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @mensajeExito
+            <button type="button" class="btn-close" @onclick="() => mensajeExito = string.Empty"></button>
+        </div>
+    }
 
-        @if (cargandoDatosIniciales)
-        {
-            <div class="text-center my-5">
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Cargando...</span>
-                </div>
-                <p>Cargando información del paciente...</p>
+    @if (cargandoDatosIniciales)
+    {
+        <div class="text-center my-5">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Cargando...</span>
             </div>
-        }
-        else if (pacienteSeleccionado != null)
-        {
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5>Datos del Paciente</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">DNI</label>
-                            <input type="text" class="form-control" value="@pacienteSeleccionado.NroDni" readonly />
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Nombre y Apellido</label>
-                            <input type="text" class="form-control" value="@($"{pacienteSeleccionado.Nombre} {pacienteSeleccionado.Apellido}")" readonly />
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Obra Social</label>
-                            <input type="text" class="form-control" value="@obraSocial" readonly />
-                        </div>
+            <p>Cargando información del paciente...</p>
+        </div>
+    }
+    else if (pacienteSeleccionado != null)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Datos del Paciente</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label">DNI</label>
+                        <input type="text" class="form-control" value="@pacienteSeleccionado.NroDni" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Nombre y Apellido</label>
+                        <input type="text" class="form-control" value="@($"{pacienteSeleccionado.Nombre} {pacienteSeleccionado.Apellido}")" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Obra Social</label>
+                        <input type="text" class="form-control" value="@obraSocial" readonly />
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5>Datos de la Atención</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="cmbTipoAtencion" class="form-label">Tipo de Atención</label>
-                            <select class="form-select" id="cmbTipoAtencion" @bind="tipoAtencionSeleccionado" @bind:after="OnSelectionChanged">
-                                <option value="0">-- Seleccione --</option>
-                                @if (tiposAtencion != null)
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Datos de la Atención</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="cmbTipoAtencion" class="form-label">Tipo de Atención</label>
+                        <select class="form-select" id="cmbTipoAtencion" @bind="tipoAtencionSeleccionado" @bind:after="OnSelectionChanged">
+                            <option value="0">-- Seleccione --</option>
+                            @if (tiposAtencion != null)
+                            {
+                                @foreach (var tipo in tiposAtencion)
                                 {
-                                    @foreach (var tipo in tiposAtencion)
-                                    {
-                                        <option value="@tipo.Id">@tipo.Descripcion (@tipo.Duracion.ToString(@"hh\:mm"))</option>
-                                    }
+                                    <option value="@tipo.Id">@tipo.Descripcion (@tipo.Duracion.ToString(@"hh\:mm"))</option>
                                 }
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="cmbOdontologo" class="form-label">Odontólogo</label>
-                            <select class="form-select" id="cmbOdontologo" @bind="odontologoSeleccionado" @bind:after="OnSelectionChanged">
-                                <option value="0">-- Seleccione --</option>
-                                @if (odontologos != null)
-                                {
-                                    @foreach (var odo in odontologos)
-                                    {
-                                        <option value="@odo.Id">@odo.NombreCompleto</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="dtpFecha" class="form-label">Fecha</label>
-                            <input type="date" class="form-control" id="dtpFecha" @bind="fechaSeleccionada" @bind:after="OnSelectionChanged" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
-                        </div>
+                            }
+                        </select>
                     </div>
+                    <div class="col-md-4">
+                        <label for="cmbOdontologo" class="form-label">Odontólogo</label>
+                        <select class="form-select" id="cmbOdontologo" @bind="odontologoSeleccionado" @bind:after="OnSelectionChanged">
+                            <option value="0">-- Seleccione --</option>
+                            @if (odontologos != null)
+                            {
+                                @foreach (var odo in odontologos)
+                                {
+                                    <option value="@odo.Id">@odo.NombreCompleto</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="dtpFecha" class="form-label">Fecha</label>
+                        <input type="date" class="form-control" id="dtpFecha" @bind="fechaSeleccionada" @bind:after="OnSelectionChanged" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    </div>
+                </div>
 
-                    @if (tipoAtencionSeleccionado > 0 && odontologoSeleccionado > 0 && fechaSeleccionada.HasValue)
+                @if (tipoAtencionSeleccionado > 0 && odontologoSeleccionado > 0 && fechaSeleccionada.HasValue)
+                {
+                    @if (cargandoHorarios)
                     {
-                        @if (cargandoHorarios)
+                        <div class="text-center my-3">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Cargando horarios...</span>
+                            </div>
+                            <p>Buscando horarios disponibles...</p>
+                        </div>
+                    }
+                    else
+                    {
+                        @if (horariosDisponibles != null && horariosDisponibles.Any())
                         {
-                            <div class="text-center my-3">
-                                <div class="spinner-border" role="status">
-                                    <span class="visually-hidden">Cargando horarios...</span>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="cmbHorario" class="form-label">Horario Disponible</label>
+                                    <select class="form-select" id="cmbHorario" @bind="horarioSeleccionado">
+                                        <option value="">-- Seleccione --</option>
+                                        @foreach (var horario in horariosDisponibles)
+                                        {
+                                            <option value="@horario">@horario</option>
+                                        }
+                                    </select>
                                 </div>
-                                <p>Buscando horarios disponibles...</p>
                             </div>
                         }
                         else
                         {
-                            @if (horariosDisponibles != null && horariosDisponibles.Any())
-                            {
-                                <div class="row mb-3">
-                                    <div class="col-md-4">
-                                        <label for="cmbHorario" class="form-label">Horario Disponible</label>
-                                        <select class="form-select" id="cmbHorario" @bind="horarioSeleccionado">
-                                            <option value="">-- Seleccione --</option>
-                                            @foreach (var horario in horariosDisponibles)
-                                            {
-                                                <option value="@horario">@horario</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="alert alert-warning">
-                                    No hay horarios disponibles para la selección actual.
-                                </div>
-                            }
+                            <div class="alert alert-warning">
+                                No hay horarios disponibles para la selección actual.
+                            </div>
                         }
                     }
-                    else if (tipoAtencionSeleccionado > 0 || odontologoSeleccionado > 0)
-                    {
-                        <div class="alert alert-info">
-                            Complete todos los campos para ver los horarios disponibles.
-                        </div>
-                    }
-                </div>
+                }
+                else if (tipoAtencionSeleccionado > 0 || odontologoSeleccionado > 0)
+                {
+                    <div class="alert alert-info">
+                        Complete todos los campos para ver los horarios disponibles.
+                    </div>
+                }
             </div>
+        </div>
 
-            <div class="d-flex justify-content-between">
-                <button class="btn btn-secondary" @onclick="Volver">Volver</button>
-                <button class="btn btn-success" @onclick="SolicitarAtencion" disabled="@(!PuedeGuardar() || guardandoAtencion)">
-                    @if (guardandoAtencion)
-                    {
-                        <span class="spinner-border spinner-border-sm me-2"></span>
-                    }
-                    Solicitar Atención
-                </button>
-            </div>
-        }
-        else
-        {
-            <div class="alert alert-warning">
-                <h5>Acceso no autorizado</h5>
-                <p>Debe iniciar sesión como paciente para solicitar una atención.</p>
-                <button class="btn btn-primary" @onclick="IrALogin">Ir a Iniciar Sesión</button>
-            </div>
-        }
-    </div>
-</AuthorizeRouteView>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-secondary" @onclick="Volver">Volver</button>
+            <button class="btn btn-success" @onclick="SolicitarAtencion" disabled="@(!PuedeGuardar() || guardandoAtencion)">
+                @if (guardandoAtencion)
+                {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                }
+                Solicitar Atención
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <h5>Acceso no autorizado</h5>
+            <p>Debe iniciar sesión como paciente para solicitar una atención.</p>
+            <button class="btn btn-primary" @onclick="IrALogin">Ir a Iniciar Sesión</button>
+        </div>
+    }
+</div>
 
 @code {
     private PacienteDTO? pacienteSeleccionado;
@@ -191,6 +189,23 @@
         try
         {
             cargandoDatosIniciales = true;
+
+            // Verificar que el usuario esté autenticado
+            var isAuthenticated = await AuthService.IsAuthenticatedAsync();
+            if (!isAuthenticated)
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            // Verificar que el usuario sea paciente
+            var rol = await AuthService.GetRolAsync();
+            if (!rol?.Equals("Paciente", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                mensajeError = "Debe iniciar sesión como paciente para solicitar una atención.";
+                cargandoDatosIniciales = false;
+                return;
+            }
 
             // Verificar que el usuario esté autenticado como paciente
             var pacienteId = await AuthService.GetPacienteIdAsync();
