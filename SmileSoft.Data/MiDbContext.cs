@@ -32,8 +32,8 @@ namespace SmileSoft.Data
 
                 string connectionString = configuration.GetConnectionString("DefaultConnection");
                 optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
-                //optionsBuilder.UseSqlServer(connectionString);
-                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                optionsBuilder.UseSqlServer(connectionString);
+                //optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             }
         }
 

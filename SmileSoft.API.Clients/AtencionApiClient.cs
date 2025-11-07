@@ -496,7 +496,7 @@ namespace SmileSoft.API.Clients
         public static async Task<IEnumerable<AtencionDetalleDTO>> GetByPacienteAsync(int pacienteId)
         {
             using var httpClient = await CreateHttpClientAsync();
-            var response = await httpClient.GetAsync($"atenciones/paciente/{pacienteId}");
+            var response = await httpClient.GetAsync($"atenciones/paciente?pacienteId={pacienteId}");
             
             if (response.IsSuccessStatusCode)
             {

@@ -12,6 +12,7 @@ SmileSoft es un sistema de gestión  para clínicas odontológicas, diseñado pa
     -   **Administrador:** Control total del sistema.
     -   **Secretario/a:** Gestión de pacientes y turnos.
     -   **Odontólogo:** Acceso a su agenda y a las historias clínicas de sus pacientes.
+    -   **Paciente**: 
 -   **Interfaces Diferenciadas:**
     -   Una **aplicación de escritorio (Windows Forms)** robusta para el personal administrativo (Administrador y Secretario/a).
     -   Una **aplicación web (Blazor)** moderna y accesible para que los odontólogos puedan consultar su información desde cualquier lugar.
@@ -68,6 +69,9 @@ Se puede acceder al sistema utilizando las siguientes credenciales preconfigurad
 | **Secretario/a** | `secretario` | `secretario123` |
 | **Odontólogo 1** | `odontologo1` | `Odonto123` |
 | **Odontólogo 2** | `odontologo2` | `Odonto123` |
+| **Paciente 1** | `mrusso` | `Paciente123` |
+| **Paciente 2** | `cquintana` | `Paciente123` |
+| **Paciente 3** | `fmallo` | `Paciente123` |
 
 Las funcionalidades del odontólogo están implementadas en Blazor, mientras que las del secretario y el administrador en Windows Forms.
 
