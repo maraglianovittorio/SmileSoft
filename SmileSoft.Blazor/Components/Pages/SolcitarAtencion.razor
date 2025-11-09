@@ -189,7 +189,6 @@
         {
             cargandoDatosIniciales = true;
 
-            // Verificar que el usuario esté autenticado
             var isAuthenticated = await AuthService.IsAuthenticatedAsync();
             if (!isAuthenticated)
             {
@@ -197,7 +196,6 @@
                 return;
             }
 
-            // Verificar que el usuario sea paciente
             var rol = await AuthService.GetRolAsync();
             if (!rol?.Equals("Paciente", StringComparison.OrdinalIgnoreCase) == true)
             {
@@ -206,7 +204,6 @@
                 return;
             }
 
-            // Verificar que el usuario esté autenticado como paciente
             var pacienteId = await AuthService.GetPacienteIdAsync();
             if (!pacienteId.HasValue)
             {
@@ -215,7 +212,6 @@
                 return;
             }
 
-            // Cargar datos del paciente autenticado
             pacienteSeleccionado = await PacienteApiClient.GetOneAsync(pacienteId.Value);
             
             if (pacienteSeleccionado == null)
@@ -225,7 +221,6 @@
                 return;
             }
 
-            // Cargar obra social
             if (pacienteSeleccionado.TipoPlanId.HasValue)
             {
                 var tipoPlan = await TipoPlanApiClient.GetOneAsync(pacienteSeleccionado.TipoPlanId.Value);
@@ -237,10 +232,8 @@
                 obraSocial = "Sin obra social";
             }
 
-            // Cargar tipos de atención
             tiposAtencion = (await TipoAtencionApiClient.GetAllAsync()).ToList();
             
-            // Cargar odontólogos
             odontologos = (await OdontologoApiClient.GetAllAsync())?.ToList();
         }
         catch (Exception ex)
@@ -271,8 +264,7 @@
             cargandoHorarios = true;
             mensajeError = string.Empty;
             
-            // SECURE: Use new endpoint that only returns available time slots
-            // without exposing any patient information from other appointments
+
             horariosDisponibles = (await AtencionApiClient.GetHorariosDisponiblesAsync(
                 fechaSeleccionada.Value.Date,
                 odontologoSeleccionado,
@@ -329,10 +321,8 @@
             
             mensajeExito = "Atención solicitada correctamente.";
             
-            // Esperar un momento para que el usuario vea el mensaje
             await Task.Delay(1500);
             
-            // Redirigir a la página de atenciones
             Navigation.NavigateTo("/mis-atenciones");
         }
         catch (Exception ex)
