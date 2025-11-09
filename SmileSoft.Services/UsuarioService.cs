@@ -121,7 +121,7 @@ namespace SmileSoft.Services
             var usuarioRepository = new UsuarioRepository();
             var pacienteRepository = new PacienteRepository();
             var paciente = pacienteRepository.Get(id);
-            var usuario = usuarioRepository.GetByUsername(paciente.NroDni);
+            var usuario = usuarioRepository.Get(paciente.UsuarioId.Value);
             if (usuario == null)
             {
                 throw new Exception("No se encontró el usuario.");

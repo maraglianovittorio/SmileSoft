@@ -107,12 +107,12 @@ namespace SmileSoft.WebAPI
                     UsuarioService usuarioService = new UsuarioService();
                     PacienteService pacienteService = new PacienteService();
                     var paciente = pacienteService.GetPaciente(id);
-                    var found = usuarioService.GetByUsername(paciente.NroDni);
+                    var found = usuarioService.GetUsuario(paciente.UsuarioId.Value);
                     if (found == null)
                     {
                         return Results.NotFound(new { error = "No se encontró el usuario." });
                     }
-                    usuarioService.UpdatePassword(id, dto);
+                    usuarioService.UpdatePassword(paciente.Id, dto);
                     return Results.NoContent();
                 }
                 catch (Exception ex)

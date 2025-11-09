@@ -200,6 +200,7 @@ namespace SmileSoft.API.Clients
             try
             {
                 await EnsureAuthenticatedAsync();
+
                 using var httpClient = await CreateHttpClientAsync();
                 HttpResponseMessage response = await httpClient.PutAsJsonAsync($"usuarios/password/{id}", dto);
                 if (response.IsSuccessStatusCode)
