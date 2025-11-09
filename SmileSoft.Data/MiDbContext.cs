@@ -61,7 +61,9 @@ namespace SmileSoft.Data
                 var pacienteUser1 = new Usuario("mrusso", "Paciente123", "Paciente");
                 var pacienteUser2 = new Usuario("cquintana", "Paciente123", "Paciente");
                 var pacienteUser3 = new Usuario("fmallo", "Paciente123", "Paciente");
-                
+                var pacienteUser4 = new Usuario("jbroun", "Paciente123", "Paciente");
+                var pacienteUser5 = new Usuario("imalcorra", "Paciente123", "Paciente");
+
                 Usuarios.Add(defaultUser);
                 Usuarios.Add(defaultSecretario);
                 Usuarios.Add(defaultOdontologoUser);
@@ -71,6 +73,8 @@ namespace SmileSoft.Data
                 Usuarios.Add(pacienteUser1);
                 Usuarios.Add(pacienteUser2);
                 Usuarios.Add(pacienteUser3);
+                Usuarios.Add(pacienteUser4);
+                Usuarios.Add(pacienteUser5);
                 SaveChanges();
                 
                 //Obras sociales
@@ -126,7 +130,8 @@ namespace SmileSoft.Data
                     "HC-001", 
                     null, 
                     tipoPlan4.Id, 
-                    pacienteUser1.Id
+                    pacienteUser1.Id,
+                    pacienteUser1
                 );
                 
                 var paciente2 = new Paciente(
@@ -142,7 +147,8 @@ namespace SmileSoft.Data
                     "HC-002", 
                     null, 
                     tipoPlan2.Id, 
-                    pacienteUser2.Id
+                    pacienteUser2.Id,
+                    pacienteUser2
                 );
                 
                 var paciente3 = new Paciente(
@@ -158,7 +164,8 @@ namespace SmileSoft.Data
                     "HC-003", 
                     null, 
                     null, 
-                    pacienteUser3.Id
+                    pacienteUser3.Id,
+                    pacienteUser3
                 );
                 
                 // Pacientes - Sin usuario (solo registrados en el sistema)
@@ -175,7 +182,8 @@ namespace SmileSoft.Data
                     "HC-004", 
                     null, 
                     null, 
-                    null
+                    pacienteUser4.Id,
+                    pacienteUser4
                 );
                 
                 // Paciente menor con tutor asignado
@@ -191,8 +199,9 @@ namespace SmileSoft.Data
                     null, 
                     "HC-005", 
                     tutor1.Id, 
-                    null, 
-                    null
+                    null,
+                    pacienteUser5.Id,
+                    pacienteUser5
                 );
 
                 Pacientes.Add(paciente1);

@@ -288,7 +288,8 @@ namespace SmileSoft.UI.Desktop
             }
 
             try
-            {
+            {   // usuario va a ser el DNI, la contraseña su fecha de nacimiento en formato ddMMyyyy, seteada 
+                // al crear el paciente directamente en el backend
                 PacienteDTO paciente = new PacienteDTO
                 {
                     Nombre = txtNombre.Text.Trim(),

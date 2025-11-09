@@ -11,6 +11,8 @@ namespace SmileSoft.Services
         {
             var pacienteRepository = new PacienteRepository();
             var personaRepository = new PersonaRepository();
+            var usuarioRepository = new UsuarioRepository();
+            
             // Validar que la historia clínica no exista
             if (pacienteRepository.HCExists(dto.NroHC))
             {
@@ -21,11 +23,43 @@ namespace SmileSoft.Services
             {
                 throw new Exception("Ya existe una persona con el mismo DNI.");
             }
-            Paciente paciente = new Paciente(0, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC, dto.TutorId, dto.TipoPlanId, dto.UsuarioId);
+            
+            // Crear usuario automáticamente para el paciente (username = DNI, password = fecha nacimiento ddMMyyyy)
+            Usuario? usuario = null;
+            string username = dto.NroDni;
+            string password = dto.FechaNacimiento.ToString("ddMMyyyy");
+            
+            // Check if user already exists
+            if (usuarioRepository.UsernameExists(username))
+            {
+                // Get existing usuario
+                usuario = usuarioRepository.GetByUsername(username);
+                if (usuario == null)
+                {
+                    throw new Exception($"El usuario con DNI {dto.NroDni} existe pero no se pudo recuperar.");
+                }
+            }
+            else
+            {
+                // Create new usuario - don't save it yet, let EF Core cascade it
+                usuario = new Usuario(username, password, "Paciente");
+            }
+            
+            // Create Paciente with Usuario object - EF Core will handle the cascade insert
+            Paciente paciente = new Paciente(0, dto.Nombre, dto.Apellido, dto.NroDni, 
+                dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, 
+                dto.NroAfiliado, dto.NroHC, dto.TutorId, dto.TipoPlanId, 
+                usuario?.Id, usuario);
 
-            pacienteRepository.Add(paciente);
-
-            return dto;
+            try
+            {
+                pacienteRepository.Add(paciente);
+                return dto;
+            }
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException dbEx)
+            {
+                throw new Exception($"Error al guardar en la base de datos: {dbEx.InnerException?.Message ?? dbEx.Message}");
+            }
         }
         public bool Delete(int id)
         {
@@ -125,7 +159,7 @@ namespace SmileSoft.Services
                 throw new ArgumentException($"Ya existe otro paciente con la Historia Clínica '{dto.NroHC}'.");
             }
 
-            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC, dto.TutorId, dto.TipoPlanId, dto.UsuarioId);
+            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.NroDni, dto.Direccion, dto.Email, dto.FechaNacimiento, dto.Telefono, dto.NroAfiliado, dto.NroHC, dto.TutorId, dto.TipoPlanId, dto.UsuarioId, null);
             return pacienteRepository.Update(paciente);
 
         }

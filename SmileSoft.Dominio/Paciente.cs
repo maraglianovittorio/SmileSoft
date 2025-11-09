@@ -21,13 +21,14 @@ namespace SmileSoft.Dominio
         public int? UsuarioId { get; private set; }
         public Usuario? Usuario { get; private set; }
 
-        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string? nroAfiliado, string nroHC,int? tutorId,int? tipoPlanId, int? usuarioId):base(id,nombre,apellido,nroDni,fechaNacimiento,direccion,email,telefono)
+        public Paciente(int id, string nombre, string apellido, string nroDni, string direccion, string email, DateTime fechaNacimiento, string telefono, string? nroAfiliado, string nroHC,int? tutorId,int? tipoPlanId, int? usuarioId, Usuario? usuario):base(id,nombre,apellido,nroDni,fechaNacimiento,direccion,email,telefono)
         {
             SetNroAfiliado(nroAfiliado);
             SetNroHC(nroHC);
             SetTutorId(tutorId);
             SetTipoPlanId(tipoPlanId);
             SetUsuarioId(usuarioId);
+            SetUsuario(usuario);
         }
         public void SetUsuarioId(int? usuarioId)
         {
@@ -53,6 +54,15 @@ namespace SmileSoft.Dominio
         {
             TipoPlanId = tipoPlanId;
 
+        }
+        public void SetUsuario(Usuario? usuario)
+        {
+            if (usuario == null)
+            {
+                return;
+            }
+            Usuario = usuario;
+            UsuarioId = usuario.Id;
         }
         public Paciente():base() { }
 

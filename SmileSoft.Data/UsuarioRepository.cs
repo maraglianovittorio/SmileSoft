@@ -16,11 +16,12 @@ namespace SmileSoft.Data
             return new MiDbContext();
         }
 
-        public void Add(Usuario usuario)
+        public Usuario Add(Usuario usuario)
         {
             using var context = CreateContext();
             context.Usuarios.Add(usuario);
             context.SaveChanges();
+            return usuario; // Entity Framework updates the Id after SaveChanges
         }
 
         public bool Delete(int id)

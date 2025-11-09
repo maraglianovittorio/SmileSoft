@@ -27,7 +27,7 @@ namespace SmileSoft.API.Auth.Blazor.Server
             public string? OdontologoNombre { get; set; }
             public string? OdontologoApellido { get; set; }
             
-            // AGREGAR: Datos del paciente
+            // Datos del paciente
             public int? PacienteId { get; set; }
             public string? PacienteNombre { get; set; }
             public string? PacienteApellido { get; set; }
@@ -135,7 +135,6 @@ namespace SmileSoft.API.Auth.Blazor.Server
                     OdontologoId = response.OdontologoId,
                     OdontologoNombre = response.OdontologoNombre,
                     OdontologoApellido = response.OdontologoApellido,
-                    // AGREGAR:
                     PacienteId = response.PacienteId,
                     PacienteNombre = response.PacienteNombre,
                     PacienteApellido = response.PacienteApellido,
@@ -187,7 +186,6 @@ namespace SmileSoft.API.Auth.Blazor.Server
             }
         }
 
-        // AGREGAR métodos:
         public Task<int?> GetPacienteIdAsync()
         {
             return Task.FromResult(_currentSession?.PacienteId);

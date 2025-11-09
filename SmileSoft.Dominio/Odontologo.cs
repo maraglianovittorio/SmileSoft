@@ -17,7 +17,6 @@
         {
             SetNroMatricula(nroMatricula);
             SetUsuario(usuario);
-
         }
         public void SetNroMatricula(string nroMatricula)
         {
@@ -34,8 +33,7 @@
                 return;
             }
             Usuario = usuario;
+            UsuarioId = usuario.Id; // This will be 0 for new usuarios, EF Core will fix it after save
         }
-
-
     }
 }
