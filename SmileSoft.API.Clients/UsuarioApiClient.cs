@@ -194,5 +194,35 @@ namespace SmileSoft.API.Clients
                 throw new Exception($"Timeout al obtener usuario con username {username}: {ex.Message}", ex);
             }
         }
+
+        public static async Task<UpdatePasswordDTO> UpdatePasswordAsync(int id,UpdatePasswordDTO dto)
+        {
+            try
+            {
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"usuarios/password/{id}", dto);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<UpdatePasswordDTO>();
+                }
+                else
+                {
+                    await HandleUnauthorizedResponseAsync(response);
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al actualizar la contraseña del usuario con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al actualizar la contraseña del usuario con Id {id}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al actualizar la contraseña del usuario con Id {id}: {ex.Message}", ex);
+            }
+
+        }
+
     }
 }

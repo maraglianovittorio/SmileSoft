@@ -25,4 +25,8 @@
     <ProjectReference Include="..\SmileSoft.DTO\SmileSoft.DTO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

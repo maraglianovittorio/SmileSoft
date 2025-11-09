@@ -14,8 +14,6 @@
 }
 else if (!isAuthenticated)
 {
-    // This part should ideally not be reached if OnInitializedAsync redirects.
-    // It's a fallback.
     <p>Verificando autenticación...</p>
 }
 else if (isOdontologo)
@@ -86,7 +84,6 @@ else if (isOdontologo)
 }
 else
 {
-    // Welcome page for non-odontologo users, like Paciente.
     <div class="text-center">
         <h1>Bienvenido a SmileSoft</h1>
         <p>Seleccione una opción del menú para comenzar.</p>
@@ -132,7 +129,6 @@ else
 
     private async Task LoadAtenciones(DateTime fecha)
     {
-        // This method is only for Odontologos, so we don't need to re-check the role.
         if (!odontologoId.HasValue)
         {
             Console.WriteLine("No se pudo obtener el ID del odontólogo");

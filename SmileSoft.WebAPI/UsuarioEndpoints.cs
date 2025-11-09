@@ -99,6 +99,27 @@ namespace SmileSoft.WebAPI
                 var usuario = usuarioService.GetByUsername(username);
                 return usuario;
             }).WithName("GetUsuarioByUsername").RequireAuthorization();
+
+            app.MapPut("/usuarios/password/{id}", (int id, UpdatePasswordDTO dto) =>
+            {
+                try
+                {
+                    UsuarioService usuarioService = new UsuarioService();
+                    PacienteService pacienteService = new PacienteService();
+                    var paciente = pacienteService.GetPaciente(id);
+                    var found = usuarioService.GetByUsername(paciente.NroDni);
+                    if (found == null)
+                    {
+                        return Results.NotFound(new { error = "No se encontró el usuario." });
+                    }
+                    usuarioService.UpdatePassword(id, dto);
+                    return Results.NoContent();
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            });
         }
     }
 }

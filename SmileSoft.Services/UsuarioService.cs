@@ -116,7 +116,23 @@ namespace SmileSoft.Services
             }
             return usuarioRepository.Update(usuario);
         }
-
+        public bool UpdatePassword(int id, UpdatePasswordDTO dto)
+        {
+            var usuarioRepository = new UsuarioRepository();
+            var pacienteRepository = new PacienteRepository();
+            var paciente = pacienteRepository.Get(id);
+            var usuario = usuarioRepository.GetByUsername(paciente.NroDni);
+            if (usuario == null)
+            {
+                throw new Exception("No se encontró el usuario.");
+            }
+            if (!usuario.ValidatePassword(dto.CurrentPassword))
+            {
+                throw new Exception("La contraseña actual es incorrecta.");
+            }
+            usuario.SetPassword(dto.NewPassword);
+            return usuarioRepository.Update(usuario);
+        }
         //public Usuario? ValidateCredentials(string username, string password)
         //{
         //    var usuarioRepository = new UsuarioRepository();
