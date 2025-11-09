@@ -241,6 +241,34 @@ namespace SmileSoft.WebAPI
             })
             .WithName("GetClientesByCriteria")
             .RequireAuthorization();
+
+            // New endpoint for patients to get available time slots without exposing other patients' data
+            app.MapGet("/atenciones/horarios-disponibles", (DateTime fecha, int odontologoId, int tipoAtencionId) =>
+            {
+                try
+                {
+                    AtencionService atencionService = new AtencionService();
+                    var horarios = atencionService.GetHorariosDisponibles(fecha, odontologoId, tipoAtencionId);
+                    return Results.Ok(horarios);
+                }
+                catch (ArgumentException ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem(
+                        detail: ex.Message,
+                        statusCode: StatusCodes.Status500InternalServerError,
+                        title: "Error al obtener horarios disponibles"
+                    );
+                }
+            })
+            .WithName("GetHorariosDisponibles")
+            .RequireAuthorization()
+            .Produces<List<HorarioDisponibleDTO>>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status500InternalServerError);
         }
     }
 }

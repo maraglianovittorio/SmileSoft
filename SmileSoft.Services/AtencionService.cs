@@ -366,6 +366,71 @@ namespace SmileSoft.Services
                 TipoAtencionDuracion = a.TipoAtencion?.Duracion ?? TimeSpan.Zero
             });
         }
+
+        public IEnumerable<HorarioDisponibleDTO> GetHorariosDisponibles(DateTime fecha, int odontologoId, int tipoAtencionId)
+        {
+            var atencionRepository = new AtencionRepository();
+            var tipoAtencionService = new TipoAtencionService();
+            
+            // Get tipo atencion to know the duration
+            var tipoAtencion = tipoAtencionService.GetTipoAtencion(tipoAtencionId);
+            if (tipoAtencion == null)
+            {
+                throw new ArgumentException($"No se encontró el tipo de atención con ID {tipoAtencionId}.");
+            }
+            
+            var duracionNuevoTurno = tipoAtencion.Duracion;
+            
+            // Get existing appointments for the date and odontologo (only what we need - no patient data exposed)
+            var atenciones = atencionRepository.GetAllByRangoAndOdo(fecha.Date, fecha.Date.AddDays(1), odontologoId);
+            
+            // Filter only active appointments
+            var atencionesActivas = atenciones
+                .Where(a => a.Estado == "Otorgada" || a.Estado == "En sala de espera" || a.Estado == "Atendido")
+                .ToList();
+            
+            var horariosDisponibles = new List<HorarioDisponibleDTO>();
+            
+            // Office hours: 8:00 AM to 5:00 PM with 30-minute intervals
+            var horaInicio = TimeSpan.FromHours(8);
+            var horaFin = TimeSpan.FromHours(17);
+            var intervalo = TimeSpan.FromMinutes(30);
+            
+            for (var hora = horaInicio; hora < horaFin; hora = hora.Add(intervalo))
+            {
+                // Check if the full appointment fits within office hours
+                if (hora.Add(duracionNuevoTurno) > horaFin)
+                {
+                    break;
+                }
+                
+                bool horarioOcupado = false;
+                var inicioNuevoTurno = hora;
+                var finNuevoTurno = hora.Add(duracionNuevoTurno);
+                
+                // Check for conflicts with existing appointments
+                foreach (var atencionExistente in atencionesActivas)
+                {
+                    var inicioTurnoExistente = atencionExistente.FechaHoraAtencion.TimeOfDay;
+                    var finTurnoExistente = inicioTurnoExistente.Add(atencionExistente.TipoAtencion?.Duracion ?? TimeSpan.Zero);
+                    
+                    // Check for overlap
+                    if (inicioNuevoTurno < finTurnoExistente && finNuevoTurno > inicioTurnoExistente)
+                    {
+                        horarioOcupado = true;
+                        break;
+                    }
+                }
+                
+                horariosDisponibles.Add(new HorarioDisponibleDTO
+                {
+                    Horario = hora.ToString(@"hh\:mm"),
+                    Disponible = !horarioOcupado
+                });
+            }
+            
+            return horariosDisponibles;
+        }
     }
 }
 

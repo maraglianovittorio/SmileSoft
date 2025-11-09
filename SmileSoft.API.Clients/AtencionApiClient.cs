@@ -509,5 +509,42 @@ namespace SmileSoft.API.Clients
             await HandleUnauthorizedResponseAsync(response);
             return Enumerable.Empty<AtencionDetalleDTO>();
         }
+
+        /// <summary>
+        /// Get available time slots for booking without exposing patient information
+        /// </summary>
+        public static async Task<IEnumerable<HorarioDisponibleDTO>> GetHorariosDisponiblesAsync(DateTime fecha, int odontologoId, int tipoAtencionId)
+        {
+            try
+            {
+                await EnsureAuthenticatedAsync();
+                using var httpClient = await CreateHttpClientAsync();
+                
+                string url = $"atenciones/horarios-disponibles?fecha={fecha:yyyy-MM-dd}&odontologoId={odontologoId}&tipoAtencionId={tipoAtencionId}";
+                HttpResponseMessage response = await httpClient.GetAsync(url);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<IEnumerable<HorarioDisponibleDTO>>(json, 
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) 
+                        ?? Enumerable.Empty<HorarioDisponibleDTO>();
+                }
+                else
+                {
+                    await HandleUnauthorizedResponseAsync(response);
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener horarios disponibles. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener horarios disponibles: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener horarios disponibles: {ex.Message}", ex);
+            }
+        }
     }
 }

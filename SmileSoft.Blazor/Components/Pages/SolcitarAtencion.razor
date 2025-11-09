@@ -118,9 +118,9 @@
                                     <label for="cmbHorario" class="form-label">Horario Disponible</label>
                                     <select class="form-select" id="cmbHorario" @bind="horarioSeleccionado">
                                         <option value="">-- Seleccione --</option>
-                                        @foreach (var horario in horariosDisponibles)
+                                        @foreach (var horario in horariosDisponibles.Where(h => h.Disponible))
                                         {
-                                            <option value="@horario">@horario</option>
+                                            <option value="@horario.Horario">@horario.Horario</option>
                                         }
                                     </select>
                                 </div>
@@ -169,8 +169,7 @@
     private string obraSocial = string.Empty;
     private List<TipoAtencionDTO>? tiposAtencion;
     private List<OdontologoDTO>? odontologos;
-    private List<AtencionDetalleDTO>? atencionesDelDia;
-    private List<string>? horariosDisponibles;
+    private List<HorarioDisponibleDTO>? horariosDisponibles;
     
     private int tipoAtencionSeleccionado = 0;
     private int odontologoSeleccionado = 0;
@@ -263,7 +262,6 @@
     {
         if (tipoAtencionSeleccionado <= 0 || odontologoSeleccionado <= 0 || !fechaSeleccionada.HasValue)
         {
-            atencionesDelDia = null;
             horariosDisponibles = null;
             return;
         }
@@ -273,58 +271,14 @@
             cargandoHorarios = true;
             mensajeError = string.Empty;
             
-            // Obtener atenciones del día para el odontólogo seleccionado
-            atencionesDelDia = (await AtencionApiClient.GetByFechaRangeAndOdoAsync(
-                fechaSeleccionada.Value.Date, 
-                fechaSeleccionada.Value.Date, 
-                odontologoSeleccionado
-            )).Where(a => a.Estado == "Otorgada" || a.Estado == "En sala de espera" || a.Estado == "Atendido").ToList();
+            // SECURE: Use new endpoint that only returns available time slots
+            // without exposing any patient information from other appointments
+            horariosDisponibles = (await AtencionApiClient.GetHorariosDisponiblesAsync(
+                fechaSeleccionada.Value.Date,
+                odontologoSeleccionado,
+                tipoAtencionSeleccionado
+            )).ToList();
 
-            // Obtener el tipo de atención seleccionado para conocer su duración
-            var tipoAtencion = tiposAtencion?.FirstOrDefault(t => t.Id == tipoAtencionSeleccionado);
-            if (tipoAtencion == null) return;
-
-            var duracionNuevoTurno = tipoAtencion.Duracion;
-            var horariosTemp = new List<string>();
-
-            // Horario de atención: 8:00 a 17:00 con intervalos de 30 minutos
-            var horaInicio = TimeSpan.FromHours(8);
-            var horaFin = TimeSpan.FromHours(17);
-            var intervalo = TimeSpan.FromMinutes(30);
-
-            for (var hora = horaInicio; hora < horaFin; hora = hora.Add(intervalo))
-            {
-                // Verificar que el turno completo quepa en el horario
-                if (hora.Add(duracionNuevoTurno) > horaFin)
-                {
-                    break;
-                }
-
-                bool horarioOcupado = false;
-                var inicioNuevoTurno = hora;
-                var finNuevoTurno = hora.Add(duracionNuevoTurno);
-
-                // Verificar si hay conflicto con alguna atención existente
-                foreach (var atencionExistente in atencionesDelDia)
-                {
-                    var inicioTurnoExistente = atencionExistente.FechaHoraAtencion.TimeOfDay;
-                    var finTurnoExistente = inicioTurnoExistente.Add(atencionExistente.TipoAtencionDuracion);
-
-                    // Verificar solapamiento
-                    if (inicioNuevoTurno < finTurnoExistente && finNuevoTurno > inicioTurnoExistente)
-                    {
-                        horarioOcupado = true;
-                        break;
-                    }
-                }
-
-                if (!horarioOcupado)
-                {
-                    horariosTemp.Add(hora.ToString(@"hh\:mm"));
-                }
-            }
-
-            horariosDisponibles = horariosTemp;
             horarioSeleccionado = null;
         }
         catch (Exception ex)
